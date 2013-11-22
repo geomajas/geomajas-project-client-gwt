@@ -53,8 +53,8 @@
 			</dependency>
 			<dependency>
 				<groupId>org.geomajas.plugin</groupId>
-				<artifactId>geomajas-client-gwt-layer-openstreetmap-all</artifactId>
-				<version>${project.version}</version>
+				<artifactId>geomajas-server-layer-openstreetmap-all</artifactId>
+				<version>${gwt-client-server-version}</version>
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
