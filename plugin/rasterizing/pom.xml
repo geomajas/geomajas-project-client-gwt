@@ -56,7 +56,6 @@
 	</dependencyManagement>
 
 	<modules>
-		<module>rasterizing</module>
 		<module>rasterizing-gwt</module>
 		<module>rasterizing-gwt-example-jar</module>
 		<module>rasterizing-gwt-example</module>

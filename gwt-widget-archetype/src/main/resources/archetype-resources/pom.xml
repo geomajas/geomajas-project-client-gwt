@@ -509,7 +509,7 @@
 	<properties>
 		<geomajas-dep-version>1.13.38</geomajas-dep-version>
 		<geotools-version>9.5</geotools-version>
-		<gwt-version>${gwt-client-gwt-version}</gwt-version>
+		<gwt-version>2.5.1</gwt-version>
 		<gwt.compiler.skip>false</gwt.compiler.skip>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>

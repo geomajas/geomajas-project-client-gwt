@@ -66,7 +66,9 @@
 		<module>example</module>
 		<module>plugin</module>
 		<module>gwt-archetype</module>
+<!--
 		<module>gwt-widget-archetype</module>
+-->
 	</modules>
 
 	<dependencyManagement>
