@@ -27,9 +27,9 @@
 		<module>layer-geotools</module>
 		<module>layer-googlemaps</module>
 		<module>layer-wms</module>
-		<module>editing</module>
 		<module>geocoder</module>
 		<module>javascript-api</module>
+		<module>editing</module>
 		<module>printing</module>
 		<module>rasterizing</module>
 		<module>reporting</module>

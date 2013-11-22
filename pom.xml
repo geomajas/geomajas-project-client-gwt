@@ -61,10 +61,10 @@
 	
 	<modules>
 		<module>client</module>
+		<module>plugin</module>
 		<module>example-base</module>
 		<module>example-jar</module>
 		<module>example</module>
-		<module>plugin</module>
 		<module>gwt-archetype</module>
 <!--
 		<module>gwt-widget-archetype</module>
@@ -102,8 +102,8 @@
 			</dependency>
 
 			<dependency>
-				<groupId>org.geomajas</groupId>
-				<artifactId>geomajas-backend</artifactId>
+				<groupId>org.geomajas.project</groupId>
+				<artifactId>geomajas-project-server</artifactId>
 				<version>${gwt-client-server-version}</version>
 				<type>pom</type>
 				<scope>import</scope>
