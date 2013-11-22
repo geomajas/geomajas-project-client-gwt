@@ -56,7 +56,7 @@
 			<dependency>
 				<groupId>org.geomajas.plugin</groupId>
 				<artifactId>geomajas-layer-openstreetmap</artifactId>
-				<version>${project.version}</version>
+				<version>${gwt-client-server-version}</version>
 			</dependency>
 			<dependency>
 				<groupId>org.geomajas.plugin</groupId>
