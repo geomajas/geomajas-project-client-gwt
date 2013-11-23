@@ -62,6 +62,9 @@
 	</developers>
 	
 	<modules>
+<!--
+		<module>geomajas-client-common-gwt-smartgwt</module>
+-->
 		<module>geomajas-client-gwt-plugin-parent</module>
 		<module>geomajas-client-gwt-smartgwt-archetype</module>
 		<module>geomajas-face-gwt-documentation</module>
@@ -112,6 +115,13 @@
 			<dependency>
 				<groupId>org.geomajas</groupId>
 				<artifactId>geomajas-face-common-gwt-parent</artifactId>
+				<version>${gwt-client-common-gwt-version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.geomajas</groupId>
+				<artifactId>geomajas-client-common-gwt-parent</artifactId>
 				<version>${gwt-client-common-gwt-version}</version>
 				<type>pom</type>
 				<scope>import</scope>
