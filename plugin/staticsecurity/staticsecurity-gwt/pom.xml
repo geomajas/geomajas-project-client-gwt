@@ -10,17 +10,19 @@
   -->
 
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
 	<parent>
 		<groupId>org.geomajas.plugin</groupId>
-		<artifactId>geomajas-client-gwt-plugin-staticsecurity-all</artifactId>
+		<artifactId>geomajas-client-gwt-plugin-staticsecurity-parent</artifactId>
 		<version>1.15.0-SNAPSHOT</version>
 	</parent>
-	<modelVersion>4.0.0</modelVersion>
+
 	<groupId>org.geomajas.plugin</groupId>
 	<artifactId>geomajas-plugin-staticsecurity-gwt</artifactId>
 	<packaging>jar</packaging>
-	<name>Geomajas staticsecurity plug-in SmartGWT client code</name>
-	<description>Geomajas security plugin which allows all users and policies to be defined as part of spring configuration</description>
+	<name>Geomajas GWT client: Plugin Staticsecurity - GWT</name>
+	<description>Geomajas GWT client: Plugin Staticsecurity - GWT</description>
 
 	<dependencies>
 		<dependency>

@@ -14,16 +14,16 @@
 
 	<parent>
 		<groupId>org.geomajas</groupId>
-		<artifactId>geomajas-client-gwt-plugin-all</artifactId>
+		<artifactId>geomajas-client-gwt-plugin-parent</artifactId>
 		<version>1.15.0-SNAPSHOT</version>
 	</parent>
 
 	<groupId>org.geomajas.plugin</groupId>
-	<artifactId>geomajas-client-gwt-plugin-editing-all</artifactId>
+	<artifactId>geomajas-client-gwt-plugin-editing-parent</artifactId>
 	<packaging>pom</packaging>
 
-	<name>Geomajas Editing plugin - Parent</name>
-	<description>Geomajas Editing plugin - Parent</description>
+	<name>Geomajas GWT client: Plugin Editing - Parent</name>
+	<description>Geomajas GWT client: Plugin Deskmanager - Parent</description>
 
 	<developers>
 		<developer>
@@ -40,7 +40,7 @@
 		<dependencies>
 			<dependency>
 				<groupId>org.geomajas.plugin</groupId>
-				<artifactId>geomajas-client-gwt-plugin-javascript-api-all</artifactId>
+				<artifactId>geomajas-client-gwt-plugin-javascript-api-parent</artifactId>
 				<version>${project.version}</version>
 				<type>pom</type>
 				<scope>import</scope>

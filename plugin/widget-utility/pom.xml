@@ -12,15 +12,15 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<parent>
 		<groupId>org.geomajas</groupId>
-		<artifactId>geomajas-client-gwt-plugin-all</artifactId>
+		<artifactId>geomajas-client-gwt-plugin-parent</artifactId>
 		<version>1.15.0-SNAPSHOT</version>
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.geomajas.plugin</groupId>
-	<artifactId>geomajas-client-gwt-widget-utility-all</artifactId>
+	<artifactId>geomajas-client-gwt-widget-utility-parent</artifactId>
 	<packaging>pom</packaging>
-	<name>Widget utility parent</name>
-	<description>Parent module for the utility widgets plugin.</description>
+	<name>Geomajas GWT client: Plugin Widget Utility - Parent</name>
+	<description>Geomajas GWT client: Plugin Widget Utility - Parent</description>
 
 	<developers>
 		<developer>
@@ -69,7 +69,7 @@
 			</dependency>
 			<dependency>
 				<groupId>org.geomajas.plugin</groupId>
-				<artifactId>geomajas-client-gwt-plugin-geocoder-all</artifactId>
+				<artifactId>geomajas-client-gwt-plugin-geocoder-parent</artifactId>
 				<version>${project.version}</version>
 				<type>pom</type>
 				<scope>import</scope>

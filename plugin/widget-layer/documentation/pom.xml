@@ -19,10 +19,10 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.geomajas.widget</groupId>
 	<artifactId>geomajas-widget-layer-documentation</artifactId>
-	<version>1.0.0-SNAPSHOT</version>
+	<version>1.15.0-SNAPSHOT</version>
 	<packaging>jar</packaging>
-	<name>geomajas-widget-layer documentation</name>
-	<description>geomajas-widget-layer documentation</description>
+	<name>Geomajas GWT client: Plugin Widget Layer - Documentation</name>
+	<description>Geomajas GWT client: Plugin Widget Layer - Documentation</description>
 	
 	<properties>
 		<listing.sourceDirectory>${basedir}/..</listing.sourceDirectory>

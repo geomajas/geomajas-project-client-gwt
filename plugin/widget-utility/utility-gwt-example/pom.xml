@@ -10,18 +10,19 @@
   ~ details, see LICENSE.txt in the project root.
   -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
 		<groupId>org.geomajas.plugin</groupId>
-		<artifactId>geomajas-client-gwt-widget-utility-all</artifactId>
+		<artifactId>geomajas-client-gwt-widget-utility-parent</artifactId>
 		<version>1.15.0-SNAPSHOT</version>
 	</parent>
-	<modelVersion>4.0.0</modelVersion>
+
 	<groupId>org.geomajas.widget</groupId>
 	<artifactId>geomajas-widget-utility-gwt-example</artifactId>
 	<packaging>war</packaging>
-	<name>Widget utility GWT example</name>
-	<description>Widget utility plug-in GWT example application</description>
+	<name>Geomajas GWT client: Plugin Widget Utility - Example</name>
+	<description>Geomajas GWT client: Plugin Widget Utility - Example</description>
 	<url>http://www.geomajas.org/</url>
 
 	<dependencies>

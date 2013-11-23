@@ -11,20 +11,20 @@
   -->
 
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-
-	<groupId>org.geomajas.widget</groupId>
-	<artifactId>geomajas-widget-utility-common-gwt</artifactId>
-	<packaging>jar</packaging>
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
 		<groupId>org.geomajas.plugin</groupId>
-		<artifactId>geomajas-client-gwt-widget-utility-all</artifactId>
+		<artifactId>geomajas-client-gwt-widget-utility-parent</artifactId>
 		<version>1.15.0-SNAPSHOT</version>
 	</parent>
 
-	<name>Widget utility common GWT client definitions.</name>
-	<description>General GWT widget definitions (MVP) for the Geomajas utility widgets plug-in.</description>
+	<groupId>org.geomajas.widget</groupId>
+	<artifactId>geomajas-widget-utility-common-gwt</artifactId>
+	<packaging>jar</packaging>
+
+	<name>Geomajas GWT client: Plugin Widget Utility - Common</name>
+	<description>Geomajas GWT client: Plugin Widget Utility - Common</description>
 
 	<dependencies>
 		<!-- Plugin dependencies -->

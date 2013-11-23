@@ -11,17 +11,19 @@
   -->
 
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
 	<parent>
 		<groupId>org.geomajas.project</groupId>
 		<artifactId>geomajas-project-client-gwt</artifactId>
 		<version>1.15.0-SNAPSHOT</version>
 	</parent>
-	<modelVersion>4.0.0</modelVersion>
+
 	<groupId>org.geomajas</groupId>
-	<artifactId>geomajas-client-gwt-plugin-all</artifactId>
+	<artifactId>geomajas-client-gwt-plugin-parent</artifactId>
 	<packaging>pom</packaging>
-	<name>Geomajas gwt client plugins</name>
-	<description>Grouping of gwt client Geomajas plugins</description>
+	<name>Geomajas GWT client: Plugin parent</name>
+	<description>Geomajas GWT client: Plugin parent</description>
 
 	<modules>
 		<module>layer-geotools</module>
@@ -36,12 +38,12 @@
 		<module>runtimeconfig</module>
 		<module>staticsecurity</module>
 		<module>vendorspecificpipeline</module>
+		<module>deskmanager</module>
 		<module>widget-advancedviews</module>
 		<module>widget-featureinfo</module>
 		<module>widget-layer</module>
 		<module>widget-searchandfilter</module>
 		<module>widget-utility</module>
-		<module>deskmanager</module>
 	</modules>
 	
 </project>

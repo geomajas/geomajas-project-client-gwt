@@ -9,17 +9,19 @@
   ~ by the Geomajas Contributors License Agreement. For full licensing
   ~ details, see LICENSE.txt in the project root.
   --><project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
 	<parent>
 		<groupId>org.geomajas.plugin</groupId>
-		<artifactId>geomajas-client-gwt-plugin-javascript-api-all</artifactId>
+		<artifactId>geomajas-client-gwt-plugin-javascript-api-parent</artifactId>
 		<version>1.15.0-SNAPSHOT</version>
 	</parent>
-	<modelVersion>4.0.0</modelVersion>
+
 	<groupId>org.geomajas.plugin</groupId>
 	<artifactId>geomajas-plugin-javascript-api</artifactId>
 	<packaging>jar</packaging>
-	<name>geomajas-plugin-javascript-api</name>
-	<description>geomajas-plugin-javascript-api</description>
+	<name>Geomajas GWT client: Plugin JavaScript API</name>
+	<description>Geomajas GWT client: Plugin JavaScript API</description>
 
 	<dependencies>
 		<dependency>

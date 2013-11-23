@@ -10,17 +10,19 @@
   -->
 
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
 	<parent>
 		<groupId>org.geomajas.plugin</groupId>
-		<artifactId>geomajas-client-gwt-layer-wms-all</artifactId>
+		<artifactId>geomajas-client-gwt-layer-wms-parent</artifactId>
 		<version>1.15.0-SNAPSHOT</version>
 	</parent>
-	<modelVersion>4.0.0</modelVersion>
+
 	<groupId>org.geomajas.plugin</groupId>
 	<artifactId>geomajas-layer-wms-gwt</artifactId>
 	<packaging>jar</packaging>
-	<name>Geomajas layer model using WMS, GWT</name>
-	<description>Geomajas layer model using wms Maps, GWT specifics</description>
+	<name>Geomajas GWT client: Layer Wms - Parent</name>
+	<description>Geomajas GWT client: Layer Wms - Parent</description>
 
 	<dependencies>
 		<dependency>

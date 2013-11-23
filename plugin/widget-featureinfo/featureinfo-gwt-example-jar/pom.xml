@@ -11,45 +11,39 @@
   -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
+
 	<parent>
 		<groupId>org.geomajas.plugin</groupId>
-		<artifactId>geomajas-client-gwt-widget-featureinfo-all</artifactId>
+		<artifactId>geomajas-client-gwt-widget-featureinfo-parent</artifactId>
 		<version>1.15.0-SNAPSHOT</version>
   	</parent>
+
 	<groupId>org.geomajas.widget</groupId>
 	<artifactId>geomajas-widget-featureinfo-gwt-example-jar</artifactId>
 	<packaging>jar</packaging>
-	<name>Geomajas widget featureinfo GWT example application</name>
-	<description>Geomajas GWT application</description>
+	<name>Geomajas GWT client: Plugin Widget Featureinfo - Example jar</name>
+	<description>Geomajas GWT client: Plugin Widget Featureinfo - Example jar</description>
 	<url>http://www.geomajas.org/</url>
-
-	<licenses>
-		<license>
-			<name>GNU Affero General Public License, Version 3</name>
-			<url>http://www.gnu.org/licenses/agpl-3.0.html</url>
-			<distribution>repo</distribution>
-		</license>
-	</licenses>
 
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
 				<groupId>org.geomajas.plugin</groupId>
-				<artifactId>geomajas-server-layer-openstreetmap-all</artifactId>
+				<artifactId>geomajas-server-layer-openstreetmap-parent</artifactId>
 				<version>${gwt-client-server-version}</version>
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
 			<dependency>
 				<groupId>org.geomajas.plugin</groupId>
-				<artifactId>geomajas-client-gwt-layer-geotools-all</artifactId>
+				<artifactId>geomajas-client-gwt-layer-geotools-parent</artifactId>
 				<version>${project.version}</version>
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
 			<dependency>
 				<groupId>org.geomajas.plugin</groupId>
-				<artifactId>geomajas-client-gwt-layer-wms-all</artifactId>
+				<artifactId>geomajas-client-gwt-layer-wms-parent</artifactId>
 				<version>${project.version}</version>
 				<type>pom</type>
 				<scope>import</scope>

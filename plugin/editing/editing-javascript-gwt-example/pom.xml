@@ -13,17 +13,15 @@
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>org.geomajas.plugin</groupId>
-		<artifactId>geomajas-client-gwt-plugin-editing-all</artifactId>
+		<artifactId>geomajas-client-gwt-plugin-editing-parent</artifactId>
 		<version>1.15.0-SNAPSHOT</version>
 	</parent>
 
 	<artifactId>geomajas-plugin-editing-javascript-gwt-example</artifactId>
 	<packaging>war</packaging>
 
-	<name>Geomajas Editing plugin - JavaScript application</name>
-	<description>
-		Test application for the JavaScript API on top of the editing plugin. This application uses the GWT face.
-	</description>
+	<name>Geomajas GWT client: Plugin Editing - Javascript Application</name>
+	<description>Geomajas GWT client: Plugin Editing - Javascript Application</description>
 	<url>http://www.geomajas.org/</url>
 
 	<developers>
@@ -46,14 +44,14 @@
 			</dependency>
 			<dependency>
 				<groupId>org.geomajas.plugin</groupId>
-				<artifactId>geomajas-client-gwt-layer-geotools-all</artifactId>
+				<artifactId>geomajas-client-gwt-layer-geotools-parent</artifactId>
 				<version>${project.version}</version>
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
 			<dependency>
 				<groupId>org.geomajas.plugin</groupId>
-				<artifactId>geomajas-server-layer-openstreetmap-all</artifactId>
+				<artifactId>geomajas-server-layer-openstreetmap-parent</artifactId>
 				<version>${gwt-client-server-version}</version>
 				<type>pom</type>
 				<scope>import</scope>

@@ -12,38 +12,32 @@
 
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
+
 	<parent>
 		<groupId>org.geomajas.plugin</groupId>
-		<artifactId>geomajas-client-gwt-widget-advancedviews-all</artifactId>
+		<artifactId>geomajas-client-gwt-widget-advancedviews-parent</artifactId>
 		<version>1.15.0-SNAPSHOT</version>
 	</parent>
+
 	<groupId>org.geomajas.widget</groupId>
 	<artifactId>geomajas-widget-advancedviews-gwt-example</artifactId>
 	<packaging>war</packaging>
-	<name>Geomajas widget advanced views GWT example application</name>
-	<description>Geomajas GWT application</description>
+	<name>Geomajas GWT client: Plugin Widget Advancedviews - Example</name>
+	<description>Geomajas GWT client: Plugin Widget Advancedviews - Example</description>
 	<url>http://www.geomajas.org/</url>
-
-	<licenses>
-		<license>
-			<name>GNU Affero General Public License, Version 3</name>
-			<url>http://www.gnu.org/licenses/agpl-3.0.html</url>
-			<distribution>repo</distribution>
-		</license>
-	</licenses>
 
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
 				<groupId>org.geomajas.plugin</groupId>
-				<artifactId>geomajas-server-layer-openstreetmap-all</artifactId>
+				<artifactId>geomajas-server-layer-openstreetmap-parent</artifactId>
 				<version>${gwt-client-server-version}</version>
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
 			<dependency>
 				<groupId>org.geomajas.plugin</groupId>
-				<artifactId>geomajas-client-gwt-layer-googlemaps-all</artifactId>
+				<artifactId>geomajas-client-gwt-layer-googlemaps-parent</artifactId>
 				<version>${project.version}</version>
 				<type>pom</type>
 				<scope>import</scope>

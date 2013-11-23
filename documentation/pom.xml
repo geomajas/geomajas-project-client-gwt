@@ -11,17 +11,18 @@
 
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
+
 	<parent>
 		<groupId>org.geomajas</groupId>
 		<artifactId>geomajas-doc-parent</artifactId>
 		<version>1.0.2</version>
 	</parent>
-	<groupId>org.geomajas.documentation</groupId>
+
 	<artifactId>geomajas-face-gwt-documentation</artifactId>
 	<version>1.15.0-SNAPSHOT</version>
 	<packaging>jar</packaging>
-	<name>Geomajas GWT face documentation</name>
-	<description>Geomajas GWT face documentation</description>
+	<name>Geomajas GWT client: Main - Documentation</name>
+	<description>Geomajas GWT client: Main - Documentation</description>
 	
 	<build>
 		<plugins>

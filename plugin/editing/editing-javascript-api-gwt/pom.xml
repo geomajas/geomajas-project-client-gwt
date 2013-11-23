@@ -14,15 +14,15 @@
 
 	<parent>
 		<groupId>org.geomajas.plugin</groupId>
-		<artifactId>geomajas-client-gwt-plugin-editing-all</artifactId>
+		<artifactId>geomajas-client-gwt-plugin-editing-parent</artifactId>
 		<version>1.15.0-SNAPSHOT</version>
 	</parent>
 
 	<artifactId>geomajas-plugin-editing-javascript-api-gwt</artifactId>
 	<packaging>jar</packaging>
 
-	<name>Geomajas Editing plugin - JavaScript API for the GWT face</name>
-	<description>JavaScript wrapper around the GWT code for the editing plugin. Extensions for the GWT face.</description>
+	<name>Geomajas GWT client: Plugin Editing - Javascript API GWT</name>
+	<description>Geomajas GWT client: Plugin Editing - Javascript API GWT</description>
 
 	<dependencies>
 		<dependency>

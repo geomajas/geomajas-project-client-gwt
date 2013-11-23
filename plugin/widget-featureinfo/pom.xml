@@ -10,17 +10,19 @@
   ~ details, see LICENSE.txt in the project root.
   -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
 	<parent>
 		<groupId>org.geomajas</groupId>
-		<artifactId>geomajas-client-gwt-plugin-all</artifactId>
+		<artifactId>geomajas-client-gwt-plugin-parent</artifactId>
 		<version>1.15.0-SNAPSHOT</version>
 	</parent>
-	<modelVersion>4.0.0</modelVersion>
+
 	<groupId>org.geomajas.plugin</groupId>
-	<artifactId>geomajas-client-gwt-widget-featureinfo-all</artifactId>
+	<artifactId>geomajas-client-gwt-widget-featureinfo-parent</artifactId>
 	<packaging>pom</packaging>
-	<name>geomajas-widget-featureinfo plug-in parent</name>
-	<description>geomajas-widget-featureinfo plug-in grouping module</description>
+	<name>Geomajas GWT client: Plugin Widget Featureinfo - Parent</name>
+	<description>Geomajas GWT client: Plugin Widget Featureinfo - Parent</description>
 
 	<developers>
 		<developer>
@@ -47,7 +49,7 @@
 		<dependencies>
 			<dependency>
 				<groupId>org.geomajas.plugin</groupId>
-				<artifactId>geomajas-client-gwt-layer-wms-all</artifactId>
+				<artifactId>geomajas-client-gwt-layer-wms-parent</artifactId>
 				<version>${project.version}</version>
 				<type>pom</type>
 				<scope>import</scope>
@@ -71,7 +73,7 @@
 
 			<dependency>
 				<groupId>org.geomajas.plugin</groupId>
-				<artifactId>geomajas-server-plugin-cache-all</artifactId>
+				<artifactId>geomajas-server-plugin-cache-parent</artifactId>
 				<version>${gwt-client-server-version}</version>
 				<type>pom</type>
 				<scope>import</scope>

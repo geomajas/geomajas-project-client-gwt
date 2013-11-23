@@ -10,18 +10,20 @@
   -->
 
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
 	<parent>
 		<groupId>org.geomajas</groupId>
 		<artifactId>geomajas-parent</artifactId>
 		<version>1.1.0</version>
 	</parent>
-	<modelVersion>4.0.0</modelVersion>
+
 	<groupId>org.geomajas.project</groupId>
 	<artifactId>geomajas-project-client-gwt</artifactId>
 	<version>1.15.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
-	<name>Geomajas smartgwt client</name>
-	<description>Geomajas smartgwt client</description>
+	<name>Geomajas GWT client: Main - Parent POM</name>
+	<description>Geomajas GWT client: Main - Parent POM</description>
 
 	 <scm>
                 <connection>scm:git:git@github.com:geomajas/geomajas-project-client-gwt.git</connection>
@@ -110,7 +112,7 @@
 			</dependency>
 			<dependency>
 				<groupId>org.geomajas</groupId>
-				<artifactId>geomajas-face-common-gwt-all</artifactId>
+				<artifactId>geomajas-face-common-gwt-parent</artifactId>
 				<version>${gwt-client-common-gwt-version}</version>
 				<type>pom</type>
 				<scope>import</scope>
@@ -190,7 +192,7 @@
 		<gwt-client-server-version>1.14.0-SNAPSHOT</gwt-client-server-version>
 		<gwt-client-gwt-version>2.5.1</gwt-client-gwt-version>
 		<gwt-client-gwt-maven-version>2.5.1</gwt-client-gwt-maven-version>
-		<gwt-client-common-gwt-version>1.3.0</gwt-client-common-gwt-version>
+		<gwt-client-common-gwt-version>2.0.0-SNAPSHOT</gwt-client-common-gwt-version>
 		<gwt-client-smartgwt-version>3.1</gwt-client-smartgwt-version>
 	</properties>
 	
