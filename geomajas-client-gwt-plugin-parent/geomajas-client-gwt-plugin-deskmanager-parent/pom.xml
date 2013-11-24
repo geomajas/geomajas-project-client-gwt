@@ -39,6 +39,11 @@
 			</dependency>
 			<dependency>
 				<groupId>org.geomajas.plugin</groupId>
+				<artifactId>geomajas-plugin-deskmanager-gwt</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.geomajas.plugin</groupId>
 				<artifactId>geomajas-client-gwt-plugin-runtimeconfig-parent</artifactId>
 				<version>${project.version}</version>
 				<type>pom</type>
@@ -50,20 +55,6 @@
 				<version>1.0.0-M1</version>
 				<type>pom</type>
 				<scope>import</scope>
-			</dependency>
-
-			<dependency>
-				<groupId>org.geomajas</groupId>
-				<artifactId>geomajas-face-gwt</artifactId>
-				<version>${project.version}</version>
-				<type>pom</type>
-				<scope>import</scope>
-			</dependency>
-
-			<dependency>
-				<groupId>org.geomajas.plugin</groupId>
-				<artifactId>geomajas-plugin-deskmanager-gwt</artifactId>
-				<version>${project.version}</version>
 			</dependency>
 
 		</dependencies>

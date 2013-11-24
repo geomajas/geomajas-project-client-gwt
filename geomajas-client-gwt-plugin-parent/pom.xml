@@ -38,9 +38,7 @@
 		<module>geomajas-client-gwt-plugin-runtimeconfig-parent</module>
 		<module>geomajas-client-gwt-plugin-staticsecurity-parent</module>
 		<module>geomajas-client-gwt-plugin-vendorspecificpipeline-parent</module>
-<!--
 		<module>geomajas-client-gwt-plugin-deskmanager-parent</module>
--->
 		<module>geomajas-client-gwt-widget-advancedviews-parent</module>
 		<module>geomajas-client-gwt-widget-featureinfo-parent</module>
 		<module>geomajas-client-gwt-widget-layer-parent</module>

@@ -48,13 +48,6 @@
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
-				<groupId>org.geomajas.plugin</groupId>
-				<artifactId>geomajas-client-gwt-plugin-deskmanager-parent</artifactId>
-				<version>${project.version}</version>
-				<type>pom</type>
-				<scope>import</scope>
-			</dependency>
-			<dependency>
 				<groupId>org.geomajas.widget</groupId>
 				<artifactId>geomajas-widget-advancedviews</artifactId>
 				<version>${project.version}</version>
@@ -69,13 +62,22 @@
 				<artifactId>geomajas-widget-advancedviews-editor</artifactId>
 				<version>${project.version}</version>
 			</dependency>
+			<dependency>
+				<groupId>org.geomajas.plugin</groupId>
+				<artifactId>geomajas-client-gwt-plugin-deskmanager-parent</artifactId>
+				<version>${project.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
 		</dependencies>
 	</dependencyManagement>
 	
 	<modules>
 		<module>geomajas-widget-advancedviews</module>
 		<module>geomajas-widget-advancedviews-gwt</module>
+<!--
 		<module>geomajas-widget-advancedviews-editor</module>
+-->
 		<module>geomajas-widget-advancedviews-gwt-example</module>
 	</modules>
 
