@@ -56,42 +56,6 @@
 		<module>geomajas-plugin-print-gwt-example-jar</module>
 	</modules>
 
-	<dependencyManagement>
-		<dependencies>
-			<dependency>
-				<groupId>org.geomajas.plugin</groupId>
-				<artifactId>geomajas-server-plugin-print-parent</artifactId>
-				<version>${gwt-client-server-version}</version>
-				<scope>import</scope>
-				<type>pom</type>
-			</dependency>
-			<dependency>
-				<groupId>org.geomajas.plugin</groupId>
-				<artifactId>geomajas-client-gwt-plugin-rasterizing-parent</artifactId>
-				<version>${project.version}</version>
-				<scope>import</scope>
-				<type>pom</type>
-			</dependency>
-
-			<dependency>
-				<groupId>org.geomajas.plugin</groupId>
-				<artifactId>geomajas-plugin-print-gwt</artifactId>
-				<version>${project.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.geomajas.plugin</groupId>
-				<artifactId>geomajas-client-gwt-plugin-print-example</artifactId>
-				<version>${project.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.geomajas.plugin</groupId>
-				<artifactId>geomajas-client-gwt-plugin-print-example-jar</artifactId>
-				<version>${project.version}</version>
-			</dependency>
-			
-		</dependencies>
-	</dependencyManagement>
-
 	<profiles>
 		<profile>
 			<id>default</id>

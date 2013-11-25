@@ -45,35 +45,6 @@
 		</developer>
 	</developers>
 
-	<dependencyManagement>
-		<dependencies>
-			<dependency>
-				<groupId>org.geomajas.plugin</groupId>
-				<artifactId>geomajas-server-layer-wms-parent</artifactId>
-				<version>${gwt-client-server-version}</version>
-				<type>pom</type>
-				<scope>import</scope>
-			</dependency>
-
-			<dependency>
-				<groupId>org.geomajas.plugin</groupId>
-				<artifactId>geomajas-layer-wms-gwt</artifactId>
-				<version>${project.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.geomajas.plugin</groupId>
-				<artifactId>geomajas-layer-wms-gwt-example</artifactId>
-				<version>${project.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.geomajas.plugin</groupId>
-				<artifactId>geomajas-layer-wms-gwt-example-jar</artifactId>
-				<version>${project.version}</version>
-			</dependency>
-
-		</dependencies>
-	</dependencyManagement>
-
 	<modules>
 		<module>geomajas-layer-wms-gwt</module>
 		<module>geomajas-layer-wms-gwt-example-jar</module>

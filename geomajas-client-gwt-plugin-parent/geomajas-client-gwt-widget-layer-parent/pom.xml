@@ -35,39 +35,6 @@
 		</developer>
 	</developers>
 
-	<dependencyManagement>
-		<dependencies>
-			<dependency>
-				<groupId>org.geomajas.plugin</groupId>
-				<artifactId>geomajas-client-gwt-plugin-deskmanager-parent</artifactId>
-				<version>${project.version}</version>
-				<type>pom</type>
-				<scope>import</scope>
-			</dependency>
-			<dependency>
-				<groupId>org.geomajas.widget</groupId>
-				<artifactId>geomajas-widget-layer</artifactId>
-				<version>${project.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.geomajas.widget</groupId>
-				<artifactId>geomajas-widget-layer</artifactId>
-				<classifier>sources</classifier>
-				<version>${project.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.geomajas.widget</groupId>
-				<artifactId>geomajas-widget-layer-gwt</artifactId>
-				<version>${project.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.geomajas.widget</groupId>
-				<artifactId>geomajas-widget-layer-editor</artifactId>
-				<version>${project.version}</version>
-			</dependency>
-		</dependencies>
-	</dependencyManagement>
-	
 	<modules>
 		<module>geomajas-widget-layer</module>
 		<module>geomajas-widget-layer-gwt</module>

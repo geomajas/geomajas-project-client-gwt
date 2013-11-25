@@ -25,37 +25,6 @@
 	<name>Geomajas GWT client: Plugin Reporting - Parent</name>
 	<description>Geomajas GWT client: Plugin Reporting - Parent</description>
 
-	<dependencyManagement>
-		<dependencies>
-			<dependency>
-				<groupId>org.geomajas.plugin</groupId>
-				<artifactId>geomajas-server-plugin-reporting-parent</artifactId>
-				<version>${gwt-client-server-version}</version>
-				<type>pom</type>
-				<scope>import</scope>
-			</dependency>
-			<dependency>
-				<groupId>org.geomajas.plugin</groupId>
-				<artifactId>geomajas-client-gwt-plugin-rasterizing-parent</artifactId>
-				<version>${project.version}</version>
-				<type>pom</type>
-				<scope>import</scope>
-			</dependency>
-
-			<dependency>
-				<groupId>org.geomajas.plugin</groupId>
-				<artifactId>geomajas-plugin-reporting-gwt</artifactId>
-				<version>${project.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.geomajas.plugin</groupId>
-				<artifactId>geomajas-plugin-reporting-gwt</artifactId>
-				<version>${project.version}</version>
-				<classifier>sources</classifier>
-			</dependency>
-		</dependencies>
-	</dependencyManagement>
-	
 	<modules>
 		<module>geomajas-plugin-reporting-gwt</module>
 		<module>geomajas-plugin-reporting-gwt-example</module>

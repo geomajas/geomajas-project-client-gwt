@@ -35,11 +35,6 @@
 			<artifactId>geomajas-widget-layer</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>org.geomajas.widget</groupId>
-			<artifactId>geomajas-widget-layer</artifactId>
-			<classifier>sources</classifier>
-		</dependency>
-		<dependency>
 			<groupId>org.geomajas</groupId>
 			<artifactId>geomajas-gwt-client</artifactId>
 		</dependency>

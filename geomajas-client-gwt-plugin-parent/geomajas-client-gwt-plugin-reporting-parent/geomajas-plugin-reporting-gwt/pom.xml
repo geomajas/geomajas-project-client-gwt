@@ -32,11 +32,6 @@
 		</dependency>
 		<dependency>
 			<groupId>org.geomajas.plugin</groupId>
-			<artifactId>geomajas-plugin-reporting</artifactId>
-			<classifier>sources</classifier>
-		</dependency>
-		<dependency>
-			<groupId>org.geomajas.plugin</groupId>
 			<artifactId>geomajas-plugin-rasterizing-gwt</artifactId>
 		</dependency>
 	</dependencies>

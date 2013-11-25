@@ -36,30 +36,6 @@
 		</developer>
 	</developers>
 
-	<dependencyManagement>
-		<dependencies>
-			<dependency>
-				<groupId>org.geomajas.plugin</groupId>
-				<artifactId>geomajas-server-plugin-geocoder-parent</artifactId>
-				<version>${gwt-client-server-version}</version>
-				<type>pom</type>
-				<scope>import</scope>
-			</dependency>
-
-			<dependency>
-				<groupId>org.geomajas.plugin</groupId>
-				<artifactId>geomajas-plugin-geocoder-gwt</artifactId>
-				<version>${project.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.geomajas.plugin</groupId>
-				<artifactId>geomajas-plugin-geocoder-gwt-example-jar</artifactId>
-				<version>${project.version}</version>
-			</dependency>
-
-		</dependencies>
-	</dependencyManagement>
-	
 	<modules>
 		<module>geomajas-plugin-geocoder-gwt</module>
 		<module>geomajas-plugin-geocoder-gwt-example-jar</module>

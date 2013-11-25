@@ -26,25 +26,6 @@
 	<description>Geomajas GWT client: Plugin Widget Advancedviews - Example</description>
 	<url>http://www.geomajas.org/</url>
 
-	<dependencyManagement>
-		<dependencies>
-			<dependency>
-				<groupId>org.geomajas.plugin</groupId>
-				<artifactId>geomajas-server-layer-openstreetmap-parent</artifactId>
-				<version>${gwt-client-server-version}</version>
-				<type>pom</type>
-				<scope>import</scope>
-			</dependency>
-			<dependency>
-				<groupId>org.geomajas.plugin</groupId>
-				<artifactId>geomajas-client-gwt-layer-googlemaps-parent</artifactId>
-				<version>${project.version}</version>
-				<type>pom</type>
-				<scope>import</scope>
-			</dependency>
-		</dependencies>
-	</dependencyManagement>
-
 	<dependencies>
 		<dependency>
 			<groupId>javax.validation</groupId>
@@ -86,18 +67,6 @@
 			<groupId>org.geomajas.widget</groupId>
 			<artifactId>geomajas-widget-advancedviews</artifactId>
 			<version>${project.version}</version>
-			<classifier>sources</classifier>
-		</dependency>
-		<dependency>
-			<groupId>org.geomajas.widget</groupId>
-			<artifactId>geomajas-widget-advancedviews</artifactId>
-			<version>${project.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.geomajas.widget</groupId>
-			<artifactId>geomajas-widget-advancedviews-gwt</artifactId>
-			<version>${project.version}</version>
-			<classifier>sources</classifier>
 		</dependency>
 		<dependency>
 			<groupId>org.geomajas.widget</groupId>

@@ -13,50 +13,7 @@
 	<name>Geomajas GWT client: Plugin Deskmanager - Parent</name>
 	<description>Geomajas GWT client: Plugin Deskmanager - Parent</description>
 
-	<developers>
-		<developer>
-			<id>oliverm</id>
-			<name>Oliver May</name>
-			<email>oliver@geomajas.org</email>
-			<roles>
-				<role>Module maintainer</role>
-			</roles>
-		</developer>
-	</developers>
-
 	<modules>
 		<module>geomajas-plugin-deskmanager-gwt</module>
 	</modules>
-
-	<dependencyManagement>
-		<dependencies>
-			<dependency>
-				<groupId>org.geomajas.plugin</groupId>
-				<artifactId>geomajas-server-plugin-deskmanager-parent</artifactId>
-				<version>${gwt-client-server-version}</version>
-				<type>pom</type>
-				<scope>import</scope>
-			</dependency>
-			<dependency>
-				<groupId>org.geomajas.plugin</groupId>
-				<artifactId>geomajas-plugin-deskmanager-gwt</artifactId>
-				<version>${project.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.geomajas.plugin</groupId>
-				<artifactId>geomajas-client-gwt-plugin-runtimeconfig-parent</artifactId>
-				<version>${project.version}</version>
-				<type>pom</type>
-				<scope>import</scope>
-			</dependency>
-			<dependency>
-				<groupId>org.geomajas.project</groupId>
-				<artifactId>geomajas-project-sld-editor-all</artifactId>
-				<version>1.0.0-M1</version>
-				<type>pom</type>
-				<scope>import</scope>
-			</dependency>
-
-		</dependencies>
-	</dependencyManagement>
 </project>

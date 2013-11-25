@@ -35,25 +35,6 @@
 		</developer>
 	</developers>
 
-	<dependencyManagement>
-		<dependencies>
-			<dependency>
-				<groupId>org.geomajas.plugin</groupId>
-				<artifactId>geomajas-server-plugin-vendorspecificpipeline-parent</artifactId>
-				<version>${gwt-client-server-version}</version>
-				<type>pom</type>
-				<scope>import</scope>
-			</dependency>
-
-			<dependency>
-				<groupId>org.geomajas.plugin</groupId>
-				<artifactId>geomajas-plugin-vendorspecificpipeline-gwt-example-jar</artifactId>
-				<version>${project.version}</version>
-			</dependency>
-
-		</dependencies>
-	</dependencyManagement>
-	
 	<modules>
 		<module>geomajas-plugin-vendorspecificpipeline-gwt-example-jar</module>
 		<module>geomajas-plugin-vendorspecificpipeline-gwt-example</module>

@@ -24,26 +24,6 @@
 	<name>Geomajas GWT client: Main - Example base</name>
 	<description>Geomajas GWT client: Main - Example base</description>
 
-	<dependencyManagement>
-		<dependencies>
-			<dependency>
-				<artifactId>geomajas-layer-geotools</artifactId>
-				<groupId>org.geomajas.plugin</groupId>
-				<version>${gwt-client-server-version}</version>
-			</dependency>
-			<dependency>
-				<artifactId>geomajas-layer-openstreetmap</artifactId>
-				<groupId>org.geomajas.plugin</groupId>
-				<version>${gwt-client-server-version}</version>
-			</dependency>
-			<dependency>
-				<artifactId>geomajas-layer-wms</artifactId>
-				<groupId>org.geomajas.plugin</groupId>
-				<version>${gwt-client-server-version}</version>
-			</dependency>
-		</dependencies>
-	</dependencyManagement>
-
 	<dependencies>
 		<!-- Geomajas dependencies -->
 		<dependency>
@@ -53,11 +33,6 @@
 		<dependency>
 			<groupId>org.geomajas</groupId>
 			<artifactId>geomajas-command</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.geomajas</groupId>
-			<artifactId>geomajas-command</artifactId>
-			<classifier>sources</classifier>
 		</dependency>
 		<dependency>
 			<groupId>org.geomajas</groupId>

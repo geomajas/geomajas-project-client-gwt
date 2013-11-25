@@ -45,25 +45,6 @@
 		</developer>
 	</developers>
 
-	<dependencyManagement>
-		<dependencies>
-			<dependency>
-				<groupId>org.geomajas.plugin</groupId>
-				<artifactId>geomajas-server-layer-geotools-parent</artifactId>
-				<version>${gwt-client-server-version}</version>
-				<type>pom</type>
-				<scope>import</scope>
-			</dependency>
-
-			<dependency>
-				<groupId>org.geomajas.plugin</groupId>
-				<artifactId>geomajas-layer-geotools-gwt-example-jar</artifactId>
-				<version>${project.version}</version>
-			</dependency>
-
-		</dependencies>
-	</dependencyManagement>
-
 	<modules>
 		<module>geomajas-layer-geotools-gwt-example</module>
 		<module>geomajas-layer-geotools-gwt-example-jar</module>

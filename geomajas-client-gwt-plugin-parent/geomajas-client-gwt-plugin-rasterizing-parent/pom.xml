@@ -25,38 +25,6 @@
 	<name>Geomajas GWT client: Plugin Rasterizing - Parent</name>
 	<description>Geomajas GWT client: Plugin Rasterizing - Parent</description>
 
-	<dependencyManagement>
-		<dependencies>
-
-			<dependency>
-				<groupId>org.geomajas.plugin</groupId>
-				<artifactId>geomajas-server-plugin-rasterizing-parent</artifactId>
-				<version>${gwt-client-server-version}</version>
-				<type>pom</type>
-				<scope>import</scope>
-			</dependency>
-
-			<dependency>
-				<groupId>org.geomajas.plugin</groupId>
-				<artifactId>geomajas-plugin-rasterizing-gwt</artifactId>
-				<version>${project.version}</version>
-			</dependency>
-
-			<dependency>
-				<groupId>org.geomajas.plugin</groupId>
-				<artifactId>geomajas-plugin-rasterizing-gwt-example</artifactId>
-				<version>${project.version}</version>
-			</dependency>
-
-			<dependency>
-				<groupId>org.geomajas.plugin</groupId>
-				<artifactId>geomajas-plugin-rasterizing-gwt-example-jar</artifactId>
-				<version>${project.version}</version>
-			</dependency>
-
-		</dependencies>
-	</dependencyManagement>
-
 	<modules>
 		<module>geomajas-plugin-rasterizing-gwt</module>
 		<module>geomajas-plugin-rasterizing-gwt-example-jar</module>

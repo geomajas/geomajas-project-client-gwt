@@ -45,47 +45,6 @@
 		</developer>
 	</developers>
 
-	<dependencyManagement>
-		<dependencies>
-            <dependency>
-                <groupId>org.geomajas.plugin</groupId>
-                <artifactId>geomajas-server-layer-wms-parent</artifactId>
-                <version>${gwt-client-server-version}</version>
-            </dependency>
-			<dependency>
-				<groupId>org.geomajas.widget</groupId>
-				<artifactId>geomajas-widget-searchandfilter</artifactId>
-				<version>${project.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.geomajas.widget</groupId>
-				<artifactId>geomajas-widget-searchandfilter-gwt</artifactId>
-				<version>${project.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.geomajas.widget</groupId>
-				<artifactId>geomajas-widget-featureinfo</artifactId>
-				<version>${project.version}</version>
-			</dependency>			
-			<dependency>
-				<groupId>org.geomajas.widget</groupId>
-				<artifactId>geomajas-widget-featureinfo-gwt</artifactId>
-				<version>${project.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.springframework</groupId>
-				<artifactId>spring-core</artifactId>
-				<version>3.0.5.RELEASE</version>
-			</dependency>
-			<dependency>
-				<groupId>org.springframework.security</groupId>
-				<artifactId>spring-security-web</artifactId>
-				<version>3.0.5.RELEASE</version>
-			</dependency>
-		</dependencies>
-
-	</dependencyManagement>
-	
 	<modules>
 		<module>geomajas-widget-searchandfilter</module>
 		<module>geomajas-widget-searchandfilter-gwt</module>

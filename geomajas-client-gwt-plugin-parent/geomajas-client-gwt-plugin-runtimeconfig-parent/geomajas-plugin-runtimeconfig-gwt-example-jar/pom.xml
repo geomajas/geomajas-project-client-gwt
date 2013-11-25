@@ -25,17 +25,6 @@
 	<name>Geomajas GWT client: Plugin Runtimeconfig - Example jar</name>
 	<description>Geomajas GWT client: Plugin Runtimeconfig - Example jar</description>
 
-	<dependencyManagement>
-		<dependencies>
-			<dependency>
-				<groupId>org.geomajas.plugin</groupId>
-				<artifactId>geomajas-server-layer-openstreetmap-parent</artifactId>
-				<version>${gwt-client-server-version}</version>
-				<type>pom</type>
-				<scope>import</scope>
-			</dependency>
-		</dependencies>
-	</dependencyManagement>
 	<dependencies>
 		<dependency>
 			<groupId>javax.validation</groupId>
