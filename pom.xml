@@ -102,23 +102,9 @@
 				<type>war</type>
 			</dependency>
 			<dependency>
-				<groupId>org.geomajas.project</groupId>
-				<artifactId>geomajas-project-server</artifactId>
-				<version>${gwt-client-server-version}</version>
-				<type>pom</type>
-				<scope>import</scope>
-			</dependency>
-			<dependency>
 				<groupId>org.geomajas</groupId>
 				<artifactId>geomajas-face-common-gwt</artifactId>
 				<version>${gwt-client-common-gwt-version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.geomajas</groupId>
-				<artifactId>geomajas-client-common-gwt-parent</artifactId>
-				<version>${gwt-client-common-gwt-version}</version>
-				<type>pom</type>
-				<scope>import</scope>
 			</dependency>
 
 			<!-- depend -->
@@ -228,13 +214,8 @@
 				<artifactId>geomajas-plugin-deskmanager-gwt</artifactId>
 				<version>${project.version}</version>
 			</dependency>
-			<dependency>
-				<groupId>org.geomajas.plugin</groupId>
-				<artifactId>geomajas-client-gwt-plugin-runtimeconfig-parent</artifactId>
-				<version>${project.version}</version>
-				<type>pom</type>
-				<scope>import</scope>
-			</dependency>
+
+			<!--depend -->
 			<dependency>
 				<groupId>org.geomajas.project</groupId>
 				<artifactId>geomajas-project-sld-editor-all</artifactId>
@@ -242,54 +223,10 @@
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
-			<dependency>
-				<groupId>org.geomajas.plugin</groupId>
-				<artifactId>geomajas-plugin-editing-gwt</artifactId>
-				<version>${project.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.geomajas.plugin</groupId>
-				<artifactId>geomajas-plugin-editing-gwt-example-jar</artifactId>
-				<version>${project.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.geomajas.plugin</groupId>
-				<artifactId>geomajas-plugin-editing-javascript-api</artifactId>
-				<version>${project.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.geomajas.plugin</groupId>
-				<artifactId>geomajas-plugin-editing-javascript-api-gwt</artifactId>
-				<version>${project.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>com.google.gwt</groupId>
-				<artifactId>gwt-user</artifactId>
-				<scope>provided</scope>
-				<version>${gwt-client-gwt-version}</version>
-			</dependency>
-			<dependency>
-				<groupId>com.google.gwt</groupId>
-				<artifactId>gwt-servlet</artifactId>
-				<scope>runtime</scope>
-				<version>${gwt-client-gwt-version}</version>
-			</dependency>
 
 			<!-- geomajas-client-gwt-plugin-editing -->
 			<dependency>
 				<groupId>org.geomajas.plugin</groupId>
-				<artifactId>geomajas-client-gwt-plugin-javascript-api-parent</artifactId>
-				<version>${project.version}</version>
-				<type>pom</type>
-				<scope>import</scope>
-			</dependency>
-			<dependency>
-				<groupId>org.geomajas.plugin</groupId>
-				<artifactId>geomajas-client-gwt2-plugin-editing-parent</artifactId>
-				<version>${gwt-client-common-gwt-version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.geomajas.plugin</groupId>
 				<artifactId>geomajas-plugin-editing-gwt</artifactId>
 				<version>${project.version}</version>
 			</dependency>
@@ -308,28 +245,8 @@
 				<artifactId>geomajas-plugin-editing-javascript-api-gwt</artifactId>
 				<version>${project.version}</version>
 			</dependency>
-			<dependency>
-				<groupId>com.google.gwt</groupId>
-				<artifactId>gwt-user</artifactId>
-				<scope>provided</scope>
-				<version>${gwt-client-gwt-version}</version>
-			</dependency>
-			<dependency>
-				<groupId>com.google.gwt</groupId>
-				<artifactId>gwt-servlet</artifactId>
-				<scope>runtime</scope>
-				<version>${gwt-client-gwt-version}</version>
-			</dependency>
 
 			<!-- geomajas-client-gwt-plugin-geocoder -->
-			<dependency>
-				<groupId>org.geomajas.plugin</groupId>
-				<artifactId>geomajas-server-plugin-geocoder-parent</artifactId>
-				<version>${gwt-client-server-version}</version>
-				<type>pom</type>
-				<scope>import</scope>
-			</dependency>
-
 			<dependency>
 				<groupId>org.geomajas.plugin</groupId>
 				<artifactId>geomajas-plugin-geocoder-gwt</artifactId>
@@ -344,12 +261,6 @@
 
 			<!-- geomajas-client-gwt-plugin-javascript -->
 			<dependency>
-				<groupId>org.timepedia.exporter</groupId>
-				<artifactId>gwtexporter</artifactId>
-				<version>${gwt-exporter-version}</version>
-			</dependency>
-
-			<dependency>
 				<groupId>org.geomajas.plugin</groupId>
 				<artifactId>geomajas-plugin-javascript-api</artifactId>
 				<version>${project.version}</version>
@@ -360,22 +271,14 @@
 				<version>${project.version}</version>
 			</dependency>
 
-			<!-- geomajas-client-gwt-plugin-rasterizing -->
 			<dependency>
-				<groupId>org.geomajas.plugin</groupId>
-				<artifactId>geomajas-server-plugin-print-parent</artifactId>
-				<version>${gwt-client-server-version}</version>
-				<scope>import</scope>
-				<type>pom</type>
-			</dependency>
-			<dependency>
-				<groupId>org.geomajas.plugin</groupId>
-				<artifactId>geomajas-client-gwt-plugin-rasterizing-parent</artifactId>
-				<version>${project.version}</version>
-				<scope>import</scope>
-				<type>pom</type>
+				<groupId>org.timepedia.exporter</groupId>
+				<artifactId>gwtexporter</artifactId>
+				<version>${gwt-exporter-version}</version>
 			</dependency>
 
+
+			<!-- geomajas-client-gwt-plugin-print -->
 			<dependency>
 				<groupId>org.geomajas.plugin</groupId>
 				<artifactId>geomajas-plugin-print-gwt</artifactId>
@@ -393,14 +296,6 @@
 			</dependency>
 
 			<!-- geomajas-client-gwt-plugin-rasterizing -->
-			<dependency>
-				<groupId>org.geomajas.plugin</groupId>
-				<artifactId>geomajas-server-plugin-rasterizing-parent</artifactId>
-				<version>${gwt-client-server-version}</version>
-				<type>pom</type>
-				<scope>import</scope>
-			</dependency>
-
 			<dependency>
 				<groupId>org.geomajas.plugin</groupId>
 				<artifactId>geomajas-plugin-rasterizing-gwt</artifactId>
@@ -423,33 +318,11 @@
 			<!-- geomajas-client-gwt-plugin-reporting -->
 			<dependency>
 				<groupId>org.geomajas.plugin</groupId>
-				<artifactId>geomajas-server-plugin-reporting-parent</artifactId>
-				<version>${gwt-client-server-version}</version>
-				<type>pom</type>
-				<scope>import</scope>
-			</dependency>
-			<dependency>
-				<groupId>org.geomajas.plugin</groupId>
-				<artifactId>geomajas-client-gwt-plugin-rasterizing-parent</artifactId>
-				<version>${project.version}</version>
-				<type>pom</type>
-				<scope>import</scope>
-			</dependency>
-
-			<dependency>
-				<groupId>org.geomajas.plugin</groupId>
 				<artifactId>geomajas-plugin-reporting-gwt</artifactId>
 				<version>${project.version}</version>
 			</dependency>
 
 			<!-- geomajas-client-gwt-plugin-runtimeconfig -->
-			<dependency>
-				<groupId>org.geomajas.plugin</groupId>
-				<artifactId>geomajas-server-plugin-runtimeconfig-parent</artifactId>
-				<version>${gwt-client-server-version}</version>
-				<type>pom</type>
-				<scope>import</scope>
-			</dependency>
 			<dependency>
 				<groupId>org.geomajas.plugin</groupId>
 				<artifactId>geomajas-plugin-runtimeconfig-gwt</artifactId>
@@ -469,39 +342,11 @@
 			<!-- geomajas-client-gwt-plugin-staticsecurity -->
 			<dependency>
 				<groupId>org.geomajas.plugin</groupId>
-				<artifactId>geomajas-server-plugin-staticsecurity-parent</artifactId>
-				<version>${gwt-client-server-version}</version>
-				<type>pom</type>
-				<scope>import</scope>
-			</dependency>
-
-			<dependency>
-				<groupId>org.geomajas.plugin</groupId>
 				<artifactId>geomajas-plugin-staticsecurity-gwt</artifactId>
 				<version>${project.version}</version>
 			</dependency>
 
-			<dependency>
-				<groupId>org.geomajas.plugin</groupId>
-				<artifactId>geomajas-server-plugin-vendorspecificpipeline-parent</artifactId>
-				<version>${gwt-client-server-version}</version>
-				<type>pom</type>
-				<scope>import</scope>
-			</dependency>
-
 			<!-- geomajas-client-gwt-plugin-vendorspecificpipeline -->
-			<dependency>
-				<groupId>org.geomajas.plugin</groupId>
-				<artifactId>geomajas-plugin-vendorspecificpipeline-gwt-example-jar</artifactId>
-				<version>${project.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.geomajas.plugin</groupId>
-				<artifactId>geomajas-server-plugin-vendorspecificpipeline-parent</artifactId>
-				<version>${gwt-client-server-version}</version>
-				<type>pom</type>
-				<scope>import</scope>
-			</dependency>
 			<dependency>
 				<groupId>org.geomajas.plugin</groupId>
 				<artifactId>geomajas-plugin-vendorspecificpipeline-gwt-example-jar</artifactId>
@@ -525,23 +370,8 @@
 				<artifactId>geomajas-widget-advancedviews-editor</artifactId>
 				<version>${project.version}</version>
 			</dependency>
-			<dependency>
-				<groupId>org.geomajas.plugin</groupId>
-				<artifactId>geomajas-client-gwt-plugin-deskmanager-parent</artifactId>
-				<version>${project.version}</version>
-				<type>pom</type>
-				<scope>import</scope>
-			</dependency>
 
 			<!-- geomajas-client-gwt-widget-featureinfo -->
-			<dependency>
-				<groupId>org.geomajas.plugin</groupId>
-				<artifactId>geomajas-client-gwt-layer-wms-parent</artifactId>
-				<version>${project.version}</version>
-				<type>pom</type>
-				<scope>import</scope>
-			</dependency>
-
 			<dependency>
 				<groupId>org.geomajas.widget</groupId>
 				<artifactId>geomajas-widget-featureinfo</artifactId>
@@ -559,14 +389,6 @@
 			</dependency>
 
 			<dependency>
-				<groupId>org.geomajas.plugin</groupId>
-				<artifactId>geomajas-server-plugin-cache-parent</artifactId>
-				<version>${gwt-client-server-version}</version>
-				<type>pom</type>
-				<scope>import</scope>
-			</dependency>
-
-			<dependency>
 				<groupId>commons-codec</groupId>
 				<artifactId>commons-codec</artifactId>
 				<version>1.7</version>
@@ -574,13 +396,6 @@
 
 
 			<!-- geomajas-client-gwt-widget-layer -->
-			<dependency>
-				<groupId>org.geomajas.plugin</groupId>
-				<artifactId>geomajas-client-gwt-plugin-deskmanager-parent</artifactId>
-				<version>${project.version}</version>
-				<type>pom</type>
-				<scope>import</scope>
-			</dependency>
 			<dependency>
 				<groupId>org.geomajas.widget</groupId>
 				<artifactId>geomajas-widget-layer</artifactId>
@@ -599,11 +414,6 @@
 
 			<!-- geomajas-client-gwt-widget-searchandfilter -->
 			<dependency>
-				<groupId>org.geomajas.plugin</groupId>
-				<artifactId>geomajas-server-layer-wms-parent</artifactId>
-				<version>${gwt-client-server-version}</version>
-			</dependency>
-			<dependency>
 				<groupId>org.geomajas.widget</groupId>
 				<artifactId>geomajas-widget-searchandfilter</artifactId>
 				<version>${project.version}</version>
@@ -613,16 +423,7 @@
 				<artifactId>geomajas-widget-searchandfilter-gwt</artifactId>
 				<version>${project.version}</version>
 			</dependency>
-			<dependency>
-				<groupId>org.geomajas.widget</groupId>
-				<artifactId>geomajas-widget-featureinfo</artifactId>
-				<version>${project.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.geomajas.widget</groupId>
-				<artifactId>geomajas-widget-featureinfo-gwt</artifactId>
-				<version>${project.version}</version>
-			</dependency>
+
 			<dependency>
 				<groupId>org.springframework</groupId>
 				<artifactId>spring-core</artifactId>
@@ -658,45 +459,15 @@
 			<dependency>
 				<groupId>org.geomajas.widget</groupId>
 				<artifactId>geomajas-widget-utility-gwt-example</artifactId>
-				<type>war</type>
 				<version>${project.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.geomajas.plugin</groupId>
-				<artifactId>geomajas-client-gwt-plugin-geocoder-parent</artifactId>
-				<version>${project.version}</version>
-				<type>pom</type>
-				<scope>import</scope>
-			</dependency>
-
-			<dependency>
-				<groupId>commons-codec</groupId>
-				<artifactId>commons-codec</artifactId>
-				<version>1.7</version>
-			</dependency>
-			<dependency>
-				<groupId>org.apache.httpcomponents</groupId>
-				<artifactId>httpclient</artifactId>
-				<version>4.2.2</version>
 			</dependency>
 
 			<!-- geomajas-plugin-geocoder -->
 			<dependency>
 				<groupId>org.geomajas.plugin</groupId>
-				<artifactId>geomajas-server-layer-openstreetmap-parent</artifactId>
-				<version>${gwt-client-server-version}</version>
-				<type>pom</type>
-				<scope>import</scope>
-			</dependency>
-			<dependency>
-				<groupId>org.geomajas.plugin</groupId>
 				<artifactId>geomajas-client-gwt-layer-geotools-parent</artifactId>
 				<version>${project.version}</version>
 			</dependency>
-
-
-
-
 		</dependencies>
 
 	</dependencyManagement>
@@ -736,6 +507,7 @@
 		<gwt-client-gwt-maven-version>2.5.1</gwt-client-gwt-maven-version>
 		<gwt-client-common-gwt-version>2.0.0-SNAPSHOT</gwt-client-common-gwt-version>
 		<gwt-client-smartgwt-version>3.1</gwt-client-smartgwt-version>
+		<gwt-exporter-version>2.4.0</gwt-exporter-version>
 	</properties>
 	
 </project>

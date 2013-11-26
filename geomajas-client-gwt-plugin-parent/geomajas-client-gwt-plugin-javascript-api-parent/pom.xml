@@ -46,10 +46,6 @@
 	    <module>geomajas-plugin-javascript-api-gwt-example</module>
 	</modules>
 
-	<properties>
-		<gwt-exporter-version>2.4.0</gwt-exporter-version>
-	</properties>
-
 	<profiles>
 		<profile>
 			<id>documentation</id>
