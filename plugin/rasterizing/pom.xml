@@ -26,9 +26,9 @@
 	<description>Geomajas GWT client: Plugin Rasterizing - Parent</description>
 
 	<modules>
-		<module>geomajas-plugin-rasterizing-gwt</module>
-		<module>geomajas-plugin-rasterizing-gwt-example-jar</module>
-		<module>geomajas-plugin-rasterizing-gwt-example</module>
+		<module>rasterizing-gwt</module>
+		<module>rasterizing-gwt-example-jar</module>
+		<module>rasterizing-gwt-example</module>
 	</modules>
 
 	<profiles>

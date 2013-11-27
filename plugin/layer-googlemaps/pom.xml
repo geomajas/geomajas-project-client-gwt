@@ -46,9 +46,9 @@
 	</developers>
 
 	<modules>
-		<module>geomajas-client-gwt-layer-googlemaps</module>
-		<module>geomajas-client-gwt-layer-googlemaps-example</module>
-		<module>geomajas-client-gwt-layer-googlemaps-example-jar</module>
+		<module>googlemaps</module>
+		<module>googlemaps-example</module>
+		<module>googlemaps-example-jar</module>
 	</modules>
 
 	<profiles>

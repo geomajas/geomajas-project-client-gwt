@@ -36,8 +36,8 @@
 	</developers>
 
 	<modules>
-		<module>geomajas-plugin-vendorspecificpipeline-gwt-example-jar</module>
-		<module>geomajas-plugin-vendorspecificpipeline-gwt-example</module>
+		<module>vendorspecificpipeline-gwt-example-jar</module>
+		<module>vendorspecificpipeline-gwt-example</module>
 	</modules>
 
 	<profiles>

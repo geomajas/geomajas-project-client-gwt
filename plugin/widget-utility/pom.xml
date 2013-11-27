@@ -34,11 +34,11 @@
 	</developers>
 
 	<modules>
-		<module>geomajas-widget-utility</module>
-		<module>geomajas-widget-utility-common-gwt</module>
-		<module>geomajas-widget-utility-gwt</module>
-		<module>geomajas-widget-utility-gwt-example-jar</module>
-		<module>geomajas-widget-utility-gwt-example</module>
+		<module>utility</module>
+		<module>utility-common-gwt</module>
+		<module>utility-gwt</module>
+		<module>utility-gwt-example-jar</module>
+		<module>utility-gwt-example</module>
 	</modules>
 
 	<profiles>
@@ -48,7 +48,7 @@
 				<activeByDefault>true</activeByDefault>
 			</activation>
 			<modules>
-				<module>geomajas-widget-utility-documentation</module>
+				<module>utility-documentation</module>
 			</modules>
 		</profile>
 		<profile>

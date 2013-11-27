@@ -46,8 +46,8 @@
 	</developers>
 
 	<modules>
-		<module>geomajas-plugin-staticsecurity-gwt</module>
-		<module>geomajas-plugin-staticsecurity-gwt-example</module>
+		<module>staticsecurity-gwt</module>
+		<module>staticsecurity-gwt-example</module>
 	</modules>
 
 	<profiles>

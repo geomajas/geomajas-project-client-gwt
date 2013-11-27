@@ -63,17 +63,17 @@
 	
 	<modules>
 <!--
-		<module>geomajas-client-common-gwt-smartgwt</module>
+		<module>common-gwt-smartgwt</module>
 -->
-		<module>geomajas-client-gwt-plugin-parent</module>
+		<module>plugin</module>
 <!--
-		<module>geomajas-client-gwt-smartgwt-archetype</module>
-		<module>geomajas-gwt-archetype</module>
+		<module>smartgwt-archetype</module>
+		<module>archetype</module>
 -->
-		<module>geomajas-gwt-client</module>
-		<module>geomajas-gwt-example-base</module>
-		<module>geomajas-gwt-face-example</module>
-		<module>geomajas-gwt-face-example-jar</module>
+		<module>client</module>
+		<module>example-base</module>
+		<module>example</module>
+		<module>example-jar</module>
 	</modules>
 
 	<dependencyManagement>
@@ -479,8 +479,8 @@
 				<activeByDefault>true</activeByDefault>
 			</activation>
 			<modules>
-				<module>geomajas-client-gwt-smartgwt-archetype-documentation</module>
-				<module>geomajas-face-gwt-documentation</module>
+				<module>smartgwt-archetype-documentation</module>
+				<module>documentation</module>
 			</modules>
 		</profile>
 		<profile>

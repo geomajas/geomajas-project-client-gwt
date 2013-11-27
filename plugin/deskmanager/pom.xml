@@ -14,6 +14,6 @@
 	<description>Geomajas GWT client: Plugin Deskmanager - Parent</description>
 
 	<modules>
-		<module>geomajas-plugin-deskmanager-gwt</module>
+		<module>deskmanager-gwt</module>
 	</modules>
 </project>

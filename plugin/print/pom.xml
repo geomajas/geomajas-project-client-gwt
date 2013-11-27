@@ -51,9 +51,9 @@
 	</developers>
 
 	<modules>
-		<module>geomajas-plugin-print-gwt</module>
-		<module>geomajas-plugin-print-gwt-example</module>
-		<module>geomajas-plugin-print-gwt-example-jar</module>
+		<module>print-gwt</module>
+		<module>print-gwt-example</module>
+		<module>print-gwt-example-jar</module>
 	</modules>
 
 	<profiles>

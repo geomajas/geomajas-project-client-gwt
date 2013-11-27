@@ -60,9 +60,9 @@
 	</pluginRepositories>
 
 	<modules>
-		<module>geomajas-plugin-runtimeconfig-gwt</module>
-		<module>geomajas-plugin-runtimeconfig-gwt-example-jar</module>
-		<module>geomajas-plugin-runtimeconfig-gwt-example</module>
+		<module>runtimeconfig-gwt</module>
+		<module>runtimeconfig-gwt-example-jar</module>
+		<module>runtimeconfig-gwt-example</module>
 	</modules>
 
 	<profiles>

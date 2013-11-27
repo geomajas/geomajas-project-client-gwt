@@ -26,8 +26,8 @@
 	<description>Geomajas GWT client: Plugin Reporting - Parent</description>
 
 	<modules>
-		<module>geomajas-plugin-reporting-gwt</module>
-		<module>geomajas-plugin-reporting-gwt-example</module>
+		<module>reporting-gwt</module>
+		<module>reporting-gwt-example</module>
   </modules>
 
 	<profiles>

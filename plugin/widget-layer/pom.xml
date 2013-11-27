@@ -36,10 +36,10 @@
 	</developers>
 
 	<modules>
-		<module>geomajas-widget-layer</module>
-		<module>geomajas-widget-layer-gwt</module>
-		<module>geomajas-widget-layer-editor</module>
-		<module>geomajas-widget-layer-gwt-example</module>
+		<module>layer</module>
+		<module>layer-gwt</module>
+		<module>layer-editor</module>
+		<module>layer-gwt-example</module>
 	</modules>
 
 	<profiles>
@@ -49,7 +49,7 @@
 				<activeByDefault>true</activeByDefault>
 			</activation>
 			<modules>
-				<module>geomajas-widget-layer-documentation</module>
+				<module>layer-documentation</module>
 			</modules>
 		</profile>
 		<profile>

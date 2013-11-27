@@ -26,24 +26,24 @@
 	<description>Geomajas GWT client: Plugin parent</description>
 
 	<modules>
-		<module>geomajas-client-gwt-layer-geotools-parent</module>
-		<module>geomajas-client-gwt-layer-googlemaps-parent</module>
-		<module>geomajas-client-gwt-layer-wms-parent</module>
-		<module>geomajas-client-gwt-plugin-geocoder-parent</module>
-		<module>geomajas-client-gwt-plugin-javascript-api-parent</module>
-		<module>geomajas-client-gwt-plugin-editing-parent</module>
-		<module>geomajas-client-gwt-plugin-print-parent</module>
-		<module>geomajas-client-gwt-plugin-rasterizing-parent</module>
-		<module>geomajas-client-gwt-plugin-reporting-parent</module>
-		<module>geomajas-client-gwt-plugin-runtimeconfig-parent</module>
-		<module>geomajas-client-gwt-plugin-staticsecurity-parent</module>
-		<module>geomajas-client-gwt-plugin-vendorspecificpipeline-parent</module>
-		<module>geomajas-client-gwt-plugin-deskmanager-parent</module>
-		<module>geomajas-client-gwt-widget-advancedviews-parent</module>
-		<module>geomajas-client-gwt-widget-featureinfo-parent</module>
-		<module>geomajas-client-gwt-widget-layer-parent</module>
-		<module>geomajas-client-gwt-widget-searchandfilter-parent</module>
-		<module>geomajas-client-gwt-widget-utility-parent</module>
+		<module>layer-geotools</module>
+		<module>layer-googlemaps</module>
+		<module>layer-wms</module>
+		<module>geocoder</module>
+		<module>javascript-api</module>
+		<module>editing</module>
+		<module>print</module>
+		<module>rasterizing</module>
+		<module>reporting</module>
+		<module>runtimeconfig</module>
+		<module>staticsecurity</module>
+		<module>vendorspecificpipeline</module>
+		<module>deskmanager</module>
+		<module>widget-advancedviews</module>
+		<module>widget-featureinfo</module>
+		<module>widget-layer</module>
+		<module>widget-searchandfilter</module>
+		<module>widget-utility</module>
 	</modules>
 	
 </project>

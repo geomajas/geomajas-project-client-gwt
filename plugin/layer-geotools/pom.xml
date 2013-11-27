@@ -46,8 +46,8 @@
 	</developers>
 
 	<modules>
-		<module>geomajas-layer-geotools-gwt-example</module>
-		<module>geomajas-layer-geotools-gwt-example-jar</module>
+		<module>geotools-gwt-example</module>
+		<module>geotools-gwt-example-jar</module>
 	</modules>
 
 	<profiles>

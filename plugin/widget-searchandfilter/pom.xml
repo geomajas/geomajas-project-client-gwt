@@ -46,9 +46,9 @@
 	</developers>
 
 	<modules>
-		<module>geomajas-widget-searchandfilter</module>
-		<module>geomajas-widget-searchandfilter-gwt</module>
-		<module>geomajas-widget-searchandfilter-gwt-example</module>
+		<module>searchandfilter</module>
+		<module>searchandfilter-gwt</module>
+		<module>searchandfilter-gwt-example</module>
 	</modules>
 
 	<profiles>
@@ -58,7 +58,7 @@
 				<activeByDefault>true</activeByDefault>
 			</activation>
 			<modules>
-				<module>geomajas-widget-searchandfilter-documentation</module>
+				<module>searchandfilter-documentation</module>
 			</modules>
 		</profile>
 		<profile>

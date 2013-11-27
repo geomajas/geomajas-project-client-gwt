@@ -37,9 +37,9 @@
 	</developers>
 
 	<modules>
-		<module>geomajas-plugin-geocoder-gwt</module>
-		<module>geomajas-plugin-geocoder-gwt-example-jar</module>
-		<module>geomajas-plugin-geocoder-gwt-example</module>
+		<module>geocoder-gwt</module>
+		<module>geocoder-gwt-example-jar</module>
+		<module>geocoder-gwt-example</module>
 	</modules>
 
 	<profiles>

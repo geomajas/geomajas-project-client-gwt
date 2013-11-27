@@ -46,9 +46,9 @@
 	</developers>
 
 	<modules>
-		<module>geomajas-layer-wms-gwt</module>
-		<module>geomajas-layer-wms-gwt-example-jar</module>
-		<module>geomajas-layer-wms-gwt-example</module>
+		<module>wms-gwt</module>
+		<module>wms-gwt-example-jar</module>
+		<module>wms-gwt-example</module>
 	</modules>
 
 	<profiles>

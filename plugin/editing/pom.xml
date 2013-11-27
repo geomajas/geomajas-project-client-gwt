@@ -37,14 +37,14 @@
 	</developers>
 
 	<modules>
-  		<module>geomajas-plugin-editing-gwt</module>
-		<module>geomajas-plugin-editing-gwt-example-jar</module>
-  		<module>geomajas-plugin-editing-javascript-api</module>
-		<module>geomajas-plugin-editing-javascript-api-gwt</module>
+  		<module>editing-gwt</module>
+		<module>editing-gwt-example-jar</module>
+  		<module>editing-javascript-api</module>
+		<module>editing-javascript-api-gwt</module>
 
 <!--
-		<module>geomajas-plugin-editing-gwt-example</module>
-		<module>geomajas-plugin-editing-javascript-gwt-example</module>
+		<module>editing-gwt-example</module>
+		<module>editing-javascript-gwt-example</module>
 -->
 	</modules>
 
