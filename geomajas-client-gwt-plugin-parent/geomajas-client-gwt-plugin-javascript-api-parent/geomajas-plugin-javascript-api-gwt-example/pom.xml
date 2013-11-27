@@ -23,16 +23,6 @@
 	<name>Geomajas GWT client: Plugin JavaScript API - Example</name>
 	<description>Geomajas GWT client: Plugin JavaScript API - Example</description>
 
-	<dependencyManagement>
-		<dependencies>
-			<dependency>
-				<groupId>org.timepedia.exporter</groupId>
-				<artifactId>gwtexporter</artifactId>
-				<version>${gwt-exporter-version}</version>
-			</dependency>
-		</dependencies>
-	</dependencyManagement>
-
 	<dependencies>
 		<dependency>
 			<groupId>javax.validation</groupId>

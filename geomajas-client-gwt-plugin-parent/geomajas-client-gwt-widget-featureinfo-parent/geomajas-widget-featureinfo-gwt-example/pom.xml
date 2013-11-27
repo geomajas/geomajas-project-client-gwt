@@ -5,7 +5,8 @@
 	Public License. All contributions in this program are covered ~ by the Geomajas 
 	Contributors License Agreement. For full licensing ~ details, see LICENSE.txt 
 	in the project root. -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
@@ -43,12 +44,12 @@
 			<groupId>org.geomajas.widget</groupId>
 			<artifactId>geomajas-widget-featureinfo-gwt-example-jar</artifactId>
 		</dependency>
-				
+
 		<dependency>
 			<groupId>org.geomajas.plugin</groupId>
 			<artifactId>geomajas-plugin-cache</artifactId>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.geomajas.plugin</groupId>
 			<artifactId>geomajas-layer-wms-gwt</artifactId>
@@ -61,7 +62,7 @@
 			<!-- <version>${featureinfo-gwt-version}</version> -->
 			<scope>provided</scope>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>com.google.gwt</groupId>
 			<artifactId>gwt-servlet</artifactId>
@@ -153,7 +154,9 @@
 						<contextPath>/</contextPath>
 						<baseResource implementation="org.mortbay.resource.ResourceCollection">
 							<!-- need both the webapp dir and location where GWT puts stuff -->
-							<resourcesAsCSV>${basedir}/src/main/webapp,${project.build.directory}/${project.build.finalName}</resourcesAsCSV>
+							<resourcesAsCSV>
+								${basedir}/src/main/webapp,${project.build.directory}/${project.build.finalName}
+							</resourcesAsCSV>
 						</baseResource>
 					</webAppConfig>
 					<reload>manual</reload>

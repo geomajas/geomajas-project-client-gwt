@@ -83,7 +83,7 @@
 			</resource>
 		</resources>
 	</build>
-	
+
 	<profiles>
 		<!--  include sources in build -->
 		<profile>
