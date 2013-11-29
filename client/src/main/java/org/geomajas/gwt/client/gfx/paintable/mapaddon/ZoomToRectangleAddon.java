@@ -53,9 +53,11 @@ public class ZoomToRectangleAddon extends MapAddon {
 		map.getVectorContext().drawGroup(group, this);
 
 		Coordinate c = getUpperLeftCorner();
+		PictureStyle pictureStyle = new PictureStyle(1);
+		pictureStyle.setClassName("gm-ZoomToRectangleControl");
 		map.getVectorContext().drawImage(this, "zoom-rect-img",
 				Geomajas.getIsomorphicDir() + "geomajas/mapaddon/zoom_rectangle.png",
-				new Bbox(c.getX(), c.getY(), 20, 20), new PictureStyle(1));
+				new Bbox(c.getX(), c.getY(), 20, 20), pictureStyle);
 
 		if (firstTime) {
 			map.getVectorContext().setController(this, "zoom-rect-img", new ActivateRectangleController(map),

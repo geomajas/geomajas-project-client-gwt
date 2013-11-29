@@ -52,18 +52,29 @@ public class ZoomAddon extends MapAddon {
 		map.getVectorContext().drawGroup(group, this);
 
 		Coordinate c = getUpperLeftCorner();
+		PictureStyle pictureStyle = new PictureStyle(1);
+		pictureStyle.setClassName("gm-ZoomStepControl");
 		map.getVectorContext().drawImage(this, "bg", Geomajas.getIsomorphicDir() + "geomajas/mapaddon/zoombg.png",
-				new Bbox(c.getX(), c.getY(), 20, 60), new PictureStyle(1));
+				new Bbox(c.getX(), c.getY(), 20, 60), pictureStyle);
 
+		pictureStyle = new PictureStyle(1);
+		pictureStyle.setClassName("gm-ZoomStepControl-zoomIn");
 		map.getVectorContext().drawImage(this, "plus", Geomajas.getIsomorphicDir() + "geomajas/mapaddon/zoomPlus.png",
-				new Bbox(c.getX(), c.getY(), 20, 20), new PictureStyle(1));
+				new Bbox(c.getX(), c.getY(), 20, 20), pictureStyle);
+		map.getVectorContext().setCursor(this, "plus", Cursor.POINTER.getValue());
 
+		pictureStyle = new PictureStyle(1);
+		pictureStyle.setClassName("gm-ZoomStepControl-zoomOut");
 		map.getVectorContext().drawImage(this, "minus",
 				Geomajas.getIsomorphicDir() + "geomajas/mapaddon/zoomMinus.png",
-				new Bbox(c.getX(), c.getY() + 40, 20, 20), new PictureStyle(1));
+				new Bbox(c.getX(), c.getY() + 40, 20, 20), pictureStyle);
+		map.getVectorContext().setCursor(this, "minus", Cursor.POINTER.getValue());
 
+		pictureStyle = new PictureStyle(1);
+		pictureStyle.setClassName("gm-ZoomStepControl-zoomMax");
 		map.getVectorContext().drawImage(this, "max", Geomajas.getIsomorphicDir() + "geomajas/mapaddon/maxextent.png",
-				new Bbox(c.getX(), c.getY() + 20, 20, 20), new PictureStyle(1));
+				new Bbox(c.getX(), c.getY() + 20, 20, 20), pictureStyle);
+		map.getVectorContext().setCursor(this, "max", Cursor.POINTER.getValue());
 
 		if (firstTime) {
 			map.getVectorContext().setController(this, "plus", new ZoomController(map, 2), Event.MOUSEEVENTS);

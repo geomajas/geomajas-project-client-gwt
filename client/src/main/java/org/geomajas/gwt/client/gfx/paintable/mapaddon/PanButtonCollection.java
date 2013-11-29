@@ -60,18 +60,20 @@ public class PanButtonCollection extends MapAddon {
 		super(id, 50, 50);
 		this.map = map;
 
-		north = new PanButton(getId() + "_panNorth", map, PanButtonDirection.NORTH);
+		north = new PanButton(getId() + "_panNorth", map, PanButtonDirection.NORTH, "gm-PanControl-top");
 		north.setParent(this);
-		east = new PanButton(getId() + "_panEast", map, PanButtonDirection.EAST);
+		east = new PanButton(getId() + "_panEast", map, PanButtonDirection.EAST, "gm-PanControl-right");
 		east.setParent(this);
-		south = new PanButton(getId() + "_panSouth", map, PanButtonDirection.SOUTH);
+		south = new PanButton(getId() + "_panSouth", map, PanButtonDirection.SOUTH, "gm-PanControl-bottom");
 		south.setParent(this);
-		west = new PanButton(getId() + "_panWest", map, PanButtonDirection.WEST);
+		west = new PanButton(getId() + "_panWest", map, PanButtonDirection.WEST, "gm-PanControl-left");
 		west.setParent(this);
 
 		background = new Image(getId() + "_panImageBG");
 		background.setHref(Geomajas.getIsomorphicDir() + "geomajas/mapaddon/panbg.png");
-		background.setStyle(new PictureStyle(1));
+		PictureStyle pictureStyle = new PictureStyle(1);
+		pictureStyle.setClassName("gm-PanControl");
+		background.setStyle(pictureStyle);
 
 		applyPosition();
 	}

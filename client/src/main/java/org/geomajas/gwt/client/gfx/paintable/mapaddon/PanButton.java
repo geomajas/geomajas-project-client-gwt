@@ -78,11 +78,12 @@ public class PanButton extends MapAddon {
 	 * @param direction
 	 *            The direction in which this pan button should move the map.
 	 */
-	public PanButton(String id, MapWidget map, PanButtonDirection direction) {
+	public PanButton(String id, MapWidget map, PanButtonDirection direction, String className) {
 		super(id, 18, 18);
 		this.direction = direction;
 		this.map = map;
 		style = new PictureStyle(0.7);
+		style.setClassName(className);
 		applyDirection();
 	}
 
@@ -105,6 +106,7 @@ public class PanButton extends MapAddon {
 			map.getVectorContext().drawImage(group, getId(), image.getHref(), image.getBounds(),
 					(PictureStyle) image.getStyle());
 		}
+		map.getVectorContext().setCursor(parent, getId(), Cursor.POINTER.getValue());
 	}
 
 	/**
