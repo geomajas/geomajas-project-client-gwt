@@ -65,8 +65,10 @@
 <!--
 		<module>common-gwt-smartgwt</module>
 -->
+<!--
 		<module>smartgwt-archetype</module>
 		<module>archetype</module>
+-->
 		<module>client</module>
 		<module>example-base</module>
 		<module>example</module>
