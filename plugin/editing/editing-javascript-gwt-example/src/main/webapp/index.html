@@ -75,6 +75,8 @@
                 styleService.getEdgeStyle().setStrokeColor("red");
                 styleService.getPointSymbolizerShapeAndSize().setShape("circle");
                 styleService.getPointSymbolizerShapeAndSize().setSize(6);
+                editor.addRemoveSelectedVertexOperation("verwijder");
+                editor.addDeselectAllVertexOperation("deselecteer");
                 factory = new org.geomajas.plugin.editing.handler.GeometryHandlerFactory();
 			}
 

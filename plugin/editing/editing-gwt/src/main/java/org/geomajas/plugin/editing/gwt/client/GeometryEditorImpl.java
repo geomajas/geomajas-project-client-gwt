@@ -25,6 +25,7 @@ import org.geomajas.plugin.editing.client.service.GeometryEditService;
 import org.geomajas.plugin.editing.client.service.GeometryEditServiceImpl;
 import org.geomajas.plugin.editing.client.snap.SnapService;
 import org.geomajas.plugin.editing.gwt.client.controller.EditGeometryBaseController;
+import org.geomajas.plugin.editing.gwt.client.controller.VertexContextMenuController;
 import org.geomajas.plugin.editing.gwt.client.gfx.GeometryRendererImpl;
 import org.geomajas.plugin.editing.gwt.client.gfx.StyleService;
 
@@ -53,6 +54,8 @@ public class GeometryEditorImpl implements GeometryEditor, GeometryEditStartHand
 
 	private boolean zoomOnStart;
 
+	private VertexContextMenuController vertexContextMenuController;
+
 	// Constructors:
 
 	public GeometryEditorImpl(MapWidget mapWidget) {
@@ -60,10 +63,15 @@ public class GeometryEditorImpl implements GeometryEditor, GeometryEditStartHand
 		service = new GeometryEditServiceImpl();
 		service.addGeometryEditStartHandler(this);
 		service.addGeometryEditStopHandler(this);
+		vertexContextMenuController = new VertexContextMenuController(mapWidget, service);
 
 		snappingService = new SnapService();
 		baseController = new EditGeometryBaseController(mapWidget, service, snappingService);
 		renderer = new GeometryRendererImpl(mapWidget, service, baseController);
+		bind();
+	}
+
+	private void bind() {
 
 		snappingService.addCoordinateSnapHandler(renderer);
 
@@ -88,6 +96,9 @@ public class GeometryEditorImpl implements GeometryEditor, GeometryEditStartHand
 
 		service.getIndexStateService().addGeometryIndexSnappingBeginHandler(renderer);
 		service.getIndexStateService().addGeometryIndexSnappingEndHandler(renderer);
+
+		service.getIndexStateService().addGeometryIndexSelectedHandler(vertexContextMenuController);
+		service.getIndexStateService().addGeometryIndexDeselectedHandler(vertexContextMenuController);
 
 		mapWidget.getMapModel().getMapView().addMapViewChangedHandler(new MapViewChangedHandler() {
 
@@ -137,6 +148,11 @@ public class GeometryEditorImpl implements GeometryEditor, GeometryEditStartHand
 	@Override
 	public StyleService getStyleService() {
 		return renderer.getStyleService();
+	}
+
+	@Override
+	public void addVertexOperation(VertexContextMenuController.Operation operation, String displayName) {
+		vertexContextMenuController.addVertexOperation(operation, displayName);
 	}
 
 	public GeometryEditService getEditService() {

@@ -16,6 +16,7 @@ import org.geomajas.gwt.example.base.SamplePanel;
 import org.geomajas.gwt.example.base.SamplePanelFactory;
 import org.geomajas.plugin.editing.gwt.client.GeometryEditor;
 import org.geomajas.plugin.editing.gwt.client.GeometryEditorImpl;
+import org.geomajas.plugin.editing.gwt.client.controller.VertexContextMenuController;
 import org.geomajas.plugin.editing.gwt.client.gfx.PointSymbolizerShapeAndSize;
 import org.geomajas.plugin.editing.gwt.example.client.i18n.EditingMessages;
 import org.geomajas.plugin.editing.gwt.example.client.widget.MenuBar;
@@ -48,6 +49,8 @@ public class EditingPanel extends SamplePanel {
 		final GeometryEditor editor = new GeometryEditorImpl(map);
 		editor.getStyleService().getPointSymbolizerShapeAndSize().setShape(PointSymbolizerShapeAndSize.Shape.CIRCLE);
 		editor.getStyleService().getPointSymbolizerShapeAndSize().setSize(6);
+		editor.addVertexOperation(VertexContextMenuController.Operation.REMOVE_SELECTED, "verwijder punt");
+		editor.addVertexOperation(VertexContextMenuController.Operation.DESELECT_ALL, "deselecteer punt");
 		VLayout layout = new VLayout();
 		MenuBar editingToolStrip = new MenuBar(editor);
 		layout.addMember(editingToolStrip);

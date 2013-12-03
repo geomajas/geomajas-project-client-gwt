@@ -18,6 +18,7 @@ import org.geomajas.gwt.client.map.layer.VectorLayer;
 import org.geomajas.gwt.client.widget.MapWidget;
 import org.geomajas.plugin.editing.gwt.client.GeometryEditor;
 import org.geomajas.plugin.editing.gwt.client.GeometryEditorImpl;
+import org.geomajas.plugin.editing.gwt.client.controller.VertexContextMenuController;
 import org.geomajas.plugin.editing.gwt.client.snap.SnapRuleUtil;
 import org.geomajas.plugin.editing.jsapi.client.gfx.JsGeometryRenderer;
 import org.geomajas.plugin.editing.jsapi.client.merge.JsGeometryMergeService;
@@ -219,4 +220,21 @@ public class JsGeometryEditor implements Exportable {
 		return delegate;
 	}
 
+	/**
+	 * Add a delete operation to the vertex context menu.
+	 *
+	 * @param displayName the display name in the context menu.
+	 */
+	public void addRemoveSelectedVertexOperation(String displayName) {
+		delegate.addVertexOperation(VertexContextMenuController.Operation.REMOVE_SELECTED, displayName);
+	}
+
+	/**
+	 * Add a deselect operation to the vertex context menu.
+	 *
+	 * @param displayName the display name in the context menu.
+	 */
+	public void addDeselectAllVertexOperation(String displayName) {
+		delegate.addVertexOperation(VertexContextMenuController.Operation.DESELECT_ALL, displayName);
+	}
 }
