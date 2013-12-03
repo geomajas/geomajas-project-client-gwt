@@ -58,6 +58,7 @@
 			var factory; // GeometryHandlerFactory for deleting rings
 			var deleteFromPoint; // HandlerRegistration for delete from point
 			var infoHandler; // HandlerRegistration for delete from point
+			var infoHandlerWithHtmlCallback; // HandlerRegistration for delete from point
 			var labelHandler; // HandlerRegistration for delete from point
 			var labelFlag = false;
 			var infoFlag = false;
@@ -74,6 +75,7 @@
                 styleService.getEdgeStyle().setStrokeColor("red");
                 styleService.getPointSymbolizerShapeAndSize().setShape("circle");
                 styleService.getPointSymbolizerShapeAndSize().setSize(6);
+                factory = new org.geomajas.plugin.editing.handler.GeometryHandlerFactory();
 			}
 
 			function cancel() {
@@ -124,11 +126,12 @@
                 service.stop();
 				var geometry = new org.geomajas.jsapi.spatial.Geometry("Polygon", 0, 0);
 				infoHandler = new org.geomajas.plugin.editing.gfx.InfoHandler(editor);
+                infoHandlerWithHtmlCallback = new org.geomajas.plugin.editing.gfx.InfoHandlerWithHtmlCallback(editor);
 				labelHandler = new org.geomajas.plugin.editing.gfx.LabelHandler(editor);
-				infoHandler.setTitleCallBack(function() {
+                infoHandlerWithHtmlCallback.setTitleCallBack(function() {
 					return "Geometrie eigenschappen";
 				});
-				infoHandler.setHtmlCallBack(function(geometry, cd, ca, cb) {
+                infoHandlerWithHtmlCallback.setHtmlCallBack(function(geometry, cd, ca, cb) {
 					if(geometry) {
 						var type = geometry.getGeometryType();
 						var points = Geomajas().getGeometryService().getNumPoints(geometry);
@@ -153,6 +156,28 @@
 					content += "</table>";					
 					return content;
 				});
+                infoHandler.addInfoListener(function(geometry, cd, ca, cb) {
+                    if(geometry) {
+                        var type = geometry.getGeometryType();
+                        var points = Geomajas().getGeometryService().getNumPoints(geometry);
+                        var area = Geomajas().getGeometryService().getArea(geometry);
+                        var length = Geomajas().getGeometryService().getLength(geometry);
+                        var lengthA = "";
+                        var lengthB = "";
+                        if(ca) {
+                            var lengthA = cd.distance(ca);
+                        }
+                        if(cb) {
+                            var lengthB = cd.distance(cb);
+                        }
+                        document.getElementById("infoType").innerHTML = type;
+                        document.getElementById("infoPoints").innerHTML = points;
+                        document.getElementById("infoOpp").innerHTML = area;
+                        document.getElementById("infoLengte").innerHTML = length;
+                        document.getElementById("infoLengteA").innerHTML = lengthA;
+                        document.getElementById("infoLengteB").innerHTML = lengthB;
+                    }
+                });
 				infoHandler.register();
 				labelHandler.register();
 				
@@ -180,8 +205,17 @@
 				}
 				infoFlag = !infoFlag;
 			}
-			
-			function insertHole() {
+
+            function toggleInfoHtmlPanelOnMap() {
+                if(infoFlag) {
+                    infoHandlerWithHtmlCallback.register();
+                } else {
+                    infoHandlerWithHtmlCallback.unregister();
+                }
+                infoFlag = !infoFlag;
+            }
+
+            function insertHole() {
 				var geometry = service.getGeometry();
 				var ringIndex = service.addEmptyChild();
 				var index = service.getIndexService().create("vertex", [ringIndex.getValue(), 0]);
@@ -296,6 +330,7 @@
 			<button onclick="registerDeleteHole()">Register hole deletion</button>
 			<button onclick="unRegisterDeleteHole()">Unregister hole deletion</button>
 			<button onclick="toggleInfo()">Toggle info</button>
+            <button onclick="toggleInfoHtmlPanelOnMap()">Toggle info panel on map</button>
 			<button onclick="toggleLabel()">Toggle label</button>
 		</div>
 		
@@ -312,6 +347,17 @@
 						<button id="cancel" onclick="cancel()">Cancel</button><br/>
 						<button id="undo" onclick="undo()">Undo</button><br/>
 						<button id="redo" onclick="redo()">Redo</button>
+                        <div>
+                            <h6 id="infoHeader"></h6>
+                            <table>
+                                <tr><td>Type</td><td id="infoType"></td></tr>
+                                <tr><td>Aantal punten</td><td><p id="infoPoints"></p></td></tr>
+                                <tr><td>Oppervlakte</td><td id="infoOpp"></td></tr>
+                                <tr><td>Lengte</td><td id="infoLengte"></td></tr>
+                                <tr><td>Lengte A</td><td id="infoLengteA"></td></tr>
+                                <tr><td>Lengte B</td><td id="infoLengteB"></td></tr>
+                            </table>
+                        </div>
 					</div>
 				</td>
 			</tr>

@@ -10,11 +10,11 @@
  */
 package org.geomajas.plugin.editing.jsapi.gwt.client.gfx;
 
+import com.google.gwt.event.shared.EventBus;
+import com.google.gwt.event.shared.SimpleEventBus;
 import org.geomajas.annotation.Api;
-import org.geomajas.geometry.Coordinate;
-import org.geomajas.geometry.Geometry;
 import org.geomajas.plugin.editing.gwt.client.GeometryEditor;
-import org.geomajas.plugin.editing.gwt.client.gfx.InfoProvider;
+import org.geomajas.plugin.editing.gwt.client.event.InfoDragLineChangedEvent;
 import org.geomajas.plugin.editing.gwt.client.handler.InfoDragLineHandler;
 import org.geomajas.plugin.editing.jsapi.gwt.client.JsGeometryEditor;
 import org.timepedia.exporter.client.Export;
@@ -22,24 +22,25 @@ import org.timepedia.exporter.client.ExportPackage;
 import org.timepedia.exporter.client.Exportable;
 
 /**
- * JavaScript wrapper of {@link InfoDragLineHandler}.
+ * JavaScript wrapper of {@link org.geomajas.plugin.editing.gwt.client.handler.InfoDragLineHandler}.
  * 
  * @author Jan De Moerloose
+ * @author Jan Venstermans
  * @since 1.0.0
  * 
  */
 @Export("InfoHandler")
 @ExportPackage("org.geomajas.plugin.editing.gfx")
 @Api(allMethods = true)
-public class JsInfoHandler implements Exportable, InfoProvider {
+public class JsInfoHandler implements Exportable, InfoDragLineChangedEvent.Handler {
 
 	private InfoDragLineHandler delegate;
 
 	private GeometryEditor editor;
 
-	private TitleCallback titleCallback;
+	private InfoChangedListener infoLineCallback;
 
-	private HtmlCallback htmlCallback;
+	private EventBus eventBus;
 
 	/**
 	 * Needed for exporter.
@@ -55,7 +56,9 @@ public class JsInfoHandler implements Exportable, InfoProvider {
 	@Export
 	public JsInfoHandler(JsGeometryEditor jsEditor) {
 		editor = jsEditor.getDelegate();
-		delegate = new InfoDragLineHandler(editor.getMapWidget(), editor.getEditService());
+		eventBus = new SimpleEventBus();
+		eventBus.addHandler(InfoDragLineChangedEvent.getType(), this);
+		delegate = new InfoDragLineHandler(editor.getMapWidget(), editor.getEditService(), eventBus);
 	}
 
 	/**
@@ -73,32 +76,6 @@ public class JsInfoHandler implements Exportable, InfoProvider {
 	}
 
 	/**
-	 * Make the info window visible.
-	 * 
-	 * @param visible
-	 */
-	public void setVisible(boolean visible) {
-		delegate.setVisible(visible);
-	}
-
-	/**
-	 * @see #setVisible(boolean)
-	 * @return true if visible
-	 */
-	public boolean isVisible() {
-		return delegate.isVisible();
-	}
-
-	/**
-	 * Set whether the info window should be closeable by the end user.
-	 * 
-	 * @param showClose true if closeable, false otherwise
-	 */
-	public void setShowClose(boolean showClose) {
-		delegate.setShowClose(showClose);
-	}
-
-	/**
 	 * Return whether this handler is registered with the editor.
 	 * 
 	 * @return true if registered
@@ -108,41 +85,18 @@ public class JsInfoHandler implements Exportable, InfoProvider {
 	}
 
 	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	@Export
-	public String getTitle() {
-		return titleCallback == null ? "" : titleCallback.execute();
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	@Export
-	public String getHtml(Geometry geometry, Coordinate dragPoint, Coordinate startA, Coordinate startB) {
-		return htmlCallback == null ? "" : htmlCallback.execute(geometry, dragPoint, startA, startB);
-	}
-
-	/**
-	 * Set the callback closure to get the window title.
-	 * 
-	 * @param titleCallback the callback
-	 */
-	public void setTitleCallBack(TitleCallback titleCallback) {
-		this.titleCallback = titleCallback;
-		delegate.setInfoProvider(this);
-	}
-
-	/**
 	 * Set the callback closure to get the HTML content.
-	 * 
-	 * @param titleCallback the callback
+	 *
+	 * @param infoLineCallback the info of
 	 */
-	public void setHtmlCallBack(HtmlCallback htmlCallback) {
-		this.htmlCallback = htmlCallback;
-		delegate.setInfoProvider(this);
+	public void addInfoListener(InfoChangedListener infoLineCallback) {
+		this.infoLineCallback = infoLineCallback;
+	}
+
+	@Override
+	public void onChanged(InfoDragLineChangedEvent event) {
+		infoLineCallback.onInfoChanged(event.getGeometry(), event.getDragPoint(),
+				event.getStartA(), event.getStartB());
 	}
 
 }
