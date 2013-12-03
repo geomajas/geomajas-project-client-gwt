@@ -19,6 +19,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
+import org.geomajas.global.GeomajasConstant;
 import org.geomajas.gwt.client.command.AbstractCommandCallback;
 import org.geomajas.gwt.client.command.GwtCommand;
 import org.geomajas.gwt.client.command.GwtCommandDispatcher;
@@ -51,6 +52,12 @@ public final class SearchCommService {
 
 	// CHECKSTYLE VISIBILITY MODIFIER: ON
 	
+	// CHECKSTYLE VISIBILITY MODIFIER: OFF
+	
+	/** Feature includes for searches. */
+	public static int featureIncludes = GeomajasConstant.FEATURE_INCLUDE_ATTRIBUTES;
+
+	// CHECKSTYLE VISIBILITY MODIFIER: ON
 	/**
 	 * Utility class, hide constructor.
 	 */
@@ -193,7 +200,7 @@ public final class SearchCommService {
 		request.setMapCrs(mapWidget.getMapModel().getCrs());
 		request.setCriterion(criterion);
 		request.setLayerFilters(getLayerFiltersForCriterion(criterion, mapWidget.getMapModel()));
-		request.setFeatureIncludes(GwtCommandDispatcher.getInstance().getLazyFeatureIncludesSelect());
+		request.setFeatureIncludes(featureIncludes);
 		request.setMax(searchResultSize);
 
 		GwtCommand commandRequest = new GwtCommand(FeatureSearchRequest.COMMAND);
