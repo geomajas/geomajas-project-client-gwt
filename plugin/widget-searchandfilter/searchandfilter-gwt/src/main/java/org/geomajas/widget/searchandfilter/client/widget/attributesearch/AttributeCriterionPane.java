@@ -42,7 +42,7 @@ import com.smartgwt.client.widgets.form.fields.events.ChangedHandler;
 public class AttributeCriterionPane extends Canvas {
 
 	private static final String CQL_WILDCARD = "*";
-	private static final String CQL_TIME_FORMAT = "yyyy-MM-dd'T'HH:mm:ss'Z'";
+	private static final String CQL_TIME_FORMAT = "yyyy-MM-dd'T'HH:mm:ssZZZ";
 	private static final String ID_SUFFIX = ".@id";
 
 	private SelectItem attributeSelect;
@@ -141,27 +141,24 @@ public class AttributeCriterionPane extends Canvas {
 
 			if (selectedAttribute instanceof PrimitiveAttributeInfo) {
 				PrimitiveAttributeInfo attr = (PrimitiveAttributeInfo) selectedAttribute;
-
-//				if (attr.getType().equals(PrimitiveType.STRING) || attr.getType().equals(PrimitiveType.IMGURL)
-//						|| attr.getType().equals(PrimitiveType.URL)) {
-//					// In case of a string, add quotes:
-//					valueString = "'" + valueString + "'";
-//			} else if (attr.getType().equals(PrimitiveType.DATE)) {
-
 				if (attr.getType().equals(PrimitiveType.DATE)) {
 					if (value instanceof Date) {
 						// In case of a date, parse correctly for CQL: 2006-11-30T01:30:00Z
 						DateTimeFormat format = DateTimeFormat.getFormat(CQL_TIME_FORMAT);
-
+						valueString = format.format((Date) value);
 						if ("=".equals(operatorString)) {
-							// Date equals not supported by CQL, so we use the DURING operator instead:
+							// Date equals not supported by CQL, so we use the DURING operator instead and
+							// create a day period for this day (browser time zone !)
 							operatorString = "DURING";
-							Date date1 = (Date) value;
-							Date date2 = new Date(date1.getTime() + 86400000); // total milliseconds in a day
-							valueString = format.format(date1) + "/" + format.format(date2);
-						} else {
-							// format the date:
-							valueString = format.format((Date) value);
+							String startOfDay = valueString.replaceAll("\\d\\d:\\d\\d:\\d\\d", "00:00:00");
+							// 1 day period, starting at 0h00
+							valueString = startOfDay + "/P1D";
+						} else if ("AFTER".equals(operatorString)) {
+							// we can't discriminate between date and timestamp values yet, use end of day for now
+							valueString = valueString.replaceAll("\\d\\d:\\d\\d:\\d\\d", "23:59:59");
+						} else if ("BEFORE".equals(operatorString)) {
+							// we can't discriminate between date and timestamp values yet, use start of day for now
+							valueString = valueString.replaceAll("\\d\\d:\\d\\d:\\d\\d", "00:00:00");
 						}
 					}
 				}
