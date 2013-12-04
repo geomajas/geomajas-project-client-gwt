@@ -11,6 +11,8 @@
 
 package org.geomajas.plugin.editing.gwt.client;
 
+import com.google.gwt.event.shared.EventBus;
+import com.google.gwt.event.shared.SimpleEventBus;
 import org.geomajas.gwt.client.controller.GraphicsController;
 import org.geomajas.gwt.client.map.event.MapViewChangedEvent;
 import org.geomajas.gwt.client.map.event.MapViewChangedHandler;
@@ -21,6 +23,7 @@ import org.geomajas.plugin.editing.client.event.GeometryEditStartHandler;
 import org.geomajas.plugin.editing.client.event.GeometryEditStopEvent;
 import org.geomajas.plugin.editing.client.event.GeometryEditStopHandler;
 import org.geomajas.plugin.editing.client.gfx.GeometryRenderer;
+import org.geomajas.plugin.editing.client.handler.AbstractGeometryIndexMapHandler;
 import org.geomajas.plugin.editing.client.service.GeometryEditService;
 import org.geomajas.plugin.editing.client.service.GeometryEditServiceImpl;
 import org.geomajas.plugin.editing.client.snap.SnapService;
@@ -28,6 +31,7 @@ import org.geomajas.plugin.editing.gwt.client.controller.EditGeometryBaseControl
 import org.geomajas.plugin.editing.gwt.client.controller.VertexContextMenuController;
 import org.geomajas.plugin.editing.gwt.client.gfx.GeometryRendererImpl;
 import org.geomajas.plugin.editing.gwt.client.gfx.StyleService;
+import org.geomajas.plugin.editing.gwt.client.handler.GeometryIndexMouseInMouseOutHandler;
 
 /**
  * Top level geometry editor for the GWT face.
@@ -50,6 +54,9 @@ public class GeometryEditorImpl implements GeometryEditor, GeometryEditStartHand
 
 	private boolean isBusyEditing;
 
+	// this is an extra eventBus (not the same as the editingService) used for custom events/handlers.
+	private EventBus geometryEditorSpecificEventbus;
+
 	// Options:
 
 	private boolean zoomOnStart;
@@ -68,6 +75,7 @@ public class GeometryEditorImpl implements GeometryEditor, GeometryEditStartHand
 		snappingService = new SnapService();
 		baseController = new EditGeometryBaseController(mapWidget, service, snappingService);
 		renderer = new GeometryRendererImpl(mapWidget, service, baseController);
+		geometryEditorSpecificEventbus = new SimpleEventBus();
 		bind();
 	}
 
@@ -111,6 +119,9 @@ public class GeometryEditorImpl implements GeometryEditor, GeometryEditStartHand
 				service.getIndexStateService().highlightEndAll();
 			}
 		});
+
+		renderer.addVertexHandlerFactory(new GeometryIndexMouseInMouseOutHandler(geometryEditorSpecificEventbus));
+		renderer.addEdgeHandlerFactory(new GeometryIndexMouseInMouseOutHandler(geometryEditorSpecificEventbus));
 	}
 
 	// GeometryEditWorkflowHandler implementation:
@@ -153,6 +164,21 @@ public class GeometryEditorImpl implements GeometryEditor, GeometryEditStartHand
 	@Override
 	public void addVertexOperation(VertexContextMenuController.Operation operation, String displayName) {
 		vertexContextMenuController.addVertexOperation(operation, displayName);
+	}
+
+	@Override
+	public void addVertexHandlerFactory(AbstractGeometryIndexMapHandler handler) {
+		renderer.addVertexHandlerFactory(handler);
+	}
+
+	@Override
+	public void addEdgeHandlerFactory(AbstractGeometryIndexMapHandler handler) {
+		renderer.addEdgeHandlerFactory(handler);
+	}
+
+	@Override
+	public EventBus getGeometryEditorSpecificEventbus() {
+		return geometryEditorSpecificEventbus;
 	}
 
 	public GeometryEditService getEditService() {

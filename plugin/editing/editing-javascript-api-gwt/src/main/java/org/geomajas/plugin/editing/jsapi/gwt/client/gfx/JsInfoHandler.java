@@ -17,6 +17,7 @@ import org.geomajas.plugin.editing.gwt.client.GeometryEditor;
 import org.geomajas.plugin.editing.gwt.client.event.InfoDragLineChangedEvent;
 import org.geomajas.plugin.editing.gwt.client.handler.InfoDragLineHandler;
 import org.geomajas.plugin.editing.jsapi.gwt.client.JsGeometryEditor;
+import org.geomajas.plugin.editing.jsapi.gwt.client.listener.InfoChangedListener;
 import org.timepedia.exporter.client.Export;
 import org.timepedia.exporter.client.ExportPackage;
 import org.timepedia.exporter.client.Exportable;

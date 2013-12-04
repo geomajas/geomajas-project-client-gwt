@@ -10,8 +10,10 @@
  */
 package org.geomajas.plugin.editing.gwt.client;
 
+import com.google.gwt.event.shared.EventBus;
 import org.geomajas.gwt.client.widget.MapWidget;
 import org.geomajas.plugin.editing.client.BaseGeometryEditor;
+import org.geomajas.plugin.editing.client.handler.AbstractGeometryIndexMapHandler;
 import org.geomajas.plugin.editing.gwt.client.controller.VertexContextMenuController;
 import org.geomajas.plugin.editing.gwt.client.gfx.StyleService;
 
@@ -38,4 +40,11 @@ public interface GeometryEditor extends BaseGeometryEditor {
 	StyleService getStyleService();
 
 	void addVertexOperation(VertexContextMenuController.Operation operation, String displayName) ;
+
+	void addVertexHandlerFactory(final AbstractGeometryIndexMapHandler handler);
+
+	void addEdgeHandlerFactory(AbstractGeometryIndexMapHandler handler);
+
+	EventBus getGeometryEditorSpecificEventbus();
+
 }

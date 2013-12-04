@@ -189,7 +189,29 @@
                 });
 				infoHandler.register();
 				labelHandler.register();
-				
+
+                indexMouseOverOutHandler = new org.geomajas.plugin.editing.handler.InfoMouseOverOutHandler(editor);
+                indexMouseOverOutHandler.addVertexMouseOverListener(function(geometryIndex) {
+                    if(geometryIndex) {
+                        document.getElementById("indexMouseOverOut").innerHTML = "mouse over vertex";
+                    }
+                });
+                indexMouseOverOutHandler.addVertexMouseOutListener(function(geometryIndex) {
+                    if(geometryIndex) {
+                        document.getElementById("indexMouseOverOut").innerHTML = "";
+                    }
+                });
+                indexMouseOverOutHandler.addEdgeMouseOverListener(function(geometryIndex) {
+                    if(geometryIndex) {
+                        document.getElementById("indexMouseOverOut").innerHTML = "mouse over edge";
+                    }
+                });
+                indexMouseOverOutHandler.addEdgeMouseOutListener(function(geometryIndex) {
+                    if(geometryIndex) {
+                        document.getElementById("indexMouseOverOut").innerHTML = "";
+                    }
+                });
+
 				service.start(geometry);
 				service.addEmptyChild();
 				var index = service.getIndexService().create("vertex", [0, 0]);
@@ -367,6 +389,7 @@
                                 <tr><td>Lengte B</td><td id="infoLengteB"></td></tr>
                             </table>
                         </div>
+                        <p id="indexMouseOverOut"></p>
 					</div>
 				</td>
 			</tr>

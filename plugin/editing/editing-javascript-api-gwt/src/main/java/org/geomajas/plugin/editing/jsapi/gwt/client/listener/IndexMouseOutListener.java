@@ -8,11 +8,10 @@
  * by the Geomajas Contributors License Agreement. For full licensing
  * details, see LICENSE.txt in the project root.
  */
-package org.geomajas.plugin.editing.jsapi.gwt.client.gfx;
+package org.geomajas.plugin.editing.jsapi.gwt.client.listener;
 
 import org.geomajas.annotation.Api;
-import org.geomajas.geometry.Coordinate;
-import org.geomajas.geometry.Geometry;
+import org.geomajas.plugin.editing.client.service.GeometryIndex;
 import org.timepedia.exporter.client.Export;
 import org.timepedia.exporter.client.ExportClosure;
 import org.timepedia.exporter.client.ExportPackage;
@@ -27,18 +26,15 @@ import org.timepedia.exporter.client.Exportable;
  * 
  */
 @Export
-@ExportPackage("org.geomajas.plugin.editing.gfx")
+@ExportPackage("org.geomajas.plugin.editing.listener")
 @ExportClosure
 @Api(allMethods = true)
-public interface InfoChangedListener extends Exportable {
+public interface IndexMouseOutListener extends Exportable {
 
 	/**
 	 * Get the HTML content of the informational panel.
 	 * 
-	 * @param geometry the edited geometry
-	 * @param dragPoint the drag point (or null if not dragging/inserting)
-	 * @param startA the start point of the first drag line (or null if not dragging/inserting)
-	 * @param startB the start point of the second drag line (or null if not dragging/inserting)
+	 * @param geometryIndex the geometryIndex
 	 */
-	void onInfoChanged(Geometry geometry, Coordinate dragPoint, Coordinate startA, Coordinate startB);
+	void onMouseOut(GeometryIndex geometryIndex);
 }
