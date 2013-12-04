@@ -11,19 +11,24 @@
 
 package org.geomajas.plugin.editing.gwt.example.client;
 
+import com.google.gwt.core.client.GWT;
+import com.smartgwt.client.widgets.Canvas;
+import com.smartgwt.client.widgets.layout.VLayout;
+import org.geomajas.gwt.client.map.event.MapModelChangedEvent;
+import org.geomajas.gwt.client.map.event.MapModelChangedHandler;
 import org.geomajas.gwt.client.widget.MapWidget;
 import org.geomajas.gwt.example.base.SamplePanel;
 import org.geomajas.gwt.example.base.SamplePanelFactory;
+import org.geomajas.plugin.editing.client.snap.SnapSourceProvider;
+import org.geomajas.plugin.editing.client.snap.algorithm.NearestEdgeSnapAlgorithm;
+import org.geomajas.plugin.editing.client.snap.algorithm.NearestVertexSnapAlgorithm;
 import org.geomajas.plugin.editing.gwt.client.GeometryEditor;
 import org.geomajas.plugin.editing.gwt.client.GeometryEditorImpl;
 import org.geomajas.plugin.editing.gwt.client.controller.VertexContextMenuController;
 import org.geomajas.plugin.editing.gwt.client.gfx.PointSymbolizerShapeAndSize;
+import org.geomajas.plugin.editing.gwt.client.snap.VectorLayerSourceProvider;
 import org.geomajas.plugin.editing.gwt.example.client.i18n.EditingMessages;
 import org.geomajas.plugin.editing.gwt.example.client.widget.MenuBar;
-
-import com.google.gwt.core.client.GWT;
-import com.smartgwt.client.widgets.Canvas;
-import com.smartgwt.client.widgets.layout.VLayout;
 
 /**
  * Entry point and main class for GWT application. This class defines the layout and functionality of this application.
@@ -31,7 +36,7 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * @author Pieter De Graef
  * @author Jan Venstermans
  */
-public class EditingPanel extends SamplePanel {
+public class EditingPanel extends SamplePanel implements MapModelChangedHandler {
 
 	public static final String TITLE = "gepEditing";
 
@@ -44,10 +49,14 @@ public class EditingPanel extends SamplePanel {
 		}
 	};
 
+	private GeometryEditor editor;
+
+	private MapWidget map;
+
 	@Override
 	public Canvas getViewPanel() {
-		final MapWidget map = new MapWidget("mapGepEditing", "appEditing");
-		final GeometryEditor editor = new GeometryEditorImpl(map);
+		map = new MapWidget("mapGepEditing", "appEditing");
+		editor = new GeometryEditorImpl(map);
 
 		// set shape and size of point symbolizer
 		editor.getStyleService().getPointSymbolizerShapeAndSize().setShape(PointSymbolizerShapeAndSize.Shape.CIRCLE);
@@ -65,6 +74,8 @@ public class EditingPanel extends SamplePanel {
 		layout.addMember(editingToolStrip);
 		layout.addMember(map);
 		layout.setHeight("100%");
+
+		map.getMapModel().addMapModelChangedHandler(this);
 
 		return layout;
 	}
@@ -89,4 +100,14 @@ public class EditingPanel extends SamplePanel {
 		return "luc";
 	}
 
+	@Override
+	public void onMapModelChanged(MapModelChangedEvent event) {
+		editor.getSnappingService().clearSnappingRules();
+		SnapSourceProvider snapSourceProvider = new VectorLayerSourceProvider(editor.getMapWidget().getMapModel()
+				.getVectorLayer("clientLayerGepCountries"));
+		editor.setSnapOnInsert(true);
+		editor.setSnapOnDrag(true);
+		editor.getSnappingService().addSnappingRule(new NearestVertexSnapAlgorithm(), snapSourceProvider, 200000, true);
+		editor.getSnappingService().addSnappingRule(new NearestEdgeSnapAlgorithm(), snapSourceProvider, 100000, false);
+	}
 }

@@ -34,6 +34,10 @@
 					editor.addLayerSnappingRules("clientLayerCountries");
 					editor.setSnapOnDrag(true);
 					editor.setSnapOnInsert(true);
+                    var snapService = editor.getSnapService();
+                    snapService.clearSnappingRules();
+                    snapService.addNearestVertexSnappingRule("clientLayerCountries", 100000, true);
+                    snapService.addNearestEdgeSnappingRule("clientLayerCountries", 50000, false);
 				});
 			}
 
