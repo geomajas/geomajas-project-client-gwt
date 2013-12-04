@@ -17,7 +17,13 @@ import com.smartgwt.client.widgets.menu.Menu;
 import com.smartgwt.client.widgets.menu.MenuItem;
 import com.smartgwt.client.widgets.menu.events.ClickHandler;
 import com.smartgwt.client.widgets.menu.events.MenuItemClickEvent;
+import org.geomajas.geometry.Coordinate;
+import org.geomajas.geometry.Geometry;
+import org.geomajas.geometry.service.BboxService;
+import org.geomajas.geometry.service.GeometryService;
 import org.geomajas.gwt.client.action.menu.AboutAction;
+import org.geomajas.gwt.client.map.MapView;
+import org.geomajas.gwt.client.spatial.Bbox;
 import org.geomajas.gwt.client.widget.MapWidget;
 import org.geomajas.plugin.editing.client.event.state.GeometryIndexDeselectedEvent;
 import org.geomajas.plugin.editing.client.event.state.GeometryIndexDeselectedHandler;
@@ -25,8 +31,13 @@ import org.geomajas.plugin.editing.client.event.state.GeometryIndexSelectedEvent
 import org.geomajas.plugin.editing.client.event.state.GeometryIndexSelectedHandler;
 import org.geomajas.plugin.editing.client.operation.GeometryOperationFailedException;
 import org.geomajas.plugin.editing.client.service.GeometryEditService;
+import org.geomajas.plugin.editing.client.service.GeometryIndex;
+import org.geomajas.plugin.editing.client.service.GeometryIndexNotFoundException;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -114,7 +125,8 @@ public class VertexContextMenuController implements GeometryIndexSelectedHandler
 	 *
 	 */
 	public enum Operation {
-		REMOVE_SELECTED, DESELECT_ALL;
+		REMOVE_SELECTED, DESELECT_ALL,
+		ZOOM_IN, ZOOM_OUT, ZOOM_TO_FULL_OBJECT;
 	}
 
 	public void addVertexOperation(VertexContextMenuController.Operation operation, String displayName) {
@@ -145,11 +157,41 @@ public class VertexContextMenuController implements GeometryIndexSelectedHandler
 					case DESELECT_ALL:
 						service.getIndexStateService().deselectAll();
 						break;
+					case ZOOM_IN:
+						map.getMapModel().getMapView().scale(2.0, MapView.ZoomOption.LEVEL_CHANGE,
+								getCenterOfSelected());
+						break;
+					case ZOOM_OUT:
+						map.getMapModel().getMapView().scale(0.5, MapView.ZoomOption.LEVEL_CHANGE,
+								getCenterOfSelected());
+						break;
+					case ZOOM_TO_FULL_OBJECT:
+						map.getMapModel().getMapView().applyBounds(getBboxOfSelectedGeometry(),
+								MapView.ZoomOption.LEVEL_FIT);
+						break;
 					default:
 						break;
 				}
 		} catch (GeometryOperationFailedException e) {
 			e.printStackTrace();
 		}
+	}
+
+	private Bbox getBboxOfSelectedGeometry() {
+		return new Bbox(GeometryService.getBounds(service.getGeometry()));
+	}
+
+	private Coordinate getCenterOfSelected() {
+		List<Coordinate> coordinates = new ArrayList<Coordinate>();
+		for (GeometryIndex index : service.getIndexStateService().getSelection()) {
+			try {
+				coordinates.add(service.getIndexService().getVertex(service.getGeometry(), index));
+			} catch (GeometryIndexNotFoundException e) {
+				e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+			}
+		}
+		Geometry geomSelectedPointsDummy = new Geometry();
+		geomSelectedPointsDummy.setCoordinates(coordinates.toArray(new Coordinate[coordinates.size()]));
+		return BboxService.getCenterPoint(GeometryService.getBounds(geomSelectedPointsDummy)) ;
 	}
 }

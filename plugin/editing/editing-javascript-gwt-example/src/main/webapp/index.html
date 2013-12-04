@@ -75,8 +75,15 @@
                 styleService.getEdgeStyle().setStrokeColor("red");
                 styleService.getPointSymbolizerShapeAndSize().setShape("circle");
                 styleService.getPointSymbolizerShapeAndSize().setSize(6);
-                editor.addRemoveSelectedVertexOperation("verwijder");
-                editor.addDeselectAllVertexOperation("deselecteer");
+
+                // customize context menu when vertex is selected
+                vertexContextMenuRegistry = editor.getVertexContextMenuRegistry();
+                vertexContextMenuRegistry.addRemoveSelectedVertexOperation("delete");
+                vertexContextMenuRegistry.addDeselectAllVertexOperation("deselect");
+                vertexContextMenuRegistry.addZoomInVertexOperation("zoom in");
+                vertexContextMenuRegistry.addZoomOutVertexOperation("zoom out");
+                vertexContextMenuRegistry.addZoomToFullObjectVertexOperation("zoom to full object");
+
                 factory = new org.geomajas.plugin.editing.handler.GeometryHandlerFactory();
 			}
 

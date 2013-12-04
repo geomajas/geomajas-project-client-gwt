@@ -18,12 +18,12 @@ import org.geomajas.gwt.client.map.layer.VectorLayer;
 import org.geomajas.gwt.client.widget.MapWidget;
 import org.geomajas.plugin.editing.gwt.client.GeometryEditor;
 import org.geomajas.plugin.editing.gwt.client.GeometryEditorImpl;
-import org.geomajas.plugin.editing.gwt.client.controller.VertexContextMenuController;
 import org.geomajas.plugin.editing.gwt.client.snap.SnapRuleUtil;
 import org.geomajas.plugin.editing.jsapi.client.gfx.JsGeometryRenderer;
 import org.geomajas.plugin.editing.jsapi.client.merge.JsGeometryMergeService;
 import org.geomajas.plugin.editing.jsapi.client.service.JsGeometryEditService;
 import org.geomajas.plugin.editing.jsapi.client.split.JsGeometrySplitService;
+import org.geomajas.plugin.editing.jsapi.gwt.client.contectmenu.JsVertexContextMenuRegistry;
 import org.geomajas.plugin.editing.jsapi.gwt.client.gfx.JsStyleService;
 import org.geomajas.plugin.jsapi.client.map.Map;
 import org.geomajas.plugin.jsapi.gwt.client.exporter.map.MapImpl;
@@ -36,6 +36,7 @@ import org.timepedia.exporter.client.NoExport;
  * Central geometry editor for the JavaScript API on top of the GWT face.
  * 
  * @author Pieter De Graef
+ * @author Jan Venstermans
  * @since 1.0.0
  */
 @Export("GeometryEditor")
@@ -59,6 +60,8 @@ public class JsGeometryEditor implements Exportable {
 
 	private JsGeometryRenderer renderer;
 
+	private JsVertexContextMenuRegistry vertexContextMenuRegistry;
+
 	/**
 	 * Needed for Gwt exporter.
 	 */
@@ -79,6 +82,7 @@ public class JsGeometryEditor implements Exportable {
 		mergeService = new JsGeometryMergeService();
 		renderer = new JsGeometryRenderer(delegate.getRenderer());
 		styleService = new JsStyleService(delegate.getStyleService());
+		vertexContextMenuRegistry = new JsVertexContextMenuRegistry(this);
 	}
 
 	/**
@@ -221,20 +225,11 @@ public class JsGeometryEditor implements Exportable {
 	}
 
 	/**
-	 * Add a delete operation to the vertex context menu.
+	 * Get wrapper for the style service.
 	 *
-	 * @param displayName the display name in the context menu.
+	 * @return the renderer
 	 */
-	public void addRemoveSelectedVertexOperation(String displayName) {
-		delegate.addVertexOperation(VertexContextMenuController.Operation.REMOVE_SELECTED, displayName);
-	}
-
-	/**
-	 * Add a deselect operation to the vertex context menu.
-	 *
-	 * @param displayName the display name in the context menu.
-	 */
-	public void addDeselectAllVertexOperation(String displayName) {
-		delegate.addVertexOperation(VertexContextMenuController.Operation.DESELECT_ALL, displayName);
+	public JsVertexContextMenuRegistry getVertexContextMenuRegistry() {
+		return vertexContextMenuRegistry;
 	}
 }
