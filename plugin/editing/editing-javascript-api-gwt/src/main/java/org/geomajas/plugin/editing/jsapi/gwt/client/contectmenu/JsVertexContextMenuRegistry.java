@@ -10,15 +10,10 @@
  */
 package org.geomajas.plugin.editing.jsapi.gwt.client.contectmenu;
 
-import com.google.gwt.event.shared.EventBus;
-import com.google.gwt.event.shared.SimpleEventBus;
 import org.geomajas.annotation.Api;
 import org.geomajas.plugin.editing.gwt.client.GeometryEditor;
 import org.geomajas.plugin.editing.gwt.client.controller.VertexContextMenuController;
-import org.geomajas.plugin.editing.gwt.client.event.InfoDragLineChangedEvent;
-import org.geomajas.plugin.editing.gwt.client.handler.InfoDragLineHandler;
 import org.geomajas.plugin.editing.jsapi.gwt.client.JsGeometryEditor;
-import org.geomajas.plugin.editing.jsapi.gwt.client.gfx.InfoChangedListener;
 import org.timepedia.exporter.client.Export;
 import org.timepedia.exporter.client.ExportPackage;
 import org.timepedia.exporter.client.Exportable;
