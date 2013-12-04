@@ -31,6 +31,9 @@ public class PictureStyle implements Style {
 	 * display property
 	 */
 	private String display;
+
+	private String className;
+
 	// Constructors:
 
 	/**
@@ -89,6 +92,12 @@ public class PictureStyle implements Style {
 	public void setDisplay(String display) {
 		this.display = display;
 	}
-	
-	
+
+	public String getClassName() {
+		return className;
+	}
+
+	public void setClassName(String className) {
+		this.className = className;
+	}
 }

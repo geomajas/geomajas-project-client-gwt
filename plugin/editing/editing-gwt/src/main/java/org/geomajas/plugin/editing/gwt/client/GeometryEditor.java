@@ -12,6 +12,7 @@ package org.geomajas.plugin.editing.gwt.client;
 
 import org.geomajas.gwt.client.widget.MapWidget;
 import org.geomajas.plugin.editing.client.BaseGeometryEditor;
+import org.geomajas.plugin.editing.gwt.client.controller.VertexContextMenuController;
 import org.geomajas.plugin.editing.gwt.client.gfx.StyleService;
 
 /**
@@ -35,4 +36,6 @@ public interface GeometryEditor extends BaseGeometryEditor {
 	 * @return the style service
 	 */
 	StyleService getStyleService();
+
+	void addVertexOperation(VertexContextMenuController.Operation operation, String displayName) ;
 }

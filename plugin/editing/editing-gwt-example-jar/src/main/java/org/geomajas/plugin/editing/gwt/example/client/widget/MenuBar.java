@@ -278,7 +278,8 @@ public class MenuBar extends ToolStrip {
 		menu.setShowShadow(true);
 		menu.setShadowDepth(3);
 
-		final InfoDragLineHandler infoHandler = new InfoDragLineHandler(editor.getMapWidget(), editor.getEditService());
+		final InfoDragLineHandler infoHandler = new InfoDragLineHandler(editor.getMapWidget(), editor.getEditService(),
+				eventBus);
 		final LabelDragLineHandler labelHandler = new LabelDragLineHandler(editor.getMapWidget(),
 				editor.getEditService());
 

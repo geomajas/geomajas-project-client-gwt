@@ -1115,6 +1115,9 @@ public class DomHelper {
 			css.append(style.getDisplay());
 		}
 		Dom.setElementAttribute(element, "style", css.toString());
+		if (style.getClassName() != null)   {
+			Dom.setElementAttribute(element, "class", style.getClassName());
+		}
 	}
 
 }

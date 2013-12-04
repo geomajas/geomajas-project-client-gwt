@@ -136,8 +136,11 @@ public class CompositeGeometryIndexController extends AbstractGraphicsController
 
 	public void onDown(HumanInputEvent<?> event) {
 		if (service.getIndexStateService().isEnabled(index)) {
-			for (MapDownHandler handler : downHandlers) {
-				handler.onDown(event);
+			// if right click: don't perform the handlers, let context menu do its work
+			if (!isRightMouseButton(event)) {
+				for (MapDownHandler handler : downHandlers) {
+						handler.onDown(event);
+					}
 			}
 		}
 	}

@@ -138,6 +138,11 @@
 				<artifactId>gwt-dev</artifactId>
 				<version>${gwt-client-gwt-version}</version>
 			</dependency>
+			<dependency>
+				<groupId>com.google.web.bindery</groupId>
+				<artifactId>requestfactory-server</artifactId>
+				<version>${gwt-client-gwt-version}</version>
+			</dependency>
 
 			<dependency>
 				<groupId>com.smartgwt</groupId>

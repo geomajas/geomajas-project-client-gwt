@@ -16,6 +16,7 @@ import org.geomajas.gwt.example.base.SamplePanel;
 import org.geomajas.gwt.example.base.SamplePanelFactory;
 import org.geomajas.plugin.editing.gwt.client.GeometryEditor;
 import org.geomajas.plugin.editing.gwt.client.GeometryEditorImpl;
+import org.geomajas.plugin.editing.gwt.client.controller.VertexContextMenuController;
 import org.geomajas.plugin.editing.gwt.client.gfx.PointSymbolizerShapeAndSize;
 import org.geomajas.plugin.editing.gwt.example.client.i18n.EditingMessages;
 import org.geomajas.plugin.editing.gwt.example.client.widget.MenuBar;
@@ -28,6 +29,7 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * Entry point and main class for GWT application. This class defines the layout and functionality of this application.
  *
  * @author Pieter De Graef
+ * @author Jan Venstermans
  */
 public class EditingPanel extends SamplePanel {
 
@@ -46,8 +48,18 @@ public class EditingPanel extends SamplePanel {
 	public Canvas getViewPanel() {
 		final MapWidget map = new MapWidget("mapGepEditing", "appEditing");
 		final GeometryEditor editor = new GeometryEditorImpl(map);
+
+		// set shape and size of point symbolizer
 		editor.getStyleService().getPointSymbolizerShapeAndSize().setShape(PointSymbolizerShapeAndSize.Shape.CIRCLE);
 		editor.getStyleService().getPointSymbolizerShapeAndSize().setSize(6);
+
+		// register operations for vertex contect menu
+		editor.addVertexOperation(VertexContextMenuController.Operation.REMOVE_SELECTED, "verwijder punt");
+		editor.addVertexOperation(VertexContextMenuController.Operation.DESELECT_ALL, "deselecteer punt");
+		editor.addVertexOperation(VertexContextMenuController.Operation.ZOOM_IN, "zoom in");
+		editor.addVertexOperation(VertexContextMenuController.Operation.ZOOM_OUT, "zoom uit");
+		editor.addVertexOperation(VertexContextMenuController.Operation.ZOOM_TO_FULL_OBJECT, "zoom naar object");
+
 		VLayout layout = new VLayout();
 		MenuBar editingToolStrip = new MenuBar(editor);
 		layout.addMember(editingToolStrip);
