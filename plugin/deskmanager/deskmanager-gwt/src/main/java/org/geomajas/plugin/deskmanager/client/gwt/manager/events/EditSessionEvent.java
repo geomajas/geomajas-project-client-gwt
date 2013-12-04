@@ -10,19 +10,24 @@
  */
 package org.geomajas.plugin.deskmanager.client.gwt.manager.events;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.smartgwt.client.widgets.Canvas;
 
 /**
  * Edit session event. Called when an edit session is started or stopped.
  * 
  * @author Oliver May
- *
+ * 
  */
 public class EditSessionEvent {
 
 	private final Canvas requestee;
 
 	private final boolean start;
+
+	private final List<Canvas> ancestors = new ArrayList<Canvas>();
 
 	/**
 	 * @param start
@@ -31,6 +36,15 @@ public class EditSessionEvent {
 	public EditSessionEvent(boolean start, Canvas requestee) {
 		this.requestee = requestee;
 		this.start = start;
+		findAncestorsOfRequestee();
+	}
+
+	private void findAncestorsOfRequestee() {
+		Canvas c = requestee;
+		while (c != null) {
+			ancestors.add(c);
+			c = c.getParentElement();
+		}
 	}
 
 	public boolean isSessionStart() {
@@ -46,15 +60,9 @@ public class EditSessionEvent {
 	}
 
 	public boolean isParentOfRequestee(Canvas parent) {
-		// -- > This doesn't work in al cases, so not reliable
-		// !tab.getPane().contains(ese.getRequestee())
-
-		Canvas c = requestee;
-		while (c != null) {
-			if (c.equals(parent)) {
+		for (Canvas ancestor : ancestors) {
+			if (ancestor == parent) {
 				return true;
-			} else {
-				c = c.getParentElement();
 			}
 		}
 		return false;

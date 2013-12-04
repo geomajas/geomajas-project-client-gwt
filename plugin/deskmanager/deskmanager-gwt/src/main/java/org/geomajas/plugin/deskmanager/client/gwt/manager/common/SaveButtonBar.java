@@ -125,12 +125,13 @@ public class SaveButtonBar extends HLayout implements WoaEventHandler.WoaChanged
 	 * mainly for internal use, but you can use this method to fake a button-click.
 	 */
 	public void doEditClick(ClickEvent event) {
+		EditSessionEvent e = new EditSessionEvent(true, control);
 		if (eventHandler.onEditClick(event)) {
 			removeMember(edit);
 			removeMember(reset);
 			addMember(save);
 			addMember(cancel);
-			Whiteboard.fireEvent(new EditSessionEvent(true, control));
+			Whiteboard.fireEvent(e);
 		}
 	}
 
@@ -138,13 +139,14 @@ public class SaveButtonBar extends HLayout implements WoaEventHandler.WoaChanged
 	 * mainly for internal use, but you can use this method to fake a button-click.
 	 */
 	public void doSaveClick(ClickEvent event) {
+		EditSessionEvent e = new EditSessionEvent(false, control);
 		if (eventHandler.onSaveClick(event)) {
 			removeMember(save);
 			removeMember(cancel);
 			addMember(edit);
 			reset.setDisabled(eventHandler.isDefault());
 			addMember(reset);
-			Whiteboard.fireEvent(new EditSessionEvent(false, control));
+			Whiteboard.fireEvent(e);
 		}
 	}
 
@@ -152,13 +154,14 @@ public class SaveButtonBar extends HLayout implements WoaEventHandler.WoaChanged
 	 * mainly for internal use, but you can use this method to fake a button-click.
 	 */
 	public void doCancelClick(ClickEvent event) {
+		EditSessionEvent e = new EditSessionEvent(false, control);
 		if (eventHandler.onCancelClick(event)) {
 			removeMember(save);
 			removeMember(cancel);
 			addMember(edit);
 			reset.setDisabled(eventHandler.isDefault());
 			addMember(reset);
-			Whiteboard.fireEvent(new EditSessionEvent(false, control));
+			Whiteboard.fireEvent(e);
 		}
 	}
 
@@ -166,9 +169,10 @@ public class SaveButtonBar extends HLayout implements WoaEventHandler.WoaChanged
 	 * mainly for internal use, but you can use this method to fake a button-click.
 	 */
 	public void doResetClick(ClickEvent event) {
+		EditSessionEvent e = new EditSessionEvent(false, control);
 		if (eventHandler.onResetClick(event)) {
 			resetState();
-			Whiteboard.fireEvent(new EditSessionEvent(false, control));
+			Whiteboard.fireEvent(e);
 		}
 	}
 
