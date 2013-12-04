@@ -65,7 +65,6 @@
 <!--
 		<module>common-gwt-smartgwt</module>
 -->
-		<module>plugin</module>
 <!--
 		<module>smartgwt-archetype</module>
 		<module>archetype</module>
@@ -484,9 +483,18 @@
 				<activeByDefault>true</activeByDefault>
 			</activation>
 			<modules>
+				<module>plugin</module>
 				<module>smartgwt-archetype-documentation</module>
 				<module>documentation</module>
 			</modules>
+		</profile>
+		<profile>
+			<id>skipPlugins</id>
+			<activation>
+				<property>
+					<name>skipPlugins</name>
+				</property>
+			</activation>
 		</profile>
 		<profile>
 			<id>skipDocs</id>
