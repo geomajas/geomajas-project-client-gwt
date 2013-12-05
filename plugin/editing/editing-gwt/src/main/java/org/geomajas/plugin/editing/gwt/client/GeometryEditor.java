@@ -18,7 +18,8 @@ import org.geomajas.plugin.editing.gwt.client.controller.GeometryIndexContextMen
 import org.geomajas.plugin.editing.gwt.client.gfx.StyleService;
 
 /**
- * Extends {@link BaseGeometryEditor} to provide access to the {@link MapWidget} and {@link StyleService}.
+ * Extends {@link BaseGeometryEditor} to provide access to the {@link MapWidget} and {@link StyleService}
+ *  and {@link GeometryIndexContextMenuController}.
  * 
  * @author Jan De Moerloose
  * 
@@ -45,6 +46,13 @@ public interface GeometryEditor extends BaseGeometryEditor {
 	 * @return the context menu controller
 	 */
 	GeometryIndexContextMenuController getContextMenuController();
+
+	/**
+	 * Set the context menu controller.
+	 *
+	 * @param contextMenuController the context menu controller
+	 */
+	void setContextMenuController(GeometryIndexContextMenuController contextMenuController);
 
 	void addVertexHandlerFactory(final AbstractGeometryIndexMapHandler handler);
 

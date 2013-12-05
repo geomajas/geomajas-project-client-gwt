@@ -58,11 +58,13 @@ public class EditingPanel extends SamplePanel implements MapModelChangedHandler 
 		map = new MapWidget("mapGepEditing", "appEditing");
 		editor = new GeometryEditorImpl(map);
 
+
 		// set shape and size of point symbolizer
 		editor.getStyleService().getPointSymbolizerShapeAndSize().setShape(PointSymbolizerShapeAndSize.Shape.CIRCLE);
 		editor.getStyleService().getPointSymbolizerShapeAndSize().setSize(6);
 
 		// register operations for vertex contect menu
+		editor.setContextMenuController(new GeometryIndexContextMenuController(map, editor.getEditService()));
 		editor.getContextMenuController().addVertexOperation(
 				GeometryIndexContextMenuController.VertexOperation.REMOVE, "verwijder punt");
 		editor.getContextMenuController().addVertexOperation(

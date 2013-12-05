@@ -71,7 +71,6 @@ public class GeometryEditorImpl implements GeometryEditor, GeometryEditStartHand
 		service = new GeometryEditServiceImpl();
 		service.addGeometryEditStartHandler(this);
 		service.addGeometryEditStopHandler(this);
-		geometryIndexContextMenuController = new GeometryIndexContextMenuController(mapWidget, service);
 
 		snappingService = new SnapService();
 		baseController = new EditGeometryBaseController(mapWidget, service, snappingService);
@@ -105,9 +104,6 @@ public class GeometryEditorImpl implements GeometryEditor, GeometryEditStartHand
 
 		service.getIndexStateService().addGeometryIndexSnappingBeginHandler(renderer);
 		service.getIndexStateService().addGeometryIndexSnappingEndHandler(renderer);
-
-		getGeometryEditorSpecificEventbus().addHandler(GeometryIndexMouseOverOutEvent.getType(),
-				geometryIndexContextMenuController);
 
 		mapWidget.getMapModel().getMapView().addMapViewChangedHandler(new MapViewChangedHandler() {
 
@@ -165,6 +161,13 @@ public class GeometryEditorImpl implements GeometryEditor, GeometryEditStartHand
 	@Override
 	public GeometryIndexContextMenuController getContextMenuController() {
 		return geometryIndexContextMenuController;
+	}
+
+	@Override
+	public void setContextMenuController(GeometryIndexContextMenuController contextMenuController) {
+		geometryIndexContextMenuController = contextMenuController;
+		getGeometryEditorSpecificEventbus().addHandler(GeometryIndexMouseOverOutEvent.getType(),
+				geometryIndexContextMenuController);
 	}
 
 	@Override
