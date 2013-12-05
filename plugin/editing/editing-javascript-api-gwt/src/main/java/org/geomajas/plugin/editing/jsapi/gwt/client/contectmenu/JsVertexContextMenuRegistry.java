@@ -12,14 +12,16 @@ package org.geomajas.plugin.editing.jsapi.gwt.client.contectmenu;
 
 import org.geomajas.annotation.Api;
 import org.geomajas.plugin.editing.gwt.client.GeometryEditor;
-import org.geomajas.plugin.editing.gwt.client.controller.VertexContextMenuController;
+import org.geomajas.plugin.editing.gwt.client.controller.GeometryIndexContextMenuController;
 import org.geomajas.plugin.editing.jsapi.gwt.client.JsGeometryEditor;
 import org.timepedia.exporter.client.Export;
 import org.timepedia.exporter.client.ExportPackage;
 import org.timepedia.exporter.client.Exportable;
 
 /**
- * JavaScript class for registering {@link VertexContextMenuController.Operation}s to the vertex contect menu.
+ * JavaScript class for registering
+ * {@link org.geomajas.plugin.editing.gwt.client.controller.GeometryIndexContextMenuController.VertexOperation}s
+ * to the vertex contect menu.
  * Every operation has its own registration method.
  * 
  * @author Jan Venstermans
@@ -55,7 +57,8 @@ public class JsVertexContextMenuRegistry implements Exportable {
 	 * @param displayName the display name in the context menu.
 	 */
 	public void addRemoveSelectedVertexOperation(String displayName) {
-		editor.addVertexOperation(VertexContextMenuController.Operation.REMOVE_SELECTED, displayName);
+		editor.getContextMenuController().addVertexOperation(
+				GeometryIndexContextMenuController.VertexOperation.REMOVE, displayName);
 	}
 
 	/**
@@ -64,7 +67,8 @@ public class JsVertexContextMenuRegistry implements Exportable {
 	 * @param displayName the display name in the context menu.
 	 */
 	public void addDeselectAllVertexOperation(String displayName) {
-		editor.addVertexOperation(VertexContextMenuController.Operation.DESELECT_ALL, displayName);
+		editor.getContextMenuController().addVertexOperation(
+				GeometryIndexContextMenuController.VertexOperation.DESELECT, displayName);
 	}
 
 	/**
@@ -73,7 +77,8 @@ public class JsVertexContextMenuRegistry implements Exportable {
 	 * @param displayName the display name in the context menu.
 	 */
 	public void addZoomInVertexOperation(String displayName) {
-		editor.addVertexOperation(VertexContextMenuController.Operation.ZOOM_IN, displayName);
+		editor.getContextMenuController().addVertexOperation(
+				GeometryIndexContextMenuController.VertexOperation.ZOOM_IN, displayName);
 	}
 
 	/**
@@ -82,7 +87,8 @@ public class JsVertexContextMenuRegistry implements Exportable {
 	 * @param displayName the display name in the context menu.
 	 */
 	public void addZoomOutVertexOperation(String displayName) {
-		editor.addVertexOperation(VertexContextMenuController.Operation.ZOOM_OUT, displayName);
+		editor.getContextMenuController().addVertexOperation(
+				GeometryIndexContextMenuController.VertexOperation.ZOOM_OUT, displayName);
 	}
 
 	/**
@@ -91,7 +97,8 @@ public class JsVertexContextMenuRegistry implements Exportable {
 	 * @param displayName the display name in the context menu.
 	 */
 	public void addZoomToFullObjectVertexOperation(String displayName) {
-		editor.addVertexOperation(VertexContextMenuController.Operation.ZOOM_TO_FULL_OBJECT, displayName);
+		editor.getContextMenuController().addVertexOperation(
+				GeometryIndexContextMenuController.VertexOperation.ZOOM_TO_FULL_OBJECT, displayName);
 	}
 
 }

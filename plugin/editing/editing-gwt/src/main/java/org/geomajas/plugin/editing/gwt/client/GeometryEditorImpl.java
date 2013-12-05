@@ -28,7 +28,8 @@ import org.geomajas.plugin.editing.client.service.GeometryEditService;
 import org.geomajas.plugin.editing.client.service.GeometryEditServiceImpl;
 import org.geomajas.plugin.editing.client.snap.SnapService;
 import org.geomajas.plugin.editing.gwt.client.controller.EditGeometryBaseController;
-import org.geomajas.plugin.editing.gwt.client.controller.VertexContextMenuController;
+import org.geomajas.plugin.editing.gwt.client.controller.GeometryIndexContextMenuController;
+import org.geomajas.plugin.editing.gwt.client.event.GeometryIndexMouseOverOutEvent;
 import org.geomajas.plugin.editing.gwt.client.gfx.GeometryRendererImpl;
 import org.geomajas.plugin.editing.gwt.client.gfx.StyleService;
 import org.geomajas.plugin.editing.gwt.client.handler.GeometryIndexMouseInMouseOutHandler;
@@ -61,7 +62,7 @@ public class GeometryEditorImpl implements GeometryEditor, GeometryEditStartHand
 
 	private boolean zoomOnStart;
 
-	private VertexContextMenuController vertexContextMenuController;
+	private GeometryIndexContextMenuController geometryIndexContextMenuController;
 
 	// Constructors:
 
@@ -70,7 +71,7 @@ public class GeometryEditorImpl implements GeometryEditor, GeometryEditStartHand
 		service = new GeometryEditServiceImpl();
 		service.addGeometryEditStartHandler(this);
 		service.addGeometryEditStopHandler(this);
-		vertexContextMenuController = new VertexContextMenuController(mapWidget, service);
+		geometryIndexContextMenuController = new GeometryIndexContextMenuController(mapWidget, service);
 
 		snappingService = new SnapService();
 		baseController = new EditGeometryBaseController(mapWidget, service, snappingService);
@@ -105,8 +106,8 @@ public class GeometryEditorImpl implements GeometryEditor, GeometryEditStartHand
 		service.getIndexStateService().addGeometryIndexSnappingBeginHandler(renderer);
 		service.getIndexStateService().addGeometryIndexSnappingEndHandler(renderer);
 
-		service.getIndexStateService().addGeometryIndexSelectedHandler(vertexContextMenuController);
-		service.getIndexStateService().addGeometryIndexDeselectedHandler(vertexContextMenuController);
+		getGeometryEditorSpecificEventbus().addHandler(GeometryIndexMouseOverOutEvent.getType(),
+				geometryIndexContextMenuController);
 
 		mapWidget.getMapModel().getMapView().addMapViewChangedHandler(new MapViewChangedHandler() {
 
@@ -162,8 +163,8 @@ public class GeometryEditorImpl implements GeometryEditor, GeometryEditStartHand
 	}
 
 	@Override
-	public void addVertexOperation(VertexContextMenuController.Operation operation, String displayName) {
-		vertexContextMenuController.addVertexOperation(operation, displayName);
+	public GeometryIndexContextMenuController getContextMenuController() {
+		return geometryIndexContextMenuController;
 	}
 
 	@Override

@@ -14,7 +14,7 @@ import com.google.gwt.event.shared.EventBus;
 import org.geomajas.gwt.client.widget.MapWidget;
 import org.geomajas.plugin.editing.client.BaseGeometryEditor;
 import org.geomajas.plugin.editing.client.handler.AbstractGeometryIndexMapHandler;
-import org.geomajas.plugin.editing.gwt.client.controller.VertexContextMenuController;
+import org.geomajas.plugin.editing.gwt.client.controller.GeometryIndexContextMenuController;
 import org.geomajas.plugin.editing.gwt.client.gfx.StyleService;
 
 /**
@@ -39,7 +39,12 @@ public interface GeometryEditor extends BaseGeometryEditor {
 	 */
 	StyleService getStyleService();
 
-	void addVertexOperation(VertexContextMenuController.Operation operation, String displayName) ;
+	/**
+	 * Get the context menu controller.
+	 *
+	 * @return the context menu controller
+	 */
+	GeometryIndexContextMenuController getContextMenuController();
 
 	void addVertexHandlerFactory(final AbstractGeometryIndexMapHandler handler);
 

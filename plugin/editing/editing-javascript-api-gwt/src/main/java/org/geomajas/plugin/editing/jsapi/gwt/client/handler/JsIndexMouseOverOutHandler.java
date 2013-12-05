@@ -16,7 +16,7 @@ import org.geomajas.annotation.Api;
 import org.geomajas.plugin.editing.client.service.GeometryIndex;
 import org.geomajas.plugin.editing.client.service.GeometryIndexType;
 import org.geomajas.plugin.editing.gwt.client.GeometryEditor;
-import org.geomajas.plugin.editing.gwt.client.event.IndexMouseOverOutEvent;
+import org.geomajas.plugin.editing.gwt.client.event.GeometryIndexMouseOverOutEvent;
 import org.geomajas.plugin.editing.jsapi.gwt.client.JsGeometryEditor;
 import org.geomajas.plugin.editing.jsapi.gwt.client.listener.IndexMouseOutListener;
 import org.geomajas.plugin.editing.jsapi.gwt.client.listener.IndexMouseOverListener;
@@ -34,7 +34,7 @@ import org.timepedia.exporter.client.Exportable;
 @Export("InfoMouseOverOutHandler")
 @ExportPackage("org.geomajas.plugin.editing.handler")
 @Api(allMethods = true)
-public class JsIndexMouseOverOutHandler implements Exportable, IndexMouseOverOutEvent.Handler {
+public class JsIndexMouseOverOutHandler implements Exportable, GeometryIndexMouseOverOutEvent.Handler {
 
 	private GeometryEditor editor;
 
@@ -58,9 +58,9 @@ public class JsIndexMouseOverOutHandler implements Exportable, IndexMouseOverOut
 	@Export
 	public JsIndexMouseOverOutHandler(JsGeometryEditor jsEditor) {
 		editor = jsEditor.getDelegate();
-		editor.getGeometryEditorSpecificEventbus().addHandler(IndexMouseOverOutEvent.getType(), this);
+		editor.getGeometryEditorSpecificEventbus().addHandler(GeometryIndexMouseOverOutEvent.getType(), this);
 		eventBus = new SimpleEventBus();
-		eventBus.addHandler(IndexMouseOverOutEvent.getType(), this);
+		eventBus.addHandler(GeometryIndexMouseOverOutEvent.getType(), this);
 	}
 
 	/**
@@ -100,7 +100,7 @@ public class JsIndexMouseOverOutHandler implements Exportable, IndexMouseOverOut
 	}
 
 	@Override
-	public void onMouseOverVertex(IndexMouseOverOutEvent event) {
+	public void onMouseOverGeometryIndex(GeometryIndexMouseOverOutEvent event) {
 		GeometryIndex index = event.getIndex();
 		while (index.getType().equals(GeometryIndexType.TYPE_GEOMETRY)) {
 			index = index.getChild();
@@ -120,7 +120,7 @@ public class JsIndexMouseOverOutHandler implements Exportable, IndexMouseOverOut
 	}
 
 	@Override
-	public void onMouseOutVertex(IndexMouseOverOutEvent event) {
+	public void onMouseOutGeometryIndex(GeometryIndexMouseOverOutEvent event) {
 		GeometryIndex index = event.getIndex();
 		while (index.getType().equals(GeometryIndexType.TYPE_GEOMETRY)) {
 			index = index.getChild();

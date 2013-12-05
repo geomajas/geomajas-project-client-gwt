@@ -12,6 +12,7 @@ package org.geomajas.plugin.editing.gwt.client.event;
 
 import com.google.web.bindery.event.shared.Event;
 import org.geomajas.plugin.editing.client.service.GeometryIndex;
+import org.geomajas.plugin.editing.client.service.GeometryIndexType;
 
 /**
  * Event thrown when mouse over / mouse out of a vertex.
@@ -19,11 +20,11 @@ import org.geomajas.plugin.editing.client.service.GeometryIndex;
  * @author Jan Venstermans
  * 
  */
-public class IndexMouseOverOutEvent extends Event<IndexMouseOverOutEvent.Handler> {
+public class GeometryIndexMouseOverOutEvent extends Event<GeometryIndexMouseOverOutEvent.Handler> {
 
 	private MouseTypeEvent type;
 
-	private GeometryIndex index;
+	private GeometryIndex index, vertexOrEdgeIndex;
 
 	/**
 	 * Handler for this event.
@@ -38,14 +39,14 @@ public class IndexMouseOverOutEvent extends Event<IndexMouseOverOutEvent.Handler
 		 *
 		 * @param event the event
 		 */
-		void onMouseOverVertex(IndexMouseOverOutEvent event);
+		void onMouseOverGeometryIndex(GeometryIndexMouseOverOutEvent event);
 
 		/**
 		 * Notifies mouse out vertex.
 		 *
 		 * @param event the event
 		 */
-		void onMouseOutVertex(IndexMouseOverOutEvent event);
+		void onMouseOutGeometryIndex(GeometryIndexMouseOverOutEvent event);
 
 	}
 
@@ -59,9 +60,13 @@ public class IndexMouseOverOutEvent extends Event<IndexMouseOverOutEvent.Handler
 		MOUSE_OVER, MOUSE_OUT;
 	}
 
-	public IndexMouseOverOutEvent(GeometryIndex index, MouseTypeEvent type) {
+	public GeometryIndexMouseOverOutEvent(GeometryIndex index, MouseTypeEvent type) {
 		this.index = index;
 		this.type = type;
+		vertexOrEdgeIndex = index;
+		while (vertexOrEdgeIndex.getType().equals(GeometryIndexType.TYPE_GEOMETRY)) {
+			vertexOrEdgeIndex = vertexOrEdgeIndex.getChild();
+		}
 	}
 
 	private static final Type<Handler> TYPE = new Type<Handler>();
@@ -75,10 +80,10 @@ public class IndexMouseOverOutEvent extends Event<IndexMouseOverOutEvent.Handler
 	protected void dispatch(Handler handler) {
 		switch (type) {
 			case MOUSE_OVER:
-				handler.onMouseOverVertex(this);
+				handler.onMouseOverGeometryIndex(this);
 				break;
 			case MOUSE_OUT:
-				handler.onMouseOutVertex(this);
+				handler.onMouseOutGeometryIndex(this);
 				break;
 		}
 	}
@@ -95,7 +100,7 @@ public class IndexMouseOverOutEvent extends Event<IndexMouseOverOutEvent.Handler
 
 	@Override
 	public String toString() {
-		return "IndexMouseOverOutEvent[" + "]";
+		return "GeometryIndexMouseOverOutEvent[" + "]";
 	}
 
 	public static Type<Handler> getType() {
@@ -106,7 +111,7 @@ public class IndexMouseOverOutEvent extends Event<IndexMouseOverOutEvent.Handler
 		return index;
 	}
 
-	public void setIndex(GeometryIndex index) {
-		this.index = index;
+	public GeometryIndex getVertexOrEdgeIndex() {
+		return vertexOrEdgeIndex;
 	}
 }

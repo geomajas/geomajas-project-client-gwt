@@ -17,7 +17,7 @@ import com.google.gwt.event.dom.client.MouseOverEvent;
 import com.google.gwt.event.dom.client.MouseOverHandler;
 import com.google.gwt.event.shared.EventBus;
 import org.geomajas.plugin.editing.client.handler.AbstractGeometryIndexMapHandler;
-import org.geomajas.plugin.editing.gwt.client.event.IndexMouseOverOutEvent;
+import org.geomajas.plugin.editing.gwt.client.event.GeometryIndexMouseOverOutEvent;
 
 /**
  * Will throw specific event when moving mouse over and out an geometryIndex.
@@ -34,12 +34,12 @@ public class GeometryIndexMouseInMouseOutHandler extends AbstractGeometryIndexMa
 	}
 
 	public void onMouseOver(MouseOverEvent event) {
-		eventBus.fireEvent(new IndexMouseOverOutEvent(index
-				, IndexMouseOverOutEvent.MouseTypeEvent.MOUSE_OVER));
+		eventBus.fireEvent(new GeometryIndexMouseOverOutEvent(index
+				, GeometryIndexMouseOverOutEvent.MouseTypeEvent.MOUSE_OVER));
 	}
 
 	public void onMouseOut(MouseOutEvent event) {
-		eventBus.fireEvent(new IndexMouseOverOutEvent(index
-				, IndexMouseOverOutEvent.MouseTypeEvent.MOUSE_OUT));
+		eventBus.fireEvent(new GeometryIndexMouseOverOutEvent(index
+				, GeometryIndexMouseOverOutEvent.MouseTypeEvent.MOUSE_OUT));
 	}
 }
