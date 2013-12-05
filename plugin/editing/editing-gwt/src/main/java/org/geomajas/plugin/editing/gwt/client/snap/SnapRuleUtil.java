@@ -46,7 +46,8 @@ public final class SnapRuleUtil {
 			}
 
 			VectorLayerSourceProvider sourceProvider = new VectorLayerSourceProvider((VectorLayer) layer);
-			service.addSnappingRule(algorithm, sourceProvider, snappingRuleInfo.getDistance(), true);
+			service.addSnappingRule(algorithm, sourceProvider, snappingRuleInfo.getDistance(),
+					snappingRuleInfo.isPriority());
 			return true;
 		}
 		return false;

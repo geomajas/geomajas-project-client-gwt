@@ -30,8 +30,15 @@ http://www.springframework.org/schema/tx http://www.springframework.org/schema/t
 			<list>
 				<bean class="org.geomajas.configuration.SnappingRuleInfo">
 					<property name="distance" value="100000" />
+					<property name="type" value="CLOSEST_ENDPOINT" />
+					<property name="layerId" value="clientLayerCountries" />
+					<property name="priority" value="true" />
+				</bean>
+				<bean class="org.geomajas.configuration.SnappingRuleInfo">
+					<property name="distance" value="50000" />
 					<property name="type" value="NEAREST_POINT" />
 					<property name="layerId" value="clientLayerCountries" />
+					<!--<property name="priority" value="false" />-->
 				</bean>
 			</list>
 		</property>

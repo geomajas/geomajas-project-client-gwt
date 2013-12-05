@@ -110,8 +110,8 @@ public class EditingPanel extends SamplePanel implements MapModelChangedHandler 
 		editor.getSnappingService().clearSnappingRules();
 		SnapSourceProvider snapSourceProvider = new VectorLayerSourceProvider(editor.getMapWidget().getMapModel()
 				.getVectorLayer("clientLayerGepCountries"));
-		editor.setSnapOnInsert(true);
-		editor.setSnapOnDrag(true);
+//		editor.setSnapOnInsert(true);
+//		editor.setSnapOnDrag(true);
 		editor.getSnappingService().addSnappingRule(new NearestVertexSnapAlgorithm(), snapSourceProvider, 200000, true);
 		editor.getSnappingService().addSnappingRule(new NearestEdgeSnapAlgorithm(), snapSourceProvider, 100000, false);
 	}
