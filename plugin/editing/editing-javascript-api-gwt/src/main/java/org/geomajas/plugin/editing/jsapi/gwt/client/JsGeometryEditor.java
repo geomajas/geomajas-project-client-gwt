@@ -23,7 +23,6 @@ import org.geomajas.plugin.editing.jsapi.client.gfx.JsGeometryRenderer;
 import org.geomajas.plugin.editing.jsapi.client.merge.JsGeometryMergeService;
 import org.geomajas.plugin.editing.jsapi.client.service.JsGeometryEditService;
 import org.geomajas.plugin.editing.jsapi.client.split.JsGeometrySplitService;
-import org.geomajas.plugin.editing.jsapi.gwt.client.contectmenu.JsVertexContextMenuRegistry;
 import org.geomajas.plugin.editing.jsapi.gwt.client.gfx.JsSnapService;
 import org.geomajas.plugin.editing.jsapi.gwt.client.gfx.JsStyleService;
 import org.geomajas.plugin.jsapi.client.map.Map;
@@ -61,8 +60,6 @@ public class JsGeometryEditor implements Exportable {
 
 	private JsGeometryRenderer renderer;
 
-	private JsVertexContextMenuRegistry vertexContextMenuRegistry;
-
 	private JsSnapService snapService;
 
 	/**
@@ -85,7 +82,6 @@ public class JsGeometryEditor implements Exportable {
 		mergeService = new JsGeometryMergeService();
 		renderer = new JsGeometryRenderer(delegate.getRenderer());
 		styleService = new JsStyleService(delegate.getStyleService());
-		vertexContextMenuRegistry = new JsVertexContextMenuRegistry(this);
 		snapService = new JsSnapService(this);
 	}
 
@@ -235,14 +231,5 @@ public class JsGeometryEditor implements Exportable {
 	@NoExport
 	public GeometryEditor getDelegate() {
 		return delegate;
-	}
-
-	/**
-	 * Get wrapper for the style service.
-	 *
-	 * @return the renderer
-	 */
-	public JsVertexContextMenuRegistry getVertexContextMenuRegistry() {
-		return vertexContextMenuRegistry;
 	}
 }

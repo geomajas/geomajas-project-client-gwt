@@ -11,11 +11,8 @@
 
 package org.geomajas.plugin.editing.gwt.client.gfx;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
+import com.google.gwt.event.shared.HandlerRegistration;
+import com.smartgwt.client.types.Cursor;
 import org.geomajas.geometry.Coordinate;
 import org.geomajas.geometry.Geometry;
 import org.geomajas.gwt.client.controller.GraphicsController;
@@ -70,6 +67,8 @@ import org.geomajas.plugin.editing.client.event.state.GeometryIndexSnappingEndEv
 import org.geomajas.plugin.editing.client.event.state.GeometryIndexSnappingEndHandler;
 import org.geomajas.plugin.editing.client.gfx.GeometryRenderer;
 import org.geomajas.plugin.editing.client.handler.AbstractGeometryIndexMapHandler;
+import org.geomajas.plugin.editing.client.handler.EdgeMapHandlerFactory;
+import org.geomajas.plugin.editing.client.handler.VertexMapHandlerFactory;
 import org.geomajas.plugin.editing.client.service.GeometryEditService;
 import org.geomajas.plugin.editing.client.service.GeometryEditState;
 import org.geomajas.plugin.editing.client.service.GeometryIndex;
@@ -80,8 +79,10 @@ import org.geomajas.plugin.editing.client.snap.event.CoordinateSnapHandler;
 import org.geomajas.plugin.editing.gwt.client.controller.CompositeGeometryIndexController;
 import org.geomajas.plugin.editing.gwt.client.handler.EditingHandlerRegistry;
 
-import com.google.gwt.event.shared.HandlerRegistration;
-import com.smartgwt.client.types.Cursor;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * ...
@@ -102,11 +103,9 @@ public class GeometryRendererImpl implements GeometryRenderer, GeometryEditStart
 
 	private final Map<String, Composite> groups = new HashMap<String, Composite>();
 
-	private final List<EditingHandlerRegistry.VertexHandlerFactory> customVertexFactories
-			= new ArrayList<EditingHandlerRegistry.VertexHandlerFactory>();
+	private final List<VertexMapHandlerFactory> customVertexFactories = new ArrayList<VertexMapHandlerFactory>();
 
-	private final List<EditingHandlerRegistry.EdgeHandlerFactory> customEdgeFactories
-			= new ArrayList<EditingHandlerRegistry.EdgeHandlerFactory>();
+	private final List<EdgeMapHandlerFactory> customEdgeFactories = new ArrayList<EdgeMapHandlerFactory>();
 
 	private final String insertMoveEdgeId1 = "insert-move-edge1";
 
@@ -443,24 +442,20 @@ public class GeometryRendererImpl implements GeometryRenderer, GeometryEditStart
 		}
 	}
 
-	@Override
-	public void addVertexHandlerFactory(final AbstractGeometryIndexMapHandler handler) {
-		customVertexFactories.add(new EditingHandlerRegistry.VertexHandlerFactory() {
-
-			public AbstractGeometryIndexMapHandler create() {
-				return handler;
-			}
-		});
+	public void addVertexHandlerFactory(AbstractGeometryIndexMapHandler abstractGeometryIndexMapHandler) {
+		//TODO remove this method.
 	}
 
-	@Override
-	public void addEdgeHandlerFactory(final AbstractGeometryIndexMapHandler handler) {
-		customEdgeFactories.add(new EditingHandlerRegistry.EdgeHandlerFactory() {
+	public void addEdgeHandlerFactory(AbstractGeometryIndexMapHandler abstractGeometryIndexMapHandler) {
+		//TODO remove this method.
+	}
 
-			public AbstractGeometryIndexMapHandler create() {
-				return handler;
-			}
-		});
+	public void addVertexHandlerFactory(VertexMapHandlerFactory factory) {
+		customVertexFactories.add(factory);
+	}
+
+	public void addEdgeHandlerFactory(EdgeMapHandlerFactory factory) {
+		customEdgeFactories.add(factory);
 	}
 
 	// ------------------------------------------------------------------------
@@ -816,7 +811,7 @@ public class GeometryRendererImpl implements GeometryRenderer, GeometryEditStart
 		for (AbstractGeometryIndexMapHandler handler : EditingHandlerRegistry.getVertexHandlers()) {
 			controller.addMapHandler(handler);
 		}
-		for (EditingHandlerRegistry.VertexHandlerFactory factory : customVertexFactories) {
+		for (VertexMapHandlerFactory factory : customVertexFactories) {
 			controller.addMapHandler(factory.create());
 		}
 		return controller;
@@ -828,7 +823,7 @@ public class GeometryRendererImpl implements GeometryRenderer, GeometryEditStart
 		for (AbstractGeometryIndexMapHandler handler : EditingHandlerRegistry.getEdgeHandlers()) {
 			controller.addMapHandler(handler);
 		}
-		for (EditingHandlerRegistry.EdgeHandlerFactory factory : customEdgeFactories) {
+		for (EdgeMapHandlerFactory factory : customEdgeFactories) {
 			controller.addMapHandler(factory.create());
 		}
 

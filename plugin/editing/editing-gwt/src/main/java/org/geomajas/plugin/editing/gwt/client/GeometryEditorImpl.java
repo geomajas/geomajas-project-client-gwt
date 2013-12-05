@@ -32,7 +32,7 @@ import org.geomajas.plugin.editing.gwt.client.controller.GeometryIndexContextMen
 import org.geomajas.plugin.editing.gwt.client.event.GeometryIndexMouseOverOutEvent;
 import org.geomajas.plugin.editing.gwt.client.gfx.GeometryRendererImpl;
 import org.geomajas.plugin.editing.gwt.client.gfx.StyleService;
-import org.geomajas.plugin.editing.gwt.client.handler.GeometryIndexMouseInMouseOutHandler;
+import org.geomajas.plugin.editing.gwt.client.handler.GeometryIndexMouseInMouseOutFactory;
 
 /**
  * Top level geometry editor for the GWT face.
@@ -117,8 +117,8 @@ public class GeometryEditorImpl implements GeometryEditor, GeometryEditStartHand
 			}
 		});
 
-		renderer.addVertexHandlerFactory(new GeometryIndexMouseInMouseOutHandler(geometryEditorSpecificEventbus));
-		renderer.addEdgeHandlerFactory(new GeometryIndexMouseInMouseOutHandler(geometryEditorSpecificEventbus));
+		renderer.addVertexHandlerFactory(new GeometryIndexMouseInMouseOutFactory(geometryEditorSpecificEventbus));
+		renderer.addEdgeHandlerFactory(new GeometryIndexMouseInMouseOutFactory(geometryEditorSpecificEventbus));
 	}
 
 	// GeometryEditWorkflowHandler implementation:

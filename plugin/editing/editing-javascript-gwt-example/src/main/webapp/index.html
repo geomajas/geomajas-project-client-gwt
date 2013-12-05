@@ -77,12 +77,13 @@
                 styleService.getPointSymbolizerShapeAndSize().setSize(6);
 
                 // customize context menu when vertex is selected
-                vertexContextMenuRegistry = editor.getVertexContextMenuRegistry();
-                vertexContextMenuRegistry.addRemoveSelectedVertexOperation("delete");
-                vertexContextMenuRegistry.addDeselectAllVertexOperation("deselect");
-                vertexContextMenuRegistry.addZoomInVertexOperation("zoom in");
-                vertexContextMenuRegistry.addZoomOutVertexOperation("zoom out");
-                vertexContextMenuRegistry.addZoomToFullObjectVertexOperation("zoom to full object");
+                var contextMenuRegistry = new
+                        org.geomajas.plugin.editing.contextmenu.ContextMenuRegister(editor);
+                contextMenuRegistry.addRemoveSelectedVertexOperation("delete");
+                contextMenuRegistry.addDeselectAllVertexOperation("deselect");
+                contextMenuRegistry.addZoomInVertexOperation("zoom in");
+                contextMenuRegistry.addZoomOutVertexOperation("zoom out");
+                contextMenuRegistry.addZoomToFullObjectVertexOperation("zoom to full object");
 
                 factory = new org.geomajas.plugin.editing.handler.GeometryHandlerFactory();
 			}
