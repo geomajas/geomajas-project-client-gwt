@@ -20,11 +20,14 @@ import org.geomajas.gwt.client.util.UrlBuilder;
 import org.geomajas.plugin.deskmanager.client.gwt.common.i18n.CommonMessages;
 
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.dom.client.Element;
+import com.google.gwt.dom.client.InputElement;
 import com.google.gwt.event.dom.client.ChangeEvent;
 import com.google.gwt.event.dom.client.ChangeHandler;
 import com.google.gwt.user.client.ui.FileUpload;
 import com.google.gwt.user.client.ui.FormPanel;
 import com.google.gwt.user.client.ui.FormPanel.SubmitCompleteEvent;
+import com.google.gwt.user.client.ui.Hidden;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.smartgwt.client.types.Alignment;
 import com.smartgwt.client.util.SC;
@@ -41,7 +44,7 @@ import com.smartgwt.client.widgets.layout.HLayout;
  */
 @Api(allMethods = true)
 public class FileUploadForm extends HLayout {
-	
+
 	private static final CommonMessages MESSAGES = GWT.create(CommonMessages.class);
 
 	private static final String SERVICE_NAME = GWT.getHostPageBaseURL() + "d/fileUpload";
@@ -51,6 +54,8 @@ public class FileUploadForm extends HLayout {
 	private FileUpload upload;
 
 	private FormPanel form;
+
+	private VerticalPanel fieldPanel;
 
 	private Label lbl;
 
@@ -74,7 +79,7 @@ public class FileUploadForm extends HLayout {
 	public FileUploadForm() {
 		this(null, null);
 	}
-	
+
 	/**
 	 * Construct a file upload form.
 	 * 
@@ -90,12 +95,12 @@ public class FileUploadForm extends HLayout {
 		form.setMethod(FormPanel.METHOD_POST);
 		form.setHeight("16");
 
-		VerticalPanel panel = new VerticalPanel();
-		form.setWidget(panel);
+		fieldPanel = new VerticalPanel();
+		form.setWidget(fieldPanel);
 
 		upload = new FileUpload();
 		upload.setName("uploadFormElement");
-		panel.add(upload);
+		fieldPanel.add(upload);
 		upload.addChangeHandler(new ChangeHandler() {
 
 			public void onChange(ChangeEvent event) {
@@ -120,8 +125,7 @@ public class FileUploadForm extends HLayout {
 					setUrl(builder.toString());
 					fireChangedEvent(new ChangedEvent(this, oldResult, getUrl()));
 				} else {
-					SC.say(MESSAGES.errorWhileUploadingFile() + "<br />("
-							+ event.getResults() + ")");
+					SC.say(MESSAGES.errorWhileUploadingFile() + "<br />(" + event.getResults() + ")");
 				}
 			}
 		});
@@ -139,7 +143,7 @@ public class FileUploadForm extends HLayout {
 			if (tooltip != null) {
 				lbl.setTooltip(tooltip);
 			}
-	
+
 			addMember(lbl);
 		}
 		addMember(form);
@@ -180,6 +184,38 @@ public class FileUploadForm extends HLayout {
 	}
 
 	/**
+	 * Add an HTTP request parameter to the upload request
+	 * 
+	 * @param name
+	 * @param value
+	 */
+	public void setParameter(String name, String value) {
+		boolean found = false;
+		for (int i = 0; i < fieldPanel.getWidgetCount(); i++) {
+			Element e = fieldPanel.getWidget(i).getElement();
+			if (e instanceof InputElement) {
+				InputElement input = (InputElement) e;
+				if (name.equals(input.getName())) {
+					input.setValue(value);
+					found = true;
+				}
+			}
+		}
+		if (!found) {
+			Hidden hidden = new Hidden(name, value);
+			fieldPanel.add(hidden);
+		}
+	}
+	
+	public void setLabel(String label) {
+		lbl.setTitle(label);
+	}
+	
+	public void setToolTip(String tooltip) {
+		lbl.setTooltip(tooltip);
+	}
+
+	/**
 	 * Register a changed handler.
 	 * 
 	 * @param handler the handler to add
@@ -209,7 +245,7 @@ public class FileUploadForm extends HLayout {
 	 * Event handler for the file upload form.
 	 * 
 	 * @author Oliver May
-	 *
+	 * 
 	 */
 	public interface ChangedHandler {
 
@@ -220,7 +256,7 @@ public class FileUploadForm extends HLayout {
 	 * Event for the file upload form.
 	 * 
 	 * @author Oliver May
-	 *
+	 * 
 	 */
 	public static final class ChangedEvent {
 
