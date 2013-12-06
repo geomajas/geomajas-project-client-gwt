@@ -67,4 +67,7 @@ public interface AdvancedViewsMessages extends Messages {
 	String detailTabThemes();
 
 	String themeConfigBackButtonLabel();
+	
+	// configuration of image
+	String imageConfigurationEditorName();
 }
