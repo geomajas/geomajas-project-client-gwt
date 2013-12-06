@@ -149,7 +149,7 @@ public final class GeodeskDtoUtil {
 		Map<String, ClientWidgetInfo> widgetInfos = new HashMap<String, ClientWidgetInfo>();
 
 		widgetInfos.putAll(uai.getApplicationInfo().getWidgetInfo());
-		widgetInfos.putAll(uai.getMainMapWidgetInfos());
+		widgetInfos.putAll(uai.getApplicationWidgetInfos());
 		return widgetInfos;
 	}
 
