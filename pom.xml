@@ -489,18 +489,10 @@
 			</modules>
 		</profile>
 		<profile>
-			<id>skipPlugins</id>
+			<id>clientOnly</id>
 			<activation>
 				<property>
-					<name>skipPlugins</name>
-				</property>
-			</activation>
-		</profile>
-		<profile>
-			<id>skipDocs</id>
-			<activation>
-				<property>
-					<name>skipDocs</name>
+					<name>clientOnly</name>
 				</property>
 			</activation>
 		</profile>
