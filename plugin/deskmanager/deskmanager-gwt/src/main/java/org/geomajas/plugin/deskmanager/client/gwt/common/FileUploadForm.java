@@ -184,10 +184,10 @@ public class FileUploadForm extends HLayout {
 	}
 
 	/**
-	 * Add an HTTP request parameter to the upload request
+	 * Add an HTTP request parameter to the upload request.
 	 * 
-	 * @param name
-	 * @param value
+	 * @param name the parameter name
+	 * @param value the parameter value
 	 */
 	public void setParameter(String name, String value) {
 		boolean found = false;
@@ -206,11 +206,20 @@ public class FileUploadForm extends HLayout {
 			fieldPanel.add(hidden);
 		}
 	}
-	
+
+	/**
+	 * Set the label of the upload form's label.
+	 * @param label the label
+	 */
 	public void setLabel(String label) {
 		lbl.setTitle(label);
 	}
-	
+
+	/**
+	 * Set the tooltip of this upload form's label.
+	 *
+	 * @param tooltip the tooltip
+	 */
 	public void setToolTip(String tooltip) {
 		lbl.setTooltip(tooltip);
 	}
