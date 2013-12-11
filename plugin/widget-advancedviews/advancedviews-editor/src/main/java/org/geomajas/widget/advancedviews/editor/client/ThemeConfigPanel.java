@@ -44,9 +44,8 @@ import com.smartgwt.client.widgets.layout.VLayout;
 /**
  * Gui to configure the first level of the theme configuration: General information and the list of configured Theme's
  * (Views).
- * 
+ *
  * @author Oliver May
- * 
  */
 public class ThemeConfigPanel extends Layout {
 
@@ -64,9 +63,7 @@ public class ThemeConfigPanel extends Layout {
 
 	private CheckboxItem themeTurnsOtherLayersOff;
 
-	/**
-	 * @param themeConfigurationPanel
-	 */
+	/** @param themeConfigurationPanel */
 	public ThemeConfigPanel(ThemeConfigurationPanel themeConfigurationPanel) {
 		super();
 
@@ -103,13 +100,13 @@ public class ThemeConfigPanel extends Layout {
 		VLayout gridLayout = new VLayout();
 		grid = new ThemeGrid();
 		gridLayout.addMember(grid);
-		
+
 		Layout addImgContainer = new Layout();
 		addImgContainer.setWidth(64 + 16); //16 from scroller in grid
 		addImgContainer.setAlign(Alignment.CENTER);
 		addImgContainer.setHeight(16);
 		addImgContainer.setLayoutAlign(Alignment.RIGHT);
-		
+
 		ImgButton addImg = new ImgButton();
 		addImg.setSrc(WidgetLayout.iconAdd);
 		addImg.setShowDown(false);
@@ -128,7 +125,6 @@ public class ThemeConfigPanel extends Layout {
 		});
 		addImgContainer.addMember(addImg);
 		gridLayout.addMember(addImgContainer);
-		
 
 		HLayout group = new HLayout();
 		group.setPadding(10);
@@ -139,12 +135,9 @@ public class ThemeConfigPanel extends Layout {
 		group.setOverflow(Overflow.AUTO);
 
 		addMember(group);
-
 	}
 
-	/**
-	 * @param state
-	 */
+	/** @param state */
 	public void update(State state) {
 		if (state.getThemesInfo() != null) {
 			grid.fillGrid(state.getThemesInfo());
@@ -156,16 +149,14 @@ public class ThemeConfigPanel extends Layout {
 		}
 	}
 
-	/**
-	 * 
-	 * @author Oliver May
-	 * 
-	 */
+	/** @author Oliver May */
 	private class ThemeGrid extends ListGrid {
 
 		private static final String FLD_NAME = "name";
 
 		private static final String FLD_DEL = "delete";
+
+		private static final String FLD_ACTIVE = "defaultActive";
 
 		private static final String FLD_OBJECT = "object";
 
@@ -186,11 +177,15 @@ public class ThemeConfigPanel extends Layout {
 			name.setType(ListGridFieldType.TEXT);
 			name.setRequired(true);
 
+			ListGridField active = new ListGridField(FLD_ACTIVE, MESSAGES.themeConfigDefaultActive());
+			active.setWidth(64);
+			active.setAlign(Alignment.CENTER);
+
 			ListGridField delete = new ListGridField(FLD_DEL, MANAGERMESSAGES.configAddDelete());
 			delete.setWidth(64);
 			delete.setAlign(Alignment.CENTER);
 
-			setFields(name, delete);
+			setFields(name, active, delete);
 
 			addRecordDoubleClickHandler(new RecordDoubleClickHandler() {
 
@@ -202,13 +197,12 @@ public class ThemeConfigPanel extends Layout {
 					}
 				}
 			});
-
 		}
 
 		private void fillGrid(ThemesInfo themesInfo) {
 			// clear
 			grid.deselectAllRecords();
-			grid.setData(new ListGridRecord[] {});
+			grid.setData(new ListGridRecord[]{});
 			// fill
 			for (ViewConfig config : themesInfo.getThemeConfigs()) {
 				ListGridRecord record = new ListGridRecord();
@@ -224,7 +218,6 @@ public class ThemeConfigPanel extends Layout {
 				layout.setHeight(16);
 				layout.setWidth(1);
 
-				
 				ImgButton deleteImg = new ImgButton();
 				deleteImg.setSrc(WidgetLayout.iconRemove);
 				deleteImg.setShowDown(false);
@@ -247,13 +240,43 @@ public class ThemeConfigPanel extends Layout {
 						});
 					}
 				});
-				
+
 				layout.addMember(deleteImg);
 
+				return layout;
+			}
+			if (FLD_ACTIVE.equals(grid.getFieldName(colNum))) {
+				HLayout layout = new HLayout();
+				layout.setHeight(16);
+				layout.setWidth(1);
+
+				DynamicForm form = new DynamicForm();
+				form.setWidth(16);
+				form.setHeight(16);
+
+				CheckboxItem checkbox = new CheckboxItem("active", "");
+				if (((ViewConfig) record.getAttributeAsObject(FLD_OBJECT)).isActiveByDefault()) {
+					checkbox.setValue(true);
+				}
+
+				form.setFields(checkbox);
+
+				checkbox.addChangedHandler(new ChangedHandler() {
+					@Override
+					public void onChanged(ChangedEvent changedEvent) {
+						for (ViewConfig viewConfig : themeConfigurationPanel.getThemeConfig().getThemeConfigs()) {
+							viewConfig.setActiveByDefault(false);
+						}
+						((ViewConfig) record.getAttributeAsObject(FLD_OBJECT))
+								.setActiveByDefault(((CheckboxItem) changedEvent.getItem()).getValueAsBoolean());
+						themeConfigurationPanel.setThemeConfig(themeConfigurationPanel.getThemeConfig());
+					}
+				});
+
+				layout.addMember(form);
 				return layout;
 			}
 			return super.createRecordComponent(record, colNum);
 		}
 	}
-
 }
