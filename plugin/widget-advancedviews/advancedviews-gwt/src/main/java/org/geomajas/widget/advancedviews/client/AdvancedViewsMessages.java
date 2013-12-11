@@ -67,4 +67,6 @@ public interface AdvancedViewsMessages extends Messages {
 	String detailTabThemes();
 
 	String themeConfigBackButtonLabel();
+
+	String themeConfigDefaultActive();
 }
