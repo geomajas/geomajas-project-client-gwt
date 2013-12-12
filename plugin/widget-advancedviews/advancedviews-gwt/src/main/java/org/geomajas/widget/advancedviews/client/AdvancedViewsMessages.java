@@ -76,4 +76,6 @@ public interface AdvancedViewsMessages extends Messages {
 	String imageConfigFileTitle();
 	String imageConfigGroupTitle();
 	String imageConfigIdealSize(int width, int height);
+
+	String themeConfigDefaultActive();
 }
