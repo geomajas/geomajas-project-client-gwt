@@ -154,7 +154,6 @@ public interface ManagerMessages extends Messages {
 	String blueprintDetailTabSettings();
 	String blueprintDetailTabDataLayers();
 	String blueprintDetailTabAccessRights();
-	String blueprintDetailTabLayout();
 	String blueprintDetailLoadingConfig();
 
 	// Blueprint settings form in Blueprint Settings Tab of Blueprint detail panel

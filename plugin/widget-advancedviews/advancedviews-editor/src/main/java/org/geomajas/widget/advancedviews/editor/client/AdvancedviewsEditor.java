@@ -24,7 +24,9 @@ public class AdvancedviewsEditor implements EntryPoint {
 	@Override
 	public void onModuleLoad() {
 		WidgetEditorFactoryRegistry.getMapRegistry().register(new ThemeConfigurationEditorFactory());
+		WidgetEditorFactoryRegistry.getMapRegistry().register(new ImageConfigurationEditorFactory());
 		WidgetEditorFactoryRegistry.getApplicationRegistry().register(new ThemeConfigurationEditorFactory());
+		WidgetEditorFactoryRegistry.getApplicationRegistry().register(new ImageConfigurationEditorFactory());
 	}
 
 }
