@@ -70,4 +70,10 @@ public interface AdvancedViewsMessages extends Messages {
 	
 	// configuration of image
 	String imageConfigurationEditorName();
+	String imageConfigLinkTitle();
+	String imageConfigAltTitle();
+	String imageConfigAltTooltip();
+	String imageConfigFileTitle();
+	String imageConfigGroupTitle();
+	String imageConfigIdealSize(int width, int height);
 }

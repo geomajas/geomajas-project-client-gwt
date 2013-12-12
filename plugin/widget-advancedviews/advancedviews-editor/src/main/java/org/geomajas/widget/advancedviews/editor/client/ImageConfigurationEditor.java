@@ -12,8 +12,10 @@ package org.geomajas.widget.advancedviews.editor.client;
 
 import org.geomajas.configuration.client.ClientWidgetInfo;
 import org.geomajas.plugin.deskmanager.client.gwt.manager.editor.WidgetEditor;
+import org.geomajas.widget.advancedviews.client.AdvancedViewsMessages;
 import org.geomajas.widget.advancedviews.configuration.client.ImageInfo;
 
+import com.google.gwt.core.client.GWT;
 import com.smartgwt.client.types.Overflow;
 import com.smartgwt.client.widgets.Canvas;
 import com.smartgwt.client.widgets.layout.VLayout;
@@ -26,6 +28,8 @@ import com.smartgwt.client.widgets.layout.VLayout;
  */
 public class ImageConfigurationEditor implements WidgetEditor {
 
+	private static final AdvancedViewsMessages MESSAGES = GWT.create(AdvancedViewsMessages.class);
+
 	private ImageConfigPanel panel;
 
 	private VLayout layout;
@@ -35,7 +39,7 @@ public class ImageConfigurationEditor implements WidgetEditor {
 		layout = new VLayout();
 		layout.setPadding(10);
 		layout.setIsGroup(true);
-		layout.setGroupTitle(new ImageConfigurationEditorFactory().getName());
+		layout.setGroupTitle(MESSAGES.imageConfigGroupTitle());
 		layout.addMember(panel);
 		layout.setOverflow(Overflow.AUTO);
 	}

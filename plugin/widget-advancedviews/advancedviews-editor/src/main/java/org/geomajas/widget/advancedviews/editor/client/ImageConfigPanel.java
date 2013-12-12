@@ -11,8 +11,10 @@
 package org.geomajas.widget.advancedviews.editor.client;
 
 import org.geomajas.plugin.deskmanager.client.gwt.common.FileUploadForm;
+import org.geomajas.widget.advancedviews.client.AdvancedViewsMessages;
 import org.geomajas.widget.advancedviews.configuration.client.ImageInfo;
 
+import com.google.gwt.core.client.GWT;
 import com.smartgwt.client.types.TitleOrientation;
 import com.smartgwt.client.widgets.form.DynamicForm;
 import com.smartgwt.client.widgets.form.fields.HiddenItem;
@@ -30,6 +32,8 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * 
  */
 public class ImageConfigPanel extends HLayout {
+
+	private static final AdvancedViewsMessages MESSAGES = GWT.create(AdvancedViewsMessages.class);
 
 	private ImageInfo imageInfo;
 
@@ -68,7 +72,7 @@ public class ImageConfigPanel extends HLayout {
 		imageUrl = new HiddenItem();
 
 		imageHref = new TextItem();
-		imageHref.setTitle("Website link");
+		imageHref.setTitle(MESSAGES.imageConfigLinkTitle());
 		imageHref.setValidators(regExpValidator);
 		imageHref.setValidateOnChange(true);
 		imageHref.addChangedHandler(new ChangedHandler() {
@@ -80,9 +84,8 @@ public class ImageConfigPanel extends HLayout {
 			}
 		});
 		imageAlt = new TextItem();
-		imageAlt.setTitle("Alt text van het image");
-		imageAlt.setPrompt("Deze tekst verschijnt wanneer men met de muis over het image gaat,"
-				+ " of het image niet beschikbaar is.");
+		imageAlt.setTitle(MESSAGES.imageConfigAltTitle());
+		imageAlt.setPrompt(MESSAGES.imageConfigAltTooltip());
 		imageAlt.addChangedHandler(new ChangedHandler() {
 
 			public void onChanged(ChangedEvent event) {
@@ -96,7 +99,7 @@ public class ImageConfigPanel extends HLayout {
 		form.setFields(imageUrl, imageHref, imageAlt);
 		form.setAutoHeight();
 
-		imageFileForm = new FileUploadForm("Logo :", "");
+		imageFileForm = new FileUploadForm(MESSAGES.imageConfigFileTitle(), "");
 		imageFileForm.setDisabled(true);
 		imageFileForm.addChangedHandler(new FileUploadForm.ChangedHandler() {
 
@@ -110,9 +113,6 @@ public class ImageConfigPanel extends HLayout {
 
 		// --- form ---
 		formLayout = new VLayout(3);
-		formLayout.setPadding(5);
-		formLayout.setIsGroup(true);
-		formLayout.setGroupTitle("Opmaak voor het Logo");
 		formLayout.addMember(form);
 		formLayout.addMember(imageFileForm);
 		addMember(formLayout);
@@ -124,13 +124,17 @@ public class ImageConfigPanel extends HLayout {
 		imageFileForm.setUrl(imageInfo.getUrl());
 		imageAlt.setValue(imageInfo.getAlt());
 		imageHref.setValue(imageInfo.getHref());
-		imageFileForm.setToolTip("Ideale afmeting: " + imageInfo.getWidth() + "px x " + imageInfo.getHeight() + "px");
+		imageFileForm.setToolTip(MESSAGES.imageConfigIdealSize(imageInfo.getWidth(), imageInfo.getHeight()));
 		imageFileForm.setParameter("targetWidth", imageInfo.getWidth() + "");
 		imageFileForm.setParameter("targetHeight", imageInfo.getHeight() + "");
 	}
 
 	public void setFormGroupTitle(String formGroupTitle) {
 		formLayout.setGroupTitle(formGroupTitle);
+	}
+	
+	public void setAltTitle(String altTitle) {
+		imageAlt.setTitle(altTitle);
 	}
 
 	public void setFileUploadLabel(String label) {
