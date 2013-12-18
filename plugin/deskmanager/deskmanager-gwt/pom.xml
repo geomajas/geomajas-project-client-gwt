@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>org.geomajas.plugin</groupId>
 		<artifactId>geomajas-client-gwt-plugin-deskmanager-parent</artifactId>
-		<version>1.15.0-SNAPSHOT</version>
+		<version>1.15.0-AAA-SNAPSHOT</version>
 	</parent>
 
 	<artifactId>geomajas-plugin-deskmanager-gwt</artifactId>
