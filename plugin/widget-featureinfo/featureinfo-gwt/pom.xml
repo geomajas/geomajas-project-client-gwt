@@ -16,7 +16,7 @@
 	<parent>
 		<groupId>org.geomajas.plugin</groupId>
 		<artifactId>geomajas-client-gwt-widget-featureinfo-parent</artifactId>
-		<version>1.15.0-SNAPSHOT</version>
+		<version>1.15.0-AAA-SNAPSHOT</version>
 	</parent>
 
 	<groupId>org.geomajas.widget</groupId>
