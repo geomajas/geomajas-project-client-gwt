@@ -70,9 +70,9 @@
 		<module>archetype</module>
 -->
 		<module>client</module>
-		<!--<module>example-base</module>-->
-		<!--<module>example</module>-->
-		<!--<module>example-jar</module>-->
+		<module>example-base</module>
+		<module>example</module>
+		<module>example-jar</module>
 	</modules>
 
 	<dependencyManagement>
