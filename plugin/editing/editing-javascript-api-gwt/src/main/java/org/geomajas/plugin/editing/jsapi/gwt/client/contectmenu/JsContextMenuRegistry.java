@@ -20,9 +20,8 @@ import org.timepedia.exporter.client.Exportable;
 
 /**
  * JavaScript class for registering
- * {@link org.geomajas.plugin.editing.gwt.client.controller.GeometryIndexContextMenuController.VertexOperation}s
- * to the vertex contect menu.
- * Every operation has its own registration method.
+ * {@link org.geomajas.plugin.editing.gwt.client.controller.GeometryIndexContextMenuController.GeometryIndexOperation}s
+ * to the vertex or edge context menu.
  * 
  * @author Jan Venstermans
  * @since 1.0.0
@@ -54,13 +53,27 @@ public class JsContextMenuRegistry implements Exportable {
 	}
 
 	/**
+	 * JavaScript constructor.
+	 *
+	 * @param jsEditor the editor service
+	 * @param onOneMenuItemSimulateClick if true, in case of a context menu containing only one item,
+	 *                                      that item is clicked (simulated) automatically
+	 */
+	@Export
+	public JsContextMenuRegistry(JsGeometryEditor jsEditor, boolean onOneMenuItemSimulateClick) {
+		editor = jsEditor.getDelegate();
+		editor.setContextMenuController(new GeometryIndexContextMenuController(editor.getMapWidget(),
+				editor.getEditService(), onOneMenuItemSimulateClick));
+	}
+
+	/**
 	 * Add a delete operation to the vertex context menu.
 	 *
 	 * @param displayName the display name in the context menu.
 	 */
-	public void addRemoveSelectedVertexOperation(String displayName) {
+	public void addRemoveVertexOperation(String displayName) {
 		editor.getContextMenuController().addVertexOperation(
-				GeometryIndexContextMenuController.VertexOperation.REMOVE, displayName);
+				GeometryIndexContextMenuController.GeometryIndexOperation.REMOVE, displayName);
 	}
 
 	/**
@@ -68,9 +81,9 @@ public class JsContextMenuRegistry implements Exportable {
 	 *
 	 * @param displayName the display name in the context menu.
 	 */
-	public void addDeselectAllVertexOperation(String displayName) {
+	public void addDeselectVertexOperation(String displayName) {
 		editor.getContextMenuController().addVertexOperation(
-				GeometryIndexContextMenuController.VertexOperation.DESELECT, displayName);
+				GeometryIndexContextMenuController.GeometryIndexOperation.DESELECT, displayName);
 	}
 
 	/**
@@ -80,7 +93,7 @@ public class JsContextMenuRegistry implements Exportable {
 	 */
 	public void addZoomInVertexOperation(String displayName) {
 		editor.getContextMenuController().addVertexOperation(
-				GeometryIndexContextMenuController.VertexOperation.ZOOM_IN, displayName);
+				GeometryIndexContextMenuController.GeometryIndexOperation.ZOOM_IN, displayName);
 	}
 
 	/**
@@ -90,7 +103,7 @@ public class JsContextMenuRegistry implements Exportable {
 	 */
 	public void addZoomOutVertexOperation(String displayName) {
 		editor.getContextMenuController().addVertexOperation(
-				GeometryIndexContextMenuController.VertexOperation.ZOOM_OUT, displayName);
+				GeometryIndexContextMenuController.GeometryIndexOperation.ZOOM_OUT, displayName);
 	}
 
 	/**
@@ -100,7 +113,57 @@ public class JsContextMenuRegistry implements Exportable {
 	 */
 	public void addZoomToFullObjectVertexOperation(String displayName) {
 		editor.getContextMenuController().addVertexOperation(
-				GeometryIndexContextMenuController.VertexOperation.ZOOM_TO_FULL_OBJECT, displayName);
+				GeometryIndexContextMenuController.GeometryIndexOperation.ZOOM_TO_FULL_OBJECT, displayName);
+	}
+
+	/**
+	 * Add a delete operation to the edge context menu.
+	 *
+	 * @param displayName the display name in the context menu.
+	 */
+	public void addRemoveEdgeOperation(String displayName) {
+		editor.getContextMenuController().addEdgeOperation(
+				GeometryIndexContextMenuController.GeometryIndexOperation.REMOVE, displayName);
+	}
+
+	/**
+	 * Add a deselect operation to the edge context menu.
+	 *
+	 * @param displayName the display name in the context menu.
+	 */
+	public void addDeselectEdgeOperation(String displayName) {
+		editor.getContextMenuController().addEdgeOperation(
+				GeometryIndexContextMenuController.GeometryIndexOperation.DESELECT, displayName);
+	}
+
+	/**
+	 * Add a zoom in operation to the edge context menu.
+	 *
+	 * @param displayName the display name in the context menu.
+	 */
+	public void addZoomInEdgeOperation(String displayName) {
+		editor.getContextMenuController().addEdgeOperation(
+				GeometryIndexContextMenuController.GeometryIndexOperation.ZOOM_IN, displayName);
+	}
+
+	/**
+	 * Add a zoom out operation to the edge context menu.
+	 *
+	 * @param displayName the display name in the context menu.
+	 */
+	public void addZoomOutEdgeOperation(String displayName) {
+		editor.getContextMenuController().addEdgeOperation(
+				GeometryIndexContextMenuController.GeometryIndexOperation.ZOOM_OUT, displayName);
+	}
+
+	/**
+	 * Add a zoom-to-selected-geometry operation to the edge context menu.
+	 *
+	 * @param displayName the display name in the context menu.
+	 */
+	public void addZoomToFullObjectEdgeOperation(String displayName) {
+		editor.getContextMenuController().addEdgeOperation(
+				GeometryIndexContextMenuController.GeometryIndexOperation.ZOOM_TO_FULL_OBJECT, displayName);
 	}
 
 }
