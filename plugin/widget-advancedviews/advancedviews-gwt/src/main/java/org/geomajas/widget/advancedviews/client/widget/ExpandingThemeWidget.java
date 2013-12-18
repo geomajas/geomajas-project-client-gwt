@@ -63,6 +63,8 @@ public class ExpandingThemeWidget extends AbstractThemeWidget {
 	
 	private boolean showShadow;
 
+	private boolean showOutOfRange;
+
 	public ExpandingThemeWidget(MapWidget mapWidget) {
 		super(mapWidget);
 		setPadding(5);
@@ -167,7 +169,8 @@ public class ExpandingThemeWidget extends AbstractThemeWidget {
 
 		// -- add required buttons
 		for (ViewConfigItem item : viewConfigItems) {
-			if (!item.equals(activeViewConfig)) {
+			if (!item.equals(activeViewConfig) && (showOutOfRange || getRangeConfigForCurrentScale(item
+					.getViewConfig(), mapWidget.getMapModel().getMapView().getCurrentScale()) != null)) {
 				panel.addMember((MenuItem) item.getButton());
 			}
 		}
