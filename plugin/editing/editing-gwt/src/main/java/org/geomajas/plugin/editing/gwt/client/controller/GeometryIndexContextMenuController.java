@@ -13,11 +13,10 @@ package org.geomajas.plugin.editing.gwt.client.controller;
 import com.smartgwt.client.widgets.events.ShowContextMenuEvent;
 import com.smartgwt.client.widgets.events.ShowContextMenuHandler;
 import com.smartgwt.client.widgets.menu.Menu;
-import com.smartgwt.client.widgets.menu.MenuItem;
-import com.smartgwt.client.widgets.menu.events.ClickHandler;
 import com.smartgwt.client.widgets.menu.events.MenuItemClickEvent;
 import org.geomajas.geometry.Coordinate;
 import org.geomajas.geometry.service.GeometryService;
+import org.geomajas.gwt.client.action.MenuAction;
 import org.geomajas.gwt.client.action.menu.AboutAction;
 import org.geomajas.gwt.client.map.MapView;
 import org.geomajas.gwt.client.spatial.Bbox;
@@ -34,20 +33,22 @@ import java.util.Map;
 
 /**
  * Controller that controls the displayed context menu on right click.
- * The context menu contains operations for one {@link GeometryIndex} object.
- * You can add {@link VertexOperation}s and {@link EdgeOperation}s with custom display name.
+ * The context menu contains {@link GeometryIndexOperation}s that can be peromed for one {@link GeometryIndex} object.
+ * There is a specific context menu for vertices and edges.
  *
  * @author Jan Venstermans
  *
  */
 public class GeometryIndexContextMenuController implements GeometryIndexMouseOverOutEvent.Handler {
 
+	private boolean onOneMenuItemSimulateClick;
+
 	// menus where you can toggle between
 	private Menu defaultMenu = new Menu(), vertexMenu = new Menu(), edgeMenu = new Menu();
 
-	private Map<VertexOperation, String> vertexOperations;
+	private Map<GeometryIndexOperation, String> vertexOperations;
 
-	private Map<EdgeOperation, String> edgeOperations;
+	private Map<GeometryIndexOperation, String> edgeOperations;
 
 	private AboutAction aboutAction;
 
@@ -59,11 +60,31 @@ public class GeometryIndexContextMenuController implements GeometryIndexMouseOve
 
 	private GeometryIndex geometryIndex, currentGeometryIndex;
 
+	/**
+	 * Default constructor.
+	 *
+	 * @param map the mapwidget to link the controller to
+	 * @param service {@link GeometryEditService} to send the operations to
+	 */
 	public GeometryIndexContextMenuController(final MapWidget map, GeometryEditService service) {
+		this(map, service, false);
+	}
+
+	 /**
+	 * Constructor with onOneMenuItemSimulateClick option.
+	 *
+	 * @param map the mapwidget to link the controller to
+	 * @param service {@link GeometryEditService} to send the operations to
+	 * @param onOneMenuItemSimulateClick if true, in case of a context menu containing only one item,
+	 *                                      that item is clicked (simulated) automatically
+	 */
+	public GeometryIndexContextMenuController(final MapWidget map, GeometryEditService service,
+											  boolean onOneMenuItemSimulateClick) {
 		this.map = map;
 		this.service = service;
-		vertexOperations = new LinkedHashMap<VertexOperation, String>();
-		edgeOperations = new LinkedHashMap<EdgeOperation, String>();
+		this.onOneMenuItemSimulateClick = onOneMenuItemSimulateClick;
+		vertexOperations = new LinkedHashMap<GeometryIndexOperation, String>();
+		edgeOperations = new LinkedHashMap<GeometryIndexOperation, String>();
 
 		// defaultMenu: not on a Geometry Index. Add about item.
 		aboutAction = new AboutAction();
@@ -76,7 +97,12 @@ public class GeometryIndexContextMenuController implements GeometryIndexMouseOve
 				currentGeometryIndex = geometryIndex;
 				Menu contextMenu = map.getContextMenu();
 				if (contextMenu.getItems().length > 0) {
-					contextMenu.showContextMenu();
+					if (GeometryIndexContextMenuController.this.onOneMenuItemSimulateClick
+							&& contextMenu.getItems().length == 1) {
+						contextMenu.getItem(0).fireEvent(new MenuItemClickEvent(contextMenu.getItem(0).getJsObj()));
+					} else {
+						contextMenu.showContextMenu();
+					}
 				}
 				showContextMenuEvent.cancel();
 			}
@@ -104,65 +130,43 @@ public class GeometryIndexContextMenuController implements GeometryIndexMouseOve
 	}
 
 	/**
-	 * Operations that are supported in the vertex context menu.
+	 * Operations that can be performed on a {@link GeometryIndex}.
 	 *
 	 * @author Jan Venstermans
 	 *
 	 */
-	public enum VertexOperation {
+	public enum GeometryIndexOperation {
 		REMOVE, DESELECT,
 		ZOOM_IN, ZOOM_OUT, ZOOM_TO_FULL_OBJECT;
 	}
 
-	/**
-	 * Operations that are supported in the edge context menu.
-	 *
-	 * @author Jan Venstermans
-	 *
-	 */
-	public enum EdgeOperation {
-		ZOOM_IN, ZOOM_OUT, ZOOM_TO_FULL_OBJECT;
-	}
-
-	public void addVertexOperation(GeometryIndexContextMenuController.VertexOperation operation, String displayName) {
+	public void addVertexOperation(GeometryIndexContextMenuController.GeometryIndexOperation operation,
+								   String displayName) {
 		vertexOperations.put(operation, displayName);
 		createVertexMenuFromOperations();
 	}
 
-	public void addEdgeOperation(GeometryIndexContextMenuController.EdgeOperation operation, String displayName) {
+	public void addEdgeOperation(GeometryIndexContextMenuController.GeometryIndexOperation operation,
+								 String displayName) {
 		edgeOperations.put(operation, displayName);
 		createEdgeMenuFromOperations();
 	}
 
 	private void createVertexMenuFromOperations() {
 		vertexMenu = new Menu();
-		for (final VertexOperation operation : vertexOperations.keySet()) {
-			MenuItem item = new MenuItem(vertexOperations.get(operation));
-			item.addClickHandler(new ClickHandler() {
-				@Override
-				public void onClick(MenuItemClickEvent menuItemClickEvent) {
-					GeometryIndexContextMenuController.this.onVertexOperation(operation);
-				}
-			});
-			vertexMenu.addItem(item);
+		for (final GeometryIndexOperation operation : vertexOperations.keySet()) {
+			vertexMenu.addItem(new GeometryIndexOperationMenuAction(operation, vertexOperations.get(operation), null));
 		}
 	}
 
 	private void createEdgeMenuFromOperations() {
 		edgeMenu = new Menu();
-		for (final EdgeOperation operation : edgeOperations.keySet()) {
-			MenuItem item = new MenuItem(edgeOperations.get(operation));
-			item.addClickHandler(new ClickHandler() {
-				@Override
-				public void onClick(MenuItemClickEvent menuItemClickEvent) {
-					GeometryIndexContextMenuController.this.onEdgeOperation(operation);
-				}
-			});
-			vertexMenu.addItem(item);
+		for (final GeometryIndexOperation operation : edgeOperations.keySet()) {
+			vertexMenu.addItem(new GeometryIndexOperationMenuAction(operation, vertexOperations.get(operation), null));
 		}
 	}
 
-	public void onVertexOperation(VertexOperation operation) {
+	public void onOperation(GeometryIndexOperation operation) {
 		if (currentGeometryIndex == null) {
 			return;
 		}
@@ -194,28 +198,6 @@ public class GeometryIndexContextMenuController implements GeometryIndexMouseOve
 		}
 	}
 
-	public void onEdgeOperation(EdgeOperation operation) {
-		if (currentGeometryIndex == null) {
-			return;
-		}
-		switch (operation) {
-			case ZOOM_IN:
-				map.getMapModel().getMapView().scale(2.0, MapView.ZoomOption.LEVEL_CHANGE,
-						getCoordinateOfGeometryIndex(currentGeometryIndex));
-				break;
-			case ZOOM_OUT:
-				map.getMapModel().getMapView().scale(0.5, MapView.ZoomOption.LEVEL_CHANGE,
-						getCoordinateOfGeometryIndex(currentGeometryIndex));
-				break;
-			case ZOOM_TO_FULL_OBJECT:
-				map.getMapModel().getMapView().applyBounds(getBboxOfSelectedGeometry(),
-						MapView.ZoomOption.LEVEL_FIT);
-				break;
-			default:
-				break;
-		}
-	}
-
 	private Bbox getBboxOfSelectedGeometry() {
 		return new Bbox(GeometryService.getBounds(service.getGeometry()));
 	}
@@ -229,5 +211,33 @@ public class GeometryIndexContextMenuController implements GeometryIndexMouseOve
 			e.printStackTrace();
 		}
 		return coordinate;
+	}
+
+	/**
+	 * {@link MenuAction} implementation for a {@link GeometryIndex}.
+	 * This object can be used added to a context menu.
+	 *
+	 * @author Jan Venstermans
+	 */
+	public class GeometryIndexOperationMenuAction extends MenuAction {
+
+		private final GeometryIndexOperation operation;
+
+		/**
+		 * Constructor that expects you to immediately fill in the title and the icon.
+		 *
+		 * @param operation vertex operation to be performed on click
+		 * @param title The textual title of the menu item.
+		 * @param icon  A picture to be used as icon for the menu item.
+		 */
+		protected GeometryIndexOperationMenuAction(GeometryIndexOperation operation, String title, String icon) {
+			super(title, icon);
+			this.operation = operation;
+		}
+
+		@Override
+		public void onClick(MenuItemClickEvent menuItemClickEvent) {
+			GeometryIndexContextMenuController.this.onOperation(operation);
+		}
 	}
 }
