@@ -20,11 +20,11 @@ import org.geomajas.gwt.client.widget.MapWidget;
 import org.geomajas.gwt.example.base.SamplePanel;
 import org.geomajas.gwt.example.base.SamplePanelFactory;
 import org.geomajas.plugin.editing.client.snap.SnapSourceProvider;
-import org.geomajas.plugin.editing.client.snap.SnappingRule;
 import org.geomajas.plugin.editing.client.snap.algorithm.NearestEdgeSnapAlgorithm;
 import org.geomajas.plugin.editing.client.snap.algorithm.NearestVertexSnapAlgorithm;
 import org.geomajas.plugin.editing.gwt.client.GeometryEditor;
 import org.geomajas.plugin.editing.gwt.client.GeometryEditorImpl;
+import org.geomajas.plugin.editing.gwt.client.controller.GeometryIndexContextMenuController;
 import org.geomajas.plugin.editing.gwt.client.gfx.PointSymbolizerShapeAndSize;
 import org.geomajas.plugin.editing.gwt.client.snap.VectorLayerSourceProvider;
 import org.geomajas.plugin.editing.gwt.example.client.i18n.EditingMessages;
@@ -63,6 +63,19 @@ public class EditingPanel extends SamplePanel implements MapModelChangedHandler 
 		editor.getStyleService().getPointSymbolizerShapeAndSize().setShape(PointSymbolizerShapeAndSize.Shape.CIRCLE);
 		editor.getStyleService().getPointSymbolizerShapeAndSize().setSize(6);
 
+		// register operations for vertex contect menu
+		editor.setContextMenuController(new GeometryIndexContextMenuController(map, editor.getEditService()));
+		editor.getContextMenuController().addVertexOperation(
+				GeometryIndexContextMenuController.GeometryIndexOperation.REMOVE, "verwijder punt");
+		editor.getContextMenuController().addVertexOperation(
+				GeometryIndexContextMenuController.GeometryIndexOperation.DESELECT, "deselecteer punt");
+		editor.getContextMenuController().addVertexOperation(
+				GeometryIndexContextMenuController.GeometryIndexOperation.ZOOM_IN, "zoom in");
+		editor.getContextMenuController().addVertexOperation(
+				GeometryIndexContextMenuController.GeometryIndexOperation.ZOOM_OUT, "zoom uit");
+		editor.getContextMenuController().addVertexOperation(
+				GeometryIndexContextMenuController.GeometryIndexOperation.ZOOM_TO_FULL_OBJECT, "zoom naar object");
+
 		VLayout layout = new VLayout();
 		MenuBar editingToolStrip = new MenuBar(editor);
 		layout.addMember(editingToolStrip);
@@ -99,9 +112,9 @@ public class EditingPanel extends SamplePanel implements MapModelChangedHandler 
 		editor.getSnappingService().clearSnappingRules();
 		SnapSourceProvider snapSourceProvider = new VectorLayerSourceProvider(editor.getMapWidget().getMapModel()
 				.getVectorLayer("clientLayerGepCountries"));
-		editor.getSnappingService().addSnappingRule(new SnappingRule(new NearestVertexSnapAlgorithm(),
-				snapSourceProvider, 200000));
-		editor.getSnappingService().addSnappingRule(new SnappingRule(new NearestEdgeSnapAlgorithm(),
-				snapSourceProvider, 100000));
+//		editor.setSnapOnInsert(true);
+//		editor.setSnapOnDrag(true);
+		editor.getSnappingService().addSnappingRule(new NearestVertexSnapAlgorithm(), snapSourceProvider, 200000, true);
+		editor.getSnappingService().addSnappingRule(new NearestEdgeSnapAlgorithm(), snapSourceProvider, 100000, false);
 	}
 }
