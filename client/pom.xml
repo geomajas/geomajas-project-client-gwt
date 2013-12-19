@@ -30,6 +30,14 @@
 			<groupId>org.geomajas</groupId>
 			<artifactId>geomajas-face-common-gwt</artifactId>
 		</dependency>
+		<!--<dependency>
+			<groupId>org.geomajas</groupId>
+			<artifactId>geomajas-client-common-gwt-smartgwt</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.geomajas</groupId>
+			<artifactId>geomajas-client-common-gwt</artifactId>
+		</dependency>-->
 		<dependency>
 			<groupId>org.geomajas</groupId>
 			<artifactId>geomajas-api</artifactId>

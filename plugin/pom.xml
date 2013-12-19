@@ -28,12 +28,12 @@
 	<modules>
 		<!--<module>layer-geotools</module>-->
 		<!--<module>layer-googlemaps</module>-->
-		<!--<module>layer-wms</module>-->
+		<module>layer-wms</module>
 		<!--<module>geocoder</module>-->
 		<module>javascript-api</module>
 		<module>editing</module>
 		<!--<module>print</module>-->
-		<!--<module>rasterizing</module>-->
+		<module>rasterizing</module>
 		<!--<module>reporting</module>-->
 		<!--<module>runtimeconfig</module>-->
 		<!--<module>staticsecurity</module>-->
