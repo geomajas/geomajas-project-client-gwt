@@ -43,7 +43,7 @@
 		<module>editing-javascript-api-gwt</module>
 
 		<module>editing-gwt-example</module>
-		<!--<module>editing-javascript-gwt-example</module>-->
+		<module>editing-javascript-gwt-example</module>
 	</modules>
 
 	<profiles>

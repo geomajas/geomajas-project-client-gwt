@@ -70,6 +70,7 @@
 				editor = new org.geomajas.plugin.editing.GeometryEditor();
 				editor.setMap(map);
 				service = editor.getService();
+                service.setPolygonInsertLinesCanIntersect(false);
                 styleService = editor.getStyleService();
                 styleService.getVertexStyle().setFillColor("blue");
                 styleService.getEdgeStyle().setStrokeColor("red");
@@ -78,12 +79,12 @@
 
                 // customize context menu when vertex is selected
                 var contextMenuRegistry = new
-                        org.geomajas.plugin.editing.contextmenu.ContextMenuRegister(editor, false);
+                        org.geomajas.plugin.editing.contextmenu.ContextMenuRegister(editor, true);
                 contextMenuRegistry.addRemoveVertexOperation("delete");
 //                contextMenuRegistry.addDeselectVertexOperation("deselect");
-                contextMenuRegistry.addZoomInVertexOperation("zoom in");
-                contextMenuRegistry.addZoomOutVertexOperation("zoom out");
-                contextMenuRegistry.addZoomToFullObjectVertexOperation("zoom to full object");
+//                contextMenuRegistry.addZoomInVertexOperation("zoom in");
+//                contextMenuRegistry.addZoomOutVertexOperation("zoom out");
+//                contextMenuRegistry.addZoomToFullObjectVertexOperation("zoom to full object");
 
                 factory = new org.geomajas.plugin.editing.handler.GeometryHandlerFactory();
 			}
