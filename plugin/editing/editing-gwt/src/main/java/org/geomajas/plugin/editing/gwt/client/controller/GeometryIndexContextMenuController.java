@@ -41,8 +41,6 @@ import java.util.Map;
  */
 public class GeometryIndexContextMenuController implements GeometryIndexMouseOverOutEvent.Handler {
 
-	private boolean onOneMenuItemSimulateClick;
-
 	// menus where you can toggle between
 	private Menu defaultMenu = new Menu(), vertexMenu = new Menu(), edgeMenu = new Menu();
 
@@ -82,7 +80,7 @@ public class GeometryIndexContextMenuController implements GeometryIndexMouseOve
 											  boolean onOneMenuItemSimulateClick) {
 		this.map = map;
 		this.service = service;
-		this.onOneMenuItemSimulateClick = onOneMenuItemSimulateClick;
+		service.setPolygonInsertLinesCanIntersect(onOneMenuItemSimulateClick);
 		vertexOperations = new LinkedHashMap<GeometryIndexOperation, String>();
 		edgeOperations = new LinkedHashMap<GeometryIndexOperation, String>();
 
@@ -97,7 +95,7 @@ public class GeometryIndexContextMenuController implements GeometryIndexMouseOve
 				currentGeometryIndex = geometryIndex;
 				Menu contextMenu = map.getContextMenu();
 				if (contextMenu.getItems().length > 0) {
-					if (GeometryIndexContextMenuController.this.onOneMenuItemSimulateClick
+					if (GeometryIndexContextMenuController.this.service.isOperationSequenceActive()
 							&& contextMenu.getItems().length == 1) {
 						contextMenu.getItem(0).fireEvent(new MenuItemClickEvent(contextMenu.getItem(0).getJsObj()));
 					} else {
