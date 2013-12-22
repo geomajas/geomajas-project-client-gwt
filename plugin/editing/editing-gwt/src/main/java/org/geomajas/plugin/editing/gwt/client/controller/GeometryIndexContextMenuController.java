@@ -67,22 +67,8 @@ public class GeometryIndexContextMenuController implements GeometryIndexMouseOve
 	 * @param service {@link GeometryEditService} to send the operations to
 	 */
 	public GeometryIndexContextMenuController(final MapWidget map, GeometryEditService service) {
-		this(map, service, false);
-	}
-
-	 /**
-	 * Constructor with onOneMenuItemSimulateClick option.
-	 *
-	 * @param map the mapwidget to link the controller to
-	 * @param service {@link GeometryEditService} to send the operations to
-	 * @param onOneMenuItemSimulateClick if true, in case of a context menu containing only one item,
-	 *                                      that item is clicked (simulated) automatically
-	 */
-	public GeometryIndexContextMenuController(final MapWidget map, GeometryEditService service,
-											  boolean onOneMenuItemSimulateClick) {
 		this.map = map;
 		this.service = service;
-		this.onOneMenuItemSimulateClick = onOneMenuItemSimulateClick;
 		vertexOperations = new LinkedHashMap<GeometryIndexOperation, String>();
 		edgeOperations = new LinkedHashMap<GeometryIndexOperation, String>();
 
@@ -211,6 +197,14 @@ public class GeometryIndexContextMenuController implements GeometryIndexMouseOve
 			e.printStackTrace();
 		}
 		return coordinate;
+	}
+
+	public boolean isOnOneMenuItemSimulateClick() {
+		return onOneMenuItemSimulateClick;
+	}
+
+	public void setOnOneMenuItemSimulateClick(boolean onOneMenuItemSimulateClick) {
+		this.onOneMenuItemSimulateClick = onOneMenuItemSimulateClick;
 	}
 
 	/**
