@@ -53,20 +53,6 @@ public class JsContextMenuRegistry implements Exportable {
 	}
 
 	/**
-	 * JavaScript constructor.
-	 *
-	 * @param jsEditor the editor service
-	 * @param onOneMenuItemSimulateClick if true, in case of a context menu containing only one item,
-	 *                                      that item is clicked (simulated) automatically
-	 */
-	@Export
-	public JsContextMenuRegistry(JsGeometryEditor jsEditor, boolean onOneMenuItemSimulateClick) {
-		editor = jsEditor.getDelegate();
-		editor.setContextMenuController(new GeometryIndexContextMenuController(editor.getMapWidget(),
-				editor.getEditService(), onOneMenuItemSimulateClick));
-	}
-
-	/**
 	 * Add a delete operation to the vertex context menu.
 	 *
 	 * @param displayName the display name in the context menu.
@@ -164,6 +150,15 @@ public class JsContextMenuRegistry implements Exportable {
 	public void addZoomToFullObjectEdgeOperation(String displayName) {
 		editor.getContextMenuController().addEdgeOperation(
 				GeometryIndexContextMenuController.GeometryIndexOperation.ZOOM_TO_FULL_OBJECT, displayName);
+	}
+
+	/**
+	 * Should action of single item in context menu be performed automatically?
+	 *
+	 * @param onOneMenuItemSimulateClick boolean.
+	 */
+	public void setOnOneMenuItemSimulateClick(boolean onOneMenuItemSimulateClick) {
+		editor.getContextMenuController().setOnOneMenuItemSimulateClick(onOneMenuItemSimulateClick);
 	}
 
 }
