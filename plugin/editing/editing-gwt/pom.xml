@@ -32,6 +32,10 @@
 			<artifactId>gwt-user</artifactId>
 			<scope>provided</scope>
 		</dependency>
+		<dependency>
+			<groupId>com.smartgwt</groupId>
+			<artifactId>smartgwt</artifactId>
+		</dependency>
 
 		<!-- Geomajas Dependencies -->
 		<dependency>

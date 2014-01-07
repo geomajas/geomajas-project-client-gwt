@@ -26,7 +26,7 @@
 	<dependencies>
 		<dependency>
 			<groupId>org.geomajas</groupId>
-			<artifactId>geomajas-api</artifactId>
+			<artifactId>geomajas-gwt-client</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.geomajas.plugin</groupId>
