@@ -62,9 +62,7 @@
 	</developers>
 	
 	<modules>
-<!--
 		<module>common-gwt-smartgwt</module>
--->
 <!--
 		<module>smartgwt-archetype</module>
 		<module>archetype</module>
