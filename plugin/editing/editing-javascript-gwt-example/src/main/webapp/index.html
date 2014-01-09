@@ -70,7 +70,7 @@
 				editor = new org.geomajas.plugin.editing.GeometryEditor();
 				editor.setMap(map);
 				service = editor.getService();
-                service.setPolygonInsertLinesCanIntersect(false);
+                editor .getService().setPolygonInsertLinesCanIntersect(true);
                 styleService = editor.getStyleService();
                 styleService.getVertexStyle().setFillColor("blue");
                 styleService.getEdgeStyle().setStrokeColor("red");

@@ -110,8 +110,9 @@ public class JsEventBusImpl implements Exportable, JsEventBus {
 
 				public void onFeatureSelected(FeatureSelectedEvent event) {
 					Feature feature = new FeatureImpl(event.getFeature().toDto(), fs);
-					selectedHandler.onFeatureSelected(new org.geomajas.plugin.jsapi.client.event.FeatureSelectedEvent(
-							feature));
+					org.geomajas.plugin.jsapi.client.event.FeatureSelectedEvent fse =
+							new org.geomajas.plugin.jsapi.client.event.FeatureSelectedEvent(feature);
+					selectedHandler.onFeatureSelected(fse);
 				}
 
 				public void onFeatureDeselected(FeatureDeselectedEvent event) {
