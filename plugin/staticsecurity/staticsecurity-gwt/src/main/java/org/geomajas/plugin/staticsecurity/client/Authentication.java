@@ -221,13 +221,12 @@ public final class Authentication {
 				} else {
 					userToken = loginResponse.getToken();
 					Authentication.this.userId = userId;
-					UserDetail userDetail = new UserDetail();
+					UserDetail userDetail = GwtCommandDispatcher.getInstance().getUserDetail();
 					userDetail.setUserId(loginResponse.getUserId());
 					userDetail.setUserName(loginResponse.getUserName());
 					userDetail.setUserOrganization(loginResponse.getUserOrganization());
 					userDetail.setUserDivision(loginResponse.getUserDivision());
 					userDetail.setUserLocale(loginResponse.getUserLocale());
-					GwtCommandDispatcher.getInstance().setUserToken(userToken, userDetail);
 					if (callback != null) {
 						callback.execute(true);
 					}
