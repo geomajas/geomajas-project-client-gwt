@@ -627,4 +627,15 @@ public class JsGeometryEditService implements Exportable {
 	public void setPolygonInsertLinesCanIntersect(boolean polygonInsertLinesCanIntersect) {
 		delegate.setPolygonInsertLinesCanIntersect(polygonInsertLinesCanIntersect);
 	}
+
+	/**
+	 * Return the service that keeps track of the changes in state of the individual vertices/edges/sub-geometries
+	 * during editing.
+	 *
+	 * @return The geometry-index-state-change service.
+	 */
+	public void setPolygonInsertLinesCanIntersect(boolean polygonInsertLinesCanIntersect,
+												  String exceptionMessage) {
+		delegate.setPolygonInsertLinesCanIntersect(polygonInsertLinesCanIntersect, exceptionMessage);
+	}
 }
