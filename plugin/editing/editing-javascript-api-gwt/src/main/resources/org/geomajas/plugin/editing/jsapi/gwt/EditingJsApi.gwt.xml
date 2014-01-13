@@ -14,5 +14,6 @@
 	<inherits name="org.geomajas.plugin.editing.gwt.Editing"/>
 	<inherits name="org.geomajas.plugin.editing.jsapi.EditingJavascriptApi"/>
   	<set-property name="export" value="yes"/>
+	<extend-property name="locale" values="nl"/>
 	<source path="client" />
 </module>

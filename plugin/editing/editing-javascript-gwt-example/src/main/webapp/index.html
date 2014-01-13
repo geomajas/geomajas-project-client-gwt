@@ -13,6 +13,7 @@
 	<head>
 		<meta http-equiv="content-type" content="text/html;charset=utf-8" />
 		<link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon" />
+        <!--<meta name="gwt:property" content="locale=nl">-->
 
 		<title>Geomajas Javascript API Showcase</title>
 		<link type="text/css" rel="stylesheet" href="geomajas.css" />
@@ -70,7 +71,7 @@
 				editor = new org.geomajas.plugin.editing.GeometryEditor();
 				editor.setMap(map);
 				service = editor.getService();
-                editor .getService().setPolygonInsertLinesCanIntersect(true);
+                editor.getService().setPolygonInsertLinesCanIntersect(false, "Dit kan niet");
                 styleService = editor.getStyleService();
                 styleService.getVertexStyle().setFillColor("blue");
                 styleService.getEdgeStyle().setStrokeColor("red");
