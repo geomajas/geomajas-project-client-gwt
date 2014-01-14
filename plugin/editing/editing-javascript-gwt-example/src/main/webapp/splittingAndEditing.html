@@ -29,7 +29,7 @@
 				map = Geomajas().createMap("app", "mapSnapping", "js-map-element");
 				editor = new org.geomajas.plugin.editing.GeometryEditor();
 				editor.setMap(map);
-                editor .getService().setPolygonInsertLinesCanIntersect(true, "Dit kan niet");
+                editor .getService().setPolygonEdgesCanIntersect(true, "Dit kan niet");
 				splitService = editor.getSplitService();
                 geomEditService = editor.getService();
 

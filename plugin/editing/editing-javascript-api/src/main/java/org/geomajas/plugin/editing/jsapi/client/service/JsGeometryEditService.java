@@ -624,8 +624,8 @@ public class JsGeometryEditService implements Exportable {
 	 *
 	 * @return The geometry-index-state-change service.
 	 */
-	public void setPolygonInsertLinesCanIntersect(boolean polygonInsertLinesCanIntersect) {
-		delegate.setPolygonInsertLinesCanIntersect(polygonInsertLinesCanIntersect);
+	public void setPolygonEdgesCanIntersect(boolean polygonInsertLinesCanIntersect) {
+		delegate.setPolygonEdgesCanIntersect(polygonInsertLinesCanIntersect);
 	}
 
 	/**
@@ -634,8 +634,8 @@ public class JsGeometryEditService implements Exportable {
 	 *
 	 * @return The geometry-index-state-change service.
 	 */
-	public void setPolygonInsertLinesCanIntersect(boolean polygonInsertLinesCanIntersect,
+	public void setPolygonEdgesCanIntersect(boolean polygonInsertLinesCanIntersect,
 												  String exceptionMessage) {
-		delegate.setPolygonInsertLinesCanIntersect(polygonInsertLinesCanIntersect, exceptionMessage);
+		delegate.setPolygonEdgesCanIntersect(polygonInsertLinesCanIntersect, exceptionMessage);
 	}
 }
