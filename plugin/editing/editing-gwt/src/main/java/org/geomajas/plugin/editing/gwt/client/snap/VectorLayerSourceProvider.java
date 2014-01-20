@@ -49,7 +49,7 @@ public class VectorLayerSourceProvider implements SnapSourceProvider {
 	public void getSnappingSources(final GeometryArrayFunction callback) {
 		GwtCommand commandRequest = new GwtCommand(SearchByLocationRequest.COMMAND);
 		SearchByLocationRequest request = new SearchByLocationRequest();
-		request.setLayerIds(new String[] { layer.getServerLayerId() });
+		request.addLayerWithFilter(layer.getServerLayerId(), layer.getServerLayerId(), layer.getFilter());
 		request.setFeatureIncludes(GeomajasConstant.FEATURE_INCLUDE_GEOMETRY);
 		request.setLocation(boundsAsGeometry());
 		request.setCrs(layer.getMapModel().getCrs());
