@@ -406,4 +406,12 @@ public interface SampleMessages extends Messages {
 
 	String attributeCustomFormDescription();
 
+	String wmsTxt();
+
+	String addLayer();
+
+	String layerUrl();
+
+	String layerName();
+
 }

@@ -38,6 +38,7 @@ import org.geomajas.gwt.example.client.sample.general.PipelineConfigSample;
 import org.geomajas.gwt.example.client.sample.general.ServerErrorSample;
 import org.geomajas.gwt.example.client.sample.i18n.SampleMessages;
 import org.geomajas.gwt.example.client.sample.layer.OpenStreetMapSample;
+import org.geomajas.gwt.example.client.sample.layer.WmsSample;
 import org.geomajas.gwt.example.client.sample.layertree.LayerOrderSample;
 import org.geomajas.gwt.example.client.sample.layertree.LayertreeSample;
 import org.geomajas.gwt.example.client.sample.layertree.LegendSample;
@@ -83,6 +84,12 @@ public class GwtFaceExample implements EntryPoint {
 		SampleTreeNodeRegistry.addSampleTreeNode(new SampleTreeNode(MESSAGES.osmTitle(),
 				"[ISOMORPHIC]/geomajas/osgeo/layer-raster.png", OpenStreetMapSample.OSM_TITLE, "Layers",
 				OpenStreetMapSample.FACTORY));
+		
+
+		//WMS Layers
+		SampleTreeNodeRegistry.addSampleTreeNode(new SampleTreeNode(MESSAGES.wmsTitle(),
+				"[ISOMORPHIC]/geomajas/osgeo/mapset.png", WmsSample.TITLE, "Layers",
+				WmsSample.FACTORY));
 
 		SampleTreeNodeRegistry.addSampleTreeNode(new SampleTreeNode(MESSAGES.treeGroupMap(),
 				"[ISOMORPHIC]/geomajas/example/image/silk/world.png", "MapWidget", "topLevel"));
@@ -154,7 +161,7 @@ public class GwtFaceExample implements EntryPoint {
 		SampleTreeNodeRegistry.addSampleTreeNode(new SampleTreeNode(MESSAGES.layerOrderTitle(),
 				"[ISOMORPHIC]/geomajas/osgeo/mapset.png", LayerOrderSample.TITLE, "Layertree",
 				LayerOrderSample.FACTORY));
-
+		
 		// Attribute samples:
 		SampleTreeNodeRegistry.addSampleTreeNode(new SampleTreeNode(MESSAGES.treeGroupAttributes(),
 				WidgetLayout.iconTable, "FeatureListGridGroup", "topLevel"));
