@@ -94,7 +94,7 @@ public class MeasureDistanceController extends AbstractSnappingController {
 	 * @param mapWidget the mapwidget where the distance is measured on.
 	 */
 	public MeasureDistanceController(MapWidget mapWidget) {
-		this(mapWidget, false, false);
+		this(mapWidget, false, false, null);
 	}
 
 	/**
@@ -104,7 +104,7 @@ public class MeasureDistanceController extends AbstractSnappingController {
 	 * @param showArea true if the area should be displayed
 	 * @param displayCoordinates the if the coordinates should be displayed.
 	 */
-	public MeasureDistanceController(MapWidget mapWidget, boolean showArea, boolean displayCoordinates) {
+	public MeasureDistanceController(MapWidget mapWidget, boolean showArea, boolean displayCoordinates, MeasureDistanceInfoHandler handler) {
 		super(mapWidget);
 		setInfoHandler(handler);
 		distanceLine = new GfxGeometry("measureDistanceLine");
