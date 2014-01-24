@@ -10,7 +10,10 @@
  */
 package org.geomajas.plugin.jsapi.gwt.client;
 
+import org.geomajas.plugin.jsapi.client.map.controller.measuredistance.MeasureDistanceInfoController;
+
 import com.google.gwt.core.client.EntryPoint;
+import com.google.gwt.core.client.GWT;
 
 /**
  * GWT entry point for the JavaScript API for the GWT face.
@@ -20,5 +23,6 @@ import com.google.gwt.core.client.EntryPoint;
 public class JsApiEntryPoint implements EntryPoint {
 
 	public void onModuleLoad() {
+		GWT.create(MeasureDistanceInfoController.class);
 	}
 }

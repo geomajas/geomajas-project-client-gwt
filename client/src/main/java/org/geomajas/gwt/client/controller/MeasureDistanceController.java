@@ -66,16 +66,26 @@ public class MeasureDistanceController extends AbstractSnappingController {
 
 	private Menu menu;
 
+	private MeasureDistanceInfoHandler infoHandler;
+
 	// -------------------------------------------------------------------------
 	// Constructor:
 	// -------------------------------------------------------------------------
-
 	public MeasureDistanceController(MapWidget mapWidget) {
+		this(mapWidget, null);
+	}
+	
+	public MeasureDistanceController(MapWidget mapWidget, MeasureDistanceInfoHandler handler) {
 		super(mapWidget);
+		setInfoHandler(handler);
 		distanceLine = new GfxGeometry("measureDistanceLine");
 		distanceLine.setStyle(LINE_STYLE_1);
 		lineSegment = new GfxGeometry("measureDistanceLineSegment");
 		lineSegment.setStyle(LINE_STYLE_2);
+	}
+
+	public void setInfoHandler(MeasureDistanceInfoHandler handler) {
+		this.infoHandler = (handler != null ? handler : new ShowLabelInfoHandler());
 	}
 
 	// -------------------------------------------------------------------------
@@ -111,16 +121,14 @@ public class MeasureDistanceController extends AbstractSnappingController {
 				distanceLine.setGeometry(getFactory().createLineString(new Coordinate[] { coordinate }));
 				mapWidget.registerWorldPaintable(distanceLine);
 				mapWidget.registerWorldPaintable(lineSegment);
-				label = new DistanceLabel();
-				label.setDistance(0, 0);
-				label.animateMove(mapWidget.getWidth() - 130, 10);
+				infoHandler.onStart();
 			} else {
 				Geometry geometry = (Geometry) distanceLine.getOriginalLocation();
 				InsertCoordinateOperation op = new InsertCoordinateOperation(geometry.getNumPoints(), coordinate);
 				geometry = op.execute(geometry);
 				distanceLine.setGeometry(geometry);
 				tempLength = (float) geometry.getLength();
-				label.setDistance(tempLength, 0);
+				infoHandler.onDistance(tempLength, 0);
 			}
 			mapWidget.render(mapWidget.getMapModel(), RenderGroup.VECTOR, RenderStatus.UPDATE);
 		}
@@ -134,7 +142,7 @@ public class MeasureDistanceController extends AbstractSnappingController {
 			Coordinate coordinate2 = getWorldPosition(event);
 			lineSegment.setGeometry(getFactory().createLineString(new Coordinate[] { coordinate1, coordinate2 }));
 			mapWidget.render(mapWidget.getMapModel(), RenderGroup.VECTOR, RenderStatus.UPDATE);
-			label.setDistance(tempLength, (float) ((Geometry) lineSegment.getOriginalLocation()).getLength());
+			infoHandler.onDistance(tempLength, (float) ((Geometry) lineSegment.getOriginalLocation()).getLength());
 		}
 	}
 
@@ -145,9 +153,7 @@ public class MeasureDistanceController extends AbstractSnappingController {
 		mapWidget.unregisterWorldPaintable(lineSegment);
 		distanceLine.setGeometry(null);
 		lineSegment.setGeometry(null);
-		if (label != null) {
-			label.destroy();
-		}
+		infoHandler.onStop();
 	}
 
 	// -------------------------------------------------------------------------
@@ -160,7 +166,7 @@ public class MeasureDistanceController extends AbstractSnappingController {
 
 	/**
 	 * The factory can only be used after the MapModel has initialized, that is why this getter exists...
-	 *
+	 * 
 	 * @return geometry factory
 	 */
 	private GeometryFactory getFactory() {
@@ -226,4 +232,34 @@ public class MeasureDistanceController extends AbstractSnappingController {
 			controller.onDoubleClick(null);
 		}
 	}
+
+	/**
+	 * Callback that steers the label.
+	 * 
+	 * @author Jan De Moerloose
+	 * 
+	 */
+	public class ShowLabelInfoHandler implements MeasureDistanceInfoHandler {
+
+		@Override
+		public void onStart() {
+			label = new DistanceLabel();
+			label.setDistance(0, 0);
+			label.animateMove(mapWidget.getWidth() - 130, 10);
+		}
+
+		@Override
+		public void onDistance(double totalDistance, double lastSegment) {
+			label.setDistance((float)totalDistance, (float)lastSegment);
+		}
+
+		@Override
+		public void onStop() {
+			if (label != null) {
+				label.destroy();
+			}
+		}
+
+	}
+
 }
