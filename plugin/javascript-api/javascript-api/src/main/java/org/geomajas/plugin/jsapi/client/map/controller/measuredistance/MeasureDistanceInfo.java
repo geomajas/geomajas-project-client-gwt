@@ -26,33 +26,61 @@ import org.timepedia.exporter.client.Exportable;
 @Export
 @ExportPackage("org.geomajas.jsapi.map.controller")
 public class MeasureDistanceInfo implements Exportable {
-	
+
+	/**
+	 * Measurement started.
+	 */
 	public static final int STARTED = 0;
-	
+
+	/**
+	 * Measurement busy.
+	 */
 	public static final int BUSY = 1;
-	
+
+	/**
+	 * Measurement stopped.
+	 */
 	public static final int STOPPED = 2;
-	
+
 	private int status;
 
 	private double totalDistance;
 
 	private double lastSegment;
 
+	/**
+	 * Create info object.
+	 * 
+	 * @param status
+	 * @param totalDistance
+	 * @param lastSegment
+	 */
 	public MeasureDistanceInfo(int status, double totalDistance, double lastSegment) {
 		this.status = status;
 		this.totalDistance = totalDistance;
 		this.lastSegment = lastSegment;
 	}
 
+	/**
+	 * Get the status.
+	 * @return
+	 */
 	public int getStatus() {
 		return status;
 	}
 
+	/**
+	 * Get the total distance (all segments).
+	 * @return
+	 */
 	public double getTotalDistance() {
 		return totalDistance;
 	}
 
+	/**
+	 * Get the distance of the last segment.
+	 * @return
+	 */
 	public double getLastSegment() {
 		return lastSegment;
 	}

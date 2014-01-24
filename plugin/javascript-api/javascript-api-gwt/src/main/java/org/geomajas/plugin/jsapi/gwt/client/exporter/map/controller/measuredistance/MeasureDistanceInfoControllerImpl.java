@@ -32,7 +32,7 @@ import org.timepedia.exporter.client.ExportPackage;
 @ExportPackage("org.geomajas.jsapi.map.controller")
 public class MeasureDistanceInfoControllerImpl extends MeasureDistanceInfoController {
 
-	final MeasureDistanceController controller;
+	private final MeasureDistanceController controller;
 
 	public MeasureDistanceInfoControllerImpl(Map map, final MeasureDistanceController controller) {
 		super(map, controller);
@@ -45,9 +45,9 @@ public class MeasureDistanceInfoControllerImpl extends MeasureDistanceInfoContro
 	public void setInfoHandler(final MeasureDistanceHandler handler) {
 		controller.setInfoHandler(new MeasureDistanceInfoHandler() {
 
-			double totalDistance;
+			private double totalDistance;
 
-			double lastSegment;
+			private double lastSegment;
 
 			@Override
 			public void onStop() {
