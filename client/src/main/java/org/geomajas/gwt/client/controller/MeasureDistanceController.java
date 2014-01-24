@@ -74,7 +74,7 @@ public class MeasureDistanceController extends AbstractSnappingController {
 	public MeasureDistanceController(MapWidget mapWidget) {
 		this(mapWidget, null);
 	}
-	
+
 	public MeasureDistanceController(MapWidget mapWidget, MeasureDistanceInfoHandler handler) {
 		super(mapWidget);
 		setInfoHandler(handler);
@@ -250,7 +250,7 @@ public class MeasureDistanceController extends AbstractSnappingController {
 
 		@Override
 		public void onDistance(double totalDistance, double lastSegment) {
-			label.setDistance((float)totalDistance, (float)lastSegment);
+			label.setDistance((float) totalDistance, (float) lastSegment);
 		}
 
 		@Override
