@@ -21,6 +21,8 @@ import org.geomajas.plugin.jsapi.client.spatial.GeometryService;
 import org.timepedia.exporter.client.Export;
 import org.timepedia.exporter.client.Exportable;
 
+import com.google.gwt.core.client.JavaScriptObject;
+
 /**
  * MapRegistry provides a registry where {@link org.geomajas.plugin.jsapi.map.Map} components can be registered from GWT
  * to be retrieved from plain JavaScript. This will most probably be implemented as a singleton.
@@ -72,14 +74,13 @@ public interface GeomajasService extends Exportable {
 	 * Create a known controller for the map. Different implementations may 'know' different controllers, so it's best
 	 * to check with the implementing class.
 	 * 
-	 * @param map
-	 *            The onto which the controller should be applied.
-	 * @param id
-	 *            The unique ID for the map controller (implementation specific).
+	 * @param map The onto which the controller should be applied.
+	 * @param id The unique ID for the map controller (implementation specific).
+	 * @param options extra options for the controller
 	 * @return The map controller, or null if it could not be found.
 	 */
-	MapController createMapController(Map map, String id);
-
+	MapController createMapController(Map map, String id, JavaScriptObject options);
+	
 	/**
 	 * Get a service for geometry manipulation.
 	 * 
@@ -111,4 +112,5 @@ public interface GeomajasService extends Exportable {
 	 * @return The registration for the handler. Using this object the handler can be removed again.
 	 */
 	JsHandlerRegistration addDispatchStoppedHandler(DispatchStoppedHandler handler);
+	
 }
