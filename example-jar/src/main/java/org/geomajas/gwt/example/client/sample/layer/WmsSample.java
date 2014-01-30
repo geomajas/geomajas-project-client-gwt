@@ -12,12 +12,6 @@
 package org.geomajas.gwt.example.client.sample.layer;
 
 import com.google.gwt.core.client.GWT;
-import org.geomajas.gwt.example.base.SamplePanel;
-import org.geomajas.gwt.example.base.SamplePanelFactory;
-import org.geomajas.gwt.client.controller.PanController;
-import org.geomajas.gwt.client.map.layer.VectorLayer;
-import org.geomajas.gwt.client.widget.MapWidget;
-
 import com.smartgwt.client.widgets.Canvas;
 import com.smartgwt.client.widgets.HTMLFlow;
 import com.smartgwt.client.widgets.IButton;
@@ -27,7 +21,18 @@ import com.smartgwt.client.widgets.form.DynamicForm;
 import com.smartgwt.client.widgets.form.fields.TextItem;
 import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.VLayout;
+import org.geomajas.geometry.Coordinate;
+import org.geomajas.gwt.client.controller.PanController;
+import org.geomajas.gwt.client.map.layer.ClientWmsLayer;
+import org.geomajas.gwt.client.map.layer.Layer;
+import org.geomajas.gwt.client.map.layer.configuration.ClientWmsLayerInfo;
+import org.geomajas.gwt.client.widget.MapWidget;
+import org.geomajas.gwt.example.base.SamplePanel;
+import org.geomajas.gwt.example.base.SamplePanelFactory;
 import org.geomajas.gwt.example.client.sample.i18n.SampleMessages;
+import org.geomajas.plugin.wms.client.layer.WmsLayerConfiguration;
+import org.geomajas.plugin.wms.client.layer.WmsTileConfiguration;
+import org.geomajas.plugin.wms.client.service.WmsService;
 
 /**
  * <p>
@@ -49,6 +54,8 @@ public class WmsSample extends SamplePanel {
 		}
 	};
 
+	private MapWidget mapWidget;
+
 	public Canvas getViewPanel() {
 		VLayout mainLayout = new VLayout();
 		mainLayout.setWidth100();
@@ -57,22 +64,23 @@ public class WmsSample extends SamplePanel {
 		// Build a map, and set a PanController:
 		VLayout mapLayout = new VLayout();
 		mapLayout.setShowEdges(true);
-		final MapWidget map = new MapWidget("mapLegend", "gwtExample");
-		map.setController(new PanController(map));
-		mapLayout.addMember(map);
+		mapWidget = new MapWidget("mapOsm", "gwtExample");
+		mapWidget.setController(new PanController(mapWidget));
+		mapLayout.addMember(mapWidget);
 
-		// Layer order panel:
-		VLayout orderLayout = new VLayout(10);
-		orderLayout.setHeight(80);
-		orderLayout.setShowEdges(true);
+		VLayout addWmsLayerLayout = new VLayout(10);
+		addWmsLayerLayout.setHeight(80);
+		addWmsLayerLayout.setShowEdges(true);
 
-		orderLayout.addMember(new HTMLFlow(MESSAGES.wmsTxt()));		
-		TextItem txtURL = new TextItem("layer_url", MESSAGES.layerUrl());
+		addWmsLayerLayout.addMember(new HTMLFlow(MESSAGES.wmsTxt()));
+		final TextItem txtURL = new TextItem("layer_url", MESSAGES.layerUrl());
+		txtURL.setValue("http://apps.geomajas.org/geoserver/wms");
 		txtURL.setWidth(250);
-		TextItem txtLayer = new TextItem("layer_name", MESSAGES.layerName());
+		final TextItem txtLayer = new TextItem("layer_name", MESSAGES.layerName());
+		txtLayer.setValue("demo_world:simplified_country_borders");
 		DynamicForm dynamicForm = new DynamicForm();
 		dynamicForm.setFields(txtURL, txtLayer);
-		orderLayout.addMember(dynamicForm);
+		addWmsLayerLayout.addMember(dynamicForm);
 
 		HLayout buttonLayout = new HLayout(5);
 		buttonLayout.setPadding(10);
@@ -82,18 +90,46 @@ public class WmsSample extends SamplePanel {
 		addLayerButton.addClickHandler(new ClickHandler() {
 
 			public void onClick(ClickEvent event) {
-				//TODO: doe iets
+
+				mapWidget.getMapModel().addLayer(createSampleWmsLayerInfo(txtLayer.getValueAsString(),
+						txtURL.getValueAsString()));
+				for (Layer<?> layer : mapWidget.getMapModel().getLayers()) {
+					if (layer.getLayerInfo() instanceof ClientWmsLayerInfo) {
+						mapWidget.refreshLayer(layer);
+					}
+				}
+
 			}
 		});
 		buttonLayout.addMember(addLayerButton);
-		orderLayout.addMember(buttonLayout);
-		orderLayout.setShowResizeBar(true);
+		addWmsLayerLayout.addMember(buttonLayout);
+		addWmsLayerLayout.setShowResizeBar(true);
 		
 		// Add both to the main layout:
-		mainLayout.addMember(orderLayout);
+		mainLayout.addMember(addWmsLayerLayout);
 		mainLayout.addMember(mapLayout);
 
 		return mainLayout;
+	}
+
+	private ClientWmsLayerInfo createSampleWmsLayerInfo(String name, String url) {
+
+		WmsLayerConfiguration wmsConfig = new WmsLayerConfiguration();
+		wmsConfig.setFormat("image/png");
+		wmsConfig.setLayers(name);
+		wmsConfig.setVersion(WmsService.WmsVersion.V1_1_1);
+		wmsConfig.setBaseUrl(url);
+		wmsConfig.setTransparent(true);
+		wmsConfig.setMinimumScale(0);
+		wmsConfig.setMaximumScale(mapWidget.getMapModel().getMapInfo().getMaximumScale());
+
+		WmsTileConfiguration tileConfig = new WmsTileConfiguration(256, 256,
+				new Coordinate(-20026376.393709917, -20026376.393709917));
+
+		ClientWmsLayer wmsLayer = new ClientWmsLayer(name, wmsConfig, tileConfig);
+
+		ClientWmsLayerInfo wmsLayerInfo = new ClientWmsLayerInfo(wmsLayer);
+		return wmsLayerInfo;
 	}
 
 	public String getDescription() {

@@ -11,10 +11,8 @@
 
 package org.geomajas.gwt.client.map;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
+import com.google.gwt.event.shared.HandlerManager;
+import com.google.gwt.event.shared.HandlerRegistration;
 import org.geomajas.annotation.Api;
 import org.geomajas.configuration.client.BoundsLimitOption;
 import org.geomajas.configuration.client.ClientLayerInfo;
@@ -51,17 +49,20 @@ import org.geomajas.gwt.client.map.feature.Feature;
 import org.geomajas.gwt.client.map.feature.FeatureEditor;
 import org.geomajas.gwt.client.map.feature.FeatureTransaction;
 import org.geomajas.gwt.client.map.feature.LazyLoadCallback;
+import org.geomajas.gwt.client.map.layer.InternalClientWmsLayer;
 import org.geomajas.gwt.client.map.layer.Layer;
 import org.geomajas.gwt.client.map.layer.RasterLayer;
 import org.geomajas.gwt.client.map.layer.VectorLayer;
+import org.geomajas.gwt.client.map.layer.configuration.ClientWmsLayerInfo;
 import org.geomajas.gwt.client.service.ClientConfigurationService;
 import org.geomajas.gwt.client.service.WidgetConfigurationCallback;
 import org.geomajas.gwt.client.spatial.Bbox;
 import org.geomajas.gwt.client.spatial.geometry.GeometryFactory;
 import org.geomajas.gwt.client.util.Log;
 
-import com.google.gwt.event.shared.HandlerManager;
-import com.google.gwt.event.shared.HandlerRegistration;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * <p>
@@ -1049,11 +1050,22 @@ public class MapModel implements Paintable, MapViewChangedHandler, HasFeatureSel
 		layers = new ArrayList<Layer<?>>();
 	}
 
-	private void addLayer(ClientLayerInfo layerInfo) {
+	/**
+	 * Add a layer to the map.
+	 *
+	 * @param layerInfo the client layer info
+	 */
+	public void addLayer(ClientLayerInfo layerInfo) {
 		switch (layerInfo.getLayerType()) {
 			case RASTER:
-				RasterLayer rasterLayer = new RasterLayer(this, (ClientRasterLayerInfo) layerInfo);
-				layers.add(rasterLayer);
+				if (layerInfo instanceof ClientWmsLayerInfo) {
+					InternalClientWmsLayer
+							internalClientWmsLayer = new InternalClientWmsLayer(this, (ClientWmsLayerInfo) layerInfo);
+					layers.add(internalClientWmsLayer);
+				} else {
+					RasterLayer rasterLayer = new RasterLayer(this, (ClientRasterLayerInfo) layerInfo);
+					layers.add(rasterLayer);
+				}
 				break;
 			default:
 				VectorLayer vectorLayer = new VectorLayer(this, (ClientVectorLayerInfo) layerInfo);
