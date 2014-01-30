@@ -147,6 +147,21 @@ public interface Layer<T extends ClientLayerInfo> extends PaintableGroup {
 	 *            The wished visible status
 	 */
 	void setVisible(boolean visible);
+	
+	/**
+	 * Apply a new opacity on the entire layer.
+	 * 
+	 * @param opacity The new opacity value. Must be a value between 0 and 1, where 0 means invisible and 1 is totally
+	 *        visible.
+	 */
+	void setOpacity(double opacity);
+	
+	/**
+	 * Get the opacity of the entire layer.
+	 * 
+	 * @return the opacity
+	 */
+	double getOpacity();
 
 	/**
 	 * Add handlers for {@link LayerChangedHandler}s. These events occur when
