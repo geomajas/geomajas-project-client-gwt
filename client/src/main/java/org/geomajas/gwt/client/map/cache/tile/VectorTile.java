@@ -23,6 +23,7 @@ import org.geomajas.gwt.client.command.GwtCommand;
 import org.geomajas.gwt.client.command.GwtCommandDispatcher;
 import org.geomajas.gwt.client.gfx.PaintableGroup;
 import org.geomajas.gwt.client.gfx.PainterVisitor;
+import org.geomajas.gwt.client.gfx.style.PictureStyle;
 import org.geomajas.gwt.client.map.MapModel;
 import org.geomajas.gwt.client.map.MapView;
 import org.geomajas.gwt.client.map.cache.SpatialCache;
@@ -56,8 +57,10 @@ public class VectorTile extends AbstractVectorTile {
 	private List<TileCode> codes = new ArrayList<TileCode>();
 
 	private Deferred deferred;
-	
+
 	private GetVectorTileRequest lastRequest;
+
+	private PictureStyle pictureStyle;
 
 	// -------------------------------------------------------------------------
 	// Constructors:
@@ -76,10 +79,8 @@ public class VectorTile extends AbstractVectorTile {
 	/**
 	 * Fetch all data related to this tile.
 	 * 
-	 * @param filter
-	 *            When fetching it is possible to filter the data with this filter object. Null otherwise.
-	 * @param callback
-	 *            When this node's data comes from the server, it will be handled by this callback function.
+	 * @param filter When fetching it is possible to filter the data with this filter object. Null otherwise.
+	 * @param callback When this node's data comes from the server, it will be handled by this callback function.
 	 */
 	public void fetch(final String filter, final TileFunction<VectorTile> callback) {
 		final GetVectorTileRequest request = createRequest(filter);
@@ -90,33 +91,32 @@ public class VectorTile extends AbstractVectorTile {
 		deferred = GwtCommandDispatcher.getInstance().execute(command,
 				new AbstractCommandCallback<GetVectorTileResponse>() {
 
-			public void execute(GetVectorTileResponse tileResponse) {
-				if (null == deferred || !deferred.isCancelled()) {
-					org.geomajas.layer.tile.VectorTile tile = tileResponse.getTile();
-					for (TileCode relatedTile : tile.getCodes()) {
-						codes.add(relatedTile);
+					public void execute(GetVectorTileResponse tileResponse) {
+						if (null == deferred || !deferred.isCancelled()) {
+							org.geomajas.layer.tile.VectorTile tile = tileResponse.getTile();
+							for (TileCode relatedTile : tile.getCodes()) {
+								codes.add(relatedTile);
+							}
+							code = tile.getCode();
+							contentType = tile.getContentType();
+							featureContent.setContent(tile.getFeatureContent());
+							labelContent.setContent(tile.getLabelContent());
+							try {
+								callback.execute(self);
+							} catch (Throwable t) {
+								Log.logError("VectorTile: error calling the callback after a fetch.", t);
+							}
+						}
+						deferred = null;
 					}
-					code = tile.getCode();
-					contentType = tile.getContentType();
-					featureContent.setContent(tile.getFeatureContent());
-					labelContent.setContent(tile.getLabelContent());
-					try {
-						callback.execute(self);
-					} catch (Throwable t) {
-						Log.logError("VectorTile: error calling the callback after a fetch.", t);
-					}
-				}
-				deferred = null;
-			}
-		});
+				});
 	}
 
 	/**
 	 * Execute a {@link TileFunction} in this tile and all connected tiles. Only tiles which are not yet included in
-	 * updatedTiles are processed. Tiles are added in updatedTiles when processed.
-	 * If these connected tiles are not yet part of the cache, then they will be fetched before applying the
-	 * {@link TileFunction} on them.
-	 *
+	 * updatedTiles are processed. Tiles are added in updatedTiles when processed. If these connected tiles are not yet
+	 * part of the cache, then they will be fetched before applying the {@link TileFunction} on them.
+	 * 
 	 * @param filter A filter that needs to be used in case connected tile need to be fetched.
 	 * @param callback The {@link TileFunction} to execute on the connected tiles.
 	 * @param updatedTiles list of already processed tiles to assure tiles are only processed once
@@ -143,10 +143,8 @@ public class VectorTile extends AbstractVectorTile {
 	/**
 	 * Execute a TileFunction on this tile. If the tile is not yet loaded, attach it to the isLoaded event.
 	 * 
-	 * @param filter
-	 *            filter which needs to be applied when fetching
-	 * @param callback
-	 *            callback to call
+	 * @param filter filter which needs to be applied when fetching
+	 * @param callback callback to call
 	 */
 	public void apply(final String filter, final TileFunction<VectorTile> callback) {
 		switch (getStatus()) {
@@ -187,7 +185,7 @@ public class VectorTile extends AbstractVectorTile {
 	 * <li>STATUS.LOADING</li>
 	 * <li>STATUS.LOADED</li>
 	 * </ul>
-	 *
+	 * 
 	 * @return status
 	 */
 	public STATUS getStatus() {
@@ -264,7 +262,7 @@ public class VectorTile extends AbstractVectorTile {
 		public void accept(PainterVisitor visitor, Object group, Bbox bounds, boolean recursive) {
 		}
 	}
-	
+
 	private boolean needsReload(String filter) {
 		GetVectorTileRequest request = createRequest(filter);
 		return lastRequest == null || !request.isPartOf(lastRequest);
@@ -295,4 +293,13 @@ public class VectorTile extends AbstractVectorTile {
 	public String toString() {
 		return super.toString();
 	}
+
+	public void setPictureStyle(PictureStyle pictureStyle) {
+		this.pictureStyle = pictureStyle;
+	}
+	
+	public PictureStyle getPictureStyle() {
+		return pictureStyle;
+	}
+	
 }

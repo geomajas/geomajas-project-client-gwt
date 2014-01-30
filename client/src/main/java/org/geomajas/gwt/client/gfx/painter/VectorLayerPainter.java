@@ -17,6 +17,7 @@ import org.geomajas.gwt.client.gfx.MapContext;
 import org.geomajas.gwt.client.gfx.Paintable;
 import org.geomajas.gwt.client.gfx.Painter;
 import org.geomajas.gwt.client.gfx.style.FontStyle;
+import org.geomajas.gwt.client.gfx.style.PictureStyle;
 import org.geomajas.gwt.client.gfx.style.ShapeStyle;
 import org.geomajas.gwt.client.map.layer.VectorLayer;
 import org.geomajas.gwt.client.widget.MapWidget;
@@ -54,16 +55,17 @@ public class VectorLayerPainter implements Painter {
 	 */
 	public void paint(Paintable paintable, Object group, MapContext context) {
 		VectorLayer layer = (VectorLayer) paintable;
+		PictureStyle opacityStyle = new PictureStyle(layer.getOpacity());
 
 		// Create the needed groups in the correct order:
-		context.getVectorContext().drawGroup(mapWidget.getGroup(RenderGroup.VECTOR), layer); // layer.getDefaultStyle???
+		context.getVectorContext().drawGroup(mapWidget.getGroup(RenderGroup.VECTOR), layer, opacityStyle);
 		context.getVectorContext().drawGroup(layer, layer.getFeatureGroup());
 		context.getVectorContext().drawGroup(layer, layer.getSelectionGroup());
 		FontStyle labelStyle = getLabelFontstyle(layer);
 		context.getVectorContext().drawGroup(layer, layer.getLabelGroup(), labelStyle);
 
 		// Create the needed groups in the correct order:
-		context.getRasterContext().drawGroup(mapWidget.getGroup(RenderGroup.RASTER), layer); // layer.getDefaultStyle???
+		context.getRasterContext().drawGroup(mapWidget.getGroup(RenderGroup.RASTER), layer, opacityStyle);
 		context.getRasterContext().drawGroup(layer, layer.getFeatureGroup());
 		context.getRasterContext().drawGroup(layer, layer.getLabelGroup());
 

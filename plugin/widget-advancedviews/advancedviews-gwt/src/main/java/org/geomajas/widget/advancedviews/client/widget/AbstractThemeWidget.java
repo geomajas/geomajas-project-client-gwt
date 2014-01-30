@@ -22,7 +22,6 @@ import org.geomajas.gwt.client.map.event.MapModelHandler;
 import org.geomajas.gwt.client.map.event.MapViewChangedEvent;
 import org.geomajas.gwt.client.map.event.MapViewChangedHandler;
 import org.geomajas.gwt.client.map.layer.Layer;
-import org.geomajas.gwt.client.map.layer.RasterLayer;
 import org.geomajas.gwt.client.widget.MapWidget;
 import org.geomajas.widget.advancedviews.configuration.client.ThemesInfo;
 import org.geomajas.widget.advancedviews.configuration.client.themes.LayerConfig;
@@ -126,9 +125,7 @@ public abstract class AbstractThemeWidget extends Canvas implements MapViewChang
 			Layer<?> layer = mapWidget.getMapModel().getLayer(layerConfig.getLayer().getId());
 			if (layer != null) {
 				layer.setVisible(layerConfig.isVisible());
-				if (layer instanceof RasterLayer) {
-					((RasterLayer) layer).setOpacity(layerConfig.getOpacity());
-				}
+				layer.setOpacity(layerConfig.getOpacity());
 			} else {
 				GWT.log("ThemeWidget: could not find layer: " + layerConfig.getLayer().getId());
 			}
