@@ -18,6 +18,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.geomajas.configuration.client.ClientPreferredPixelsPerTile;
+import org.geomajas.gwt.client.gfx.style.PictureStyle;
 import org.geomajas.gwt.client.map.MapViewState;
 import org.geomajas.gwt.client.map.cache.tile.TileFunction;
 import org.geomajas.gwt.client.map.cache.tile.VectorTile;
@@ -105,6 +106,7 @@ public class TileCache implements SpatialCache {
 		VectorTile tile = tiles.get(code);
 		if (tile == null) {
 			tile = new VectorTile(tileCode, calcBoundsForTileCode(tileCode), this);
+			tile.setPictureStyle(new PictureStyle(layer.getOpacity()));
 			tiles.put(code, tile);
 		}
 		return tile;

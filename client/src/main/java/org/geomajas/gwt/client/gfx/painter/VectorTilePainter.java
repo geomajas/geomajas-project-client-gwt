@@ -90,7 +90,7 @@ public class VectorTilePainter implements Painter {
 	private void drawImage(PaintableGroup group, VectorTile tile, ContentHolder holder, MapContext context) {
 		context.getRasterContext().drawGroup(group, holder);
 		context.getRasterContext().drawImage(holder, tile.getCode().toString(),
-				holder.getContent(), getPanBounds(tile), OPAQUE_PICTURE_STYLE);
+				holder.getContent(), getPanBounds(tile), tile.getPictureStyle());
 	}
 
 	/**

@@ -28,8 +28,10 @@ import org.geomajas.gwt.client.command.GwtCommandDispatcher;
 import org.geomajas.gwt.client.gfx.PaintableGroup;
 import org.geomajas.gwt.client.gfx.PainterVisitor;
 import org.geomajas.gwt.client.gfx.paintable.Composite;
+import org.geomajas.gwt.client.gfx.style.PictureStyle;
 import org.geomajas.gwt.client.map.MapModel;
 import org.geomajas.gwt.client.map.cache.TileCache;
+import org.geomajas.gwt.client.map.cache.tile.RasterTile;
 import org.geomajas.gwt.client.map.cache.tile.TileFunction;
 import org.geomajas.gwt.client.map.cache.tile.VectorTile;
 import org.geomajas.gwt.client.map.event.FeatureDeselectedEvent;
@@ -63,6 +65,8 @@ public class VectorLayer extends AbstractLayer<ClientVectorLayerInfo> implements
 	private TileCache cache;
 
 	private String filter;
+	
+	private double opacity = 1.0;
 
 	private Composite featureGroup = new Composite("features");
 
@@ -231,6 +235,20 @@ public class VectorLayer extends AbstractLayer<ClientVectorLayerInfo> implements
 			cache.clear(); // need to clear this cache as this contains data for another filter
 			handlerManager.fireEvent(new LayerFilteredEvent(this));
 		}
+	}
+
+	@Override
+	public void setOpacity(double opacity) {
+		this.opacity = opacity;
+		for (VectorTile tile : cache.getTiles()) {
+			tile.setPictureStyle(new PictureStyle(opacity));
+		}
+		handlerManager.fireEvent(new LayerStyleChangeEvent(this));
+	}
+
+	@Override
+	public double getOpacity() {
+		return opacity;
 	}
 
 	public VectorLayerStore getFeatureStore() {
