@@ -126,7 +126,7 @@ public class LayerActions extends Window {
 					a.setText(eli.getLegendUrlTitle());
 				}
 				a.addClickHandler(new com.google.gwt.event.dom.client.ClickHandler() {
-					
+
 					@Override
 					public void onClick(com.google.gwt.event.dom.client.ClickEvent event) {
 						Window window = new Window();
@@ -182,26 +182,20 @@ public class LayerActions extends Window {
 		layerShow = new CheckboxItem();
 		initLayerShow();
 
+		double opacity = 1;
 		if (vectorLayer != null) {
+			opacity = vectorLayer.getOpacity();
 			layerlabels = new CheckboxItem();
 			initLabels();
 			form.setFields(layerlabels, layerShow);
 
-		} else {
-			opacitySlider = new Slider(MESSAGES.layerActionsOpacity());
-			String raw = rasterLayer.getLayerInfo().getStyle();
-			double opacity = 1d;
-			if (raw != null && !"".equals(raw)) {
-				try {
-					opacity = Double.parseDouble(raw);
-				} catch (NumberFormatException e) {
-					// ignore
-				}
-			}
-			initSlider((int) Math.round(opacity * 100));
-			actiesLayout.addMember(opacitySlider);
+		} else if (rasterLayer != null) {
+			opacity = rasterLayer.getOpacity();
 			form.setFields(layerShow);
 		}
+		opacitySlider = new Slider(MESSAGES.layerActionsOpacity());
+		initSlider((int) Math.round(opacity * 100));
+		actiesLayout.addMember(opacitySlider);
 		actiesLayout.addMember(form);
 
 		// ----------------------------------------------------------
@@ -327,7 +321,11 @@ public class LayerActions extends Window {
 				if (val > 0) {
 					val /= 100;
 				}
-				rasterLayer.setOpacity(val);
+				if (rasterLayer != null) {
+					rasterLayer.setOpacity(val);
+				} else if (vectorLayer != null) {
+					vectorLayer.setOpacity(val);
+				}
 			}
 		});
 	}

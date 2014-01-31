@@ -213,6 +213,11 @@
 					<artifactId>geomajas-jetty-runner</artifactId>
 					<version>1.0.0</version>
 				</dependency>
+				<dependency>
+					<groupId>com.google.gwt</groupId>
+					<artifactId>gwt-dev</artifactId>
+					<scope>provided</scope>
+				</dependency>
 			</dependencies>
 		</profile>
 		<profile>

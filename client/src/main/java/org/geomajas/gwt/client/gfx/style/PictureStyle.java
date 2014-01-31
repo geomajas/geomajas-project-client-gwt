@@ -19,6 +19,8 @@ package org.geomajas.gwt.client.gfx.style;
  * @author Pieter De Graef
  */
 public class PictureStyle implements Style {
+	
+	public static final PictureStyle OPAQUE = new PictureStyle(1.0);
 
 	/**
 	 * Value between 0 and 1, where 0 is completely transparent, and 1 means no

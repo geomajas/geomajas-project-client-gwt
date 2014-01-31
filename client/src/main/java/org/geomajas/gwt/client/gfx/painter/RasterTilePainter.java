@@ -13,6 +13,7 @@ package org.geomajas.gwt.client.gfx.painter;
 import org.geomajas.gwt.client.gfx.MapContext;
 import org.geomajas.gwt.client.gfx.Paintable;
 import org.geomajas.gwt.client.gfx.Painter;
+import org.geomajas.gwt.client.gfx.style.PictureStyle;
 import org.geomajas.gwt.client.map.cache.tile.RasterTile;
 
 /**
@@ -42,7 +43,7 @@ public class RasterTilePainter implements Painter {
 	public void paint(Paintable paintable, Object group, MapContext context) {
 		RasterTile tile = (RasterTile) paintable;
 		context.getRasterContext().drawImage(tile.getStore().getLayer(), 
-				tile.getCode().toString(), tile.getUrl(), tile.getBounds(), tile.getStyle());
+				tile.getCode().toString(), tile.getUrl(), tile.getBounds(), new PictureStyle(1.0));
 	}
 
 	/**
