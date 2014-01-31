@@ -88,8 +88,8 @@ public class ClientWmsLayer extends WmsLayerImpl {
 			//Calculate fixed scales based on the resolutions.
 			//FIXME: what to do when no fixed resolutions exist.
 			if (mapModel.getMapView().getResolutions() == null || mapModel.getMapView().getResolutions().size() < 1) {
-				RuntimeException e = new RuntimeException("Error while adding Client WMS layer, the map should define a list of " +
-						"resolutions.");
+				RuntimeException e = new RuntimeException("Error while adding Client WMS layer, " +
+						"the map should define a list of resolutions.");
 				Log.logError("Error while adding Client WMS layer.", e);
 				throw e;
 			}
