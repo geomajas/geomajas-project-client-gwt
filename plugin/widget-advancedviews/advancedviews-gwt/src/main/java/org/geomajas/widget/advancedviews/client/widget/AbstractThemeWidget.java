@@ -22,7 +22,6 @@ import org.geomajas.gwt.client.map.event.MapModelHandler;
 import org.geomajas.gwt.client.map.event.MapViewChangedEvent;
 import org.geomajas.gwt.client.map.event.MapViewChangedHandler;
 import org.geomajas.gwt.client.map.layer.Layer;
-import org.geomajas.gwt.client.map.layer.RasterLayer;
 import org.geomajas.gwt.client.widget.MapWidget;
 import org.geomajas.widget.advancedviews.configuration.client.ThemesInfo;
 import org.geomajas.widget.advancedviews.configuration.client.themes.LayerConfig;
