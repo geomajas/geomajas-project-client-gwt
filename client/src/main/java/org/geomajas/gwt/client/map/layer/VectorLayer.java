@@ -31,7 +31,6 @@ import org.geomajas.gwt.client.gfx.paintable.Composite;
 import org.geomajas.gwt.client.gfx.style.PictureStyle;
 import org.geomajas.gwt.client.map.MapModel;
 import org.geomajas.gwt.client.map.cache.TileCache;
-import org.geomajas.gwt.client.map.cache.tile.RasterTile;
 import org.geomajas.gwt.client.map.cache.tile.TileFunction;
 import org.geomajas.gwt.client.map.cache.tile.VectorTile;
 import org.geomajas.gwt.client.map.event.FeatureDeselectedEvent;

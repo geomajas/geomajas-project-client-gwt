@@ -58,14 +58,14 @@ public class VectorLayerPainter implements Painter {
 		PictureStyle opacityStyle = new PictureStyle(layer.getOpacity());
 
 		// Create the needed groups in the correct order:
-		context.getVectorContext().drawGroup(mapWidget.getGroup(RenderGroup.VECTOR), layer, opacityStyle); // layer.getDefaultStyle???
+		context.getVectorContext().drawGroup(mapWidget.getGroup(RenderGroup.VECTOR), layer, opacityStyle);
 		context.getVectorContext().drawGroup(layer, layer.getFeatureGroup());
 		context.getVectorContext().drawGroup(layer, layer.getSelectionGroup());
 		FontStyle labelStyle = getLabelFontstyle(layer);
 		context.getVectorContext().drawGroup(layer, layer.getLabelGroup(), labelStyle);
 
 		// Create the needed groups in the correct order:
-		context.getRasterContext().drawGroup(mapWidget.getGroup(RenderGroup.RASTER), layer, opacityStyle); // layer.getDefaultStyle???
+		context.getRasterContext().drawGroup(mapWidget.getGroup(RenderGroup.RASTER), layer, opacityStyle);
 		context.getRasterContext().drawGroup(layer, layer.getFeatureGroup());
 		context.getRasterContext().drawGroup(layer, layer.getLabelGroup());
 

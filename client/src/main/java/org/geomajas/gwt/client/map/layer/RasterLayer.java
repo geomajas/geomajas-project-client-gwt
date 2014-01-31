@@ -10,10 +10,9 @@
  */
 package org.geomajas.gwt.client.map.layer;
 
-import org.geomajas.configuration.client.ClientRasterLayerInfo;
 import org.geomajas.annotation.Api;
+import org.geomajas.configuration.client.ClientRasterLayerInfo;
 import org.geomajas.gwt.client.gfx.PainterVisitor;
-import org.geomajas.gwt.client.gfx.style.PictureStyle;
 import org.geomajas.gwt.client.map.MapModel;
 import org.geomajas.gwt.client.map.cache.tile.RasterTile;
 import org.geomajas.gwt.client.map.cache.tile.TileFunction;
