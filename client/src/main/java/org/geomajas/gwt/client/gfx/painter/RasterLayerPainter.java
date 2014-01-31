@@ -50,7 +50,7 @@ public class RasterLayerPainter implements Painter {
 		PictureStyle opacityStyle = new PictureStyle(layer.getOpacity());
 
 		// Create the needed groups in the correct order:
-		context.getRasterContext().drawGroup(mapWidget.getGroup(RenderGroup.RASTER), layer, opacityStyle); // layer.getDefaultStyle???
+		context.getRasterContext().drawGroup(mapWidget.getGroup(RenderGroup.RASTER), layer, opacityStyle); 
 
 		// Check layer visibility:
 		if (layer.isShowing()) {
