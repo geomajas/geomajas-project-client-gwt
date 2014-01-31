@@ -15,7 +15,7 @@
 	<parent>
 		<groupId>org.geomajas.project</groupId>
 		<artifactId>geomajas-project-client-gwt</artifactId>
-		<version>1.15.0-SNAPSHOT</version>
+		<version>1.15.0-GWT448-SNAPSHOT</version>
 	</parent>
 
 	<artifactId>geomajas-client-gwt-smartgwt-archetype-documentation</artifactId>
