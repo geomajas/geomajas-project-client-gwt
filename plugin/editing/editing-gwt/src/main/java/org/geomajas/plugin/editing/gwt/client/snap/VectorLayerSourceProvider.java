@@ -89,4 +89,8 @@ public class VectorLayerSourceProvider implements SnapSourceProvider {
 
 		return polygon;
 	}
+
+	public String toString() {
+		return "VectorLayer [layer: " + layer.toString() + ", mapBounds " + mapBounds + "]";
+	}
 }
