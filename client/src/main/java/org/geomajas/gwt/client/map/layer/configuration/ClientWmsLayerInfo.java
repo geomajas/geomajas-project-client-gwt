@@ -80,7 +80,7 @@ public class ClientWmsLayerInfo extends ClientRasterLayerInfo {
 
 	@Override
 	public String getCrs() {
-		return wmsLayer.getCrs();
+		throw new UnsupportedOperationException();
 	}
 
 	@Override
