@@ -91,6 +91,12 @@ public class VectorLayerSourceProvider implements SnapSourceProvider {
 	}
 
 	public String toString() {
-		return "VectorLayer [layer: " + layer.toString() + ", mapBounds " + mapBounds + "]";
+		String layerLabel = layer.toString();
+		try {
+			layerLabel = layer.getLayerInfo().getNamedStyleInfo().getName();
+		} catch (Exception e) {
+			// do nothing
+		}
+		return "VectorLayer [layer: " + layerLabel + ", mapBounds " + mapBounds + "]";
 	}
 }

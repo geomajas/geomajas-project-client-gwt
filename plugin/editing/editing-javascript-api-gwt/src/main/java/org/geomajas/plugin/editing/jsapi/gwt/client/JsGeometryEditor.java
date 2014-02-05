@@ -92,16 +92,13 @@ public class JsGeometryEditor implements Exportable {
 	 * @param layerId The vector layer to use the configuration from.
 	 */
 	public void addLayerSnappingRules(String layerId) {
-		Log.logServer(Log.LEVEL_INFO, "Adding snapping rules of layer " + layerId);
+
 		Layer<?> layer = mapWidget.getMapModel().getLayer(layerId);
 		if (layer != null && layer instanceof VectorLayer) {
 			VectorLayer vLayer = (VectorLayer) layer;
-			Log.logServer(Log.LEVEL_INFO, "Found vector layer " + vLayer + ", has " +
+			Log.logServer(Log.LEVEL_INFO, "Adding snapping rules of layer " + layerId + ". It has " +
 					vLayer.getLayerInfo().getSnappingRules().size() + "snapping rules.");
 			for (SnappingRuleInfo snappingRuleInfo : vLayer.getLayerInfo().getSnappingRules()) {
-				Log.logServer(Log.LEVEL_INFO, "SnappingRuleInfo: [type: " + snappingRuleInfo.getType() +
-						", distance: " + snappingRuleInfo.getDistance() + ", layerId: " +
-				snappingRuleInfo.getLayerId() + "]");
 				SnapRuleUtil.addRule(delegate.getSnappingService(), mapWidget, snappingRuleInfo);
 			}
 		}
