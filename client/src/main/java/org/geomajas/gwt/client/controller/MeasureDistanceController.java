@@ -205,8 +205,7 @@ public class MeasureDistanceController extends AbstractSnappingController {
 		
 		if (showArea && complete) {
 
-			double area = GeometryService.getArea(GeometryConverter.toDto
-					(geometryFactory.
+			double area = GeometryService.getArea(GeometryConverter.toDto(geometryFactory.
 							createLinearRing(geometry.getCoordinates())));
 
 			areaLabel.setArea(DistanceFormat.asMapArea(mapWidget, area));
