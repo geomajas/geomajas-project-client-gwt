@@ -42,10 +42,6 @@ public class MeasureModalAction extends ToolbarModalAction implements Configurab
 	 */
 	public static final String SHOW_COORDINATE = "showCoordinate";
 
-	private boolean showTotalDistance = true;
-
-	private boolean showLastDistance = true;
-
 	private boolean showArea;
 
 	private boolean showCoordinate;
