@@ -188,7 +188,7 @@ public class LayerAttributesGrid extends VLayout {
 				ListGridRecord lgr = new ListGridRecord();
 				PrimitiveAttributeInfo pai = (PrimitiveAttributeInfo) ai;
 				lgr.setAttribute(FLD_NAME, pai.getName());
-				lgr.setAttribute(FLD_TYPE, pai.getType().name());
+				lgr.setAttribute(FLD_TYPE, pai.getType().toString());
 				lgr.setAttribute(FLD_IDENTIFYING, pai.isIdentifying());
 				lgr.setAttribute(FLD_IDFIELD, (pai.equals(idField)));
 				lgr.setAttribute(FLD_LABELFIELD, pai.getName().equals(labelFieldName));
@@ -222,7 +222,7 @@ public class LayerAttributesGrid extends VLayout {
 			pai.setLabel(r.getAttributeAsString(FLD_LABEL));
 			pai.setIdentifying(r.getAttributeAsBoolean(FLD_IDENTIFYING));
 			pai.setHidden(!grid.isSelected(r));
-			pai.setType((PrimitiveType) r.getAttributeAsObject(FLD_TYPE));
+			pai.setType(PrimitiveType.fromValue(r.getAttributeAsString(FLD_TYPE)));
 		}
 		return layerConfig;
 	}
@@ -250,10 +250,10 @@ public class LayerAttributesGrid extends VLayout {
 
 	// -------------------------------------------------
 
-	private LinkedHashMap<PrimitiveType, String> getTypes() {
-		LinkedHashMap<PrimitiveType, String> values = new LinkedHashMap<PrimitiveType, String>();
+	private LinkedHashMap<String, String> getTypes() {
+		LinkedHashMap<String, String> values = new LinkedHashMap<String, String>();
 		for (PrimitiveType type : PrimitiveType.values()) {
-			values.put(type, type.name());
+			values.put(type.toString(), type.toString());
 		}
 		return values;
 	}
