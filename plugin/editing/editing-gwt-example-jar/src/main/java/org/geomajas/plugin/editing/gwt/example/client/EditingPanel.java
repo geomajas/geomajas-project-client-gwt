@@ -20,6 +20,7 @@ import org.geomajas.gwt.client.widget.MapWidget;
 import org.geomajas.gwt.example.base.SamplePanel;
 import org.geomajas.gwt.example.base.SamplePanelFactory;
 import org.geomajas.plugin.editing.client.snap.SnapSourceProvider;
+import org.geomajas.plugin.editing.client.snap.SnappingRule;
 import org.geomajas.plugin.editing.client.snap.algorithm.NearestEdgeSnapAlgorithm;
 import org.geomajas.plugin.editing.client.snap.algorithm.NearestVertexSnapAlgorithm;
 import org.geomajas.plugin.editing.gwt.client.GeometryEditor;
@@ -112,9 +113,9 @@ public class EditingPanel extends SamplePanel implements MapModelChangedHandler 
 		editor.getSnappingService().clearSnappingRules();
 		SnapSourceProvider snapSourceProvider = new VectorLayerSourceProvider(editor.getMapWidget().getMapModel()
 				.getVectorLayer("clientLayerGepCountries"));
-//		editor.setSnapOnInsert(true);
-//		editor.setSnapOnDrag(true);
-		editor.getSnappingService().addSnappingRule(new NearestVertexSnapAlgorithm(), snapSourceProvider, 200000, true);
-		editor.getSnappingService().addSnappingRule(new NearestEdgeSnapAlgorithm(), snapSourceProvider, 100000, false);
+		editor.getSnappingService().addSnappingRule(new SnappingRule(new NearestVertexSnapAlgorithm(),
+				snapSourceProvider, 200000));
+		editor.getSnappingService().addSnappingRule(new SnappingRule(new NearestEdgeSnapAlgorithm(),
+				snapSourceProvider, 100000));
 	}
 }
