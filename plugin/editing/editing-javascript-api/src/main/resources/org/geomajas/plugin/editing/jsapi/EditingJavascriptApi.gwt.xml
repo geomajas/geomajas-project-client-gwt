@@ -11,6 +11,7 @@
 
 <module>
 	<inherits name="org.geomajas.plugin.editing.Editing"/>
+	<inherits name="org.geomajas.plugin.editing.EditingServerExtentions"/>
   	<inherits name="org.geomajas.plugin.jsapi.JavascriptApi"/>
   	<set-property name="export" value="yes"/>
 	<source path="client" />
