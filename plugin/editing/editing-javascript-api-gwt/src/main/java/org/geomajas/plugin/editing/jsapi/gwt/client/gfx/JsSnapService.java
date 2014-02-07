@@ -13,6 +13,7 @@ package org.geomajas.plugin.editing.jsapi.gwt.client.gfx;
 import org.geomajas.annotation.Api;
 import org.geomajas.plugin.editing.client.snap.SnapService;
 import org.geomajas.plugin.editing.client.snap.SnapSourceProvider;
+import org.geomajas.plugin.editing.client.snap.SnappingRule;
 import org.geomajas.plugin.editing.client.snap.algorithm.NearestEdgeSnapAlgorithm;
 import org.geomajas.plugin.editing.client.snap.algorithm.NearestVertexSnapAlgorithm;
 import org.geomajas.plugin.editing.gwt.client.GeometryEditor;
@@ -61,14 +62,11 @@ public class JsSnapService implements Exportable {
 	 *            The layer id that will provide the target geometries where to snap.
 	 * @param distance
 	 *            The maximum distance to bridge during snapping. unit=meters.
-	 * @param highPriority
-	 *            High priority means that this rule will always be executed. Low priority means that if a previous
-	 *            snapping algorithm has found a snapping candidate, this algorithm will not be executed anymore.
 	 */
-	public void addNearestVertexSnappingRule(String snapLayer, double distance, boolean highPriority) {
+	public void addNearestVertexSnappingRule(String snapLayer, double distance) {
 		SnapSourceProvider snapSourceProvider = new VectorLayerSourceProvider(editor.getMapWidget().getMapModel()
 				.getVectorLayer(snapLayer));
-		delegate.addSnappingRule(new NearestVertexSnapAlgorithm(), snapSourceProvider, distance, highPriority);
+		delegate.addSnappingRule(new SnappingRule(new NearestVertexSnapAlgorithm(), snapSourceProvider, distance));
 	}
 
 	/**
@@ -79,14 +77,11 @@ public class JsSnapService implements Exportable {
 	 *            The layer id that will provide the target geometries where to snap.
 	 * @param distance
 	 *            The maximum distance to bridge during snapping. unit=meters.
-	 * @param highPriority
-	 *            High priority means that this rule will always be executed. Low priority means that if a previous
-	 *            snapping algorithm has found a snapping candidate, this algorithm will not be executed anymore.
 	 */
-	public void addNearestEdgeSnappingRule(String snapLayer, double distance, boolean highPriority) {
+	public void addNearestEdgeSnappingRule(String snapLayer, double distance) {
 		SnapSourceProvider snapSourceProvider = new VectorLayerSourceProvider(editor.getMapWidget().getMapModel()
 				.getVectorLayer(snapLayer));
-		delegate.addSnappingRule(new NearestEdgeSnapAlgorithm(), snapSourceProvider, distance, highPriority);
+		delegate.addSnappingRule(new SnappingRule(new NearestEdgeSnapAlgorithm(), snapSourceProvider, distance));
 	}
 
 	/** Remove all snapping rules from this service. Without any snapping rules, snapping can not occur. */
