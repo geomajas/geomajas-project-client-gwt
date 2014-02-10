@@ -17,7 +17,9 @@
         </encoder>
     </appender>
 
+<!--
     <logger name="org.geomajas" level="DEBUG" />
+-->
 
     <root level="INFO">
         <appender-ref ref="CONSOLE"/>
