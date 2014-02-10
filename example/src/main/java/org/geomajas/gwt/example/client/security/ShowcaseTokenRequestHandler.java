@@ -16,7 +16,8 @@ import org.geomajas.gwt.client.command.event.TokenChangedHandler;
 import org.geomajas.plugin.staticsecurity.client.util.SsecAccess;
 
 /**
- * {@link org.geomajas.gwt.client.command.TokenRequestHandler} which allows logging in to a specific userId and password.
+ * {@link org.geomajas.gwt.client.command.TokenRequestHandler} which allows logging in to a specific userId and
+ * password.
  *
  * @author Joachim Van der Auwera
  */
