@@ -14,6 +14,7 @@ package org.geomajas.plugin.editing.gwt.example.client.widget;
 import org.geomajas.gwt.client.spatial.Bbox;
 import org.geomajas.plugin.editing.client.snap.SnapAlgorithm;
 import org.geomajas.plugin.editing.client.snap.SnapSourceProvider;
+import org.geomajas.plugin.editing.client.snap.SnappingRule;
 import org.geomajas.plugin.editing.client.snap.algorithm.NearestEdgeOfIntersection;
 import org.geomajas.plugin.editing.client.snap.algorithm.NearestEdgeSnapAlgorithm;
 import org.geomajas.plugin.editing.client.snap.algorithm.NearestVertexOfIntersection;
@@ -149,7 +150,7 @@ public class SnappingOptionWindow extends Window {
 		}
 
 		editor.getSnappingService().clearSnappingRules();
-		editor.getSnappingService().addSnappingRule(algorithm, sourceProvider, distance * 1000, true);
+		editor.getSnappingService().addSnappingRule(new SnappingRule(algorithm, sourceProvider, distance * 1000));
 		if (editor.isBusyEditing()) {
 			Bbox bounds = editor.getMapWidget().getMapModel().getMapView().getBounds();
 			editor.getSnappingService()
