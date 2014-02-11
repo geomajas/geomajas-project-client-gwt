@@ -9,10 +9,14 @@
   ~ details, see LICENSE.txt in the project root.
   -->
 
-<module>
-	<inherits name="org.geomajas.plugin.editing.Editing"/>
-	<inherits name="org.geomajas.plugin.editing.EditingServerExtentions"/>
-  	<inherits name="org.geomajas.plugin.jsapi.JavascriptApi"/>
-  	<set-property name="export" value="yes"/>
-	<source path="client" />
-</module>
+<beans
+		xmlns="http://www.springframework.org/schema/beans"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xsi:schemaLocation="
+http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+
+	<bean name="layerTms" class="org.geomajas.layer.tms.TmsLayer" >
+		<property name="baseTmsUrl" value="http://www.milieuinfo.be/orthos/" />
+	</bean>
+
+</beans>
