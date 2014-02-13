@@ -73,4 +73,12 @@ public interface MenuMessages extends Messages {
 	String editGeometricInfoLabelNoGeometry();
 	
 	String editGeometricInfoLabelInfo(String area, String length, int points);
+
+	String getMeasureAreaString(String area);
+
+	String area();
+
+	String coordinate();
+
+	String getMeasureCoordinateString(String x, String y);
 }
