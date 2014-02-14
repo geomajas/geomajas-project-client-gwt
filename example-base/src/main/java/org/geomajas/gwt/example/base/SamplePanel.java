@@ -139,10 +139,6 @@ public abstract class SamplePanel extends VLayout {
 		return null;
 	}
 
-	public String getId() {
-		return id;
-	}
-
 	// -------------------------------------------------------------------------
 	// Private methods:
 	// -------------------------------------------------------------------------

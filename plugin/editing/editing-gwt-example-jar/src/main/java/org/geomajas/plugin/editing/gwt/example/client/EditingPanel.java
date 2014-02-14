@@ -74,7 +74,8 @@ public class EditingPanel extends SamplePanel implements MapModelChangedHandler 
 		editor.getContextMenuController().addVertexOperation(
 				GeometryIndexContextMenuController.GeometryIndexOperation.ZOOM_OUT, "zoom uit");
 		editor.getContextMenuController().addVertexOperation(
-				GeometryIndexContextMenuController.GeometryIndexOperation.ZOOM_TO_FULL_OBJECT, "zoom naar object");
+				GeometryIndexContextMenuController.GeometryIndexOperation.ZOOM_TO_FULL_OBJECT, "zoom naar object");		
+		editor.getEditService().setValidating(true);
 
 		VLayout layout = new VLayout();
 		MenuBar editingToolStrip = new MenuBar(editor);

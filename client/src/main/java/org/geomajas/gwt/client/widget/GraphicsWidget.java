@@ -478,8 +478,9 @@ public class GraphicsWidget extends VLayout implements MapContext, HasGraphicsRe
 			super.onDraw();
 			// must force size as in some cases smartgwt is not setting the size on our element !
 			String width = DOM.getStyleAttribute(getDOM(), "width");
+			String height = DOM.getStyleAttribute(getDOM(), "height");
 			// only set if not already defined, to avoid invisible images in IE (see GWT-432)
-			if (width == null || width.isEmpty()) {
+			if (width == null || width.isEmpty() || height == null || height.isEmpty()) {
 				DOM.setStyleAttribute(getDOM(), "width", "100%");
 				DOM.setStyleAttribute(getDOM(), "height", "100%");
 			}

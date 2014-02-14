@@ -27,6 +27,7 @@ import org.geomajas.gwt.client.controller.GraphicsController;
 import org.geomajas.gwt.client.controller.PanController;
 import org.geomajas.gwt.client.controller.listener.Listener;
 import org.geomajas.gwt.client.controller.listener.ListenerController;
+import org.geomajas.gwt.client.controller.listener.ListenerEvent;
 import org.geomajas.gwt.client.gfx.GraphicsContext;
 import org.geomajas.gwt.client.gfx.ImageContext;
 import org.geomajas.gwt.client.gfx.MenuContext;
@@ -86,14 +87,17 @@ import org.geomajas.gwt.client.util.Log;
 import org.geomajas.gwt.client.widget.event.GraphicsReadyEvent;
 import org.geomajas.gwt.client.widget.event.GraphicsReadyHandler;
 
+import com.gargoylesoftware.htmlunit.javascript.host.Event;
 import com.google.gwt.core.client.Scheduler;
 import com.google.gwt.core.client.Scheduler.ScheduledCommand;
+import com.google.gwt.dom.client.NativeEvent;
 import com.google.gwt.event.dom.client.MouseWheelEvent;
 import com.google.gwt.event.dom.client.MouseWheelHandler;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.smartgwt.client.types.Alignment;
 import com.smartgwt.client.types.Cursor;
 import com.smartgwt.client.types.VerticalAlignment;
+import com.smartgwt.client.widgets.events.MouseDownEvent;
 import com.smartgwt.client.widgets.layout.VLayout;
 import com.smartgwt.client.widgets.menu.Menu;
 
@@ -269,6 +273,12 @@ public class MapWidget extends VLayout {
 	public MapWidget(String mapId, String applicationId) {
 		this(mapId, applicationId, true);
 	}
+	
+    public native void showContext() /*-{
+    	var self = this.@com.smartgwt.client.widgets.BaseWidget::getOrCreateJsObj()();
+    	self.showContextMenu();
+	}-*/;
+
 
 	protected MapWidget(String mapId, String applicationId, boolean initMapModel) {
 		setID(mapId);
@@ -327,6 +337,8 @@ public class MapWidget extends VLayout {
 				}
 			}
 		}));
+		
+		setForceContextMenu();
 	}
 
 	// -------------------------------------------------------------------------
@@ -540,6 +552,7 @@ public class MapWidget extends VLayout {
 			super.setContextMenu(defaultMenu);
 		} else {
 			super.setContextMenu(contextMenu);
+			graphics.setContextMenu(contextMenu);
 		}
 	}
 
@@ -1148,6 +1161,48 @@ public class MapWidget extends VLayout {
 		return graphics;
 	}
 	
+	/**
+	 * IE11 fix to force context !!!
+	 */
+	private void setForceContextMenu() {
+		addListener(new Listener() {
+
+			@Override
+			public void onMouseDown(ListenerEvent event) {
+				if (event.getNativeButton() == NativeEvent.BUTTON_RIGHT) {
+					final Menu menu = getContextMenu();
+					Scheduler.get().scheduleDeferred(new ScheduledCommand() {
+
+						@Override
+						public void execute() {
+							menu.showContextMenu();
+						}
+					});
+				}
+			}
+
+			@Override
+			public void onMouseUp(ListenerEvent event) {
+			}
+
+			@Override
+			public void onMouseMove(ListenerEvent event) {
+			}
+
+			@Override
+			public void onMouseOut(ListenerEvent event) {
+			}
+
+			@Override
+			public void onMouseOver(ListenerEvent event) {
+			}
+
+			@Override
+			public void onMouseWheel(ListenerEvent event) {
+			}
+		});
+	}
+	
 	private void setAddons() {
 		if (getMapModel().isInitialized()) {
 			ClientMapInfo info = getMapModel().getMapInfo();
@@ -1354,7 +1409,13 @@ public class MapWidget extends VLayout {
 		private ScrollZoomType zoomType = ScrollZoomType.ZOOM_POSITION;
 
 		public void onMouseWheel(MouseWheelEvent event) {
-			if (event.isNorth()) {
+			final boolean isNorth;
+			if (event.getDeltaY() == 0) {
+				isNorth = (getWheelDelta(event.getNativeEvent()) < 0);
+			} else {
+				isNorth = event.isNorth();
+			}
+			if (isNorth) {
 				if (zoomType == ScrollZoomType.ZOOM_POSITION) {
 					mapModel.getMapView().scale(
 							2.0f,
@@ -1377,6 +1438,12 @@ public class MapWidget extends VLayout {
 			}
 		}
 	}
+	
+	protected native int getWheelDelta(NativeEvent evt)
+	/*-{
+		return Math.round(-evt.wheelDelta) || 0;
+	}-*/;
+
 
 	/**
 	 * Renders feature on select/deselect

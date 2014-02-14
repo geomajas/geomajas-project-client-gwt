@@ -217,7 +217,7 @@ public class ExampleLayout {
 	}
 
 	private void showSample(SamplePanel panel, String name, String icon) {
-		String tabId = panel.getId() + "_tab";
+		String tabId = panel.getID() + "_tab";
 		Tab tab = mainTabSet.getTab(tabId);
 		if (tab == null) {
 			tab = new Tab();
