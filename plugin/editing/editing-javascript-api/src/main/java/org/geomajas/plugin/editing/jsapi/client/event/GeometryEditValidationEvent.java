@@ -12,7 +12,6 @@
 package org.geomajas.plugin.editing.jsapi.client.event;
 
 import org.geomajas.annotation.Api;
-import org.geomajas.geometry.Coordinate;
 import org.geomajas.geometry.Geometry;
 import org.geomajas.plugin.editing.client.service.GeometryIndex;
 import org.geomajas.plugin.jsapi.client.event.JsEvent;
