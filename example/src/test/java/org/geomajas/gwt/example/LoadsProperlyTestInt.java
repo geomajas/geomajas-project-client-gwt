@@ -56,7 +56,7 @@ public class LoadsProperlyTestInt {
 		// the login window should appear
 		wait.until(new ExpectedCondition<Boolean>() {
 			public Boolean apply(WebDriver d) {
-				return null != d.findElement(By.id("isc_1E"));
+				return null != d.findElement(By.id("isc_0"));
 			}
 		});
 	}
