@@ -25,17 +25,7 @@
 	<description>Geomajas GWT client: Main - Example</description>
 
 	<dependencies>
-<!-- 		<dependency>
-			<groupId>com.smartgwt</groupId>
-			<artifactId>smartgwt</artifactId>
-			<version>3.1</version>
-		</dependency>
-		<dependency>
-			<groupId>com.smartgwt</groupId>
-			<artifactId>smartgwt-skins</artifactId>
-			<version>3.1</version>
-		</dependency>
- -->	
+	
 		<dependency>
 			<groupId>org.seleniumhq.selenium</groupId>
 			<artifactId>selenium-java</artifactId>
@@ -110,13 +100,11 @@
 		<dependency>
 			<groupId>com.google.gwt</groupId>
 			<artifactId>gwt-user</artifactId>
-			<version>${gwt-client-gwt-version}</version>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>com.google.gwt</groupId>
 			<artifactId>gwt-servlet</artifactId>
-			<version>${gwt-client-gwt-version}</version>
 			<scope>runtime</scope>
 		</dependency>
 

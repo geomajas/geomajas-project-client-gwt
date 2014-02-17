@@ -25,10 +25,13 @@ import com.smartgwt.client.widgets.menu.events.MenuItemClickEvent;
 import com.smartgwt.client.widgets.toolbar.ToolStrip;
 import com.smartgwt.client.widgets.toolbar.ToolStripButton;
 import com.smartgwt.client.widgets.toolbar.ToolStripMenuButton;
+
 import org.geomajas.geometry.Coordinate;
 import org.geomajas.geometry.Geometry;
 import org.geomajas.gwt.client.map.layer.VectorLayer;
 import org.geomajas.gwt.client.widget.MapWidget;
+import org.geomajas.plugin.editing.client.event.GeometryEditValidationEvent;
+import org.geomajas.plugin.editing.client.event.GeometryEditValidationHandler;
 import org.geomajas.plugin.editing.client.operation.GeometryOperationFailedException;
 import org.geomajas.plugin.editing.client.service.GeometryEditState;
 import org.geomajas.plugin.editing.client.service.GeometryIndex;
@@ -43,7 +46,7 @@ import org.geomajas.plugin.editing.gwt.example.client.event.GeometryEditSuspendR
  * 
  * @author Pieter De Graef
  */
-public class MenuBar extends ToolStrip {
+public class MenuBar extends ToolStrip implements GeometryEditValidationHandler {
 
 	private GeometryEditor editor;
 
@@ -99,7 +102,35 @@ public class MenuBar extends ToolStrip {
 			}
 		});
 		addButton(snappingBtn);
+		editor.getEditService().addGeometryEditValidationHandler(this);
 	}
+
+	@Override
+	public void onGeometryEditValidation(GeometryEditValidationEvent event) {
+		switch(event.getValidationState()) {
+			case HOLE_OUTSIDE_SHELL:
+				Window.alert("Hole outside the shell");
+				break;
+			case NESTED_HOLES:
+				Window.alert("Nested holes");
+				break;
+			case NESTED_SHELLS:
+				Window.alert("Nested shells");
+				break;
+			case RING_SELF_INTERSECTION:
+				Window.alert("Ring self-intersection");
+				break;
+			case SELF_INTERSECTION:
+				Window.alert("Polygon self-intersection");
+				break;
+			default:
+				Window.alert("Invalid geometry");
+				break;
+			
+		}
+	}
+
+
 
 	public HandlerRegistration addGeometryEditSuspensionHandler(GeometryEditSuspendResumeHandler handler) {
 		return eventBus.addHandler(GeometryEditSuspendResumeHandler.TYPE, handler);

@@ -12,7 +12,7 @@
 		  -->
 	<head>
 		<meta http-equiv="content-type" content="text/html;charset=utf-8" />
-		<link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon" />
+ 		<link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon" />
 
 		<title>Geomajas Javascript API Showcase</title>
 		<link type="text/css" rel="stylesheet" href="geomajas.css" />
@@ -70,6 +70,7 @@
 				editor = new org.geomajas.plugin.editing.GeometryEditor();
 				editor.setMap(map);
 				service = editor.getService();
+                editor.getService().setValidating(true);
                 styleService = editor.getStyleService();
                 styleService.getVertexStyle().setFillColor("blue");
                 styleService.getEdgeStyle().setStrokeColor("red");
@@ -86,6 +87,7 @@
                 contextMenuRegistry.addZoomToFullObjectVertexOperation("zoom to full object");
 
                 factory = new org.geomajas.plugin.editing.handler.GeometryHandlerFactory();
+                service.addGeometryEditValidationHandler(showValidation);
 			}
 
 			function cancel() {
@@ -333,6 +335,9 @@
 				}
 			}
 			
+			function showValidation(event) {
+				log("validation event "+event.getCode());
+			}			
 
 			function log(txt) {
 				var el = document.getElementById("log");

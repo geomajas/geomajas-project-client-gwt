@@ -26,6 +26,7 @@ import org.geomajas.plugin.editing.client.event.GeometryEditShapeChangedEvent;
 import org.geomajas.plugin.editing.client.event.GeometryEditStartEvent;
 import org.geomajas.plugin.editing.client.event.GeometryEditStopEvent;
 import org.geomajas.plugin.editing.client.event.GeometryEditTentativeMoveEvent;
+import org.geomajas.plugin.editing.client.event.GeometryEditValidationEvent;
 import org.geomajas.plugin.editing.client.operation.GeometryOperationFailedException;
 import org.geomajas.plugin.editing.client.service.GeometryEditService;
 import org.geomajas.plugin.editing.client.service.GeometryEditServiceImpl;
@@ -40,6 +41,7 @@ import org.geomajas.plugin.editing.jsapi.client.event.GeometryEditShapeChangedHa
 import org.geomajas.plugin.editing.jsapi.client.event.GeometryEditStartHandler;
 import org.geomajas.plugin.editing.jsapi.client.event.GeometryEditStopHandler;
 import org.geomajas.plugin.editing.jsapi.client.event.GeometryEditTentativeMoveHandler;
+import org.geomajas.plugin.editing.jsapi.client.event.GeometryEditValidationHandler;
 import org.geomajas.plugin.jsapi.client.event.JsHandlerRegistration;
 import org.timepedia.exporter.client.Export;
 import org.timepedia.exporter.client.ExportPackage;
@@ -103,6 +105,7 @@ public class JsGeometryEditService implements Exportable {
 
 	/**
 	 * Constructor with a {@link GeometryEditService} delegate.
+	 * 
 	 * @param delegate delegate
 	 */
 	@NoExport
@@ -113,6 +116,7 @@ public class JsGeometryEditService implements Exportable {
 
 	/**
 	 * Get the delegating {@link GeometryEditService}.
+	 * 
 	 * @return delegate delegate
 	 */
 	@NoExport
@@ -125,8 +129,7 @@ public class JsGeometryEditService implements Exportable {
 	/**
 	 * Register a {@link GeometryEditStartHandler} that catches events that signal the editing process has started.
 	 * 
-	 * @param handler
-	 *            The {@link GeometryEditStartHandler} to add as listener.
+	 * @param handler The {@link GeometryEditStartHandler} to add as listener.
 	 * @return The registration of the handler.
 	 */
 	public JsHandlerRegistration addGeometryEditStartHandler(final GeometryEditStartHandler handler) {
@@ -144,8 +147,7 @@ public class JsGeometryEditService implements Exportable {
 	/**
 	 * Register a {@link GeometryEditStopHandler} that catches events that signal the editing process has ended.
 	 * 
-	 * @param handler
-	 *            The {@link GeometryEditStopHandler} to add as listener.
+	 * @param handler The {@link GeometryEditStopHandler} to add as listener.
 	 * @return The registration of the handler.
 	 */
 	public JsHandlerRegistration addGeometryEditStopHandler(final GeometryEditStopHandler handler) {
@@ -165,8 +167,7 @@ public class JsGeometryEditService implements Exportable {
 	 * state. This general state can say we're busy idling, dragging vertices/edges/geometries or inserting. The reason
 	 * why this exists is for the general editing controllers to know how to behave.
 	 * 
-	 * @param handler
-	 *            The {@link GeometryEditChangeStateHandler} to add as listener.
+	 * @param handler The {@link GeometryEditChangeStateHandler} to add as listener.
 	 * @return The registration of the handler.
 	 */
 	public JsHandlerRegistration addGeometryEditChangeStateHandler(final GeometryEditChangeStateHandler handler) {
@@ -197,8 +198,7 @@ public class JsGeometryEditService implements Exportable {
 	 * may not. This is meant mainly for the renderers to respond quickly to user interaction. (user friendliness and
 	 * all that jazz).
 	 * 
-	 * @param handler
-	 *            The {@link GeometryEditTentativeMoveHandler} to add as listener.
+	 * @param handler The {@link GeometryEditTentativeMoveHandler} to add as listener.
 	 * @return The registration of the handler.
 	 */
 	public JsHandlerRegistration addGeometryEditTentativeMoveHandler(final GeometryEditTentativeMoveHandler handler) {
@@ -217,8 +217,7 @@ public class JsGeometryEditService implements Exportable {
 	/**
 	 * Register a {@link GeometryEditInsertHandler} to listen to insert events of sub-geometries, vertices and edges.
 	 * 
-	 * @param handler
-	 *            The {@link GeometryEditInsertHandler} to add as listener.
+	 * @param handler The {@link GeometryEditInsertHandler} to add as listener.
 	 * @return The registration of the handler.
 	 */
 	public JsHandlerRegistration addGeometryEditInsertHandler(final GeometryEditInsertHandler handler) {
@@ -241,8 +240,7 @@ public class JsGeometryEditService implements Exportable {
 	 * Register a {@link GeometryEditMoveHandler} to listen to move(translate) events of sub-geometries, vertices and
 	 * edges.
 	 * 
-	 * @param handler
-	 *            The {@link GeometryEditMoveHandler} to add as listener.
+	 * @param handler The {@link GeometryEditMoveHandler} to add as listener.
 	 * @return The registration of the handler.
 	 */
 	public JsHandlerRegistration addGeometryEditMoveHandler(final GeometryEditMoveHandler handler) {
@@ -262,8 +260,7 @@ public class JsGeometryEditService implements Exportable {
 	/**
 	 * Register a {@link GeometryEditRemoveHandler} to listen to delete events of sub-geometries, vertices and edges.
 	 * 
-	 * @param handler
-	 *            The {@link GeometryEditRemoveHandler} to add as listener.
+	 * @param handler The {@link GeometryEditRemoveHandler} to add as listener.
 	 * @return The registration of the handler.
 	 */
 	public JsHandlerRegistration addGeometryEditRemoveHandler(final GeometryEditRemoveHandler handler) {
@@ -285,8 +282,7 @@ public class JsGeometryEditService implements Exportable {
 	 * ...) of sub-geometries, vertices and edges but also listens to undo/redo events. Anything the changes the
 	 * geometry shape basically.
 	 * 
-	 * @param handler
-	 *            The {@link GeometryEditShapeChangedHandler} to add as listener.
+	 * @param handler The {@link GeometryEditShapeChangedHandler} to add as listener.
 	 * @return The registration of the handler.
 	 */
 	public JsHandlerRegistration addGeometryEditShapeChangedHandler(final GeometryEditShapeChangedHandler handler) {
@@ -302,6 +298,25 @@ public class JsGeometryEditService implements Exportable {
 		return new JsHandlerRegistration(new HandlerRegistration[] { registration });
 	}
 
+	/**
+	 * Register a {@link GeometryEditValidationHandler} to listen to validation events.
+	 * 
+	 * @param handler The {@link GeometryEditValidationHandler} to add as listener.
+	 * @return The registration of the handler.
+	 */
+	public JsHandlerRegistration addGeometryEditValidationHandler(final GeometryEditValidationHandler handler) {
+		org.geomajas.plugin.editing.client.event.GeometryEditValidationHandler h;
+		h = new org.geomajas.plugin.editing.client.event.GeometryEditValidationHandler() {
+
+			public void onGeometryEditValidation(GeometryEditValidationEvent event) {
+				handler.onGeometryEditValidation(new org.geomajas.plugin.editing.jsapi.client.event.GeometryEditValidationEvent(
+						event.getGeometry(), event.getIndex(), event.getValidationState().getCode()));
+			}
+		};
+		HandlerRegistration registration = delegate.addGeometryEditValidationHandler(h);
+		return new JsHandlerRegistration(new HandlerRegistration[] { registration });
+	}
+
 	// ------------------------------------------------------------------------
 	// Methods concerning "UNDO/REDO":
 	// ------------------------------------------------------------------------
@@ -310,8 +325,7 @@ public class JsGeometryEditService implements Exportable {
 	 * Undo the last operation (or operation sequence) that was executed in the editing process, thereby restoring the
 	 * previous state.
 	 * 
-	 * @throws GeometryOperationFailedException
-	 *             In case the inverse operation could not be executed.
+	 * @throws GeometryOperationFailedException In case the inverse operation could not be executed.
 	 */
 	public void undo() throws GeometryOperationFailedException {
 		delegate.undo();
@@ -330,8 +344,7 @@ public class JsGeometryEditService implements Exportable {
 	/**
 	 * Redo an operation again, after it was undone with the undo method.
 	 * 
-	 * @throws GeometryOperationFailedException
-	 *             In case the operation failed.
+	 * @throws GeometryOperationFailedException In case the operation failed.
 	 */
 	public void redo() throws GeometryOperationFailedException {
 		delegate.redo();
@@ -355,9 +368,8 @@ public class JsGeometryEditService implements Exportable {
 	 * can be very useful for undo/redo operations. This state is active until <code>stopOperationSequence</code> is
 	 * called.
 	 * 
-	 * @throws GeometryOperationFailedException
-	 *             Thrown in case an operation sequence has already been started. Call
-	 *             <code>stopOperationSequence</code> first.
+	 * @throws GeometryOperationFailedException Thrown in case an operation sequence has already been started. Call
+	 *         <code>stopOperationSequence</code> first.
 	 */
 	public void startOperationSequence() throws GeometryOperationFailedException {
 		delegate.startOperationSequence();
@@ -388,13 +400,11 @@ public class JsGeometryEditService implements Exportable {
 	 * Move a set of indices to new locations. These indices can point to vertices, edges or sub-geometries. For each
 	 * index, a list of new coordinates is provided.
 	 * 
-	 * @param indices
-	 *            The list of indices to move.
-	 * @param coordinates
-	 *            The coordinates to move the indices to. Must be a nested array of coordinates. In other words, for
-	 *            each index an array of coordinates must be supplied.
-	 * @throws GeometryOperationFailedException
-	 *             In case one of the indices could not be found. No changes will have been performed.
+	 * @param indices The list of indices to move.
+	 * @param coordinates The coordinates to move the indices to. Must be a nested array of coordinates. In other words,
+	 *        for each index an array of coordinates must be supplied.
+	 * @throws GeometryOperationFailedException In case one of the indices could not be found. No changes will have been
+	 *         performed.
 	 */
 	public void move(GeometryIndex[] indices, JsArray<JsArrayObject> coordinates) {
 		List<List<Coordinate>> coords = new ArrayList<List<Coordinate>>(coordinates.length());
@@ -413,13 +423,11 @@ public class JsGeometryEditService implements Exportable {
 	 * Insert lists of coordinates at the provided indices. These indices can point to vertices, edges or
 	 * sub-geometries. For each index, a list of coordinates is provided to be inserted after that index.
 	 * 
-	 * @param indices
-	 *            The list of indices after which to insert coordinates.
-	 * @param coordinates
-	 *            The coordinates to be inserted after each index. Must be a nested array of coordinates. In other
-	 *            words, for each index an array of coordinates must be supplied.
-	 * @throws GeometryOperationFailedException
-	 *             In case one of the indices could not be found. No changes will have been performed.
+	 * @param indices The list of indices after which to insert coordinates.
+	 * @param coordinates The coordinates to be inserted after each index. Must be a nested array of coordinates. In
+	 *        other words, for each index an array of coordinates must be supplied.
+	 * @throws GeometryOperationFailedException In case one of the indices could not be found. No changes will have been
+	 *         performed.
 	 */
 	public void insert(GeometryIndex[] indices, JsArray<JsArrayObject> coordinates) {
 		List<List<Coordinate>> coords = new ArrayList<List<Coordinate>>(coordinates.length());
@@ -437,10 +445,9 @@ public class JsGeometryEditService implements Exportable {
 	/**
 	 * Delete vertices, edges or sub-geometries at the given indices.
 	 * 
-	 * @param indices
-	 *            The list of indices that point to the vertices/edges/sub-geometries that should be deleted.
-	 * @throws GeometryOperationFailedException
-	 *             In case one of the indices could not be found. No changes will have been performed.
+	 * @param indices The list of indices that point to the vertices/edges/sub-geometries that should be deleted.
+	 * @throws GeometryOperationFailedException In case one of the indices could not be found. No changes will have been
+	 *         performed.
 	 */
 	public void remove(GeometryIndex[] indices) {
 		try {
@@ -467,8 +474,7 @@ public class JsGeometryEditService implements Exportable {
 	/**
 	 * Start the geometry editing process.
 	 * 
-	 * @param geometry
-	 *            The geometry that needs to be edited.
+	 * @param geometry The geometry that needs to be edited.
 	 */
 	public void start(Geometry geometry) {
 		delegate.start(geometry);
@@ -490,8 +496,7 @@ public class JsGeometryEditService implements Exportable {
 	/**
 	 * Change the general editing state of this service (idle, dragging, inserting, ...).
 	 * 
-	 * @param state
-	 *            The new editing state.
+	 * @param state The new editing state.
 	 */
 	public void setEditingState(String state) {
 		if ("idle".equalsIgnoreCase(state)) {
@@ -529,8 +534,7 @@ public class JsGeometryEditService implements Exportable {
 	 * Set the origin for a line to a possible next vertex position. This is regarded as tentative, because no
 	 * commitment is taken yet.
 	 * 
-	 * @param origin
-	 *            The origin for the tentative move event.
+	 * @param origin The origin for the tentative move event.
 	 */
 	public void setTentativeMoveOrigin(Coordinate origin) {
 		delegate.setTentativeMoveOrigin(origin);
@@ -540,8 +544,7 @@ public class JsGeometryEditService implements Exportable {
 	 * Set the end-point for a possible next vertex position. This is regarded as tentative, because no commitment is
 	 * taken yet. An event is thrown though, containing both the tentative origin and end-point.
 	 * 
-	 * @param location
-	 *            The end-point for the tentative move event.
+	 * @param location The end-point for the tentative move event.
 	 */
 	public void setTentativeMoveLocation(Coordinate location) {
 		delegate.setTentativeMoveLocation(location);
@@ -583,8 +586,7 @@ public class JsGeometryEditService implements Exportable {
 	 * operation can actually insert wherever it wants, but this is often used to keep track of the latest inserts and
 	 * extrapolate where to insert next.
 	 * 
-	 * @param insertIndex
-	 *            The vertex/edge/sub-geometry where to insert on the next insert statement.
+	 * @param insertIndex The vertex/edge/sub-geometry where to insert on the next insert statement.
 	 */
 	public void setInsertIndex(GeometryIndex insertIndex) {
 		delegate.setInsertIndex(insertIndex);
@@ -621,7 +623,7 @@ public class JsGeometryEditService implements Exportable {
 	/**
 	 * Return the service that keeps track of the changes in state of the individual vertices/edges/sub-geometries
 	 * during editing.
-	 *
+	 * 
 	 * @return The geometry-index-state-change service.
 	 */
 	public void setValidating(boolean validating) {
