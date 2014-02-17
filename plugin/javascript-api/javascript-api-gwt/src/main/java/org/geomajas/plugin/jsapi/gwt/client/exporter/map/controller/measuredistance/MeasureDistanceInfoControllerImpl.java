@@ -42,6 +42,7 @@ public class MeasureDistanceInfoControllerImpl extends MeasureDistanceInfoContro
 	
 
 	@Override
+	@Export
 	public void setInfoHandler(final MeasureDistanceHandler handler) {
 		controller.setInfoHandler(new MeasureDistanceInfoHandler() {
 

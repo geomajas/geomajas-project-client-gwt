@@ -72,7 +72,7 @@
 				editor = new org.geomajas.plugin.editing.GeometryEditor();
 				editor.setMap(map);
 				service = editor.getService();
-                editor.getService().setPolygonEdgesCanIntersect(false, "Dit kan niet");
+                editor.getService().setValidating(true);
                 styleService = editor.getStyleService();
                 styleService.getVertexStyle().setFillColor("blue");
                 styleService.getEdgeStyle().setStrokeColor("red");
@@ -90,6 +90,7 @@
                 contextMenuRegistry.setOnOneMenuItemSimulateClick(true);
 
                 factory = new org.geomajas.plugin.editing.handler.GeometryHandlerFactory();
+                service.addGeometryEditValidationHandler(showValidation);
 			}
 
 			function cancel() {
@@ -337,6 +338,9 @@
 				}
 			}
 			
+			function showValidation(event) {
+				log("validation event "+event.getCode());
+			}			
 
 			function log(txt) {
 				var el = document.getElementById("log");
