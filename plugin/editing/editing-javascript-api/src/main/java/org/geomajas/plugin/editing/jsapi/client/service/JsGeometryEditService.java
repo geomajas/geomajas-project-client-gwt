@@ -309,7 +309,8 @@ public class JsGeometryEditService implements Exportable {
 		h = new org.geomajas.plugin.editing.client.event.GeometryEditValidationHandler() {
 
 			public void onGeometryEditValidation(GeometryEditValidationEvent event) {
-				handler.onGeometryEditValidation(new org.geomajas.plugin.editing.jsapi.client.event.GeometryEditValidationEvent(
+				handler.onGeometryEditValidation(
+					new org.geomajas.plugin.editing.jsapi.client.event.GeometryEditValidationEvent(
 						event.getGeometry(), event.getIndex(), event.getValidationState().getCode()));
 			}
 		};

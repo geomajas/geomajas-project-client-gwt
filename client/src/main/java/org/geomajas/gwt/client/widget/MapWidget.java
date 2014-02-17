@@ -87,7 +87,6 @@ import org.geomajas.gwt.client.util.Log;
 import org.geomajas.gwt.client.widget.event.GraphicsReadyEvent;
 import org.geomajas.gwt.client.widget.event.GraphicsReadyHandler;
 
-import com.gargoylesoftware.htmlunit.javascript.host.Event;
 import com.google.gwt.core.client.Scheduler;
 import com.google.gwt.core.client.Scheduler.ScheduledCommand;
 import com.google.gwt.dom.client.NativeEvent;
@@ -97,7 +96,6 @@ import com.google.gwt.event.shared.HandlerRegistration;
 import com.smartgwt.client.types.Alignment;
 import com.smartgwt.client.types.Cursor;
 import com.smartgwt.client.types.VerticalAlignment;
-import com.smartgwt.client.widgets.events.MouseDownEvent;
 import com.smartgwt.client.widgets.layout.VLayout;
 import com.smartgwt.client.widgets.menu.Menu;
 
@@ -273,12 +271,6 @@ public class MapWidget extends VLayout {
 	public MapWidget(String mapId, String applicationId) {
 		this(mapId, applicationId, true);
 	}
-	
-    public native void showContext() /*-{
-    	var self = this.@com.smartgwt.client.widgets.BaseWidget::getOrCreateJsObj()();
-    	self.showContextMenu();
-	}-*/;
-
 
 	protected MapWidget(String mapId, String applicationId, boolean initMapModel) {
 		setID(mapId);
