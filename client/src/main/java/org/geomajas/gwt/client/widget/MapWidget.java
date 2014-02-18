@@ -96,6 +96,8 @@ import com.google.gwt.event.shared.HandlerRegistration;
 import com.smartgwt.client.types.Alignment;
 import com.smartgwt.client.types.Cursor;
 import com.smartgwt.client.types.VerticalAlignment;
+import com.smartgwt.client.widgets.events.ShowContextMenuEvent;
+import com.smartgwt.client.widgets.events.ShowContextMenuHandler;
 import com.smartgwt.client.widgets.layout.VLayout;
 import com.smartgwt.client.widgets.menu.Menu;
 
@@ -547,10 +549,17 @@ public class MapWidget extends VLayout {
 			graphics.setContextMenu(contextMenu);
 		}
 	}
+	
+	
 
 	// -------------------------------------------------------------------------
 	// Registration of functional objects:
 	// -------------------------------------------------------------------------
+
+	@Override
+	public HandlerRegistration addShowContextMenuHandler(ShowContextMenuHandler handler) {
+		return super.addShowContextMenuHandler(handler);
+	}
 
 	/**
 	 * Register a new painter. A painter is responsible for painting <code>Paintable</code> objects of a certain class.
@@ -1157,17 +1166,25 @@ public class MapWidget extends VLayout {
 	 * IE11 fix to force context !!!
 	 */
 	private void setForceContextMenu() {
+		
+		addShowContextMenuHandler(new ShowContextMenuHandler() {
+			
+			@Override
+			public void onShowContextMenu(ShowContextMenuEvent event) {
+				getContextMenu().showContextMenu();				
+			}
+		});
+		
 		addListener(new Listener() {
 
 			@Override
 			public void onMouseDown(ListenerEvent event) {
 				if (event.getNativeButton() == NativeEvent.BUTTON_RIGHT) {
-					final Menu menu = getContextMenu();
 					Scheduler.get().scheduleDeferred(new ScheduledCommand() {
 
 						@Override
 						public void execute() {
-							menu.showContextMenu();
+							fireEvent(new ShowContextMenuEvent(getOrCreateJsObj()));
 						}
 					});
 				}
