@@ -86,6 +86,7 @@ public class GeometryIndexContextMenuController implements GeometryIndexMouseOve
 					if (GeometryIndexContextMenuController.this.onOneMenuItemSimulateClick
 							&& contextMenu.getItems().length == 1) {
 						contextMenu.getItem(0).fireEvent(new MenuItemClickEvent(contextMenu.getItem(0).getJsObj()));
+						contextMenu.hide();
 					} else {
 						contextMenu.showContextMenu();
 					}
