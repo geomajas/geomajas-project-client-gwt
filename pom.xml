@@ -67,6 +67,7 @@
 		<module>example-base</module>
 		<module>example</module>
 		<module>example-jar</module>
+        <module>plugin</module>
 	</modules>
 
 	<dependencyManagement>
@@ -487,18 +488,10 @@
 				<activeByDefault>true</activeByDefault>
 			</activation>
 			<modules>
-				<module>plugin</module>
 				<module>smartgwt-archetype-documentation</module>
 				<module>documentation</module>
 			</modules>
 		</profile>
-        <profile>
-            <!-- profile to perform fast builds, exclude documentation and plugin examples -->
-            <id>fast</id>
-            <modules>
-                <module>plugin</module>
-            </modules>
-        </profile>
 		<profile>
 			<id>skipDocs</id>
 			<activation>
