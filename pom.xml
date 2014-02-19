@@ -63,10 +63,6 @@
 	
 	<modules>
 		<module>common-gwt-smartgwt</module>
-<!--
-		<module>smartgwt-archetype</module>
-		<module>archetype</module>
--->
 		<module>client</module>
 		<module>example-base</module>
 		<module>example</module>
@@ -486,7 +482,7 @@
 
 	<profiles>
 		<profile>
-			<id>default</id>
+			<id>full-build</id>
 			<activation>
 				<activeByDefault>true</activeByDefault>
 			</activation>
@@ -496,6 +492,13 @@
 				<module>documentation</module>
 			</modules>
 		</profile>
+        <profile>
+            <!-- profile to perform fast builds, exclude documentation and plugin examples -->
+            <id>fast</id>
+            <modules>
+                <module>plugin</module>
+            </modules>
+        </profile>
 		<profile>
 			<id>skipDocs</id>
 			<activation>

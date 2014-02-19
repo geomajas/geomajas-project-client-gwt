@@ -38,17 +38,17 @@
 		<module>utility-common-gwt</module>
 		<module>utility-gwt</module>
 		<module>utility-gwt-example-jar</module>
-		<module>utility-gwt-example</module>
 	</modules>
 
 	<profiles>
 		<profile>
-			<id>documentation</id>
+			<id>full-build</id>
 			<activation>
 				<activeByDefault>true</activeByDefault>
 			</activation>
 			<modules>
 				<module>utility-documentation</module>
+                <module>utility-gwt-example</module>
 			</modules>
 		</profile>
 		<profile>
