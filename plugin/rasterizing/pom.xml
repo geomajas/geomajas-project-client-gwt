@@ -28,15 +28,17 @@
 	<modules>
 		<module>rasterizing-gwt</module>
 		<module>rasterizing-gwt-example-jar</module>
-		<module>rasterizing-gwt-example</module>
 	</modules>
 
 	<profiles>
 		<profile>
-			<id>default</id>
+			<id>full-build</id>
 			<activation>
 				<activeByDefault>true</activeByDefault>
 			</activation>
+            <modules>
+                <module>rasterizing-gwt-example</module>
+            </modules>
 		</profile>
 		<profile>
 			<id>skipDocs</id>

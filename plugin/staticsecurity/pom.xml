@@ -47,15 +47,17 @@
 
 	<modules>
 		<module>staticsecurity-gwt</module>
-		<module>staticsecurity-gwt-example</module>
 	</modules>
 
 	<profiles>
 		<profile>
-			<id>default</id>
+			<id>full-build</id>
 			<activation>
 				<activeByDefault>true</activeByDefault>
 			</activation>
+            <modules>
+                <module>staticsecurity-gwt-example</module>
+            </modules>
 		</profile>
 		<profile>
 			<id>skipDocs</id>

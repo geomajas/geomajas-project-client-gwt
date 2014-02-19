@@ -42,18 +42,20 @@
   		<module>editing-javascript-api</module>
 		<module>editing-javascript-api-gwt</module>
 
-		<module>editing-gwt-example</module>
-		<module>editing-javascript-gwt-example</module>
 	</modules>
 
 	<profiles>
 		<profile>
-			<id>documentation</id>
+			<id>full-build</id>
 			<activation>
 				<activeByDefault>true</activeByDefault>
 			</activation>
+            <modules>
+                <module>editing-gwt-example</module>
+                <module>editing-javascript-gwt-example</module>
+            </modules>
 		</profile>
-		<profile>
+        <profile>
 			<id>skipDocs</id>
 			<activation>
 				<property>

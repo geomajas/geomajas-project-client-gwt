@@ -52,16 +52,18 @@
 
 	<modules>
 		<module>print-gwt</module>
-		<module>print-gwt-example</module>
 		<module>print-gwt-example-jar</module>
 	</modules>
 
 	<profiles>
 		<profile>
-			<id>default</id>
+			<id>full-build</id>
 			<activation>
 				<activeByDefault>true</activeByDefault>
 			</activation>
+            <modules>
+                <module>print-gwt-example</module>
+            </modules>
 		</profile>
 		<profile>
 			<id>skipDocs</id>

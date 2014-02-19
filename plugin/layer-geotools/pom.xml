@@ -46,16 +46,18 @@
 	</developers>
 
 	<modules>
-		<module>geotools-gwt-example</module>
 		<module>geotools-gwt-example-jar</module>
 	</modules>
 
 	<profiles>
 		<profile>
-			<id>default</id>
+			<id>full-build</id>
 			<activation>
 				<activeByDefault>true</activeByDefault>
 			</activation>
+            <modules>
+                <module>geotools-gwt-example</module>
+            </modules>
 		</profile>
 		<profile>
 			<id>skipDocs</id>
