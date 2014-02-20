@@ -64,10 +64,10 @@
 	<modules>
 		<module>common-gwt-smartgwt</module>
 		<module>client</module>
-		<module>example-base</module>
-		<module>example</module>
-		<module>example-jar</module>
         <module>plugin</module>
+        <module>example-base</module>
+        <module>example</module>
+        <module>example-jar</module>
 	</modules>
 
 	<dependencyManagement>

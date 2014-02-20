@@ -61,8 +61,18 @@
 					<exclude>META-INF/geomajasContext.xml</exclude>
 				</excludes>
 			</resource>
+            <resource>
+                <directory>src/main/resources</directory>
+            </resource>
+            <resource>
+                <directory>src/main/java</directory>
+                <includes>
+                    <include>**/*.java</include>
+                    <include>**/*.gwt.xml</include>
+                </includes>
+            </resource>
 		</resources>
-	</build>
+    </build>
 
 	<profiles>
 		<!--  include sources in build -->
@@ -71,20 +81,6 @@
 			<activation>
 				<activeByDefault>true</activeByDefault>
 			</activation>
-			<build>
-				<resources>
-					<resource>
-						<directory>src/main/resources</directory>
-					</resource>
-					<resource>
-						<directory>src/main/java</directory>
-						<includes>
-							<include>**/*.java</include>
-							<include>**/*.gwt.xml</include>
-						</includes>
-					</resource>
-				</resources>
-			</build>
 		</profile>
 		<!--  no sources needed in eclipse -->
 		<profile>
