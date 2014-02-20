@@ -63,11 +63,14 @@
 	
 	<modules>
 		<module>common-gwt-smartgwt</module>
+<!--
+		<module>smartgwt-archetype</module>
+		<module>archetype</module>
+-->
 		<module>client</module>
-        <module>plugin</module>
-        <module>example-base</module>
-        <module>example</module>
-        <module>example-jar</module>
+		<module>example-base</module>
+		<module>example</module>
+		<module>example-jar</module>
 	</modules>
 
 	<dependencyManagement>
@@ -483,14 +486,30 @@
 
 	<profiles>
 		<profile>
-			<id>full-build</id>
+			<id>default</id>
 			<activation>
 				<activeByDefault>true</activeByDefault>
 			</activation>
 			<modules>
+				<module>plugin</module>
 				<module>smartgwt-archetype-documentation</module>
 				<module>documentation</module>
 			</modules>
+			<!-- Include resources, java and gwt files in build -->
+			<build>
+				<resources>
+					<resource>
+						<directory>src/main/resources</directory>
+					</resource>
+					<resource>
+						<directory>src/main/java</directory>
+						<includes>
+							<include>**/*.java</include>
+							<include>**/*.gwt.xml</include>
+						</includes>
+					</resource>
+				</resources>
+			</build>
 		</profile>
 		<profile>
 			<id>skipDocs</id>
