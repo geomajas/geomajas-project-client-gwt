@@ -10,8 +10,12 @@
  */
 package org.geomajas.plugin.deskmanager.client.gwt.manager.datalayer.steps;
 
-import java.util.Map;
-
+import com.google.gwt.core.client.GWT;
+import com.smartgwt.client.types.ImageStyle;
+import com.smartgwt.client.types.Overflow;
+import com.smartgwt.client.types.VerticalAlignment;
+import com.smartgwt.client.widgets.Img;
+import com.smartgwt.client.widgets.Label;
 import org.geomajas.geometry.Bbox;
 import org.geomajas.gwt.client.util.Notify;
 import org.geomajas.plugin.deskmanager.client.gwt.manager.datalayer.NewLayerModelWizardWindow;
@@ -20,15 +24,10 @@ import org.geomajas.plugin.deskmanager.client.gwt.manager.datalayer.WizardStepPa
 import org.geomajas.plugin.deskmanager.client.gwt.manager.i18n.ManagerMessages;
 import org.geomajas.plugin.deskmanager.client.gwt.manager.service.DataCallback;
 import org.geomajas.plugin.deskmanager.client.gwt.manager.service.DiscoveryCommService;
-import org.geomajas.plugin.deskmanager.command.manager.dto.RasterCapabilitiesInfo;
 import org.geomajas.plugin.deskmanager.command.manager.dto.DynamicRasterLayerConfiguration;
+import org.geomajas.plugin.deskmanager.command.manager.dto.RasterCapabilitiesInfo;
 
-import com.google.gwt.core.client.GWT;
-import com.smartgwt.client.types.ImageStyle;
-import com.smartgwt.client.types.Overflow;
-import com.smartgwt.client.types.VerticalAlignment;
-import com.smartgwt.client.widgets.Img;
-import com.smartgwt.client.widgets.Label;
+import java.util.Map;
 
 /**
  * 
@@ -126,7 +125,7 @@ public class WmsPreviewLayerStep extends WizardStepPanel {
 		EditLayerSettingsStep nextStep = (EditLayerSettingsStep) parent
 				.getStep(NewLayerModelWizardWindow.STEP_EDIT_LAYER_SETTINGS);
 		if (nextStep != null) {
-			nextStep.setData(layerConfiguration, NewLayerModelWizardWindow.STEP_WMS_PREVIEW_LAYER);
+			nextStep.setData(layerConfiguration, info, NewLayerModelWizardWindow.STEP_WMS_PREVIEW_LAYER);
 		} else {
 			Notify.error(MESSAGES.wmsPreviewLayerStepNextStepNotFound());
 		}

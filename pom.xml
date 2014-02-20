@@ -497,6 +497,17 @@
 			</modules>
 		</profile>
 		<profile>
+			<id>skipDocs</id>
+			<activation>
+				<property>
+					<name>skipDocs</name>
+				</property>
+			</activation>
+			<modules>
+				<module>plugin</module>
+			</modules>
+		</profile>
+		<profile>
 			<id>clientOnly</id>
 			<activation>
 				<property>
