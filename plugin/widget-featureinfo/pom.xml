@@ -49,19 +49,22 @@
 		<module>featureinfo</module>
 		<module>featureinfo-gwt</module>
 		<module>featureinfo-gwt-example-jar</module>
-		<module>featureinfo-gwt-example</module>
 	</modules>
 
 	<profiles>
 		<profile>
-			<id>documentation</id>
+			<id>full-build</id>
 			<activation>
 				<activeByDefault>true</activeByDefault>
 			</activation>
 			<modules>
+                <module>featureinfo-gwt-example</module>
 				<module>featureinfo-documentation</module>
 			</modules>
 		</profile>
+        <profile>
+            <id>fast</id>
+        </profile>
 		<profile>
 			<id>skipDocs</id>
 			<activation>

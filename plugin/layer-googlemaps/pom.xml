@@ -47,16 +47,18 @@
 
 	<modules>
 		<module>googlemaps</module>
-		<module>googlemaps-example</module>
 		<module>googlemaps-example-jar</module>
 	</modules>
 
 	<profiles>
 		<profile>
-			<id>default</id>
+			<id>full-build</id>
 			<activation>
 				<activeByDefault>true</activeByDefault>
 			</activation>
+            <modules>
+                <module>googlemaps-example</module>
+            </modules>
 		</profile>
 		<profile>
 			<id>skipDocs</id>

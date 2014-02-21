@@ -37,8 +37,14 @@
 		</dependency>
 		<dependency>
 			<groupId>org.geomajas.plugin</groupId>
+			<artifactId>geomajas-client-gwt2-plugin-editing-server-extension</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.geomajas.plugin</groupId>
 			<artifactId>geomajas-client-gwt2-plugin-editing-common</artifactId>
 		</dependency>
+
+
 		<dependency>
 			<groupId>org.geomajas.plugin</groupId>
 			<artifactId>geomajas-plugin-javascript-api</artifactId>
@@ -69,7 +75,7 @@
 	<profiles>
 		<!--  include sources in build -->
 		<profile>
-			<id>default</id>			
+			<id>full-build</id>
 			<activation>
 				<activeByDefault>true</activeByDefault>
 			</activation>
@@ -96,23 +102,6 @@
 	</profiles>
 
 	<build>
-		<resources>
-			<resource>
-				<directory>src/main/resources</directory>
-				<filtering>true</filtering>
-				<includes>
-					<include>META-INF/geomajasContext.xml</include>
-				</includes>
-			</resource>
-			<resource>
-				<directory>src/main/resources</directory>
-				<filtering>false</filtering>
-				<excludes>
-					<exclude>META-INF/geomajasContext.xml</exclude>
-				</excludes>
-			</resource>
-		</resources>
-
 		<plugins>
 
 			<plugin>

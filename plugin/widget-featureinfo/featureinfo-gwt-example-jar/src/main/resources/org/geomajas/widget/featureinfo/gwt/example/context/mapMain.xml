@@ -81,6 +81,7 @@ http://www.springframework.org/schema/tx http://www.springframework.org/schema/t
 			<list>
 				<ref bean="clientLayerOsm" />
 				<ref bean="clientLayerCountriesWms" />
+				<ref bean="clientLayerCountriesWmsHtml" />
 				<ref bean="clientLayerCountries" />
 				<ref bean="clientLayerPopulatedPlaces110m" />
 			</list>
@@ -113,6 +114,7 @@ http://www.springframework.org/schema/tx http://www.springframework.org/schema/t
 							<list>
 								<ref bean="clientLayerOsm" />
 								<ref bean="clientLayerCountriesWms" />
+								<ref bean="clientLayerCountriesWmsHtml" />
 								<ref bean="clientLayerCountries" />
 								<ref bean="clientLayerPopulatedPlaces110m" />
 							</list>

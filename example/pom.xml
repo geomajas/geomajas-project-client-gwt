@@ -25,6 +25,17 @@
 	<description>Geomajas GWT client: Main - Example</description>
 
 	<dependencies>
+<!-- 		<dependency>
+			<groupId>com.smartgwt</groupId>
+			<artifactId>smartgwt</artifactId>
+			<version>3.1</version>
+		</dependency>
+		<dependency>
+			<groupId>com.smartgwt</groupId>
+			<artifactId>smartgwt-skins</artifactId>
+			<version>3.1</version>
+		</dependency>
+ -->	
 		<dependency>
 			<groupId>org.seleniumhq.selenium</groupId>
 			<artifactId>selenium-java</artifactId>
@@ -42,8 +53,57 @@
 			<artifactId>geomajas-gwt-client</artifactId>
 		</dependency>
 		<dependency>
+			<groupId>org.geomajas.plugin</groupId>
+			<artifactId>geomajas-plugin-staticsecurity-gwt</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.geomajas.plugin</groupId>
+			<artifactId>geomajas-plugin-print-gwt</artifactId>
+		</dependency>
+
+		<dependency>
 			<groupId>org.geomajas</groupId>
 			<artifactId>geomajas-gwt-face-example-jar</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.geomajas.widget</groupId>
+			<artifactId>geomajas-widget-utility-gwt-example-jar</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.geomajas.plugin</groupId>
+			<artifactId>geomajas-plugin-geocoder-gwt-example-jar</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.geomajas.plugin</groupId>
+			<artifactId>geomajas-plugin-rasterizing-gwt-example-jar</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.geomajas.plugin</groupId>
+			<artifactId>geomajas-plugin-editing-gwt-example-jar</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.geomajas.widget</groupId>
+			<artifactId>geomajas-widget-featureinfo-gwt-example-jar</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.geomajas.plugin</groupId>
+			<artifactId>geomajas-client-gwt-layer-googlemaps-example-jar</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.geomajas.plugin</groupId>
+			<artifactId>geomajas-layer-wms-gwt-example-jar</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.geomajas.plugin</groupId>
+			<artifactId>geomajas-client-gwt-plugin-print-example-jar</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.geomajas.plugin</groupId>
+			<artifactId>geomajas-layer-geotools-gwt-example-jar</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.geomajas.plugin</groupId>
+			<artifactId>geomajas-layer-tms</artifactId>
 		</dependency>
 
 		<!-- Google dependencies -->

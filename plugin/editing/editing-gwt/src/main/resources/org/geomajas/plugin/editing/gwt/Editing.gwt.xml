@@ -12,6 +12,7 @@
 <module>
 	<inherits name="org.geomajas.gwt.GeomajasClient" />
 	<inherits name="org.geomajas.plugin.editing.Editing" />
+	<inherits name="org.geomajas.plugin.editing.EditingServerExtentions" />
 
 	<source path="client" />
 </module>

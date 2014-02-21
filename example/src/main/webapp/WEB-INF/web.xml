@@ -19,7 +19,6 @@
         <param-value>
 			<!-- generic Geomajas context -->
 			classpath:org/geomajas/spring/geomajasContext.xml
-
 			<!-- local application context -->
 			WEB-INF/applicationContext.xml
 
@@ -27,6 +26,13 @@
 			WEB-INF/security.xml
 
 			<!-- layers and maps included through geomajasExampleContext.xml -->
+
+			WEB-INF/appShowcase.xml
+			WEB-INF/map*.xml
+			WEB-INF/layer*.xml
+
+			<!-- force geocoder.xml from geocoder plug-in to be loaded after the geocoder from utility widgets -->
+			classpath:org/geomajas/plugin/geocoder/gwt/example/context/geocoder.xml
 
 			<!--
 			classpath:org/geomajas/spring/testRecorder.xml

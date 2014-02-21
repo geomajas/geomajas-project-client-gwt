@@ -43,15 +43,17 @@
 	<modules>
 		<module>javascript-api</module>
 		<module>javascript-api-gwt</module>
-	    <module>javascript-api-gwt-example</module>
 	</modules>
 
 	<profiles>
 		<profile>
-			<id>documentation</id>
+			<id>full-build</id>
 			<activation>
 				<activeByDefault>true</activeByDefault>
 			</activation>
+            <modules>
+                <module>javascript-api-gwt-example</module>
+            </modules>
 		</profile>
 		<profile>
 			<id>skipDocs</id>

@@ -11,7 +11,21 @@
 
 package org.geomajas.gwt.client.controller;
 
+import com.google.gwt.dom.client.NativeEvent;
+import com.google.gwt.event.dom.client.DoubleClickEvent;
+import com.google.gwt.event.dom.client.MouseEvent;
+import com.google.gwt.event.dom.client.MouseMoveEvent;
+import com.google.gwt.event.dom.client.MouseUpEvent;
+import com.google.gwt.i18n.client.NumberFormat;
+import com.smartgwt.client.widgets.Canvas;
+import com.smartgwt.client.widgets.Label;
+import com.smartgwt.client.widgets.layout.VLayout;
+import com.smartgwt.client.widgets.menu.Menu;
+import com.smartgwt.client.widgets.menu.MenuItem;
+import com.smartgwt.client.widgets.menu.MenuItemIfFunction;
+import com.smartgwt.client.widgets.menu.events.MenuItemClickEvent;
 import org.geomajas.geometry.Coordinate;
+import org.geomajas.geometry.service.GeometryService;
 import org.geomajas.gwt.client.action.MenuAction;
 import org.geomajas.gwt.client.action.menu.ToggleSnappingAction;
 import org.geomajas.gwt.client.gfx.paintable.GfxGeometry;
@@ -23,22 +37,11 @@ import org.geomajas.gwt.client.spatial.geometry.Geometry;
 import org.geomajas.gwt.client.spatial.geometry.GeometryFactory;
 import org.geomajas.gwt.client.spatial.geometry.operation.InsertCoordinateOperation;
 import org.geomajas.gwt.client.util.DistanceFormat;
+import org.geomajas.gwt.client.util.GeometryConverter;
 import org.geomajas.gwt.client.util.WidgetLayout;
 import org.geomajas.gwt.client.widget.MapWidget;
 import org.geomajas.gwt.client.widget.MapWidget.RenderGroup;
 import org.geomajas.gwt.client.widget.MapWidget.RenderStatus;
-
-import com.google.gwt.dom.client.NativeEvent;
-import com.google.gwt.event.dom.client.DoubleClickEvent;
-import com.google.gwt.event.dom.client.MouseMoveEvent;
-import com.google.gwt.event.dom.client.MouseUpEvent;
-import com.smartgwt.client.types.VerticalAlignment;
-import com.smartgwt.client.widgets.Canvas;
-import com.smartgwt.client.widgets.Label;
-import com.smartgwt.client.widgets.menu.Menu;
-import com.smartgwt.client.widgets.menu.MenuItem;
-import com.smartgwt.client.widgets.menu.MenuItemIfFunction;
-import com.smartgwt.client.widgets.menu.events.MenuItemClickEvent;
 
 /**
  * <p>
@@ -47,6 +50,7 @@ import com.smartgwt.client.widgets.menu.events.MenuItemClickEvent;
  * </p>
  * 
  * @author Pieter De Graef
+ * @author Oliver May
  */
 public class MeasureDistanceController extends AbstractSnappingController {
 
@@ -54,11 +58,21 @@ public class MeasureDistanceController extends AbstractSnappingController {
 
 	private static final ShapeStyle LINE_STYLE_2 = new ShapeStyle("#FFFFFF", 0, "#FF5500", 1, 2);
 
+	private boolean showArea;
+
+	private boolean showCoordinate;
+
 	private GfxGeometry distanceLine;
 
 	private GfxGeometry lineSegment;
 
+	private VLayout panel;
+
 	private DistanceLabel label;
+
+	private DistanceLabel areaLabel;
+
+	private DistanceLabel coordinateLabel;
 
 	private GeometryFactory factory;
 
@@ -66,16 +80,38 @@ public class MeasureDistanceController extends AbstractSnappingController {
 
 	private Menu menu;
 
+	private GeometryFactory geometryFactory;
+
 	// -------------------------------------------------------------------------
 	// Constructor:
 	// -------------------------------------------------------------------------
 
+	/**
+	 * Construct a measureDistanceController. Default is to display the total distance and last line distance.
+	 *
+	 * @param mapWidget the mapwidget where the distance is measured on.
+	 */
 	public MeasureDistanceController(MapWidget mapWidget) {
+		this(mapWidget, false, false);
+	}
+
+	/**
+	 * Construct a measureDistanceController.
+	 *
+	 * @param mapWidget the mapwidget where the distance is measured on.
+	 * @param showArea true if the area should be displayed
+	 * @param displayCoordinates the if the coordinates should be displayed.
+	 */
+	public MeasureDistanceController(MapWidget mapWidget, boolean showArea, boolean displayCoordinates) {
 		super(mapWidget);
 		distanceLine = new GfxGeometry("measureDistanceLine");
 		distanceLine.setStyle(LINE_STYLE_1);
 		lineSegment = new GfxGeometry("measureDistanceLineSegment");
 		lineSegment.setStyle(LINE_STYLE_2);
+		this.showArea = showArea;
+		this.showCoordinate = displayCoordinates;
+		geometryFactory = new GeometryFactory(mapWidget.getMapModel().getPrecision(),
+				mapWidget.getMapModel().getSrid());
 	}
 
 	// -------------------------------------------------------------------------
@@ -108,19 +144,17 @@ public class MeasureDistanceController extends AbstractSnappingController {
 		if (event.getNativeButton() != NativeEvent.BUTTON_RIGHT) {
 			Coordinate coordinate = getWorldPosition(event);
 			if (distanceLine.getOriginalLocation() == null) {
-				distanceLine.setGeometry(getFactory().createLineString(new Coordinate[] { coordinate }));
+				distanceLine.setGeometry(getFactory().createLineString(new Coordinate[]{coordinate}));
 				mapWidget.registerWorldPaintable(distanceLine);
 				mapWidget.registerWorldPaintable(lineSegment);
-				label = new DistanceLabel();
-				label.setDistance(0, 0);
-				label.animateMove(mapWidget.getWidth() - 130, 10);
+				showPanel();
 			} else {
 				Geometry geometry = (Geometry) distanceLine.getOriginalLocation();
 				InsertCoordinateOperation op = new InsertCoordinateOperation(geometry.getNumPoints(), coordinate);
 				geometry = op.execute(geometry);
 				distanceLine.setGeometry(geometry);
 				tempLength = (float) geometry.getLength();
-				label.setDistance(tempLength, 0);
+				updateMeasure(event, true);
 			}
 			mapWidget.render(mapWidget.getMapModel(), RenderGroup.VECTOR, RenderStatus.UPDATE);
 		}
@@ -129,12 +163,56 @@ public class MeasureDistanceController extends AbstractSnappingController {
 	/** Update the drawing while moving the mouse. */
 	public void onMouseMove(MouseMoveEvent event) {
 		if (isMeasuring() && distanceLine.getOriginalLocation() != null) {
-			Geometry geometry = (Geometry) distanceLine.getOriginalLocation();
-			Coordinate coordinate1 = geometry.getCoordinates()[distanceLine.getGeometry().getNumPoints() - 1];
-			Coordinate coordinate2 = getWorldPosition(event);
-			lineSegment.setGeometry(getFactory().createLineString(new Coordinate[] { coordinate1, coordinate2 }));
-			mapWidget.render(mapWidget.getMapModel(), RenderGroup.VECTOR, RenderStatus.UPDATE);
-			label.setDistance(tempLength, (float) ((Geometry) lineSegment.getOriginalLocation()).getLength());
+			updateMeasure(event, false);
+		}
+	}
+
+	private void showPanel() {
+		panel = new VLayout();
+		panel.setParentElement(mapWidget);
+//		panel.setValign(VerticalAlignment.TOP);
+		panel.setShowEdges(true);
+		panel.setWidth(120);
+		panel.setPadding(3);
+		panel.setLeft(mapWidget.getWidth() - 130);
+		panel.setTop(-80);
+		panel.setBackgroundColor("#FFFFFF");
+		panel.setAnimateTime(500);
+
+
+		label = new DistanceLabel();
+		areaLabel = new DistanceLabel();
+		coordinateLabel = new DistanceLabel();
+
+		panel.addMember(label);
+		if (showArea) {
+			panel.addMember(areaLabel);
+		}
+		if (showCoordinate) {
+			panel.addMember(coordinateLabel);
+		}
+
+		panel.animateMove(mapWidget.getWidth() - 130, 10);
+	}
+
+	private void updateMeasure(MouseEvent event, boolean complete) {
+		Geometry geometry = (Geometry) distanceLine.getOriginalLocation();
+		Coordinate coordinate1 = geometry.getCoordinates()[distanceLine.getGeometry().getNumPoints() - 1];
+		Coordinate coordinate2 = getWorldPosition(event);
+		lineSegment.setGeometry(getFactory().createLineString(new Coordinate[] { coordinate1, coordinate2 }));
+		mapWidget.render(mapWidget.getMapModel(), RenderGroup.VECTOR, RenderStatus.UPDATE);
+		label.setDistance(tempLength, (float) ((Geometry) lineSegment.getOriginalLocation()).getLength());
+		
+		if (showArea && complete) {
+
+			double area = GeometryService.getArea(GeometryConverter.toDto(geometryFactory.
+							createLinearRing(geometry.getCoordinates())));
+
+			areaLabel.setArea(DistanceFormat.asMapArea(mapWidget, area));
+		}
+
+		if (showCoordinate && complete) {
+			coordinateLabel.setCoordinate(coordinate2.getX(), coordinate2.getY());
 		}
 	}
 
@@ -145,8 +223,8 @@ public class MeasureDistanceController extends AbstractSnappingController {
 		mapWidget.unregisterWorldPaintable(lineSegment);
 		distanceLine.setGeometry(null);
 		lineSegment.setGeometry(null);
-		if (label != null) {
-			label.destroy();
+		if (panel != null) {
+			panel.destroy();
 		}
 	}
 
@@ -176,21 +254,15 @@ public class MeasureDistanceController extends AbstractSnappingController {
 
 	/**
 	 * The label that shows the distances.
-	 * 
+	 *
 	 * @author Pieter De Graef
 	 */
 	private class DistanceLabel extends Label {
 
 		public DistanceLabel() {
-			setParentElement(mapWidget);
-			setValign(VerticalAlignment.TOP);
-			setShowEdges(true);
-			setWidth(120);
+			super();
 			setPadding(3);
-			setLeft(mapWidget.getWidth() - 130);
-			setTop(-80);
-			setBackgroundColor("#FFFFFF");
-			setAnimateTime(500);
+			setAutoHeight();
 		}
 
 		public void setDistance(float totalDistance, float radius) {
@@ -200,6 +272,22 @@ public class MeasureDistanceController extends AbstractSnappingController {
 			setContents("<div><b>" + I18nProvider.getMenu().distance() + "</b>:</div><div style='margin-top:5px;'>"
 					+ dist + "</div>");
 		}
+
+		public void setArea(String area) {
+			String areaString = I18nProvider.getMenu().getMeasureAreaString(area);
+			setContents("<div><b>" + I18nProvider.getMenu().area() + "</b>:</div><div style='margin-top:5px;'>"
+					+ areaString + "</div>");
+		}
+
+		public void setCoordinate(double x, double y) {
+
+
+			String coordinate = I18nProvider.getMenu().getMeasureCoordinateString(NumberFormat.getFormat(".##").
+					format(x), NumberFormat.getFormat(".##").format(y));
+			setContents("<div><b>" + I18nProvider.getMenu().coordinate() + "</b>:</div><div style='margin-top:5px;'>"
+					+ coordinate + "</div>");
+		}
+
 	}
 
 	/**

@@ -11,6 +11,7 @@
 
 package org.geomajas.gwt.client.action.toolbar;
 
+import org.geomajas.gwt.client.action.ConfigurableAction;
 import org.geomajas.gwt.client.action.ToolbarModalAction;
 import org.geomajas.gwt.client.controller.MeasureDistanceController;
 import org.geomajas.gwt.client.i18n.I18nProvider;
@@ -20,11 +21,30 @@ import org.geomajas.gwt.client.widget.MapWidget;
 import com.smartgwt.client.widgets.events.ClickEvent;
 
 /**
- * Measure distance action.
+ * Measure action. It is possible to configure whether to show:
+ * 	-Total distance
+ * 	-Last distance (the distance of the last line)
+ * 	-Total area
+ * 	-Current X/Y coordinate (map CRS)
  * 
  * @author Pieter De Graef
+ * @author Oliver May
  */
-public class MeasureModalAction extends ToolbarModalAction {
+public class MeasureModalAction extends ToolbarModalAction implements ConfigurableAction {
+
+	/**
+	 * Configuration key to configure whether the total area should be displayed.
+	 */
+	public static final String SHOW_AREA = "showArea";
+
+	/**
+	 * Configuration key to configure whether the current coordinate should be displayed.
+	 */
+	public static final String SHOW_COORDINATE = "showCoordinate";
+
+	private boolean showArea;
+
+	private boolean showCoordinate;
 
 	private MapWidget mapWidget;
 
@@ -35,10 +55,19 @@ public class MeasureModalAction extends ToolbarModalAction {
 	}
 
 	public void onSelect(ClickEvent event) {
-		mapWidget.setController(new MeasureDistanceController(mapWidget));
+		mapWidget.setController(new MeasureDistanceController(mapWidget, showArea, showCoordinate));
 	}
 
 	public void onDeselect(ClickEvent event) {
 		mapWidget.setController(null);
+	}
+
+	@Override
+	public void configure(String key, String value) {
+		if (SHOW_AREA.equals(key)) {
+			showArea = Boolean.parseBoolean(value);
+		} else if (SHOW_COORDINATE.equals(key)) {
+			showCoordinate = Boolean.parseBoolean(value);
+		}
 	}
 }

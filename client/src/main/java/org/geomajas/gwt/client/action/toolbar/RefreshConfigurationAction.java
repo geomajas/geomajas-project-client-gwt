@@ -64,7 +64,7 @@ public class RefreshConfigurationAction extends ToolbarAction {
 											message += ",";
 										}
 									}
-									SC.warn(message, null);
+											SC.warn(message, (String) null);
 								}
 							});
 						}

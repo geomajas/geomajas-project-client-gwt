@@ -31,6 +31,7 @@
                 <url>https://github.com/geomajas/geomajas-project-client-gwt.git</url>
         </scm>
 
+
 	<developers>
 		<developer>
 			<id>oliverm</id>
@@ -63,14 +64,10 @@
 	
 	<modules>
 		<module>common-gwt-smartgwt</module>
-<!--
-		<module>smartgwt-archetype</module>
-		<module>archetype</module>
--->
 		<module>client</module>
 		<module>example-base</module>
-		<module>example</module>
 		<module>example-jar</module>
+		<module>example</module>
 	</modules>
 
 	<dependencyManagement>
@@ -123,6 +120,11 @@
 				<version>${gwt-client-common-gwt-version}</version>
 				<type>pom</type>
 				<scope>import</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.geomajas.plugin</groupId>
+				<artifactId>geomajas-client-gwt2-plugin-editing-server-extension</artifactId>
+				<version>${gwt-client-common-gwt-version}</version>
 			</dependency>
 
 
@@ -479,7 +481,38 @@
 
 	</dependencyManagement>
 
+
+	<build>
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>true</filtering>
+				<includes>
+					<include>META-INF/geomajasContext*.xml</include>
+					<include>META-INF/geomajasWebContext*.xml</include>
+				</includes>
+			</resource>
+			<resource>
+				<directory>src/main/resources</directory>
+				<excludes>
+					<exclude>META-INF/geomajasContext*.xml</exclude>
+					<exclude>META-INF/geomajasWebContext*.xml</exclude>
+				</excludes>
+			</resource>
+		</resources>
+	</build>
+
 	<profiles>
+		<profile>
+			<id>full-build</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<modules>
+				<module>smartgwt-archetype-documentation</module>
+				<module>documentation</module>
+			</modules>
+		</profile>
 		<profile>
 			<id>default</id>
 			<activation>
@@ -487,9 +520,22 @@
 			</activation>
 			<modules>
 				<module>plugin</module>
-				<module>smartgwt-archetype-documentation</module>
-				<module>documentation</module>
 			</modules>
+			<!-- Include resources, java and gwt files in build -->
+			<build>
+				<resources>
+					<resource>
+						<directory>src/main/resources</directory>
+					</resource>
+					<resource>
+						<directory>src/main/java</directory>
+						<includes>
+							<include>**/*.java</include>
+							<include>**/*.gwt.xml</include>
+						</includes>
+					</resource>
+				</resources>
+			</build>
 		</profile>
 		<profile>
 			<id>clientOnly</id>
@@ -514,7 +560,7 @@
 		<gwt-client-gwt-version>2.5.1</gwt-client-gwt-version>
 		<gwt-client-gwt-maven-version>2.5.1</gwt-client-gwt-maven-version>
 		<gwt-client-common-gwt-version>2.0.0-SNAPSHOT</gwt-client-common-gwt-version>
-		<gwt-client-smartgwt-version>3.1</gwt-client-smartgwt-version>
+		<gwt-client-smartgwt-version>4.1d</gwt-client-smartgwt-version>
 		<gwt-exporter-version>2.4.0</gwt-exporter-version>
 	</properties>
 	
