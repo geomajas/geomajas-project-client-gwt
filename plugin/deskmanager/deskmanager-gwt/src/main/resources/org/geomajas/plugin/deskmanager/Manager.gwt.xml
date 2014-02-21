@@ -1,5 +1,5 @@
 <module>
-	<inherits name="com.smartgwt.SmartGwt" />
+    <inherits name="com.smartgwt.SmartGwtNoTheme" />
 	<inherits name="org.geomajas.sld.editor.expert.GeomajasSldExpertSmartGwt"/>
 
 	<source path="client/gwt/common" />

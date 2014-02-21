@@ -1,5 +1,4 @@
 <module>
-	<inherits name="com.smartgwt.SmartGwt" />
 	<inherits name="org.geomajas.gwt.GeomajasClient" />
 	<!--
 	<inherits name="org.geomajas.widget.utility.gwt.GwtUtilityWidgets" />
