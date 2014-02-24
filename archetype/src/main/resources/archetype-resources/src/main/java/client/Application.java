@@ -77,7 +77,7 @@ public class Application implements EntryPoint {
 		map.getMapModel().runWhenInitialized(new Runnable() {
 
 			public void run() {
-				Label title = new Label(messages.applicationTitle("${geomajas-dep-version}"));
+				Label title = new Label(messages.applicationTitle("${project.version}"));
 				title.setStyleName("appTitle");
 				title.setWidth(260);
 				toolbar.addFill();

@@ -54,17 +54,17 @@
     </example>
 
     <para>These snippets don't include any version info. It is assumed that
-    you use the geomajas-dep module in a recent incarnation to assure these
+    you use the geomajas-project-client-gwt module in a recent incarnation to assure these
     versions are set.</para>
 
     <example>
-      <title>Including geomajas-dep for module versions</title>
+      <title>Including geomajas-project-client-gwt for module versions</title>
 
       <programlisting>&lt;dependencyManagement&gt;
         &lt;dependency&gt;
-            &lt;groupId&gt;org.geomajas&lt;/groupId&gt;
-            &lt;artifactId&gt;geomajas-dep&lt;/artifactId&gt;
-            &lt;version&gt;1.10.32&lt;/version&gt;
+            &lt;groupId&gt;org.geomajas.project&lt;/groupId&gt;
+            &lt;artifactId&gt;geomajas-project-client-gwt&lt;/artifactId&gt;
+		  &lt;version&gt;<?eval ${project.version}?>&lt;/version&gt;
             &lt;type&gt;pom&lt;/type&gt;
             &lt;scope&gt;import&lt;/scope&gt;
         &lt;/dependency&gt;
@@ -73,34 +73,9 @@
 </programlisting>
     </example>
 
-    <para>If you want to use a snapshot version of the GWT face, you should
-    also included a dependency on the specific snapshot in the
-    dependencyManagement section of your pom.</para>
-
-    <example>
-      <title>DependencyManagement with geomajas-dep and a snapshot GWT
-      face</title>
-
-      <programlisting>&lt;dependencyManagement&gt;
-    &lt;dependencies&gt;
-        &lt;dependency&gt;
-            &lt;groupId&gt;org.geomajas&lt;/groupId&gt;
-            &lt;artifactId&gt;geomajas-face-gwt&lt;/artifactId&gt;
-            &lt;version&gt;1.9.0-SNAPSHOT&lt;/version&gt;
-            &lt;type&gt;pom&lt;/type&gt;
-            &lt;scope&gt;import&lt;/scope&gt;
-        &lt;/dependency&gt;
-        &lt;dependency&gt;
-            &lt;groupId&gt;org.geomajas&lt;/groupId&gt;
-            &lt;artifactId&gt;geomajas-dep&lt;/artifactId&gt;
-            &lt;version&gt;1.11.36&lt;/version&gt;
-            &lt;type&gt;pom&lt;/type&gt;
-            &lt;scope&gt;import&lt;/scope&gt;
-        &lt;/dependency&gt;
-    &lt;/dependencies&gt;
-&lt;/dependencyManagement&gt;
-</programlisting>
-    </example>
+    <para>If you want to use a snapshot version of the GWT client, you should
+    change the version of the geomajas-project-client-gwt dependency to the desired
+		snapshot version.</para>
   </section>
 
   <section id="webxml">

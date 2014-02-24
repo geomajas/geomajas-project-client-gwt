@@ -562,6 +562,7 @@
 		<gwt-client-common-gwt-version>2.0.0</gwt-client-common-gwt-version>
 		<gwt-client-smartgwt-version>3.1</gwt-client-smartgwt-version>
 		<gwt-exporter-version>2.4.0</gwt-exporter-version>
+		<gwt-client-build-tools-version>2.0.0</gwt-client-build-tools-version>
 	</properties>
 	
 </project>
