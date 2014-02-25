@@ -25,7 +25,6 @@ import org.geomajas.plugin.editing.client.snap.algorithm.NearestEdgeSnapAlgorith
 import org.geomajas.plugin.editing.client.snap.algorithm.NearestVertexSnapAlgorithm;
 import org.geomajas.plugin.editing.gwt.client.GeometryEditor;
 import org.geomajas.plugin.editing.gwt.client.GeometryEditorImpl;
-import org.geomajas.plugin.editing.gwt.client.controller.GeometryIndexContextMenuController;
 import org.geomajas.plugin.editing.gwt.client.gfx.PointSymbolizerShapeAndSize;
 import org.geomajas.plugin.editing.gwt.client.snap.VectorLayerSourceProvider;
 import org.geomajas.plugin.editing.gwt.example.client.i18n.EditingMessages;
@@ -63,19 +62,6 @@ public class EditingPanel extends SamplePanel implements MapModelChangedHandler 
 		// set shape and size of point symbolizer
 		editor.getStyleService().getPointSymbolizerShapeAndSize().setShape(PointSymbolizerShapeAndSize.Shape.CIRCLE);
 		editor.getStyleService().getPointSymbolizerShapeAndSize().setSize(6);
-
-		// register operations for vertex contect menu
-		editor.setContextMenuController(new GeometryIndexContextMenuController(map, editor.getEditService()));
-		editor.getContextMenuController().addVertexOperation(
-				GeometryIndexContextMenuController.VertexOperation.REMOVE, "verwijder punt");
-		editor.getContextMenuController().addVertexOperation(
-				GeometryIndexContextMenuController.VertexOperation.DESELECT, "deselecteer punt");
-		editor.getContextMenuController().addVertexOperation(
-				GeometryIndexContextMenuController.VertexOperation.ZOOM_IN, "zoom in");
-		editor.getContextMenuController().addVertexOperation(
-				GeometryIndexContextMenuController.VertexOperation.ZOOM_OUT, "zoom uit");
-		editor.getContextMenuController().addVertexOperation(
-				GeometryIndexContextMenuController.VertexOperation.ZOOM_TO_FULL_OBJECT, "zoom naar object");
 
 		VLayout layout = new VLayout();
 		MenuBar editingToolStrip = new MenuBar(editor);
