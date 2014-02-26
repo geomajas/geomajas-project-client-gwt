@@ -89,6 +89,7 @@ import org.geomajas.gwt.client.widget.event.GraphicsReadyHandler;
 
 import com.google.gwt.core.client.Scheduler;
 import com.google.gwt.core.client.Scheduler.ScheduledCommand;
+import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.NativeEvent;
 import com.google.gwt.event.dom.client.MouseWheelEvent;
 import com.google.gwt.event.dom.client.MouseWheelHandler;
@@ -1167,6 +1168,8 @@ public class MapWidget extends VLayout {
 	 */
 	private void setForceContextMenu() {
 		
+		suppressContextMenu(getElement());
+		
 		addShowContextMenuHandler(new ShowContextMenuHandler() {
 			
 			@Override
@@ -1211,6 +1214,11 @@ public class MapWidget extends VLayout {
 			}
 		});
 	}
+	
+	protected native int suppressContextMenu(Element elt)
+	/*-{
+		elt.oncontextmenu = function() {return false;};
+	}-*/;
 	
 	private void setAddons() {
 		if (getMapModel().isInitialized()) {
