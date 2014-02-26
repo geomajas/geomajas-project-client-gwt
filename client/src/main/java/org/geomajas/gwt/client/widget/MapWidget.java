@@ -1,7 +1,7 @@
 /*
  * This is part of Geomajas, a GIS framework, http://www.geomajas.org/.
  *
- * Copyright 2008-2014 Geosparc nv, http://www.geosparc.com/, Belgium.
+ * Copyright 2008-2013 Geosparc nv, http://www.geosparc.com/, Belgium.
  *
  * The program is available in open source according to the GNU Affero
  * General Public License. All contributions in this program are covered
@@ -11,16 +11,14 @@
 
 package org.geomajas.gwt.client.widget;
 
-import com.google.gwt.core.client.Scheduler;
-import com.google.gwt.core.client.Scheduler.ScheduledCommand;
-import com.google.gwt.event.dom.client.MouseWheelEvent;
-import com.google.gwt.event.dom.client.MouseWheelHandler;
-import com.google.gwt.event.shared.HandlerRegistration;
-import com.smartgwt.client.types.Alignment;
-import com.smartgwt.client.types.Cursor;
-import com.smartgwt.client.types.VerticalAlignment;
-import com.smartgwt.client.widgets.layout.VLayout;
-import com.smartgwt.client.widgets.menu.Menu;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
 import org.geomajas.annotation.Api;
 import org.geomajas.configuration.client.ClientMapInfo;
 import org.geomajas.geometry.Coordinate;
@@ -29,6 +27,7 @@ import org.geomajas.gwt.client.controller.GraphicsController;
 import org.geomajas.gwt.client.controller.PanController;
 import org.geomajas.gwt.client.controller.listener.Listener;
 import org.geomajas.gwt.client.controller.listener.ListenerController;
+import org.geomajas.gwt.client.controller.listener.ListenerEvent;
 import org.geomajas.gwt.client.gfx.GraphicsContext;
 import org.geomajas.gwt.client.gfx.ImageContext;
 import org.geomajas.gwt.client.gfx.MenuContext;
@@ -45,7 +44,6 @@ import org.geomajas.gwt.client.gfx.paintable.mapaddon.Watermark;
 import org.geomajas.gwt.client.gfx.paintable.mapaddon.ZoomAddon;
 import org.geomajas.gwt.client.gfx.paintable.mapaddon.ZoomToRectangleAddon;
 import org.geomajas.gwt.client.gfx.painter.CirclePainter;
-import org.geomajas.gwt.client.gfx.painter.ClientWmsLayerPainter;
 import org.geomajas.gwt.client.gfx.painter.FeaturePainter;
 import org.geomajas.gwt.client.gfx.painter.FeatureTransactionPainter;
 import org.geomajas.gwt.client.gfx.painter.GeometryPainter;
@@ -89,13 +87,19 @@ import org.geomajas.gwt.client.util.Log;
 import org.geomajas.gwt.client.widget.event.GraphicsReadyEvent;
 import org.geomajas.gwt.client.widget.event.GraphicsReadyHandler;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.LinkedHashMap;
-import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import com.google.gwt.core.client.Scheduler;
+import com.google.gwt.core.client.Scheduler.ScheduledCommand;
+import com.google.gwt.dom.client.NativeEvent;
+import com.google.gwt.event.dom.client.MouseWheelEvent;
+import com.google.gwt.event.dom.client.MouseWheelHandler;
+import com.google.gwt.event.shared.HandlerRegistration;
+import com.smartgwt.client.types.Alignment;
+import com.smartgwt.client.types.Cursor;
+import com.smartgwt.client.types.VerticalAlignment;
+import com.smartgwt.client.widgets.events.ShowContextMenuEvent;
+import com.smartgwt.client.widgets.events.ShowContextMenuHandler;
+import com.smartgwt.client.widgets.layout.VLayout;
+import com.smartgwt.client.widgets.menu.Menu;
 
 /**
  * <p>
@@ -293,7 +297,6 @@ public class MapWidget extends VLayout {
 		painterVisitor.registerPainter(new ImagePainter());
 		painterVisitor.registerPainter(new MapModelPainter(this));
 		painterVisitor.registerPainter(new RasterLayerPainter(this));
-		painterVisitor.registerPainter(new ClientWmsLayerPainter(this));
 		painterVisitor.registerPainter(new RasterTilePainter());
 		painterVisitor.registerPainter(new VectorLayerPainter(this));
 		painterVisitor.registerPainter(new VectorTilePainter(this.getMapModel().getMapView()));
@@ -546,10 +549,17 @@ public class MapWidget extends VLayout {
 			graphics.setContextMenu(contextMenu);
 		}
 	}
+	
+	
 
 	// -------------------------------------------------------------------------
 	// Registration of functional objects:
 	// -------------------------------------------------------------------------
+
+	@Override
+	public HandlerRegistration addShowContextMenuHandler(ShowContextMenuHandler handler) {
+		return super.addShowContextMenuHandler(handler);
+	}
 
 	/**
 	 * Register a new painter. A painter is responsible for painting <code>Paintable</code> objects of a certain class.
@@ -1156,17 +1166,27 @@ public class MapWidget extends VLayout {
 	 * IE11 fix to force context !!!
 	 */
 	private void setForceContextMenu() {
+		
+		suppressContextMenu(getElement());
+		
+		addShowContextMenuHandler(new ShowContextMenuHandler() {
+			
+			@Override
+			public void onShowContextMenu(ShowContextMenuEvent event) {
+				getContextMenu().showContextMenu();				
+			}
+		});
+		
 		addListener(new Listener() {
 
 			@Override
 			public void onMouseDown(ListenerEvent event) {
 				if (event.getNativeButton() == NativeEvent.BUTTON_RIGHT) {
-					final Menu menu = getContextMenu();
 					Scheduler.get().scheduleDeferred(new ScheduledCommand() {
 
 						@Override
 						public void execute() {
-							menu.showContextMenu();
+							fireEvent(new ShowContextMenuEvent(getOrCreateJsObj()));
 						}
 					});
 				}
@@ -1193,6 +1213,11 @@ public class MapWidget extends VLayout {
 			}
 		});
 	}
+	
+	protected native int suppressContextMenu(Element elt)
+	/*-{
+		elt.oncontextmenu = function() {return false;};
+	}-*/;
 	
 	private void setAddons() {
 		if (getMapModel().isInitialized()) {
