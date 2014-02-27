@@ -21,10 +21,10 @@ import org.geomajas.sld.NamedLayerInfo;
 import org.geomajas.sld.StyledLayerDescriptorInfo;
 import org.geomajas.sld.StyledLayerDescriptorInfo.ChoiceInfo;
 import org.geomajas.sld.UserStyleInfo;
-import org.geomajas.sld.editor.common.client.presenter.event.SldSaveEvent;
-import org.geomajas.sld.editor.common.client.presenter.event.SldSaveEvent.SldSaveHandler;
 import org.geomajas.sld.editor.expert.client.presenter.event.SldCancelledEvent;
 import org.geomajas.sld.editor.expert.client.presenter.event.SldCancelledEvent.SldCancelledHandler;
+import org.geomajas.sld.editor.expert.client.presenter.event.SldSaveEvent;
+import org.geomajas.sld.editor.expert.client.presenter.event.SldSaveEvent.SldSaveHandler;
 
 import com.google.gwt.core.client.GWT;
 import com.google.web.bindery.event.shared.HandlerRegistration;

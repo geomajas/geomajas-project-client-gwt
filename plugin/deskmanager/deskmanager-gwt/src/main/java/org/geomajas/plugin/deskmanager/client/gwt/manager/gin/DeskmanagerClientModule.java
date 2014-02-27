@@ -10,12 +10,12 @@
  */
 package org.geomajas.plugin.deskmanager.client.gwt.manager.gin;
 
-import org.geomajas.sld.editor.expert.client.gin.ClientModule;
+import org.geomajas.sld.editor.expert.client.gin.GwtClientModule;
 
 /**
  * @author Kristof Heirwegh
  */
-public class DeskmanagerClientModule extends ClientModule {
+public class DeskmanagerClientModule extends GwtClientModule {
 
 	@Override
 	protected void configure() {
