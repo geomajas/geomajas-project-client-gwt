@@ -132,4 +132,7 @@ public interface SearchAndFilterMessages extends Messages {
 	String searchSpatialTooltip();
 	String searchFreeTitle();
 	String searchFreeTooltip();
+
+	/* editor */
+	String detailTabSearches();
 }

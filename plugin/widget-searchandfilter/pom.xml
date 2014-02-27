@@ -48,6 +48,7 @@
 	<modules>
 		<module>searchandfilter</module>
 		<module>searchandfilter-gwt</module>
+		<module>searchandfilter-editor</module>
 	</modules>
 
 	<profiles>
