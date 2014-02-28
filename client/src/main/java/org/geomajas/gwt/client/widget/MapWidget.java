@@ -1214,7 +1214,7 @@ public class MapWidget extends VLayout {
 		});
 	}
 	
-	protected native int suppressContextMenu(Element elt)
+	protected native void suppressContextMenu(Element elt)
 	/*-{
 		elt.oncontextmenu = function() {return false;};
 	}-*/;
