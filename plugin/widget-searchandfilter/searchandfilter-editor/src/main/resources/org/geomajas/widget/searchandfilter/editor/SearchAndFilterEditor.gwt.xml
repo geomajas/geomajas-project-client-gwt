@@ -1,4 +1,5 @@
 <module>
+	<inherits name="com.google.gwt.i18n.I18N"/>
   	<inherits name="org.geomajas.plugin.deskmanager.Manager"/>
 
 	<source path="client" />

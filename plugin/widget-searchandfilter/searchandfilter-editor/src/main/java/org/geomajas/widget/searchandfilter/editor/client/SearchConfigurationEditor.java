@@ -15,7 +15,10 @@ import com.smartgwt.client.widgets.Canvas;
 import com.smartgwt.client.widgets.layout.VLayout;
 import org.geomajas.configuration.client.ClientWidgetInfo;
 import org.geomajas.plugin.deskmanager.client.gwt.manager.editor.WidgetEditor;
-import org.geomajas.widget.searchandfilter.configuration.client.SearchesInfo;
+import org.geomajas.widget.searchandfilter.editor.client.configuration.SearchConfig;
+import org.geomajas.widget.searchandfilter.editor.client.configuration.SearchesInfo;
+
+import java.util.Collections;
 
 /**
  * Editor for the searches configuration.
@@ -51,7 +54,13 @@ public class SearchConfigurationEditor implements WidgetEditor {
 	@Override
 	public void setWidgetConfiguration(ClientWidgetInfo configuration) {
 		if (configuration == null) {
-//			panel.setSearchConfig(new SearchesInfo());
+			//stub
+			SearchesInfo searchesInfo = new SearchesInfo();
+			SearchConfig config = new   SearchConfig();
+			config.setTitle("a title");
+			config.setDescription("a description");
+			searchesInfo.getSearchConfigs().add(config);
+			panel.setSearchConfig(searchesInfo);
 		} else if (configuration instanceof SearchesInfo) {
 			panel.setSearchConfig((SearchesInfo) configuration);
 		} else {
@@ -63,4 +72,5 @@ public class SearchConfigurationEditor implements WidgetEditor {
 	public void setDisabled(boolean disabled) {
 		panel.setDisabled(disabled);
 	}
+
 }

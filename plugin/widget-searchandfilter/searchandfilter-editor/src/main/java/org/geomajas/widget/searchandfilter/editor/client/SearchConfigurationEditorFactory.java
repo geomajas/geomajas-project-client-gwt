@@ -14,7 +14,7 @@ import com.google.gwt.core.client.GWT;
 import org.geomajas.plugin.deskmanager.client.gwt.manager.editor.WidgetEditor;
 import org.geomajas.plugin.deskmanager.client.gwt.manager.editor.WidgetEditorFactory;
 import org.geomajas.widget.searchandfilter.client.SearchAndFilterMessages;
-import org.geomajas.widget.searchandfilter.configuration.client.SearchesInfo;
+import org.geomajas.widget.searchandfilter.editor.client.configuration.SearchesInfo;
 
 
 /**
@@ -25,7 +25,8 @@ import org.geomajas.widget.searchandfilter.configuration.client.SearchesInfo;
  */
 public class SearchConfigurationEditorFactory implements WidgetEditorFactory {
 
-	private static final SearchAndFilterMessages MESSAGES = GWT.create(SearchAndFilterMessages.class);
+//	private static final SearchAndFilterMessages MESSAGES =
+//			GWT.create(SearchAndFilterMessages.class);
 
 	@Override
 	public WidgetEditor createEditor() {
@@ -39,7 +40,8 @@ public class SearchConfigurationEditorFactory implements WidgetEditorFactory {
 
 	@Override
 	public String getName() {
-		return MESSAGES.detailTabSearches();
+		return "SearchAndFilterEditor";
+//		return MESSAGES.detailTabSearches();
 	}
 
 }

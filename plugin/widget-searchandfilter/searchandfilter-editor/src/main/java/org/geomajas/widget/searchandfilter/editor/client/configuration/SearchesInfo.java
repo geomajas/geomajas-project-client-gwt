@@ -8,9 +8,13 @@
  * by the Geomajas Contributors License Agreement. For full licensing
  * details, see LICENSE.txt in the project root.
  */
-package org.geomajas.widget.searchandfilter.configuration.client;
+package org.geomajas.widget.searchandfilter.editor.client.configuration;
 
 import org.geomajas.configuration.client.ClientWidgetInfo;
+import org.geomajas.widget.searchandfilter.editor.client.configuration.SearchConfig;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Main entrypoint for configuring searches. You can configure some basic information for the search widget
@@ -28,4 +32,13 @@ public class SearchesInfo implements ClientWidgetInfo {
 
 	private static final long serialVersionUID = 100L;
 
+	private List<SearchConfig> searchConfigs = new ArrayList<SearchConfig>();
+
+	public List<SearchConfig> getSearchConfigs() {
+		return searchConfigs;
+	}
+
+	public void setSearchConfigs(List<SearchConfig> searchConfigs) {
+		this.searchConfigs = searchConfigs;
+	}
 }
