@@ -11,6 +11,7 @@
 package org.geomajas.widget.searchandfilter.editor.client.configuration;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -27,7 +28,7 @@ public class SearchConfig implements Serializable {
 
 	private String iconUrl;
 
-	private List<String> attributes;
+	private List<SearchAttribute> attributes = new ArrayList<SearchAttribute>();
 
 	public String getTitle() {
 		return title;
@@ -61,11 +62,11 @@ public class SearchConfig implements Serializable {
 		this.iconUrl = iconUrl;
 	}
 
-	public List<String> getAttributes() {
+	public List<SearchAttribute> getAttributes() {
 		return attributes;
 	}
 
-	public void setAttributes(List<String> attributes) {
+	public void setAttributes(List<SearchAttribute> attributes) {
 		this.attributes = attributes;
 	}
 }

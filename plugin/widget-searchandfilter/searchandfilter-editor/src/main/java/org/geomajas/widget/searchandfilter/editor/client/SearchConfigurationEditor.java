@@ -14,7 +14,9 @@ import com.smartgwt.client.types.Overflow;
 import com.smartgwt.client.widgets.Canvas;
 import com.smartgwt.client.widgets.layout.VLayout;
 import org.geomajas.configuration.client.ClientWidgetInfo;
+import org.geomajas.plugin.deskmanager.client.gwt.manager.editor.LayerWidgetEditor;
 import org.geomajas.plugin.deskmanager.client.gwt.manager.editor.WidgetEditor;
+import org.geomajas.plugin.deskmanager.domain.dto.LayerModelDto;
 import org.geomajas.widget.searchandfilter.editor.client.configuration.SearchConfig;
 import org.geomajas.widget.searchandfilter.editor.client.configuration.SearchesInfo;
 
@@ -27,7 +29,7 @@ import java.util.Collections;
  * @author Jan Venstermans
  *
  */
-public class SearchConfigurationEditor implements WidgetEditor {
+public class SearchConfigurationEditor implements LayerWidgetEditor {
 
 	private SearchConfigurationPanel panel;
 
@@ -54,13 +56,7 @@ public class SearchConfigurationEditor implements WidgetEditor {
 	@Override
 	public void setWidgetConfiguration(ClientWidgetInfo configuration) {
 		if (configuration == null) {
-			//stub
-			SearchesInfo searchesInfo = new SearchesInfo();
-			SearchConfig config = new   SearchConfig();
-			config.setTitle("a title");
-			config.setDescription("a description");
-			searchesInfo.getSearchConfigs().add(config);
-			panel.setSearchConfig(searchesInfo);
+			panel.setSearchConfig(new SearchesInfo());
 		} else if (configuration instanceof SearchesInfo) {
 			panel.setSearchConfig((SearchesInfo) configuration);
 		} else {
@@ -73,4 +69,8 @@ public class SearchConfigurationEditor implements WidgetEditor {
 		panel.setDisabled(disabled);
 	}
 
+	@Override
+	public void setLayer(LayerModelDto layerModel) {
+	   panel.setLayerModelDto(layerModel);
+	}
 }

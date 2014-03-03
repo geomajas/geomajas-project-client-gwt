@@ -27,6 +27,7 @@ import com.smartgwt.client.widgets.layout.Layout;
 import com.smartgwt.client.widgets.layout.VLayout;
 import org.geomajas.gwt.client.util.WidgetLayout;
 import org.geomajas.plugin.deskmanager.client.gwt.common.impl.DeskmanagerIcon;
+import org.geomajas.plugin.deskmanager.domain.dto.LayerModelDto;
 import org.geomajas.widget.searchandfilter.client.SearchAndFilterMessages;
 import org.geomajas.widget.searchandfilter.editor.client.configuration.SearchConfig;
 import org.geomajas.widget.searchandfilter.editor.client.configuration.SearchesInfo;
@@ -45,17 +46,18 @@ public class SearchConfigurationPanel extends VLayout {
 
 	private State state = new State();
 
+	private LayerModelDto layerModelDto;
+
 	public SearchConfigurationPanel() {
 		super(5);
 		setIsGroup(true);
 		setGroupTitle(MESSAGES.searchesGroupTitle());
 
 		// the grid
-		grid = new SearchListGrid();
 		VLayout gridLayout = new VLayout();
 		grid = new SearchListGrid();
 		gridLayout.addMember(grid);
-		addMember(grid);
+		addMember(gridLayout);
 
 		Layout addImgContainer = new Layout();
 		addImgContainer.setWidth(64 + 16); //16 from scroller in grid
@@ -74,14 +76,16 @@ public class SearchConfigurationPanel extends VLayout {
 
 			public void onClick(ClickEvent event) {
 				final SearchConfig config = new SearchConfig();
-				config.setTitle("newSearch");
-				SearchDetailsWindow window = new SearchDetailsWindow(config, new BooleanCallback() {
+				SearchDetailsWindow window = new SearchDetailsWindow(layerModelDto, config, new BooleanCallback() {
 
 					public void execute(Boolean value) {
-						state.getSearchesInfo().getSearchConfigs().add(config);
-						selectSearchConfig(config);
+						if (value) {
+							state.getSearchesInfo().getSearchConfigs().add(config);
+							selectSearchConfig(config);
+						}
 					}
 				});
+				window.show();
 			}
 		});
 		addImgContainer.addMember(addImg);
@@ -110,6 +114,14 @@ public class SearchConfigurationPanel extends VLayout {
 	public void selectSearchConfig(SearchConfig searchConfig) {
 		state.setSelectedSearchConfig(searchConfig);
 		update();
+	}
+
+	public LayerModelDto getLayerModelDto() {
+		return layerModelDto;
+	}
+
+	public void setLayerModelDto(LayerModelDto layerModelDto) {
+		this.layerModelDto = layerModelDto;
 	}
 
 	/**
@@ -228,11 +240,14 @@ public class SearchConfigurationPanel extends VLayout {
 		}
 
 		private void configureSearch(final ListGridRecord record) {
-			SearchConfig searchConfig = (SearchConfig) record.getAttributeAsObject(FLD_OBJECT);
-			SearchDetailsWindow window = new SearchDetailsWindow(searchConfig, new BooleanCallback() {
+			final SearchConfig searchConfig = (SearchConfig) record.getAttributeAsObject(FLD_OBJECT);
+			SearchDetailsWindow window = new SearchDetailsWindow(layerModelDto, searchConfig, new BooleanCallback() {
 
 				public void execute(Boolean value) {
-					updateData(record);
+					if (value) {
+						selectSearchConfig(searchConfig);
+						updateData(record);
+					}
 				}
 			});
 			window.show();
