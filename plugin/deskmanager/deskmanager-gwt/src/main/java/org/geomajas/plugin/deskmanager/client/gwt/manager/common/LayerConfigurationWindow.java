@@ -20,11 +20,15 @@ import org.geomajas.configuration.client.ClientRasterLayerInfo;
 import org.geomajas.configuration.client.ClientVectorLayerInfo;
 import org.geomajas.configuration.client.ClientWidgetInfo;
 import org.geomajas.gwt.client.util.WidgetLayout;
+import org.geomajas.layer.LayerType;
 import org.geomajas.plugin.deskmanager.client.gwt.manager.editor.LayerWidgetEditor;
+import org.geomajas.plugin.deskmanager.client.gwt.manager.editor.VectorLayerWidgetEditor;
 import org.geomajas.plugin.deskmanager.client.gwt.manager.editor.WidgetEditor;
 import org.geomajas.plugin.deskmanager.client.gwt.manager.editor.WidgetEditorFactory;
 import org.geomajas.plugin.deskmanager.client.gwt.manager.editor.WidgetEditorFactoryRegistry;
 import org.geomajas.plugin.deskmanager.client.gwt.manager.i18n.ManagerMessages;
+import org.geomajas.plugin.deskmanager.client.gwt.manager.service.DataCallback;
+import org.geomajas.plugin.deskmanager.client.gwt.manager.service.ManagerCommandService;
 import org.geomajas.plugin.deskmanager.client.gwt.manager.service.SensibleScaleConverter;
 import org.geomajas.plugin.deskmanager.client.gwt.manager.util.ExpertSldEditorHelper;
 import org.geomajas.plugin.deskmanager.domain.dto.LayerDto;
@@ -47,6 +51,7 @@ import com.smartgwt.client.widgets.layout.LayoutSpacer;
 import com.smartgwt.client.widgets.layout.VLayout;
 import com.smartgwt.client.widgets.tab.Tab;
 import com.smartgwt.client.widgets.tab.TabSet;
+import org.geomajas.plugin.deskmanager.domain.dto.LayerModelDto;
 
 /**
  * Configuration window for individual layers.
@@ -374,11 +379,11 @@ public class LayerConfigurationWindow extends Window {
 	/**
 	 * Load all widget editors that are available on this blueprints user application, and add them to the tabset.
 	 *
-	 * @param bgd the basegeodesk.
+	 * @param layerDto the basegeodesk.
 	 */
-	private void loadWidgetTabs(LayerDto bgd) {
+	private void loadWidgetTabs(LayerDto layerDto) {
 		for (String key : WidgetEditorFactoryRegistry.getLayerRegistry().getWidgetEditors().keySet()) {
-			addWidgetTab(WidgetEditorFactoryRegistry.getMapRegistry().get(key), bgd.getWidgetInfo(), bgd);
+			addWidgetTab(WidgetEditorFactoryRegistry.getMapRegistry().get(key), layerDto.getWidgetInfo(), layerDto);
 		}
 	}
 
@@ -397,7 +402,19 @@ public class LayerConfigurationWindow extends Window {
 			final WidgetEditor editor = editorFactory.createEditor();
 			if (editor instanceof LayerWidgetEditor) {
 				((LayerWidgetEditor) editor).setLayer(layerDto.getLayerModel());
+				// for vector layer editor,
+				//  find the complete layer info, i.e. including layer configuration
+				if (editor instanceof VectorLayerWidgetEditor) {
+					final VectorLayerWidgetEditor vectorLayerWidgetEditor =
+							(VectorLayerWidgetEditor) editor;
+					if (layerDto.getLayerModel().getLayerType().equals("Raster")) {
+						// layer is raster, so don't add this editor as a tab.
+						return;
+					}
+					vectorLayerWidgetEditor.setLayerDto(layerDto);
+				}
 			}
+
 			editor.setWidgetConfiguration(widgetInfos.get(editorFactory.getKey()));
 
 			// Create tab layout

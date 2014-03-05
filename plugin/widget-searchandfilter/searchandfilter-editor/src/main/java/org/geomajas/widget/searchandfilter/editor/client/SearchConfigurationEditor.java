@@ -10,55 +10,55 @@
  */
 package org.geomajas.widget.searchandfilter.editor.client;
 
-import com.smartgwt.client.types.Overflow;
 import com.smartgwt.client.widgets.Canvas;
-import com.smartgwt.client.widgets.layout.VLayout;
 import org.geomajas.configuration.client.ClientWidgetInfo;
 import org.geomajas.plugin.deskmanager.client.gwt.manager.editor.LayerWidgetEditor;
-import org.geomajas.plugin.deskmanager.client.gwt.manager.editor.WidgetEditor;
+import org.geomajas.plugin.deskmanager.client.gwt.manager.editor.VectorLayerWidgetEditor;
+import org.geomajas.plugin.deskmanager.domain.dto.LayerDto;
 import org.geomajas.plugin.deskmanager.domain.dto.LayerModelDto;
-import org.geomajas.widget.searchandfilter.editor.client.configuration.SearchConfig;
 import org.geomajas.widget.searchandfilter.editor.client.configuration.SearchesInfo;
-
-import java.util.Collections;
+import org.geomajas.widget.searchandfilter.editor.client.configuration.SearchesStatus;
+import org.geomajas.widget.searchandfilter.editor.client.configuration.SearchesStatusImpl;
+import org.geomajas.widget.searchandfilter.editor.client.presenter.SearchPresenter;
+import org.geomajas.widget.searchandfilter.editor.client.presenter.SearchPresenterImpl;
+import org.geomajas.widget.searchandfilter.editor.client.presenter.SearchesPresenter;
+import org.geomajas.widget.searchandfilter.editor.client.presenter.SearchesPresenterImpl;
 
 /**
  * Editor for the searches configuration.
- * Actualy a wrapper around {@link org.geomajas.widget.searchandfilter.editor.client.SearchConfigurationPanel}.
+ * Actualy a wrapper around {@link org.geomajas.widget.searchandfilter.editor.client.view.SearchesView}.
  *
  * @author Jan Venstermans
  *
  */
-public class SearchConfigurationEditor implements LayerWidgetEditor {
+public class SearchConfigurationEditor implements VectorLayerWidgetEditor {
 
-	private SearchConfigurationPanel panel;
+	private SearchesPresenter searchesPresenter;
 
-	private VLayout layout;
+	private SearchesStatus status;
 
 	public SearchConfigurationEditor() {
-		panel = new SearchConfigurationPanel();
-
-		layout = new VLayout();
-		layout.addMember(panel);
-		layout.setOverflow(Overflow.AUTO);
+		status = SearchesStatusImpl.getInstance();
+		//create presenters
+		searchesPresenter = new SearchesPresenterImpl();
 	}
 
 	@Override
 	public Canvas getCanvas() {
-		return layout;
+		return searchesPresenter.getCanvas();
 	}
 
 	@Override
 	public ClientWidgetInfo getWidgetConfiguration() {
-		return panel.getSearchConfig();
+		return status.getSearchesInfo();
 	}
 
 	@Override
 	public void setWidgetConfiguration(ClientWidgetInfo configuration) {
 		if (configuration == null) {
-			panel.setSearchConfig(new SearchesInfo());
+			status.setSearchesInfo(new SearchesInfo());
 		} else if (configuration instanceof SearchesInfo) {
-			panel.setSearchConfig((SearchesInfo) configuration);
+			status.setSearchesInfo((SearchesInfo) configuration);
 		} else {
 			throw new IllegalArgumentException();
 		}
@@ -66,11 +66,16 @@ public class SearchConfigurationEditor implements LayerWidgetEditor {
 
 	@Override
 	public void setDisabled(boolean disabled) {
-		panel.setDisabled(disabled);
+		status.setDisabled(disabled);
 	}
 
 	@Override
 	public void setLayer(LayerModelDto layerModel) {
-	   panel.setLayerModelDto(layerModel);
+		// Do nothing
+	}
+
+	@Override
+	public void setLayerDto(LayerDto layerDto) {
+		status.setLayerDto(layerDto);
 	}
 }

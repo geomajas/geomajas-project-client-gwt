@@ -8,13 +8,13 @@
  * by the Geomajas Contributors License Agreement. For full licensing
  * details, see LICENSE.txt in the project root.
  */
-package org.geomajas.widget.searchandfilter.editor.client;
+package org.geomajas.widget.searchandfilter.editor.client.view;
 
 import com.google.gwt.core.client.GWT;
 import com.smartgwt.client.types.Alignment;
 import com.smartgwt.client.types.ListGridFieldType;
+import com.smartgwt.client.types.Overflow;
 import com.smartgwt.client.types.SelectionStyle;
-import com.smartgwt.client.util.BooleanCallback;
 import com.smartgwt.client.widgets.Canvas;
 import com.smartgwt.client.widgets.ImgButton;
 import com.smartgwt.client.widgets.events.ClickEvent;
@@ -27,37 +27,40 @@ import com.smartgwt.client.widgets.layout.Layout;
 import com.smartgwt.client.widgets.layout.VLayout;
 import org.geomajas.gwt.client.util.WidgetLayout;
 import org.geomajas.plugin.deskmanager.client.gwt.common.impl.DeskmanagerIcon;
-import org.geomajas.plugin.deskmanager.domain.dto.LayerModelDto;
 import org.geomajas.widget.searchandfilter.client.SearchAndFilterMessages;
 import org.geomajas.widget.searchandfilter.editor.client.configuration.SearchConfig;
-import org.geomajas.widget.searchandfilter.editor.client.configuration.SearchesInfo;
+import org.geomajas.widget.searchandfilter.editor.client.configuration.SearchesStatus;
+import org.geomajas.widget.searchandfilter.editor.client.presenter.SearchesPresenter;
 
 /**
- * Panel to allow configuration of searches.
+ * Default implementation of {@link SearchesPresenter.View}.
  * 
  * @author Jan Venstermans
  * 
  */
-public class SearchConfigurationPanel extends VLayout {
+public class SearchesView implements SearchesPresenter.View {
 
 	private static final SearchAndFilterMessages MESSAGES = GWT.create(SearchAndFilterMessages.class);
 
 	private SearchListGrid grid;
 
-	private State state = new State();
+	private VLayout layout;
 
-	private LayerModelDto layerModelDto;
+	private SearchesStatus status;
 
-	public SearchConfigurationPanel() {
-		super(5);
-		setIsGroup(true);
-		setGroupTitle(MESSAGES.searchesGroupTitle());
+	private SearchesPresenter.Handler handler;
+
+	public SearchesView() {
+		layout = new VLayout(5);
+		layout.setIsGroup(true);
+		layout.setGroupTitle(MESSAGES.searchesGroupTitle());
+		layout.setOverflow(Overflow.AUTO);
 
 		// the grid
 		VLayout gridLayout = new VLayout();
 		grid = new SearchListGrid();
 		gridLayout.addMember(grid);
-		addMember(gridLayout);
+		layout.addMember(gridLayout);
 
 		Layout addImgContainer = new Layout();
 		addImgContainer.setWidth(64 + 16); //16 from scroller in grid
@@ -75,86 +78,38 @@ public class SearchConfigurationPanel extends VLayout {
 		addImg.addClickHandler(new ClickHandler() {
 
 			public void onClick(ClickEvent event) {
-				final SearchConfig config = new SearchConfig();
-				SearchDetailsWindow window = new SearchDetailsWindow(layerModelDto, config, new BooleanCallback() {
-
-					public void execute(Boolean value) {
-						if (value) {
-							state.getSearchesInfo().getSearchConfigs().add(config);
-							selectSearchConfig(config);
-						}
-					}
-				});
-				window.show();
+				handler.onAddSearch();
 			}
 		});
 		addImgContainer.addMember(addImg);
-		addMember(addImgContainer);
+		layout.addMember(addImgContainer);
 	}
 
-	public State getState() {
-		return state;
-	}
-
-	public SearchesInfo getSearchConfig() {
-		return state.getSearchesInfo();
-	}
-
-	public void setSearchConfig(SearchesInfo searchesInfo) {
-		state.setSearchesInfo(searchesInfo);
+	@Override
+	public void setStatus(SearchesStatus status) {
+		this.status = status;
 		update();
 	}
 
-	private void update() {
-		if (state.getSearchesInfo() != null) {
-			grid.fillGrid(state.getSearchesInfo());
+	@Override
+	public void setHandler(SearchesPresenter.Handler handler) {
+		this.handler = handler;
+	}
+
+	@Override
+	public void update() {
+		if (status.getSearchesInfo() != null) {
+			grid.fillGrid();
 		}
 	}
 
-	public void selectSearchConfig(SearchConfig searchConfig) {
-		state.setSelectedSearchConfig(searchConfig);
-		update();
-	}
-
-	public LayerModelDto getLayerModelDto() {
-		return layerModelDto;
-	}
-
-	public void setLayerModelDto(LayerModelDto layerModelDto) {
-		this.layerModelDto = layerModelDto;
-	}
-
-	/**
-	 * Helper class to provide access to the state of.
-	 *
-	 * @author Jan Venstermans
-	 *
-	 */
-	public class State {
-
-		private SearchesInfo searchesInfo;
-
-		private SearchConfig selectedSearchConfig;
-
-		public SearchesInfo getSearchesInfo() {
-			return searchesInfo;
-		}
-
-		public void setSearchesInfo(SearchesInfo searchesInfo) {
-			this.searchesInfo = searchesInfo;
-		}
-
-		public SearchConfig getSelectedSearchConfig() {
-			return selectedSearchConfig;
-		}
-
-		public void setSelectedSearchConfig(SearchConfig selectedSearchConfig) {
-			this.selectedSearchConfig = selectedSearchConfig;
-		}
+	@Override
+	public Canvas getCanvas() {
+		return layout;
 	}
 
 	/**
-	 * Used by {@link org.geomajas.widget.searchandfilter.editor.client.SearchConfigurationPanel}.
+	 * Used by {@link SearchesView}.
 	 *
 	 * @author Jan Venstermans
 	 *
@@ -171,7 +126,7 @@ public class SearchConfigurationPanel extends VLayout {
 
 		private static final int FLD_ACTIONS_WIDTH = 60;
 
-		private ListGridRecord rollOverRecord;
+		//private ListGridRecord rollOverRecord;
 
 		private HLayout rollOverCanvas;
 
@@ -210,8 +165,8 @@ public class SearchConfigurationPanel extends VLayout {
 
 		@Override
 		protected Canvas getRollOverCanvas(Integer rowNum, Integer colNum) {
-
-			rollOverRecord = getRecord(rowNum);
+			ListGridRecord rollOverRecord = getRecord(rowNum);
+			final SearchConfig searchConfig = (SearchConfig) rollOverRecord.getAttributeAsObject(FLD_OBJECT);
 
 			if (rollOverCanvas == null) {
 				rollOverCanvas = new HLayout(3);
@@ -231,7 +186,7 @@ public class SearchConfigurationPanel extends VLayout {
 				editProps.addClickHandler(new com.smartgwt.client.widgets.events.ClickHandler() {
 
 					public void onClick(ClickEvent event) {
-						configureSearch(rollOverRecord);
+						handler.onEdit(searchConfig);
 					}
 				});
 				rollOverCanvas.addMember(editProps);
@@ -239,25 +194,11 @@ public class SearchConfigurationPanel extends VLayout {
 			return rollOverCanvas;
 		}
 
-		private void configureSearch(final ListGridRecord record) {
-			final SearchConfig searchConfig = (SearchConfig) record.getAttributeAsObject(FLD_OBJECT);
-			SearchDetailsWindow window = new SearchDetailsWindow(layerModelDto, searchConfig, new BooleanCallback() {
-
-				public void execute(Boolean value) {
-					if (value) {
-						selectSearchConfig(searchConfig);
-						updateData(record);
-					}
-				}
-			});
-			window.show();
-		}
-
-		public void fillGrid(SearchesInfo searchesInfo) {
+		public void fillGrid() {
 			deselectAllRecords();
 			setData(new ListGridRecord[]{});
 			// fill
-			for (SearchConfig config : searchesInfo.getSearchConfigs()) {
+			for (SearchConfig config : status.getSearchesInfo().getSearchConfigs()) {
 				ListGridRecord record = new ListGridRecord();
 				record.setAttribute(FLD_NAME, config.getTitle());
 				record.setAttribute(FLD_DESCRIPTION, config.getDescription());

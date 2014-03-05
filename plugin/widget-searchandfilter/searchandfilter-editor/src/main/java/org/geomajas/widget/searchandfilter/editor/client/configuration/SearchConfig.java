@@ -24,7 +24,9 @@ public class SearchConfig implements Serializable {
 
 	private static final long serialVersionUID = 100L;
 
-	private String title, description, titleInWindow;
+	private String title; // consider as id
+
+	private String description, titleInWindow;
 
 	private String iconUrl;
 

@@ -8,19 +8,16 @@
  * by the Geomajas Contributors License Agreement. For full licensing
  * details, see LICENSE.txt in the project root.
  */
-package org.geomajas.widget.searchandfilter.editor.client;
+package org.geomajas.widget.searchandfilter.editor.client.view;
 
 import com.google.gwt.core.client.GWT;
 import com.smartgwt.client.types.Alignment;
 import com.smartgwt.client.types.ListGridEditEvent;
 import com.smartgwt.client.types.ListGridFieldType;
-import com.smartgwt.client.types.Overflow;
 import com.smartgwt.client.types.SelectionStyle;
 import com.smartgwt.client.util.BooleanCallback;
 import com.smartgwt.client.widgets.Canvas;
-import com.smartgwt.client.widgets.IButton;
 import com.smartgwt.client.widgets.ImgButton;
-import com.smartgwt.client.widgets.Window;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.form.DynamicForm;
@@ -40,15 +37,18 @@ import org.geomajas.plugin.deskmanager.client.gwt.common.FileUploadForm;
 import org.geomajas.plugin.deskmanager.client.gwt.common.impl.DeskmanagerIcon;
 import org.geomajas.plugin.deskmanager.domain.dto.LayerModelDto;
 import org.geomajas.widget.searchandfilter.client.SearchAndFilterMessages;
+import org.geomajas.widget.searchandfilter.editor.client.SearchAttributeWindow;
 import org.geomajas.widget.searchandfilter.editor.client.configuration.SearchAttribute;
 import org.geomajas.widget.searchandfilter.editor.client.configuration.SearchConfig;
+import org.geomajas.widget.searchandfilter.editor.client.presenter.SavePresenter;
+import org.geomajas.widget.searchandfilter.editor.client.presenter.SearchPresenter;
 
 /**
- * Configuration window for individual searches.
+ * Default implementation of {@link SearchPresenter.View}.
  *
  * @author Jan Venstermans
  */
-public class SearchDetailsWindow extends Window {
+public class SearchView implements SearchPresenter.View {
 
 	private static final SearchAndFilterMessages MESSAGES =
 			GWT.create(SearchAndFilterMessages.class);
@@ -61,6 +61,8 @@ public class SearchDetailsWindow extends Window {
 	public static final String FLD_NAME = "Name";
 
 	private SearchConfig searchConfig;
+
+	private SearchPresenter.Handler handler;
 
 	private LayerModelDto layerModelDto;
 
@@ -76,18 +78,15 @@ public class SearchDetailsWindow extends Window {
 
 	private SearchAttributeListGrid grid;
 
+	private VLayout layout;
+
+	private SaveCancelWindow window;
+
 	/**
 	 * Construct a search configuration window.
 	 *
-	 * @param searchConfig
-	 * @param callback returns true if saved, false if canceled.
 	 */
-	public SearchDetailsWindow(final LayerModelDto layerModelDto,
-							   final SearchConfig searchConfig, BooleanCallback callback) {
-		this.layerModelDto = layerModelDto;
-		this.searchConfig = searchConfig;
-		this.callback = callback;
-
+	public SearchView() {
 		layout();
 	}
 
@@ -95,21 +94,7 @@ public class SearchDetailsWindow extends Window {
 	 *
 	 */
 	private void layout() {
-		setAutoSize(true);
-		setCanDragReposition(true);
-		setCanDragResize(false);
-		setKeepInParentRect(true);
-		setOverflow(Overflow.HIDDEN);
-		setAutoCenter(true);
-		setTitle(MESSAGES.searchDetailsWindowTitle());
-		setShowCloseButton(false);
-		setShowMinimizeButton(false);
-		setShowMaximizeButton(false);
-		setIsModal(true);
-		setShowModalMask(true);
-
 		// form //
-
 		form = new DynamicForm();
 		form.setAutoFocus(true); /* Set focus on first field */
 		form.setWidth(FORMITEM_WIDTH + 100);
@@ -154,9 +139,6 @@ public class SearchDetailsWindow extends Window {
 		gridLayout.setWidth(ATTRIBUTES_GRID_WIDTH);
 		gridLayout.setHeight(ATTRIBUTES_GRID_HEIGHT);
 		grid = new SearchAttributeListGrid();
-		if (searchConfig.getAttributes() != null) {
-			grid.fillGrid(searchConfig);
-		}
 		gridLayout.addMember(grid);
 		//gridLayout.addMember(panel);
 		//gridLayout.setWidth(ATTRIBUTES_GRID_WIDTH);
@@ -179,91 +161,83 @@ public class SearchDetailsWindow extends Window {
 		addImg.addClickHandler(new ClickHandler() {
 
 			public void onClick(ClickEvent event) {
-				final SearchAttribute attribute = new SearchAttribute();
-				SearchAttributeWindow window = new SearchAttributeWindow(
-						layerModelDto, attribute, new BooleanCallback() {
-
-					public void execute(Boolean value) {
-						if (value) {
-							searchConfig.getAttributes().add(attribute);
-							update();
-						}
-					}
-				});
-				window.show();
+				handler.onAddAttribute();
 			}
 		});
 		addImgContainer.addMember(addImg);
 		gridLayout.addMember(addImgContainer);
 
-		// buttons //
-
-		HLayout buttons = new HLayout(10);
-		IButton save = new IButton(MESSAGES.saveButtonText());
-		save.setIcon(WidgetLayout.iconSave);
-		save.addClickHandler(new ClickHandler() {
-
-			public void onClick(ClickEvent event) {
-				saved();
-			}
-		});
-		IButton cancel = new IButton(MESSAGES.cancelButtonText());
-		cancel.setIcon(WidgetLayout.iconCancel);
-		cancel.addClickHandler(new ClickHandler() {
-
-			public void onClick(ClickEvent event) {
-				cancelled();
-			}
-		});
-		buttons.addMember(save);
-		buttons.addMember(cancel);
-
 		// layout structure //
-		VLayout layout = new VLayout(10);
+		layout = new VLayout(10);
 		//layout.setMargin(10);
 		layout.addMember(form);
 		layout.addMember(gridLayout);
-		layout.addMember(buttons);
-		addItem(layout);
+
+		window = new SaveCancelWindow(layout);
 	}
 
-	public void show() {
-		form.clearValues();
-		title.setValue(searchConfig.getTitle());
-		description.setValue(searchConfig.getDescription());
-		titleInWindow.setValue(searchConfig.getTitleInWindow());
-		uploadForm.setUrl(searchConfig.getIconUrl());
-		super.show();
+	@Override
+	public void show(SearchConfig searchConfig) {
+		setSearchConfig(searchConfig);
+		window.show();
 	}
 
-	private void cancelled() {
-		hide();
-		destroy();
-		if (callback != null) {
-			callback.execute(false);
-		}
+	@Override
+	public void hide() {
+		window.hide();
 	}
 
-	private void saved() {
-		if (form.validate()) {
+	@Override
+	public void setSearchConfig(SearchConfig searchConfig) {
+		this.searchConfig = searchConfig;
+		update();
+	}
+
+	@Override
+	public void setHandler(SearchPresenter.Handler handler) {
+		window.setHandler(handler);
+		this.handler = handler;
+	}
+
+	private void updateLocalSearchConfig() {
+		if (searchConfig != null) {
 			searchConfig.setTitle(title.getValueAsString());
 			searchConfig.setDescription(description.getValueAsString());
 			searchConfig.setTitleInWindow(titleInWindow.getValueAsString());
 			searchConfig.setIconUrl(uploadForm.getUrl());
-			hide();
-			destroy();
-			if (callback != null) {
-				callback.execute(true);
-			}
 		}
 	}
 
-	private void update() {
-		grid.fillGrid(searchConfig);
+	@Override
+	public void update() {
+		if (searchConfig != null) {
+			form.clearValues();
+			title.setValue(searchConfig.getTitle());
+			description.setValue(searchConfig.getDescription());
+			titleInWindow.setValue(searchConfig.getTitleInWindow());
+			uploadForm.setUrl(searchConfig.getIconUrl());
+			grid.fillGrid(searchConfig);
+		}
+	}
+
+	@Override
+	public Canvas getCanvas() {
+		return window;
+	}
+
+	@Override
+	public boolean validate() {
+		return form.validate();
+	}
+
+	@Override
+	public SearchConfig getSearchConfig() {
+		updateLocalSearchConfig();
+		return searchConfig;
 	}
 
 	/**
-	 * Used by {@link org.geomajas.widget.searchandfilter.editor.client.SearchDetailsWindow}.
+	 * Used by {@link SearchView}.
 	 *
 	 * @author Jan Venstermans
 	 *
