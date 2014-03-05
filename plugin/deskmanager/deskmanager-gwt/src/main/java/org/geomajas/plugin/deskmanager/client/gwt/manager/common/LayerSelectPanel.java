@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ListIterator;
 
-import org.geomajas.plugin.deskmanager.client.gwt.common.impl.DeskmanagerIcon;
+import org.geomajas.plugin.deskmanager.client.gwt.common.util.DeskmanagerLayoutConstants;
 import org.geomajas.plugin.deskmanager.client.gwt.manager.i18n.ManagerMessages;
 import org.geomajas.plugin.deskmanager.domain.dto.LayerDto;
 
@@ -65,7 +65,7 @@ public class LayerSelectPanel extends HLayout {
 			}
 		});
 
-		Img help = new Img(DeskmanagerIcon.HELP_ICON, 24, 24);
+		Img help = new Img(DeskmanagerLayoutConstants.iconHelp, 24, 24);
 		help.setTooltip(MESSAGES.layerSelectPanelHelpText());
 		help.setHoverWidth(350);
 		help.setShowDisabled(false);

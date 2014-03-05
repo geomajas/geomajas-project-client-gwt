@@ -14,6 +14,7 @@ import java.util.Map;
 
 import org.geomajas.configuration.client.ClientWidgetInfo;
 import org.geomajas.gwt.client.Geomajas;
+import org.geomajas.plugin.deskmanager.client.gwt.common.util.DeskmanagerLayoutConstants;
 import org.geomajas.plugin.deskmanager.client.gwt.manager.common.AbstractWoaHandler;
 import org.geomajas.plugin.deskmanager.client.gwt.manager.common.SaveButtonBar;
 import org.geomajas.plugin.deskmanager.client.gwt.manager.editor.LayerWidgetEditor;
@@ -86,6 +87,7 @@ public class DatalayerDetail extends VLayout implements SelectionChangedHandler,
 	public DatalayerDetail() {
 		super(10);
 
+		setStyleName(DeskmanagerLayoutConstants.DESKMANAGER_TABPANE_DETAIL_STYLE);
 		settings = new DatalayerSettings();
 		connPar = new DatalayerConnectionParameters();
 		upload = new DatalayerShapeUpload();
