@@ -11,6 +11,9 @@
 package org.geomajas.plugin.deskmanager.client.gwt.manager.i18n;
 
 
+import java.util.Date;
+
+import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.i18n.client.Messages;
 
 /**
@@ -344,6 +347,49 @@ public interface ManagerMessages extends Messages {
 	String wmsPreviewLayerStepNumbering();
 	String wmsPreviewLayerStepTitle();
 	String wmsPreviewLayerStepNextStepNotFound();
+	
+	String securityUsersTab();
+	String securityGroupsTab();
+	String securityUserDetailTab();
+	String securityGroupDetailTab();
+	String securityUserAssignTab();
+	String securityGroupAssignTab();
+	String securityNewUserButtonText();
+	String securityNewGroupButtonText();
+	String securityUserGridColumnEmail();
+	String securityUserGridColumnName();
+	String securityUserGridColumnActions();
+	String securityUserGridColumnActionsTooltip();
+	String securityUserGridColumnActiv();
+	String securityUserGridColumnSurname();
+	String securityUserGridActivTooltip();
+	String securityGroupGridColumnActions();
+	String securityGroupGridColumnActionsTooltip();
+	String securityGroupGridColumnKey();
+	String securityGroupGridColumnName();
+	String securityGroupGridColumnTerritory();
+	String securityGroupGridColumnTerritoryTooltip();
+	String securityUserDetailEmail();
+	String securityUserDetailName();
+	String securityUserDetailSurname();
+	String securityUserDetailPassword();
+	String securityUserDetailPasswordConfirm();
+	String securityGroupDetailKey();
+	String securityGroupDetailName();
+	String securityGroupDetailTerritory();
+	String securityGroupDetailTerritoryHint();
+	String securityRoleAdministratorText();
+	String securityRoleReadOnlyText();
+	String securityRoleDeskManagerText();
+	String securityRoleReadWriteText();
+	String groupSelectAssignedGroups();
+	String groupSelectAssignedGroupsHelpText();
+	String groupSelectAssignedGroupsTooltip();
+	String groupSelectAvailableGroups();
+	String userSelectAssignedUsers();
+	String userSelectAssignedUsersHelpText();
+	String userSelectAssignedUsersTooltip();
+	String userSelectAvailableUsers();
 
 	String layerSettingsEnableFeatureInfo();
 	String layerSettingsEnableFeatureInfoTooltip();

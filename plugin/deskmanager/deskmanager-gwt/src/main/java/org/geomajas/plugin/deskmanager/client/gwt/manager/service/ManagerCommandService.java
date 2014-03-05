@@ -53,6 +53,7 @@ import org.geomajas.plugin.deskmanager.domain.dto.DynamicLayerConfiguration;
 import org.geomajas.plugin.deskmanager.domain.dto.GeodeskDto;
 import org.geomajas.plugin.deskmanager.domain.dto.LayerModelDto;
 import org.geomajas.plugin.deskmanager.domain.security.dto.TerritoryDto;
+import org.geomajas.plugin.deskmanager.domain.security.dto.UserDto;
 
 import java.util.List;
 
@@ -74,22 +75,20 @@ public final class ManagerCommandService {
 	/**
 	 * {@see org.geomajas.plugin.deskmanager.command.manager.GetClientLayersCommand}.
 	 * 
-	 * @param onFinish
-	 *            callback called when system layers are retrieved.
+	 * @param onFinish callback called when system layers are retrieved.
 	 */
 	public static void getLayers(final DataCallback<GetClientLayersResponse> onFinish) {
 		GetClientLayersRequest request = new GetClientLayersRequest();
 		GwtCommand command = new GwtCommand(GetClientLayersRequest.COMMAND);
 		command.setCommandRequest(request);
-		GwtCommandDispatcher.getInstance().execute(command,
-				new AbstractCommandCallback<GetClientLayersResponse>() {
+		GwtCommandDispatcher.getInstance().execute(command, new AbstractCommandCallback<GetClientLayersResponse>() {
 
-					public void execute(GetClientLayersResponse response) {
-						if (onFinish != null) {
-							onFinish.execute(response);
-						}
-					}
-				});
+			public void execute(GetClientLayersResponse response) {
+				if (onFinish != null) {
+					onFinish.execute(response);
+				}
+			}
+		});
 	}
 
 	// -- Blueprint --------------------------------------------------------
@@ -97,75 +96,66 @@ public final class ManagerCommandService {
 	/**
 	 * {@see org.geomajas.plugin.deskmanager.command.manager.GetBlueprintCommand}.
 	 * 
-	 * @param uuid
-	 *            the uuid of the blueprint to fetch.
-	 * @param onFinish
-	 *            callback called when the blueprint is fetched.
+	 * @param uuid the uuid of the blueprint to fetch.
+	 * @param onFinish callback called when the blueprint is fetched.
 	 */
 	public static void getBlueprint(String uuid, final DataCallback<BlueprintDto> onFinish) {
 		GetBlueprintRequest request = new GetBlueprintRequest();
 		request.setBlueprintId(uuid);
 		GwtCommand command = new GwtCommand(GetBlueprintRequest.COMMAND);
 		command.setCommandRequest(request);
-		GwtCommandDispatcher.getInstance().execute(command,
-				new AbstractCommandCallback<BlueprintResponse>() {
+		GwtCommandDispatcher.getInstance().execute(command, new AbstractCommandCallback<BlueprintResponse>() {
 
-					public void execute(BlueprintResponse response) {
-						if (onFinish != null) {
-							onFinish.execute(response.getBlueprint());
-						}
-					}
-				});
+			public void execute(BlueprintResponse response) {
+				if (onFinish != null) {
+					onFinish.execute(response.getBlueprint());
+				}
+			}
+		});
 	}
 
 	/**
 	 * {@see org.geomajas.plugin.deskmanager.command.manager.GetBlueprintsCommand}.
 	 * 
-	 * @param onFinish
-	 *            callback called when blueprints are fetched.
+	 * @param onFinish callback called when blueprints are fetched.
 	 */
 	public static void getBlueprints(final DataCallback<List<BlueprintDto>> onFinish) {
 		GetBlueprintsRequest request = new GetBlueprintsRequest();
 		GwtCommand command = new GwtCommand(GetBlueprintsRequest.COMMAND);
 		command.setCommandRequest(request);
-		GwtCommandDispatcher.getInstance().execute(command,
-				new AbstractCommandCallback<GetBlueprintsResponse>() {
+		GwtCommandDispatcher.getInstance().execute(command, new AbstractCommandCallback<GetBlueprintsResponse>() {
 
-					public void execute(GetBlueprintsResponse response) {
-						if (onFinish != null) {
-							onFinish.execute(response.getBlueprints());
-						}
-					}
-				});
+			public void execute(GetBlueprintsResponse response) {
+				if (onFinish != null) {
+					onFinish.execute(response.getBlueprints());
+				}
+			}
+		});
 	}
 
 	/**
 	 * {@see org.geomajas.plugin.deskmanager.command.manager.DeleteBlueprintCommand}.
 	 * 
-	 * @param blueprint
-	 *            the blueprint to delete.
+	 * @param blueprint the blueprint to delete.
 	 */
 	public static void deleteBlueprint(final BlueprintDto blueprint) {
 		DeleteBlueprintRequest request = new DeleteBlueprintRequest();
 		request.setBlueprintId(blueprint.getId());
 		GwtCommand command = new GwtCommand(DeleteBlueprintRequest.COMMAND);
 		command.setCommandRequest(request);
-		GwtCommandDispatcher.getInstance().execute(command,
-				new AbstractCommandCallback<CommandResponse>() {
+		GwtCommandDispatcher.getInstance().execute(command, new AbstractCommandCallback<CommandResponse>() {
 
-					public void execute(CommandResponse response) {
-						Whiteboard.fireEvent(new BlueprintEvent(blueprint, true, false));
-					}
-				});
+			public void execute(CommandResponse response) {
+				Whiteboard.fireEvent(new BlueprintEvent(blueprint, true, false));
+			}
+		});
 	}
 
 	/**
 	 * {@see org.geomajas.plugin.deskmanager.command.manager.CreateBlueprintCommand}.
 	 * 
-	 * @param userApplicationName
-	 *            the user application to base the blueprint on.
-	 * @param name
-	 *            the preferred name for the blueprint.
+	 * @param userApplicationName the user application to base the blueprint on.
+	 * @param name the preferred name for the blueprint.
 	 */
 	public static void createNewBlueprint(String userApplicationName, boolean publik, String name) {
 		CreateBlueprintRequest request = new CreateBlueprintRequest();
@@ -174,22 +164,19 @@ public final class ManagerCommandService {
 		request.setPublic(publik);
 		GwtCommand command = new GwtCommand(CreateBlueprintRequest.COMMAND);
 		command.setCommandRequest(request);
-		GwtCommandDispatcher.getInstance().execute(command,
-				new AbstractCommandCallback<BlueprintResponse>() {
+		GwtCommandDispatcher.getInstance().execute(command, new AbstractCommandCallback<BlueprintResponse>() {
 
-					public void execute(BlueprintResponse response) {
-						Whiteboard.fireEvent(new BlueprintEvent(response.getBlueprint(), false, true));
-					}
-				});
+			public void execute(BlueprintResponse response) {
+				Whiteboard.fireEvent(new BlueprintEvent(response.getBlueprint(), false, true));
+			}
+		});
 	}
 
 	/**
 	 * {@see org.geomajas.plugin.deskmanager.command.manager.SaveBlueprintCommand}.
 	 * 
-	 * @param blueprint
-	 *            the blueprint to save.
-	 * @param bitmask
-	 *            which attributes to save.
+	 * @param blueprint the blueprint to save.
+	 * @param bitmask which attributes to save.
 	 */
 	public static void saveBlueprint(BlueprintDto blueprint, int bitmask) {
 		SaveBlueprintRequest request = new SaveBlueprintRequest();
@@ -197,13 +184,12 @@ public final class ManagerCommandService {
 		request.setSaveBitmask(bitmask);
 		GwtCommand command = new GwtCommand(SaveBlueprintRequest.COMMAND);
 		command.setCommandRequest(request);
-		GwtCommandDispatcher.getInstance().execute(command,
-				new AbstractCommandCallback<BlueprintResponse>() {
+		GwtCommandDispatcher.getInstance().execute(command, new AbstractCommandCallback<BlueprintResponse>() {
 
-					public void execute(BlueprintResponse response) {
-						Whiteboard.fireEvent(new BlueprintEvent(response.getBlueprint()));
-					}
-				});
+			public void execute(BlueprintResponse response) {
+				Whiteboard.fireEvent(new BlueprintEvent(response.getBlueprint()));
+			}
+		});
 	}
 
 	// -- LayerModel --------------------------------------------------------
@@ -211,75 +197,66 @@ public final class ManagerCommandService {
 	/**
 	 * {@see org.geomajas.plugin.deskmanager.command.manager.GetLayerModelCommand}.
 	 * 
-	 * @param id
-	 *            the id of the layer model to fetch
-	 * @param onFinish
-	 *            callback called when layermodel is retrieved.
+	 * @param id the id of the layer model to fetch
+	 * @param onFinish callback called when layermodel is retrieved.
 	 */
 	public static void getLayerModel(String id, final DataCallback<LayerModelDto> onFinish) {
 		GetLayerModelRequest request = new GetLayerModelRequest();
 		request.setId(id);
 		GwtCommand command = new GwtCommand(GetLayerModelRequest.COMMAND);
 		command.setCommandRequest(request);
-		GwtCommandDispatcher.getInstance().execute(command,
-				new AbstractCommandCallback<LayerModelResponse>() {
+		GwtCommandDispatcher.getInstance().execute(command, new AbstractCommandCallback<LayerModelResponse>() {
 
-					public void execute(LayerModelResponse response) {
-						if (onFinish != null) {
-							onFinish.execute(response.getLayerModel());
-						}
-					}
-				});
+			public void execute(LayerModelResponse response) {
+				if (onFinish != null) {
+					onFinish.execute(response.getLayerModel());
+				}
+			}
+		});
 	}
 
 	/**
 	 * {@see org.geomajas.plugin.deskmanager.command.manager.GetLayerModelsCommand}.
 	 * 
-	 * @param onFinish
-	 *            callback called when layermodels are retrieved.
+	 * @param onFinish callback called when layermodels are retrieved.
 	 */
 	public static void getLayerModels(final DataCallback<List<LayerModelDto>> onFinish) {
 		GetLayerModelsRequest request = new GetLayerModelsRequest();
 		GwtCommand command = new GwtCommand(GetLayerModelsRequest.COMMAND);
 		command.setCommandRequest(request);
-		GwtCommandDispatcher.getInstance().execute(command,
-				new AbstractCommandCallback<GetLayerModelsResponse>() {
+		GwtCommandDispatcher.getInstance().execute(command, new AbstractCommandCallback<GetLayerModelsResponse>() {
 
-					public void execute(GetLayerModelsResponse response) {
-						if (onFinish != null) {
-							onFinish.execute(response.getLayerModels());
-						}
-					}
-				});
+			public void execute(GetLayerModelsResponse response) {
+				if (onFinish != null) {
+					onFinish.execute(response.getLayerModels());
+				}
+			}
+		});
 	}
 
 	/**
 	 * {@see org.geomajas.plugin.deskmanager.command.manager.DeleteLayerModelCommand}.
 	 * 
-	 * @param layerModel
-	 *            the layerModel to delete.
+	 * @param layerModel the layerModel to delete.
 	 */
 	public static void deleteLayerModel(final LayerModelDto layerModel) {
 		DeleteLayerModelRequest request = new DeleteLayerModelRequest();
 		request.setId(layerModel.getId());
 		GwtCommand command = new GwtCommand(DeleteLayerModelRequest.COMMAND);
 		command.setCommandRequest(request);
-		GwtCommandDispatcher.getInstance().execute(command,
-				new AbstractCommandCallback<CommandResponse>() {
+		GwtCommandDispatcher.getInstance().execute(command, new AbstractCommandCallback<CommandResponse>() {
 
-					public void execute(CommandResponse response) {
-						Whiteboard.fireEvent(new LayerModelEvent(layerModel, true, false));
-					}
-				});
+			public void execute(CommandResponse response) {
+				Whiteboard.fireEvent(new LayerModelEvent(layerModel, true, false));
+			}
+		});
 	}
 
 	/**
 	 * {@see org.geomajas.plugin.deskmanager.command.manager.CheckLayerModelInUseCommand}.
 	 * 
-	 * @param layerModel
-	 *            the layerModel to check.
-	 * @param onFinish
-	 *            callback called when answer is recieved.
+	 * @param layerModel the layerModel to check.
+	 * @param onFinish callback called when answer is recieved.
 	 */
 	public static void checkLayerModelInUse(final LayerModelDto layerModel, final DataCallback<Boolean> onFinish) {
 		CheckLayerModelInUseRequest request = new CheckLayerModelInUseRequest();
@@ -300,16 +277,14 @@ public final class ManagerCommandService {
 	/**
 	 * {@see org.geomajas.plugin.deskmanager.command.manager.CreateLayerModelCommand}.
 	 * 
-	 * @param configuration
-	 *            the layerconfiguration to base the layermodel on.
+	 * @param configuration the layerconfiguration to base the layermodel on.
 	 */
 	public static void createNewLayerModel(DynamicLayerConfiguration configuration) {
 		CreateLayerModelRequest request = new CreateLayerModelRequest();
 		request.setConfiguration(configuration);
 		GwtCommand command = new GwtCommand(CreateLayerModelRequest.COMMAND);
 		command.setCommandRequest(request);
-		GwtCommandDispatcher.getInstance().execute(command,
-				new AbstractCommandCallback<LayerModelResponse>() {
+		GwtCommandDispatcher.getInstance().execute(command, new AbstractCommandCallback<LayerModelResponse>() {
 
 					public void execute(LayerModelResponse response) {
 						reloadDynamicLayers();
@@ -321,8 +296,7 @@ public final class ManagerCommandService {
 	/**
 	 * {@see org.geomajas.plugin.deskmanager.command.manager.SaveLayerModelCommand}.
 	 * 
-	 * @param layerModel
-	 *            the layerModel to save.
+	 * @param layerModel the layerModel to save.
 	 * @param bitmask what to save
 	 */
 	public static void saveLayerModel(LayerModelDto layerModel, int bitmask) {
@@ -331,8 +305,7 @@ public final class ManagerCommandService {
 		request.setSaveBitmask(bitmask);
 		GwtCommand command = new GwtCommand(SaveLayerModelRequest.COMMAND);
 		command.setCommandRequest(request);
-		GwtCommandDispatcher.getInstance().execute(command,
-				new AbstractCommandCallback<LayerModelResponse>() {
+		GwtCommandDispatcher.getInstance().execute(command, new AbstractCommandCallback<LayerModelResponse>() {
 					public void execute(LayerModelResponse response) {
 						reloadDynamicLayers();
 						Whiteboard.fireEvent(new LayerModelEvent(response.getLayerModel()));
@@ -353,94 +326,84 @@ public final class ManagerCommandService {
 	/**
 	 * {@see org.geomajas.plugin.deskmanager.command.manager.GetTerritoriesCommand}.
 	 * 
-	 * @param onFinish
-	 *            callback called when the groups are retrieved.
+	 * @param onFinish callback called when the groups are retrieved.
 	 */
 	public static void getGroups(final DataCallback<List<TerritoryDto>> onFinish) {
 		GetTerritoriesRequest request = new GetTerritoriesRequest();
 		GwtCommand command = new GwtCommand(GetTerritoriesRequest.COMMAND);
 		command.setCommandRequest(request);
-		GwtCommandDispatcher.getInstance().execute(command,
-				new AbstractCommandCallback<GetTerritoriesResponse>() {
+		GwtCommandDispatcher.getInstance().execute(command, new AbstractCommandCallback<GetTerritoriesResponse>() {
 
-					public void execute(GetTerritoriesResponse response) {
-						if (onFinish != null) {
-							onFinish.execute(response.getTerritories());
-						}
-					}
-				});
+			public void execute(GetTerritoriesResponse response) {
+				if (onFinish != null) {
+					onFinish.execute(response.getTerritories());
+				}
+			}
+		});
 	}
 
 	/**
 	 * {@see org.geomajas.plugin.deskmanager.command.manager.getGeodesksCommand}.
 	 * 
-	 * @param onFinich
-	 *            callback called when the geodesk is retrieved.
+	 * @param onFinich callback called when the geodesk is retrieved.
 	 */
 	public static void getGeodesk(String uuid, final DataCallback<GeodeskDto> onFinish) {
 		GetGeodeskRequest request = new GetGeodeskRequest();
 		request.setGeodeskId(uuid);
 		GwtCommand command = new GwtCommand(GetGeodeskRequest.COMMAND);
 		command.setCommandRequest(request);
-		GwtCommandDispatcher.getInstance().execute(command,
-				new AbstractCommandCallback<GeodeskResponse>() {
+		GwtCommandDispatcher.getInstance().execute(command, new AbstractCommandCallback<GeodeskResponse>() {
 
-					public void execute(GeodeskResponse response) {
-						if (onFinish != null) {
-							onFinish.execute(response.getGeodesk());
-						}
-					}
-				});
+			public void execute(GeodeskResponse response) {
+				if (onFinish != null) {
+					onFinish.execute(response.getGeodesk());
+				}
+			}
+		});
 	}
 
 	/**
 	 * {@see org.geomajas.plugin.deskmanager.command.manager.GetGeodesksCommand}.
 	 * 
-	 * @param onFinish
-	 *            callback called when geodesks are retrieved.
+	 * @param onFinish callback called when geodesks are retrieved.
 	 */
 	public static void getGeodesks(final DataCallback<List<GeodeskDto>> onFinish) {
 		GetGeodesksRequest request = new GetGeodesksRequest();
 		GwtCommand command = new GwtCommand(GetGeodesksRequest.COMMAND);
 		command.setCommandRequest(request);
-		GwtCommandDispatcher.getInstance().execute(command,
-				new AbstractCommandCallback<GetGeodesksResponse>() {
+		GwtCommandDispatcher.getInstance().execute(command, new AbstractCommandCallback<GetGeodesksResponse>() {
 
-					public void execute(GetGeodesksResponse response) {
-						if (onFinish != null) {
-							onFinish.execute(response.getGeodesks());
-						}
-					}
-				});
+			public void execute(GetGeodesksResponse response) {
+				if (onFinish != null) {
+					onFinish.execute(response.getGeodesks());
+				}
+			}
+		});
 	}
 
 	/**
 	 * {@see org.geomajas.plugin.deskmanager.command.manager.DeleteGeodeskCommand}.
 	 * 
-	 * @param geodesk
-	 *            the geodesk to delete.
+	 * @param geodesk the geodesk to delete.
 	 */
 	public static void deleteGeodesk(final GeodeskDto geodesk) {
 		DeleteGeodeskRequest request = new DeleteGeodeskRequest();
 		request.setGeodeskId(geodesk.getId());
 		GwtCommand command = new GwtCommand(DeleteGeodeskRequest.COMMAND);
 		command.setCommandRequest(request);
-		GwtCommandDispatcher.getInstance().execute(command,
-				new AbstractCommandCallback<CommandResponse>() {
+		GwtCommandDispatcher.getInstance().execute(command, new AbstractCommandCallback<CommandResponse>() {
 
-					public void execute(CommandResponse response) {
-						Whiteboard.fireEvent(new GeodeskEvent(geodesk, true, false));
-					}
-				});
+			public void execute(CommandResponse response) {
+				Whiteboard.fireEvent(new GeodeskEvent(geodesk, true, false));
+			}
+		});
 	}
 
 	/**
 	 * {@see org.geomajas.plugin.deskmanager.command.manager.CreateGeodeskCommand}.
 	 * 
-	 * @param blueprintId
-	 *            the id of the dependant blueprint.
-	 * @param geodeskName
-	 *            the preferred name of the new geodesk.
+	 * @param blueprintId the id of the dependant blueprint.
+	 * @param geodeskName the preferred name of the new geodesk.
 	 */
 	public static void createNewGeodesk(String blueprintId, String geodeskName) {
 		CreateGeodeskRequest request = new CreateGeodeskRequest();
@@ -448,22 +411,19 @@ public final class ManagerCommandService {
 		request.setName(geodeskName);
 		GwtCommand command = new GwtCommand(CreateGeodeskRequest.COMMAND);
 		command.setCommandRequest(request);
-		GwtCommandDispatcher.getInstance().execute(command,
-				new AbstractCommandCallback<GeodeskResponse>() {
+		GwtCommandDispatcher.getInstance().execute(command, new AbstractCommandCallback<GeodeskResponse>() {
 
-					public void execute(GeodeskResponse response) {
-						Whiteboard.fireEvent(new GeodeskEvent(response.getGeodesk(), false, true));
-					}
-				});
+			public void execute(GeodeskResponse response) {
+				Whiteboard.fireEvent(new GeodeskEvent(response.getGeodesk(), false, true));
+			}
+		});
 	}
 
 	/**
 	 * {@see org.geomajas.plugin.deskmanager.command.manager.SaveGeodeskCommand}.
 	 * 
-	 * @param geodesk
-	 *            the geodesk to save.
-	 * @param bitmask
-	 *            which attributes to save.
+	 * @param geodesk the geodesk to save.
+	 * @param bitmask which attributes to save.
 	 */
 	public static void saveGeodesk(GeodeskDto geodesk, int bitmask) {
 		SaveGeodeskRequest request = new SaveGeodeskRequest();
@@ -471,22 +431,19 @@ public final class ManagerCommandService {
 		request.setSaveBitmask(bitmask);
 		GwtCommand command = new GwtCommand(SaveGeodeskRequest.COMMAND);
 		command.setCommandRequest(request);
-		GwtCommandDispatcher.getInstance().execute(command,
-				new AbstractCommandCallback<GeodeskResponse>() {
+		GwtCommandDispatcher.getInstance().execute(command, new AbstractCommandCallback<GeodeskResponse>() {
 
-					public void execute(GeodeskResponse response) {
-						Whiteboard.fireEvent(new GeodeskEvent(response.getGeodesk()));
-					}
-				});
+			public void execute(GeodeskResponse response) {
+				Whiteboard.fireEvent(new GeodeskEvent(response.getGeodesk()));
+			}
+		});
 	}
 
 	/**
 	 * {@see org.geomajas.plugin.deskmanager.command.manager.CheckGeodeskIdExistsCommand}.
 	 * 
-	 * @param geodeskId
-	 *            the id to check.
-	 * @param onFinish
-	 *            DataCallback will be called when the command is executed.
+	 * @param geodeskId the id to check.
+	 * @param onFinish DataCallback will be called when the command is executed.
 	 */
 	public static void checkGeodeskIdExists(String geodeskId, final DataCallback<Boolean> onFinish) {
 		CheckGeodeskIdExistsRequest request = new CheckGeodeskIdExistsRequest();
@@ -502,5 +459,21 @@ public final class ManagerCommandService {
 						}
 					}
 				});
+	}
+
+	public static void getUsers(DataCallback<List<UserDto>> onFinish) {
+
+	}
+
+	public static void createUser(String email, String name, String surname, String password, DataCallback<UserDto> onFinish) {
+
+	}
+	
+	public static void updateUser(UserDto user) {
+		
+	}
+	
+	public static void deleteUser(UserDto user) {
+		
 	}
 }
