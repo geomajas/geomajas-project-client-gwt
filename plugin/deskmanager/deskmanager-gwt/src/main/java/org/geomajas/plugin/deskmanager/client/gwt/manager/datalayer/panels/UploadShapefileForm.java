@@ -45,7 +45,7 @@ public class UploadShapefileForm extends VLayout {
 	
 	private Dialog loadDialog;
 
-	private FormPanel form;
+	protected FormPanel form;
 
 	private List<ItemChangedHandler> handlers = new ArrayList<ItemChangedHandler>();
 
