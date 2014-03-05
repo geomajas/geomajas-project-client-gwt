@@ -56,7 +56,7 @@ public class Geodesks extends VLayout implements EditSessionHandler, ManagerTab 
 		topContainer.setLayoutBottomMargin(5);
 
 		buttonNew = new IButton(MESSAGES.newGeodeskButtonText());
-		buttonNew.setWidth(buttonNew.getTitle().length() * GdmLayout.buttonFontWidth + GdmLayout.buttonOffset);
+		// buttonNew.setWidth(buttonNew.getTitle().length() * GdmLayout.buttonFontWidth + GdmLayout.buttonOffset);
 		buttonNew.setIcon(WidgetLayout.iconAdd);
 		buttonNew.addClickHandler(new ClickHandler() {
 

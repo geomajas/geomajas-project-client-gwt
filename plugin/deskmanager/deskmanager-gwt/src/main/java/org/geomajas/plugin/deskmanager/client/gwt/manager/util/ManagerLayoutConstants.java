@@ -16,11 +16,12 @@ package org.geomajas.plugin.deskmanager.client.gwt.manager.util;
  * @author Jan De Moerloose
  *
  */
-public final class ManagerConstants {
+public final class ManagerLayoutConstants {
 
-	private ManagerConstants() {
+	private ManagerLayoutConstants() {
 	};
 
-	public static final String ICON_OPENSAMPLELOKET = "[ISOMORPHIC]/images/silk/application_view_gallery.png";
+	// CHECKSTYLE VISIBILITY MODIFIER: OFF
+	public static String iconOpensampleloket = "[ISOMORPHIC]/images/silk/application_view_gallery.png";
 
 }
