@@ -54,8 +54,6 @@ public class BlueprintAccessRights extends AbstractConfigurationLayout implement
 
 		VLayout group = new VLayout();
 		group.setPadding(10);
-		group.setIsGroup(true);
-		group.setGroupTitle(MESSAGES.geodeskAccessRightsFormGroup());
 		group.addMember(groupSelect);
 		group.setOverflow(Overflow.AUTO);
 

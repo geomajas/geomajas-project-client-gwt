@@ -62,8 +62,6 @@ public class DatalayerConnectionParameters extends AbstractConfigurationLayout {
 
 		VLayout group = new VLayout();
 		group.setPadding(10);
-		group.setIsGroup(true);
-		group.setGroupTitle(MESSAGES.datalayerConnectionParametersGroup());
 		group.addMember(form);
 		group.setOverflow(Overflow.AUTO);
 

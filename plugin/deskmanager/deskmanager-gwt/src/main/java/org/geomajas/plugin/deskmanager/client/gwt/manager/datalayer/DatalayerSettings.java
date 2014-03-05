@@ -52,8 +52,6 @@ public class DatalayerSettings extends AbstractConfigurationLayout {
 
 		VLayout group = new VLayout();
 		group.setPadding(10);
-		group.setIsGroup(true);
-		group.setGroupTitle(MESSAGES.settingsFormGroupSettings());
 		group.addMember(form);
 		group.setOverflow(Overflow.AUTO);
 

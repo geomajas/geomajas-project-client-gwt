@@ -52,8 +52,6 @@ public class DatalayerStyle extends AbstractConfigurationLayout {
 
 		VLayout group = new VLayout();
 		group.setPadding(10);
-		group.setIsGroup(true);
-		group.setGroupTitle(MESSAGES.datalayerStyleFormGroup());
 		group.setOverflow(Overflow.AUTO);
 
 		openStyleEditor = new IButton(MESSAGES.layerConfigExpertEditorBtn());
