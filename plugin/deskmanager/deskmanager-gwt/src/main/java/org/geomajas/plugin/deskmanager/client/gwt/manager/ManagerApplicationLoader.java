@@ -10,17 +10,17 @@
  */
 package org.geomajas.plugin.deskmanager.client.gwt.manager;
 
+import com.smartgwt.client.widgets.layout.Layout;
 import com.smartgwt.client.widgets.layout.HLayout;
 import org.geomajas.annotation.Api;
+import org.geomajas.gwt.client.command.TokenRequestHandler;
 import org.geomajas.plugin.deskmanager.client.gwt.common.GdmLayout;
+import org.geomajas.plugin.deskmanager.client.gwt.common.HasTokenRequestHandler;
 import org.geomajas.plugin.deskmanager.client.gwt.common.impl.DeskmanagerTokenRequestHandler;
-import org.geomajas.plugin.deskmanager.client.gwt.common.impl.RolesWindow;
 import org.geomajas.plugin.deskmanager.client.gwt.geodesk.impl.LoadingScreen;
 import org.geomajas.plugin.deskmanager.client.gwt.manager.impl.ManagerInitializer;
 import org.geomajas.plugin.deskmanager.command.security.dto.RetrieveRolesRequest;
 import org.geomajas.plugin.deskmanager.domain.security.dto.ProfileDto;
-
-import com.smartgwt.client.widgets.layout.Layout;
 
 /**
  * Entry point and main class for deskmanager management application. This entrypoint will show a loading screen and
@@ -30,7 +30,7 @@ import com.smartgwt.client.widgets.layout.Layout;
  * @since 1.0.0
  */
 @Api(allMethods = true)
-public final class ManagerApplicationLoader {
+public final class ManagerApplicationLoader implements HasTokenRequestHandler {
 
 	private static final ManagerApplicationLoader INSTANCE = new ManagerApplicationLoader();
 
@@ -39,6 +39,7 @@ public final class ManagerApplicationLoader {
 	private ProfileDto profile;
 
 	private String securityToken;
+	private TokenRequestHandler fallbackHandler;
 
 	// Hide default constructor.
 	private ManagerApplicationLoader() {
@@ -95,9 +96,8 @@ public final class ManagerApplicationLoader {
 		loadScreen.draw();
 
 		ManagerInitializer initializer = new ManagerInitializer();
-		initializer.loadManagerApplication(new DeskmanagerTokenRequestHandler(securityToken,
-				RetrieveRolesRequest.MANAGER_ID,
-				new RolesWindow(true)));
+		initializer.loadManagerApplication(new DeskmanagerTokenRequestHandler(RetrieveRolesRequest.MANAGER_ID,
+				fallbackHandler));
 		if (handler != null) {
 			initializer.addHandler(handler);
 		}
@@ -136,4 +136,8 @@ public final class ManagerApplicationLoader {
 		return profile;
 	}
 
+	@Override
+	public void setTokenRequestHandler(TokenRequestHandler fallbackHandler) {
+		this.fallbackHandler = fallbackHandler;
+	}
 }

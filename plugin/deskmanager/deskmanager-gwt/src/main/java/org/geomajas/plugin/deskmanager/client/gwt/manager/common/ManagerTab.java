@@ -17,6 +17,9 @@ package org.geomajas.plugin.deskmanager.client.gwt.manager.common;
  */
 public interface ManagerTab {
 
+	/**
+	 * What does this do?
+	 */
 	void readData();
 	
 }
