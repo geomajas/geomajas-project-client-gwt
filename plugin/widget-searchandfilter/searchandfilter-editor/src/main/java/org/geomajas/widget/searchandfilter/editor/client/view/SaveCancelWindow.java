@@ -21,21 +21,21 @@ import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.VLayout;
 import org.geomajas.gwt.client.util.WidgetLayout;
 import org.geomajas.widget.searchandfilter.editor.client.i18n.SearchAndFilterEditorMessages;
-import org.geomajas.widget.searchandfilter.editor.client.presenter.SavePresenter;
+import org.geomajas.widget.searchandfilter.editor.client.presenter.EditorPresenter;
 
 /**
  * Wrapper around a layout, resulting in a window with cancel and save button.
  *
  * @author Jan Venstermans
  */
-public class SaveCancelWindow extends Window implements SavePresenter.View {
+public class SaveCancelWindow extends Window implements EditorPresenter.SaveView {
 
-	private static final SearchAndFilterEditorMessages MESSAGES =
+	private final SearchAndFilterEditorMessages MESSAGES =
 			GWT.create(SearchAndFilterEditorMessages.class);
 
 	private Canvas content;
 
-	private SavePresenter.Handler handler;
+	private EditorPresenter.SaveHandler handler;
 
 	/**
 	 * @param content the view to be wrapped
@@ -49,9 +49,9 @@ public class SaveCancelWindow extends Window implements SavePresenter.View {
 	 * @param content the view to be wrapped
 	 * @param handler
 	 */
-	public SaveCancelWindow(Canvas content, SavePresenter.Handler handler) {
+	public SaveCancelWindow(Canvas content, EditorPresenter.SaveHandler handler) {
 		this(content);
-		setHandler(handler);
+		setSaveHandler(handler);
 	}
 
 	/**
@@ -105,7 +105,7 @@ public class SaveCancelWindow extends Window implements SavePresenter.View {
 	}
 
 	@Override
-	public void setHandler(SavePresenter.Handler handler) {
+	public void setSaveHandler(EditorPresenter.SaveHandler handler) {
 		this.handler = handler;
 	}
 

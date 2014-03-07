@@ -17,7 +17,8 @@ import org.geomajas.plugin.deskmanager.domain.dto.LayerModelDto;
 
 
 /**
- * Extention of {@link LayerWidgetEditor}, for vector layers specifically.
+ * Extension of {@link LayerWidgetEditor}, for vector layers specifically.
+ * Additional functionality: provide the widget editor with the clientVectorLayerInfo.
  * 
  * @author Jan Venstermans
  * @since 1.15.0

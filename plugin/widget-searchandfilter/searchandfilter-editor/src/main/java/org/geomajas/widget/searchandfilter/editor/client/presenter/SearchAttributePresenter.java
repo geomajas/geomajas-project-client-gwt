@@ -14,62 +14,54 @@ import com.smartgwt.client.widgets.Canvas;
 import org.geomajas.widget.searchandfilter.configuration.client.SearchAttribute;
 
 import java.util.LinkedHashMap;
-import java.util.Map;
 
 /**
- * Interface for the presenter of {@link org.geomajas.widget.searchandfilter.configuration.client.SearchesInfo}.
+ * Interface for the presenter that deals with changing
+ * {@link org.geomajas.widget.searchandfilter.configuration.client.SearchAttribute}.
  *
  * @author Jan Venstermans
  */
 public interface SearchAttributePresenter {
 
-	void setSearchAttribute(SearchAttribute searchAttribute);
-
-	interface View {
-		void setAttributeNameMap(LinkedHashMap<String, String> attributeNameMap);
-
-		void setSelectedAttributeName(String attributeName);
-		String getSelectedAttributeName();
-
-		void setOperationMap(LinkedHashMap<SearchAttribute.Operation, String> operationMap);
-		void selectOperationMap(SearchAttribute.AttributeType attributeType);
-
-		void setSelectedOperation(SearchAttribute.Operation operation);
-		SearchAttribute.Operation getSelectedOperation();
-
-		void setInputTypeMap(LinkedHashMap<SearchAttribute.InputType, String> inputTypeMap);
-		void selectInputTypeMap(SearchAttribute.AttributeType attributeType);
-
-		void setSelectedInputType(SearchAttribute.InputType inputType);
-		SearchAttribute.InputType getSelectedInputType();
-
-		void setLabelText(String labelText);
-
-		void setFieldsEnabled(boolean enabled);
+	/**
+	 * View interface for {@link SearchAttributePresenter}.
+	 */
+	interface View extends EditorPresenter.FormView, EditorPresenter.WindowView {
 
 		void setHandler(Handler handler);
 
-		//void update();
-
 		Canvas getCanvas();
 
-		boolean validate();
+		/* model elements setters */
 
+		void setSelectedAttributeName(String attributeName);
+		void setSelectedOperation(SearchAttribute.Operation operation);
+		void setSelectedInputType(SearchAttribute.InputType inputType);
+		void setLabelText(String labelText);
+
+		/* model elements getters */
+
+		String getSelectedAttributeName();
+		SearchAttribute.Operation getSelectedOperation();
+		SearchAttribute.InputType getSelectedInputType();
 		String getLabel();
 
-		void show();
+		/* configuration after layer selection */
 
-		void hide();
+		void setAttributeNameMap(LinkedHashMap<String, String> attributeNameMap);
 
-		void clearValues();
+		/* configuration after attribute name selection */
 
-		void setDefaultOperationValueMaps(Map<SearchAttribute.AttributeType, LinkedHashMap<SearchAttribute.Operation, String>> defaultOperationValueMaps);
-
-		void setDefaultInputTypeValueMaps(Map<SearchAttribute.AttributeType, LinkedHashMap<SearchAttribute.InputType, String>> defaultInputTypeValueMaps);
+		void setOperationMap(LinkedHashMap<SearchAttribute.Operation, String> operationMap);
+		void setInputTypeMap(LinkedHashMap<SearchAttribute.InputType, String> inputTypeMap);
+		void setFieldsEnabled(boolean enabled);
 	}
 
-	interface Handler extends SavePresenter.Handler {
-	    void onSelectAttributeName(String attributeName);
+	/**
+	 * Handler interface for {@link SearchAttributePresenter}.
+	 */
+	interface Handler extends EditorPresenter.SaveHandler {
+		void onSelectAttributeName(String attributeName);
 	}
 
 	void updateView();
@@ -79,4 +71,6 @@ public interface SearchAttributePresenter {
 	void editSelectedAttribute();
 
 	void createSearchAttribute();
+
+	void setSearchAttribute(SearchAttribute searchAttribute);
 }

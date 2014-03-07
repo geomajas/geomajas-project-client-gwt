@@ -10,23 +10,18 @@
  */
 package org.geomajas.widget.searchandfilter.editor.client;
 
-import org.geomajas.configuration.PrimitiveAttributeInfo;
 import org.geomajas.configuration.client.ClientVectorLayerInfo;
 import org.geomajas.widget.searchandfilter.configuration.client.SearchAttribute;
 import org.geomajas.widget.searchandfilter.configuration.client.SearchConfig;
 import org.geomajas.widget.searchandfilter.configuration.client.SearchesInfo;
 import org.geomajas.widget.searchandfilter.editor.client.event.SearchesInfoChangedEvent;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 /**
  * Singleton implementation of {@link SearchesStatus}.
  *
  * @author Jan Venstermans
  */
-public class SearchesStatusImpl implements SearchesStatus {
+public final class SearchesStatusImpl implements SearchesStatus {
 
 	private static SearchesStatus instance;
 
@@ -113,27 +108,11 @@ public class SearchesStatusImpl implements SearchesStatus {
 	}
 
 	@Override
-	public void saveSearch(SearchConfig searchConfig) {
-		if (isSearchesInfoContainsSearchConfig(searchConfig)) {
-			for (SearchConfig config : searchesInfo.getSearchConfigs()) {
-				if (searchConfig.getTitle().equals(config.getTitle())) {
-					config = searchConfig;
-					SearchAndFilterEditor.fireSearchesInfoChangedEvent(new SearchesInfoChangedEvent());
-				}
-			}
-		} else {
+	public void saveSearch(SearchConfig searchConfig, boolean newSearch) {
+		if (!isSearchesInfoContainsSearchConfig(searchConfig) && newSearch) {
 			searchesInfo.getSearchConfigs().add(searchConfig);
-			SearchAndFilterEditor.fireSearchesInfoChangedEvent(new SearchesInfoChangedEvent());
 		}
-
-	}
-
-	@Override
-	public void saveSearchAttribute(SearchAttribute searchAttribute, SearchConfig searchConfig) {
-		if (isSearchesInfoContainsSearchConfig(searchConfig)) {
-			searchConfig.getAttributes().add(searchAttribute);
-			SearchAndFilterEditor.fireSearchesInfoChangedEvent(new SearchesInfoChangedEvent());
-		}
+		SearchAndFilterEditor.fireSearchesInfoChangedEvent(new SearchesInfoChangedEvent());
 	}
 
 	@Override

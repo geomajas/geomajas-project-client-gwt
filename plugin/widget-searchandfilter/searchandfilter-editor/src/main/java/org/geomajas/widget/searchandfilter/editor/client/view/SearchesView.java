@@ -32,6 +32,8 @@ import org.geomajas.widget.searchandfilter.editor.client.SearchesStatus;
 import org.geomajas.widget.searchandfilter.editor.client.i18n.SearchAndFilterEditorMessages;
 import org.geomajas.widget.searchandfilter.editor.client.presenter.SearchesPresenter;
 
+import java.util.List;
+
 /**
  * Default implementation of {@link SearchesPresenter.View}.
  * 
@@ -40,13 +42,11 @@ import org.geomajas.widget.searchandfilter.editor.client.presenter.SearchesPrese
  */
 public class SearchesView implements SearchesPresenter.View {
 
-	private static final SearchAndFilterEditorMessages MESSAGES = GWT.create(SearchAndFilterEditorMessages.class);
+	private final SearchAndFilterEditorMessages MESSAGES = GWT.create(SearchAndFilterEditorMessages.class);
 
 	private SearchListGrid grid;
 
 	private VLayout layout;
-
-	private SearchesStatus status;
 
 	private SearchesPresenter.Handler handler;
 
@@ -86,26 +86,18 @@ public class SearchesView implements SearchesPresenter.View {
 	}
 
 	@Override
-	public void setStatus(SearchesStatus status) {
-		this.status = status;
-		update();
-	}
-
-	@Override
 	public void setHandler(SearchesPresenter.Handler handler) {
 		this.handler = handler;
 	}
 
 	@Override
-	public void update() {
-		if (status.getSearchesInfo() != null) {
-			grid.fillGrid();
-		}
+	public Canvas getCanvas() {
+		return layout;
 	}
 
 	@Override
-	public Canvas getCanvas() {
-		return layout;
+	public void updateGrid(List<SearchConfig> list) {
+		grid.fillGrid(list);
 	}
 
 	/**
@@ -194,11 +186,11 @@ public class SearchesView implements SearchesPresenter.View {
 			return rollOverCanvas;
 		}
 
-		public void fillGrid() {
+		public void fillGrid(List<SearchConfig> searchConfigList) {
 			deselectAllRecords();
 			setData(new ListGridRecord[]{});
 			// fill
-			for (SearchConfig config : status.getSearchesInfo().getSearchConfigs()) {
+			for (SearchConfig config : searchConfigList) {
 				ListGridRecord record = new ListGridRecord();
 				record.setAttribute(FLD_NAME, config.getTitle());
 				record.setAttribute(FLD_DESCRIPTION, config.getDescription());

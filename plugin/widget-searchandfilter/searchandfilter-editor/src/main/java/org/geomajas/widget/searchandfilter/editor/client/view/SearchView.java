@@ -42,6 +42,8 @@ import org.geomajas.widget.searchandfilter.editor.client.SearchAndFilterEditor;
 import org.geomajas.widget.searchandfilter.editor.client.i18n.SearchAndFilterEditorMessages;
 import org.geomajas.widget.searchandfilter.editor.client.presenter.SearchPresenter;
 
+import java.util.List;
+
 /**
  * Default implementation of {@link SearchPresenter.View}.
  *
@@ -49,7 +51,7 @@ import org.geomajas.widget.searchandfilter.editor.client.presenter.SearchPresent
  */
 public class SearchView implements SearchPresenter.View {
 
-	private static final SearchAndFilterEditorMessages MESSAGES =
+	private final SearchAndFilterEditorMessages MESSAGES =
 			GWT.create(SearchAndFilterEditorMessages.class);
 
 	private static final int FORMITEM_WIDTH = 300;
@@ -59,19 +61,13 @@ public class SearchView implements SearchPresenter.View {
 
 	public static final String FLD_NAME = "Name";
 
-	private SearchConfig searchConfig;
-
 	private SearchPresenter.Handler handler;
-
-	private LayerModelDto layerModelDto;
-
-	private BooleanCallback callback;
 
 	private DynamicForm form;
 
-	private TextItem title, titleInWindow;
+	private TextItem titleFld, titleInWindowFld;
 
-	private TextAreaItem description;
+	private TextAreaItem descriptionFld;
 
 	private FileUploadForm uploadForm;
 
@@ -99,26 +95,26 @@ public class SearchView implements SearchPresenter.View {
 		form.setWidth(FORMITEM_WIDTH + 100);
 		form.setWrapItemTitles(false);
 
-		title = new TextItem(FLD_NAME);
-		title.setTitle(MESSAGES.searchDetailsWindowFieldTitleLabel());
-		title.setRequired(true);
-		title.setWidth(FORMITEM_WIDTH);
-		title.setWrapTitle(false);
-		title.setTooltip(MESSAGES.searchDetailsWindowFieldTitleTooltip());
+		titleFld = new TextItem(FLD_NAME);
+		titleFld.setTitle(MESSAGES.searchDetailsWindowFieldTitleLabel());
+		titleFld.setRequired(true);
+		titleFld.setWidth(FORMITEM_WIDTH);
+		titleFld.setWrapTitle(false);
+		titleFld.setTooltip(MESSAGES.searchDetailsWindowFieldTitleTooltip());
 
-		description = new TextAreaItem();
-		description.setTitle(MESSAGES.searchDetailsWindowFieldDescriptionLabel());
-		description.setRequired(true);
-		description.setWidth(FORMITEM_WIDTH);
-		description.setWrapTitle(false);
-		description.setTooltip(MESSAGES.searchDetailsWindowFieldDescriptionTooltip());
+		descriptionFld = new TextAreaItem();
+		descriptionFld.setTitle(MESSAGES.searchDetailsWindowFieldDescriptionLabel());
+		descriptionFld.setRequired(true);
+		descriptionFld.setWidth(FORMITEM_WIDTH);
+		descriptionFld.setWrapTitle(false);
+		descriptionFld.setTooltip(MESSAGES.searchDetailsWindowFieldDescriptionTooltip());
 
-		titleInWindow = new TextItem();
-		titleInWindow.setTitle(MESSAGES.searchDetailsWindowFieldTitleInWindowLabel());
-		titleInWindow.setRequired(true);
-		titleInWindow.setWidth(FORMITEM_WIDTH);
-		titleInWindow.setWrapTitle(false);
-		titleInWindow.setTooltip(MESSAGES.searchDetailsWindowFieldTitleInWindowTooltip());
+		titleInWindowFld = new TextItem();
+		titleInWindowFld.setTitle(MESSAGES.searchDetailsWindowFieldTitleInWindowLabel());
+		titleInWindowFld.setRequired(true);
+		titleInWindowFld.setWidth(FORMITEM_WIDTH);
+		titleInWindowFld.setWrapTitle(false);
+		titleInWindowFld.setTooltip(MESSAGES.searchDetailsWindowFieldTitleInWindowTooltip());
 
 		uploadForm = new FileUploadForm();
 		CanvasItem uploadItem = new CanvasItem();
@@ -129,7 +125,7 @@ public class SearchView implements SearchPresenter.View {
 		uploadItem.setWrapTitle(false);
 		uploadItem.setTooltip(MESSAGES.searchDetailsWindowFieldIconUrlTooltip());
 
-		form.setFields(title, description, titleInWindow, uploadItem);
+		form.setFields(titleFld, descriptionFld, titleInWindowFld, uploadItem);
 
 		// attribute table //
 
@@ -176,8 +172,7 @@ public class SearchView implements SearchPresenter.View {
 	}
 
 	@Override
-	public void show(SearchConfig searchConfig) {
-		setSearchConfig(searchConfig);
+	public void show() {
 		window.show();
 	}
 
@@ -187,36 +182,14 @@ public class SearchView implements SearchPresenter.View {
 	}
 
 	@Override
-	public void setSearchConfig(SearchConfig searchConfig) {
-		this.searchConfig = searchConfig;
-		update();
-	}
-
-	@Override
 	public void setHandler(SearchPresenter.Handler handler) {
-		window.setHandler(handler);
+		window.setSaveHandler(handler);
 		this.handler = handler;
 	}
 
-	private void updateLocalSearchConfig() {
-		if (searchConfig != null) {
-			searchConfig.setTitle(title.getValueAsString());
-			searchConfig.setDescription(description.getValueAsString());
-			searchConfig.setTitleInWindow(titleInWindow.getValueAsString());
-			searchConfig.setIconUrl(uploadForm.getUrl());
-		}
-	}
-
 	@Override
-	public void update() {
-		if (searchConfig != null) {
-			form.clearValues();
-			title.setValue(searchConfig.getTitle());
-			description.setValue(searchConfig.getDescription());
-			titleInWindow.setValue(searchConfig.getTitleInWindow());
-			uploadForm.setUrl(searchConfig.getIconUrl());
-			grid.fillGrid(searchConfig);
-		}
+	public void updateGrid(List<SearchAttribute> searchAttributeList) {
+		grid.fillGrid(searchAttributeList);
 	}
 
 	@Override
@@ -225,14 +198,53 @@ public class SearchView implements SearchPresenter.View {
 	}
 
 	@Override
-	public boolean validate() {
+	public void setTitle(String title) {
+		titleFld.setValue(title);
+	}
+
+	@Override
+	public void setDescription(String description) {
+		descriptionFld.setValue(description);
+	}
+
+	@Override
+	public void setTitleInWindow(String titleInWindow) {
+		titleInWindowFld.setValue(titleInWindow);
+	}
+
+	@Override
+	public void setIconUrl(String iconUrl) {
+		uploadForm.setUrl(iconUrl);
+	}
+
+	@Override
+	public String getTitle() {
+		return titleFld.getValueAsString();
+	}
+
+	@Override
+	public String getDescription() {
+		return descriptionFld.getValueAsString();
+	}
+
+	@Override
+	public String getTitleInWindow() {
+		return titleInWindowFld.getValueAsString();
+	}
+
+	@Override
+	public String getIconUrl() {
+		return uploadForm.getUrl();
+	}
+
+	@Override
+	public boolean validateForm() {
 		return form.validate();
 	}
 
 	@Override
-	public SearchConfig getSearchConfig() {
-		updateLocalSearchConfig();
-		return searchConfig;
+	public void clearFormValues() {
+		form.clearValues();
 	}
 
 	/**
@@ -361,14 +373,12 @@ public class SearchView implements SearchPresenter.View {
 			return rollOverCanvas;
 		}
 
-		public void fillGrid(SearchConfig searchConfig) {
+		public void fillGrid(List<SearchAttribute> searchAttributeList) {
 			deselectAllRecords();
 			setData(new ListGridRecord[]{});
 			// fill
-			if (searchConfig != null && searchConfig.getAttributes() != null) {
-				for (SearchAttribute attribute : searchConfig.getAttributes()) {
-					addRow(attribute);
-				}
+			for (SearchAttribute attribute : searchAttributeList) {
+				addRow(attribute);
 			}
 		}
 

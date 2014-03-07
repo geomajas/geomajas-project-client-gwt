@@ -16,7 +16,7 @@ import org.geomajas.widget.searchandfilter.configuration.client.SearchConfig;
 import org.geomajas.widget.searchandfilter.editor.client.event.SearchesInfoChangedEvent;
 
 /**
- * Default implementation of {@link org.geomajas.widget.searchandfilter.editor.client.presenter.SearchesPresenter}.
+ * Default implementation of {@link SearchPresenter}.
  *
  * @author Jan Venstermans
  */
@@ -27,11 +27,14 @@ public class SearchPresenterImpl implements SearchPresenter, SearchPresenter.Han
 
 	private SearchAttributePresenter searchAttributePresenter;
 
+	private SearchConfig searchConfig;
+
+	private boolean newSearchConfig;
+
 	public SearchPresenterImpl() {
 		this.view = SearchAndFilterEditor.getViewManager().getSearchView();
 		this.searchAttributePresenter = new SearchAttributePresenterImpl();
 		view.setHandler(this);
-		view.setSearchConfig(getSelectedSearchConfig());
 		bind();
 	}
 
@@ -66,25 +69,65 @@ public class SearchPresenterImpl implements SearchPresenter, SearchPresenter.Han
 
 	@Override
 	public void editSelectedSearch() {
-		getView().show(getSelectedSearchConfig());
+		loadAndView(false);
 	}
 
 	@Override
 	public void createSearch() {
-		getView().show(new SearchConfig());
+		loadAndView(true);
+	}
+
+	private void loadAndView(boolean newSearch) {
+		emptySelectedSearchConfig();
+		newSearchConfig = newSearch;
+		if (newSearch) {
+			this.searchConfig = new SearchConfig();
+		} else {
+			this.searchConfig = getSelectedSearchConfig();
+		}
+		updateView();
+		getView().show();
+	}
+
+	private void updateView() {
+		view.clearFormValues();
+		if (searchConfig != null) {
+			view.setTitle(searchConfig.getTitle());
+			view.setDescription(searchConfig.getDescription());
+			view.setTitleInWindow(searchConfig.getTitleInWindow());
+			view.setIconUrl(searchConfig.getIconUrl());
+			view.updateGrid(searchConfig.getAttributes());
+		}
 	}
 
 	@Override
 	public void onSave() {
-		if (view.validate()) {
-			SearchConfig searchConfig = view.getSearchConfig();
-			SearchAndFilterEditor.getSearchesStatus().saveSearch(searchConfig);
+		if (view.validateForm()) {
+			updateSelectedSearchConfig();
+			SearchAndFilterEditor.getSearchesStatus().saveSearch(searchConfig, newSearchConfig);
+			emptySelectedSearchConfig();
 			view.hide();
+		}
+	}
+
+	private void emptySelectedSearchConfig() {
+		searchConfig = null;
+		// empty view
+		view.clearFormValues();
+	}
+
+	private void updateSelectedSearchConfig() {
+		if (searchConfig != null) {
+			searchConfig.setTitle(view.getTitle());
+			searchConfig.setDescription(view.getDescription());
+			searchConfig.setTitleInWindow(view.getTitleInWindow());
+			searchConfig.setIconUrl(view.getIconUrl());
+			// don't set the search attributes here, this is done separately
 		}
 	}
 
 	@Override
 	public void onSearchInfoChanged(SearchesInfoChangedEvent event) {
-	   	view.update();
+		updateView();
 	}
 }

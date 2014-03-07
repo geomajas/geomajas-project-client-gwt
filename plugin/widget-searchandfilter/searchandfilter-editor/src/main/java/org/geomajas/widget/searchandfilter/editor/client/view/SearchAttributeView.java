@@ -22,21 +22,17 @@ import org.geomajas.widget.searchandfilter.configuration.client.SearchAttribute;
 import org.geomajas.widget.searchandfilter.editor.client.i18n.SearchAndFilterEditorMessages;
 import org.geomajas.widget.searchandfilter.editor.client.presenter.SearchAttributePresenter;
 
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import com.smartgwt.client.widgets.form.fields.events.ChangeEvent;
-import com.smartgwt.client.widgets.form.fields.events.ChangeHandler;
-
 /**
- * Configuration window for individual searches.
+ * Default implementation of {@link SearchAttributePresenter.View}.
  *
  * @author Jan Venstermans
  */
 public class SearchAttributeView implements SearchAttributePresenter.View {
 
-	private static final SearchAndFilterEditorMessages MESSAGES =
+	private final SearchAndFilterEditorMessages MESSAGES =
 			GWT.create(SearchAndFilterEditorMessages.class);
 
 	private static final int FORMITEM_WIDTH = 150;
@@ -61,9 +57,6 @@ public class SearchAttributeView implements SearchAttributePresenter.View {
 	private LinkedHashMap<String, String> attributeNameMap;
 	private LinkedHashMap<SearchAttribute.Operation, String> operationMap;
 	private LinkedHashMap<SearchAttribute.InputType, String> inputTypeMap;
-
-	private Map<SearchAttribute.AttributeType, LinkedHashMap<SearchAttribute.Operation, String>> defaultOperationValueMaps;
-	private Map<SearchAttribute.AttributeType, LinkedHashMap<SearchAttribute.InputType, String>> defaultInputTypeValueMaps;
 
 	/**
 	 * Construct a search configuration window.
@@ -124,43 +117,95 @@ public class SearchAttributeView implements SearchAttributePresenter.View {
 	}
 
 	@Override
+	public Canvas getCanvas() {
+		return window;
+	}
+
+	@Override
+	public boolean validateForm() {
+		return form.validate();
+	}
+
+	@Override
+	public void show() {
+		window.show();
+	}
+
+	@Override
+	public void hide() {
+		window.hide();
+	}
+
+	@Override
+	public void clearFormValues() {
+		form.clearValues();
+	}
+
+	/* setters for from elements */
+
+	@Override
+	public void setLabelText(String labelText) {
+		label.setValue(labelText);
+	}
+
+	@Override
+	public void setSelectedAttributeName(String attributeName) {
+		setDropDownValue(attributeNameSelectItem, attributeName);
+	}
+
+	@Override
+	public void setSelectedOperation(SearchAttribute.Operation operation) {
+		setDropDownValue(operationSelectItem, operation);
+	}
+
+	@Override
+	public void setSelectedInputType(SearchAttribute.InputType inputType) {
+		setDropDownValue(inputTypeSelectItem, inputType);
+	}
+
+	private void setDropDownValue(SelectItem selectItem, Object key) {
+		selectItem.setValue(key);
+	}
+
+	/* getters for from elements */
+
+	@Override
+	public String getLabel() {
+		return label.getValueAsString();
+	}
+
+	@Override
 	public String getSelectedAttributeName() {
-		Object value = attributeNameSelectItem.getValue();
-		if (value != null && attributeNameMap != null && attributeNameMap.size() > 0) {
-			for (String attrName : attributeNameMap.keySet()) {
-				if (value.equals(attrName)) {
-					return attrName;
-				}
-			}
-		}
-		return null;
+		return getSelectedKey(attributeNameSelectItem, attributeNameMap);
 	}
 
 	@Override
 	public SearchAttribute.Operation getSelectedOperation() {
-		Object value = operationSelectItem.getValue();
-		if (value != null && operationMap != null && operationMap.size() > 0) {
-			for (SearchAttribute.Operation operation : operationMap.keySet()) {
-				if (value.equals(operation)) {
-					return operation;
+		return getSelectedKey(operationSelectItem, operationMap);
+	}
+
+	@Override
+	public SearchAttribute.InputType getSelectedInputType() {
+		return getSelectedKey(inputTypeSelectItem, inputTypeMap);
+	}
+
+	private <T> T getSelectedKey(SelectItem selectItem,  LinkedHashMap<T, String> map) {
+		try {
+			return (T) selectItem.getValue();
+		} catch (Exception e) {
+			String stringValue = selectItem.getValueAsString();
+			if (stringValue != null) {
+				for (T key : map.keySet()) {
+					if (stringValue.equals(key.toString())) {
+						return key;
+					}
 				}
 			}
 		}
 		return null;
 	}
 
-	@Override
-	public SearchAttribute.InputType getSelectedInputType() {
-		Object value = inputTypeSelectItem.getValue();
-		if (value != null && inputTypeMap != null && inputTypeMap.size() > 0) {
-			for (SearchAttribute.InputType type : inputTypeMap.keySet()) {
-				if (value.equals(type)) {
-					return type;
-				}
-			}
-		}
-		return null;
-	}
+	/* fill drop down list */
 
 	@Override
 	public void setAttributeNameMap(LinkedHashMap<String, String> attributeNameMap) {
@@ -169,15 +214,6 @@ public class SearchAttributeView implements SearchAttributePresenter.View {
 			attributeNameSelectItem.clearValue();
 		} else {
 			attributeNameSelectItem.setValueMap(attributeNameMap);
-		}
-
-	}
-
-	@Override
-	public void setSelectedAttributeName(String attributeName) {
-		if (attributeNameMap != null && attributeNameMap.size() > 0 &&
-				attributeNameMap.keySet().contains(attributeName)) {
-			attributeNameSelectItem.setValue(attributeNameMap.get(attributeName));
 		}
 	}
 
@@ -192,19 +228,6 @@ public class SearchAttributeView implements SearchAttributePresenter.View {
 	}
 
 	@Override
-	public void selectOperationMap(SearchAttribute.AttributeType attributeType) {
-		form.getField(FRM_OPERATION).setValueMap(defaultOperationValueMaps.get(attributeType));
-	}
-
-	@Override
-	public void setSelectedOperation(SearchAttribute.Operation operation) {
-		if (operationMap != null && operationMap.size() > 0 &&
-				operationMap.keySet().contains(operation)) {
-			operationSelectItem.setValue(operationMap.get(operation));
-		}
-	}
-
-	@Override
 	public void setInputTypeMap(LinkedHashMap<SearchAttribute.InputType, String> inputTypeMap) {
 		this.inputTypeMap = inputTypeMap;
 		if (inputTypeMap == null) {
@@ -212,24 +235,6 @@ public class SearchAttributeView implements SearchAttributePresenter.View {
 		} else {
 			inputTypeSelectItem.setValueMap(inputTypeMap);
 		}
-	}
-
-	@Override
-	public void selectInputTypeMap(SearchAttribute.AttributeType attributeType) {
-		form.getField(FRM_INPUTTYPE).setValueMap(defaultInputTypeValueMaps.get(attributeType));
-	}
-
-	@Override
-	public void setSelectedInputType(SearchAttribute.InputType inputType) {
-		if (inputTypeMap != null && inputTypeMap.size() > 0 &&
-				inputTypeMap.keySet().contains(inputType)) {
-			inputTypeSelectItem.setValue(inputTypeMap.get(inputType));
-		}
-	}
-
-	@Override
-	public void setLabelText(String labelText) {
-		label.setValue(labelText);
 	}
 
 	@Override
@@ -241,47 +246,7 @@ public class SearchAttributeView implements SearchAttributePresenter.View {
 
 	@Override
 	public void setHandler(SearchAttributePresenter.Handler handler) {
-		window.setHandler(handler);
+		window.setSaveHandler(handler);
 		this.handler = handler;
-	}
-
-	@Override
-	public Canvas getCanvas() {
-		return window;
-	}
-
-	@Override
-	public boolean validate() {
-		return form.validate();
-	}
-
-	@Override
-	public String getLabel() {
-		return label.getValueAsString();
-	}
-
-	@Override
-	public void show() {
-	  	window.show();
-	}
-
-	@Override
-	public void hide() {
-	   	window.hide();
-	}
-
-	@Override
-	public void clearValues() {
-		form.clearValues();
-	}
-
-	@Override
-	public void setDefaultOperationValueMaps(final Map<SearchAttribute.AttributeType, LinkedHashMap<SearchAttribute.Operation, String>> defaultOperationValueMaps) {
-		this.defaultOperationValueMaps = defaultOperationValueMaps;
-	}
-
-	@Override
-	public void setDefaultInputTypeValueMaps(final Map<SearchAttribute.AttributeType, LinkedHashMap<SearchAttribute.InputType, String>> defaultInputTypeValueMaps) {
-		this.defaultInputTypeValueMaps = defaultInputTypeValueMaps;
 	}
 }

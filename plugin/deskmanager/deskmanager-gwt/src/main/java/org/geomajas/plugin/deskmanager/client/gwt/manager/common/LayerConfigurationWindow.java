@@ -402,8 +402,8 @@ public class LayerConfigurationWindow extends Window {
 			final WidgetEditor editor = editorFactory.createEditor();
 			if (editor instanceof LayerWidgetEditor) {
 				((LayerWidgetEditor) editor).setLayer(layerDto.getLayerModel());
-				// for vector layer editor,
-				//  find the complete layer info, i.e. including layer configuration
+				//  in case instanceof VectorLayerWidgetEditor, only add a tab for vector layers
+				// and add clientLayerInfo to the editor,
 				if (editor instanceof VectorLayerWidgetEditor) {
 					final VectorLayerWidgetEditor vectorLayerWidgetEditor =
 							(VectorLayerWidgetEditor) editor;

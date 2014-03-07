@@ -13,7 +13,7 @@ package org.geomajas.widget.searchandfilter.editor.client.view;
 import org.geomajas.widget.searchandfilter.editor.client.presenter.SearchesPresenter;
 
 /**
- * Factory for  {@link org.geomajas.widget.searchandfilter.editor.client.presenter.SearchesPresenter.View}.
+ * Default factory for  {@link SearchesPresenter.View}.
  *
  * @author Jan Venstermans
  *

@@ -10,10 +10,7 @@
  */
 package org.geomajas.widget.searchandfilter.editor.client;
 
-import org.geomajas.configuration.client.ClientVectorLayerInfo;
 import org.geomajas.widget.searchandfilter.configuration.client.SearchAttribute;
-import org.geomajas.widget.searchandfilter.configuration.client.SearchConfig;
-import org.geomajas.widget.searchandfilter.configuration.client.SearchesInfo;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -25,14 +22,18 @@ import java.util.Map;
  */
 public interface SearchAttributeService {
 
-	String getOperationStringRepresentation(SearchAttribute.AttributeType attributeType, SearchAttribute.Operation operation);
+	String getOperationStringRepresentation(SearchAttribute.AttributeType attributeType,
+											SearchAttribute.Operation operation);
 
-	String getInputTypeStringRepresentation(SearchAttribute.AttributeType attributeType, SearchAttribute.InputType inputType);
+	String getInputTypeStringRepresentation(SearchAttribute.AttributeType attributeType,
+											SearchAttribute.InputType inputType);
 
 	Map<org.geomajas.configuration.PrimitiveAttributeInfo, SearchAttribute.AttributeType>
 	getPrimitiveAttributesMap();
 
-	LinkedHashMap<SearchAttribute.Operation, String> getOperationsValueMap(SearchAttribute.AttributeType attributeType);
+	LinkedHashMap<SearchAttribute.Operation, String> getOperationsValueMap(
+			SearchAttribute.AttributeType attributeType);
 
-	LinkedHashMap<SearchAttribute.InputType, String> getInputTypeMap(SearchAttribute.AttributeType attributeType);
+	LinkedHashMap<SearchAttribute.InputType, String> getInputTypeMap(
+			SearchAttribute.AttributeType attributeType);
 }

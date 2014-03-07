@@ -16,8 +16,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Main entrypoint for configuring searches. You can configure some basic information for the search widget
- * and provide a list of views.
+ * {@link ClientWidgetInfo} object for saved searches.
+ * This widget is a DTO object linked to a specific (vector) layer.
  * 
  * @author Jan Venstermans
  * 

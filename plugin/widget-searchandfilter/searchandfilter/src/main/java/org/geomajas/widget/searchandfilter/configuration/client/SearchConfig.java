@@ -16,7 +16,7 @@ import java.util.List;
 
 
 /**
- * Search Dto object.
+ * Dto object for a search configuration on a vector layer.
  *
  * @author Jan Venstermans
  */

@@ -12,37 +12,47 @@ package org.geomajas.widget.searchandfilter.editor.client.presenter;
 
 import com.smartgwt.client.widgets.Canvas;
 import org.geomajas.widget.searchandfilter.configuration.client.SearchAttribute;
-import org.geomajas.widget.searchandfilter.configuration.client.SearchConfig;
 
 /**
- * Interface for the presenter of {@link org.geomajas.widget.searchandfilter.configuration.client.SearchesInfo}.
+ * Interface for the presenter that deals with changing
+ * {@link org.geomajas.widget.searchandfilter.configuration.client.SearchConfig}.
  *
  * @author Jan Venstermans
  */
 public interface SearchPresenter {
 
-	interface View {
-	    void setSearchConfig(SearchConfig searchConfig);
+	/**
+	 * View interface for {@link SearchPresenter}.
+	 */
+	interface View extends EditorPresenter.FormView, EditorPresenter.WindowView,
+			EditorPresenter.GridView<SearchAttribute> {
 
 		void setHandler(Handler handler);
 
-		void update();
-
 		Canvas getCanvas();
 
-		boolean validate();
+		/* model elements setters */
 
-		SearchConfig getSearchConfig();
+		void setTitle(String title);
+		void setDescription(String description);
+		void setTitleInWindow(String titleInWindow);
+		void setIconUrl(String iconUrl);
 
-		void show(SearchConfig searchConfig);
+		/* model elements getters */
 
-		void hide();
+		String getTitle();
+		String getDescription();
+		String getTitleInWindow();
+		String getIconUrl();
 	}
 
-	interface Handler extends SavePresenter.Handler {
+	/**
+	 * Handler interface for {@link SearchPresenter}.
+	 */
+	interface Handler extends EditorPresenter.SaveHandler {
 		void onAddAttribute();
 
-	    void onSelect(SearchAttribute attribute);
+		void onSelect(SearchAttribute attribute);
 
 		void onEdit(SearchAttribute attribute);
 	}

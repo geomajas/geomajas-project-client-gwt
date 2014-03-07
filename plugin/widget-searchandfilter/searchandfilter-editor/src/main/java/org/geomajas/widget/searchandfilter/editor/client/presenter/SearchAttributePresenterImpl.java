@@ -37,15 +37,9 @@ public class SearchAttributePresenterImpl implements SearchAttributePresenter,
 
 	private Map<PrimitiveAttributeInfo, SearchAttribute.AttributeType> attributeTypeMap;
 
-	//private Map<SearchAttribute.AttributeType, LinkedHashMap<SearchAttribute.Operation, String>> defaultOperationValueMaps;
-	//private Map<SearchAttribute.AttributeType, LinkedHashMap<SearchAttribute.InputType, String>> defaultInputTypeValueMaps;
-
 	public SearchAttributePresenterImpl() {
 		this.view = SearchAndFilterEditor.getViewManager().getSearchAttributeView();
 		view.setHandler(this);
-//		loadSearchAttributeMaps();
-//		view.setDefaultOperationValueMaps(defaultOperationValueMaps);
-//		view.setDefaultInputTypeValueMaps(defaultInputTypeValueMaps);
 		updateAttributeTypeMap();
 		bind();
 	}
@@ -92,7 +86,7 @@ public class SearchAttributePresenterImpl implements SearchAttributePresenter,
 
 	@Override
 	public void onSave() {
-		if (view.validate()) {
+		if (view.validateForm()) {
 			updateSelectedSearchAttributed();
 			SearchAndFilterEditor.getSearchesStatus().saveSearchAttribute(searchAttribute, parentSearch, newSearchAttribute);
 			emptySelectedAttribute();
@@ -103,7 +97,7 @@ public class SearchAttributePresenterImpl implements SearchAttributePresenter,
 	private void emptySelectedAttribute() {
 		searchAttribute = null;
 		// empty view
-		view.clearValues();
+		view.clearFormValues();
 	}
 
 	private void updateSelectedSearchAttributed() {
@@ -118,7 +112,7 @@ public class SearchAttributePresenterImpl implements SearchAttributePresenter,
 	@Override
 	public void onSelectAttributeName(String attributeName) {
 		clearSearchAttribute();
-		view.clearValues();
+		view.clearFormValues();
 		PrimitiveAttributeInfo attributeInfo = getPrimitiveAttributeFromName(attributeName);
 		if (attributeInfo != null) {
 			searchAttribute.setAttributeName(attributeName);
@@ -153,7 +147,7 @@ public class SearchAttributePresenterImpl implements SearchAttributePresenter,
 
 	@Override
 	public void updateView() {
-		view.clearValues();
+		view.clearFormValues();
 		if (searchAttribute != null && searchAttribute.getAttributeType() != null) {
 			view.setSelectedAttributeName(searchAttribute.getAttributeName());
 			changeViewAccordingToAttributeType(searchAttribute.getAttributeType());
@@ -204,14 +198,4 @@ public class SearchAttributePresenterImpl implements SearchAttributePresenter,
 		return attributeNameMap;
 	}
 
-	/*private void loadSearchAttributeMaps() {
-		defaultOperationValueMaps = new LinkedHashMap<SearchAttribute.AttributeType,
-				LinkedHashMap<SearchAttribute.Operation, String>>();
-		defaultInputTypeValueMaps = new LinkedHashMap<SearchAttribute.AttributeType,
-				LinkedHashMap<SearchAttribute.InputType, String>>();
-		for (SearchAttribute.AttributeType attributeType : SearchAttribute.AttributeType.values()) {
-			defaultOperationValueMaps.put(attributeType, getOperationsValueMap(attributeType));
-			defaultInputTypeValueMaps.put(attributeType, getInputTypeMap(attributeType));
-		}
-	}*/
 }

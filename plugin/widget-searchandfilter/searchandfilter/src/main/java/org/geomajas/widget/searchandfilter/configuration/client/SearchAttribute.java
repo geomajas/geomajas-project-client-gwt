@@ -11,12 +11,11 @@
 package org.geomajas.widget.searchandfilter.configuration.client;
 
 import java.io.Serializable;
-import java.util.Arrays;
 import java.util.List;
 
 
 /**
- * Search Dto object.
+ * Dto object for specification of a search rule on an attribute of a vecotor layer.
  *
  * @author Jan Venstermans
  */
@@ -36,14 +35,20 @@ public class SearchAttribute implements Serializable {
 
 	private List<String> inputTypeValues;
 
+	/**
+	 * Datatype of attribute. This type will know what
+	 * {@link org.geomajas.widget.searchandfilter.configuration.client.SearchAttribute.Operation} and
+	 * {@link org.geomajas.widget.searchandfilter.configuration.client.SearchAttribute.InputType}
+	 * values can be associated with itself.
+	 */
 	public enum AttributeType {
 		String(new Operation[] {Operation.EqualTo},
 				new InputType[] {InputType.FreeText, InputType.DropDown}),
 		Integer(new Operation[] {Operation.EqualTo, Operation.SmallerThan, Operation.LargerThan},
 				new InputType[] {InputType.FreeNr, InputType.DropDown});
 
-		Operation[] operations;
-		InputType[] inputTypes;
+		private Operation[] operations;
+		private InputType[] inputTypes;
 
 		private AttributeType(Operation[] operations, InputType[] inputTypes) {
 			 this.operations = operations;
@@ -67,10 +72,16 @@ public class SearchAttribute implements Serializable {
 		}
 	}
 
+	/**
+	 * Operation type that can be applied to the value of an vector layer attribute.
+	 */
 	public enum Operation {
-		EqualTo, SmallerThan,LargerThan;
+		EqualTo, SmallerThan, LargerThan;
 	}
 
+	/**
+	 * Type of input for the reference value of the operation.
+	 */
 	public enum InputType {
 		FreeText, DropDown, FreeNr;
 	}

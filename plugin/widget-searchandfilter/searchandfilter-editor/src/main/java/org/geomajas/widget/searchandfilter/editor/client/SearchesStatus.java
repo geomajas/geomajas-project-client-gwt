@@ -15,10 +15,10 @@ import org.geomajas.widget.searchandfilter.configuration.client.SearchAttribute;
 import org.geomajas.widget.searchandfilter.configuration.client.SearchConfig;
 import org.geomajas.widget.searchandfilter.configuration.client.SearchesInfo;
 
-import java.util.Map;
-
 /**
- * Interface for the presenter of {@link org.geomajas.widget.searchandfilter.configuration.client.SearchesInfo}.
+ * Interface for managing the status of the current
+ * {@link org.geomajas.widget.searchandfilter.configuration.client.SearchesInfo}
+ * and {@link ClientVectorLayerInfo}.
  *
  * @author Jan Venstermans
  */
@@ -46,9 +46,7 @@ public interface SearchesStatus {
 
 	/* save */
 
-	void saveSearch(SearchConfig searchConfig);
-
-	void saveSearchAttribute(SearchAttribute searchAttribute, SearchConfig searchConfig);
+	void saveSearch(SearchConfig searchConfig, boolean newSearch);
 
 	void saveSearchAttribute(SearchAttribute searchAttribute, SearchConfig searchConfig, boolean newAttribute);
 

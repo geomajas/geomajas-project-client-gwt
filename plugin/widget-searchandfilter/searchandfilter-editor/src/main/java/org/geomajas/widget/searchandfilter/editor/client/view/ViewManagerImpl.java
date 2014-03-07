@@ -15,7 +15,7 @@ import org.geomajas.widget.searchandfilter.editor.client.presenter.SearchPresent
 import org.geomajas.widget.searchandfilter.editor.client.presenter.SearchesPresenter;
 
 /**
- * Interface for views.
+ * Default implementation of {@link ViewManager}.
  *
  * @author Jan Venstermans
  */
