@@ -27,9 +27,9 @@ import com.smartgwt.client.widgets.layout.Layout;
 import com.smartgwt.client.widgets.layout.VLayout;
 import org.geomajas.gwt.client.util.WidgetLayout;
 import org.geomajas.plugin.deskmanager.client.gwt.common.impl.DeskmanagerIcon;
-import org.geomajas.widget.searchandfilter.client.SearchAndFilterMessages;
-import org.geomajas.widget.searchandfilter.editor.client.configuration.SearchConfig;
-import org.geomajas.widget.searchandfilter.editor.client.configuration.SearchesStatus;
+import org.geomajas.widget.searchandfilter.configuration.client.SearchConfig;
+import org.geomajas.widget.searchandfilter.editor.client.SearchesStatus;
+import org.geomajas.widget.searchandfilter.editor.client.i18n.SearchAndFilterEditorMessages;
 import org.geomajas.widget.searchandfilter.editor.client.presenter.SearchesPresenter;
 
 /**
@@ -40,7 +40,7 @@ import org.geomajas.widget.searchandfilter.editor.client.presenter.SearchesPrese
  */
 public class SearchesView implements SearchesPresenter.View {
 
-	private static final SearchAndFilterMessages MESSAGES = GWT.create(SearchAndFilterMessages.class);
+	private static final SearchAndFilterEditorMessages MESSAGES = GWT.create(SearchAndFilterEditorMessages.class);
 
 	private SearchListGrid grid;
 
@@ -126,7 +126,7 @@ public class SearchesView implements SearchesPresenter.View {
 
 		private static final int FLD_ACTIONS_WIDTH = 60;
 
-		//private ListGridRecord rollOverRecord;
+		private SearchConfig rollOverSearchConfig;
 
 		private HLayout rollOverCanvas;
 
@@ -166,7 +166,7 @@ public class SearchesView implements SearchesPresenter.View {
 		@Override
 		protected Canvas getRollOverCanvas(Integer rowNum, Integer colNum) {
 			ListGridRecord rollOverRecord = getRecord(rowNum);
-			final SearchConfig searchConfig = (SearchConfig) rollOverRecord.getAttributeAsObject(FLD_OBJECT);
+			rollOverSearchConfig = (SearchConfig) rollOverRecord.getAttributeAsObject(FLD_OBJECT);
 
 			if (rollOverCanvas == null) {
 				rollOverCanvas = new HLayout(3);
@@ -186,7 +186,7 @@ public class SearchesView implements SearchesPresenter.View {
 				editProps.addClickHandler(new com.smartgwt.client.widgets.events.ClickHandler() {
 
 					public void onClick(ClickEvent event) {
-						handler.onEdit(searchConfig);
+						handler.onEdit(rollOverSearchConfig);
 					}
 				});
 				rollOverCanvas.addMember(editProps);

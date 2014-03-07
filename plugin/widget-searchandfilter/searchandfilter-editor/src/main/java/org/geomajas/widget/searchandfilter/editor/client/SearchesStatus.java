@@ -8,13 +8,17 @@
  * by the Geomajas Contributors License Agreement. For full licensing
  * details, see LICENSE.txt in the project root.
  */
-package org.geomajas.widget.searchandfilter.editor.client.configuration;
+package org.geomajas.widget.searchandfilter.editor.client;
 
-import org.geomajas.plugin.deskmanager.domain.dto.LayerDto;
-import org.geomajas.plugin.deskmanager.domain.dto.LayerModelDto;
+import org.geomajas.configuration.client.ClientVectorLayerInfo;
+import org.geomajas.widget.searchandfilter.configuration.client.SearchAttribute;
+import org.geomajas.widget.searchandfilter.configuration.client.SearchConfig;
+import org.geomajas.widget.searchandfilter.configuration.client.SearchesInfo;
+
+import java.util.Map;
 
 /**
- * Interface for the presenter of {@link SearchesInfo}.
+ * Interface for the presenter of {@link org.geomajas.widget.searchandfilter.configuration.client.SearchesInfo}.
  *
  * @author Jan Venstermans
  */
@@ -36,15 +40,17 @@ public interface SearchesStatus {
 
 	void setDisabled(boolean disabled);
 
-	LayerDto getLayerDto();
+	ClientVectorLayerInfo getClientVectorLayerInfo();
 
-	void setLayerDto(LayerDto layerModel);
+	void setClientVectorLayerInfo(ClientVectorLayerInfo layerModel);
 
 	/* save */
 
 	void saveSearch(SearchConfig searchConfig);
 
 	void saveSearchAttribute(SearchAttribute searchAttribute, SearchConfig searchConfig);
+
+	void saveSearchAttribute(SearchAttribute searchAttribute, SearchConfig searchConfig, boolean newAttribute);
 
 	/* remove */
 

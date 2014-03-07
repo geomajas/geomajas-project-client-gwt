@@ -9,19 +9,16 @@
   ~ details, see LICENSE.txt in the project root.
   -->
 
-<!-- TODO Should be named to SearchAndFilterGwt, so WidgetSearchAndFilter can be named SearchAndFilter -->
+<!-- TODO Should be named SearchAndFilter, but this name in this package has been used by the GWT version -->
 
 <module>
-	<inherits name="org.geomajas.gwt.GeomajasClient" />
-	<inherits name="org.geomajas.widget.featureinfo.Featureinfo"/>
-	<inherits name="org.geomajas.widget.searchandfilter.WidgetSearchAndFilter"/>
-
-	<source path="client" />
+	
+	<source path="configuration/client" />
+	<source path="command/dto" />
+	<source path="search/dto" />
 	
 	<!-- enable if needed
 	<source path="configuration/client" />
 	<source path="component/dto" />
 	-->
-
-  	<entry-point class='org.geomajas.widget.searchandfilter.client.SearchAndFilter'/>
 </module>

@@ -20,7 +20,7 @@ import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.VLayout;
 import org.geomajas.gwt.client.util.WidgetLayout;
-import org.geomajas.widget.searchandfilter.client.SearchAndFilterMessages;
+import org.geomajas.widget.searchandfilter.editor.client.i18n.SearchAndFilterEditorMessages;
 import org.geomajas.widget.searchandfilter.editor.client.presenter.SavePresenter;
 
 /**
@@ -30,8 +30,8 @@ import org.geomajas.widget.searchandfilter.editor.client.presenter.SavePresenter
  */
 public class SaveCancelWindow extends Window implements SavePresenter.View {
 
-	private static final SearchAndFilterMessages MESSAGES =
-			GWT.create(SearchAndFilterMessages.class);
+	private static final SearchAndFilterEditorMessages MESSAGES =
+			GWT.create(SearchAndFilterEditorMessages.class);
 
 	private Canvas content;
 

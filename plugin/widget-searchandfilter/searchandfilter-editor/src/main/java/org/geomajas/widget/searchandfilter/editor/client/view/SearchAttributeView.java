@@ -11,32 +11,23 @@
 package org.geomajas.widget.searchandfilter.editor.client.view;
 
 import com.google.gwt.core.client.GWT;
-import com.smartgwt.client.data.DataSource;
-import com.smartgwt.client.data.DataSourceField;
-import com.smartgwt.client.data.Record;
-import com.smartgwt.client.data.fields.DataSourceIntegerField;
-import com.smartgwt.client.data.fields.DataSourceTextField;
-import com.smartgwt.client.types.Overflow;
-import com.smartgwt.client.util.BooleanCallback;
 import com.smartgwt.client.widgets.Canvas;
-import com.smartgwt.client.widgets.IButton;
-import com.smartgwt.client.widgets.Window;
-import com.smartgwt.client.widgets.events.ClickEvent;
-import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.form.DynamicForm;
 import com.smartgwt.client.widgets.form.fields.SelectItem;
 import com.smartgwt.client.widgets.form.fields.TextItem;
-import com.smartgwt.client.widgets.layout.HLayout;
+import com.smartgwt.client.widgets.form.fields.events.ChangedEvent;
+import com.smartgwt.client.widgets.form.fields.events.ChangedHandler;
 import com.smartgwt.client.widgets.layout.VLayout;
-import org.geomajas.gwt.client.util.WidgetLayout;
-import org.geomajas.plugin.deskmanager.client.gwt.manager.service.DataCallback;
-import org.geomajas.plugin.deskmanager.client.gwt.manager.service.ManagerCommandService;
-import org.geomajas.plugin.deskmanager.domain.dto.LayerModelDto;
-import org.geomajas.widget.searchandfilter.client.SearchAndFilterMessages;
-import org.geomajas.widget.searchandfilter.editor.client.configuration.SearchAttribute;
+import org.geomajas.widget.searchandfilter.configuration.client.SearchAttribute;
+import org.geomajas.widget.searchandfilter.editor.client.i18n.SearchAndFilterEditorMessages;
 import org.geomajas.widget.searchandfilter.editor.client.presenter.SearchAttributePresenter;
 
+import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.Map;
+
+import com.smartgwt.client.widgets.form.fields.events.ChangeEvent;
+import com.smartgwt.client.widgets.form.fields.events.ChangeHandler;
 
 /**
  * Configuration window for individual searches.
@@ -45,22 +36,34 @@ import java.util.LinkedHashMap;
  */
 public class SearchAttributeView implements SearchAttributePresenter.View {
 
-	private static final SearchAndFilterMessages MESSAGES =
-			GWT.create(SearchAndFilterMessages.class);
+	private static final SearchAndFilterEditorMessages MESSAGES =
+			GWT.create(SearchAndFilterEditorMessages.class);
 
 	private static final int FORMITEM_WIDTH = 150;
-
-	private SearchAttribute searchAttribute;
+	private static final String FRM_OPERATION = "operation";
+	private static final String FRM_INPUTTYPE = "inputType";
 
 	private SearchAttributePresenter.Handler handler;
 
+	/* form elements */
 	private DynamicForm form;
 
-	private SelectItem attributeName, operation, inputType;
+	private SelectItem attributeNameSelectItem;
+	private SelectItem operationSelectItem;
+
+	private SelectItem inputTypeSelectItem;
 
 	private TextItem label;
 
 	private SaveCancelWindow window;
+
+	/* model elements */
+	private LinkedHashMap<String, String> attributeNameMap;
+	private LinkedHashMap<SearchAttribute.Operation, String> operationMap;
+	private LinkedHashMap<SearchAttribute.InputType, String> inputTypeMap;
+
+	private Map<SearchAttribute.AttributeType, LinkedHashMap<SearchAttribute.Operation, String>> defaultOperationValueMaps;
+	private Map<SearchAttribute.AttributeType, LinkedHashMap<SearchAttribute.InputType, String>> defaultInputTypeValueMaps;
 
 	/**
 	 * Construct a search configuration window.
@@ -81,106 +84,165 @@ public class SearchAttributeView implements SearchAttributePresenter.View {
 		form.setWidth(FORMITEM_WIDTH + 100);
 		form.setWrapItemTitles(false);
 
+		attributeNameSelectItem = new SelectItem();
+		attributeNameSelectItem.setTitle(MESSAGES.searchAttributeWindowAttributeNameLabel());
+		attributeNameSelectItem.setWidth(FORMITEM_WIDTH);
+		attributeNameSelectItem.setRequired(true);
+		attributeNameSelectItem.addChangedHandler(new ChangedHandler() {
 
-		attributeName = new SelectItem();
-//		attributeName.setOptionDataSource(getDummyDataSource());
-		attributeName.setTitle("Attribute:");
-		attributeName.setWidth(FORMITEM_WIDTH);
-		attributeName.setValueMap(getDummyLinkedHashMap());
+			@Override
+			public void onChanged(ChangedEvent changedEvent) {
+				handler.onSelectAttributeName(getSelectedAttributeName());
+			}
+		});
 
-		operation = new SelectItem();
-		operation.setOptionDataSource(getDummyDataSource());
-		operation.setTitle("Operation:");
-		operation.setWidth(FORMITEM_WIDTH);
+		operationSelectItem = new SelectItem();
+		operationSelectItem.setName(FRM_OPERATION);
+		operationSelectItem.setTitle(MESSAGES.searchAttributeWindowOperationLabel());
+		operationSelectItem.setWidth(FORMITEM_WIDTH);
+		operationSelectItem.setRequired(true);
+		operationSelectItem.setAddUnknownValues(false);
 
-		inputType = new SelectItem();
-		inputType.setOptionDataSource(getDummyDataSource());
-		inputType.setTitle("Input type:");
-		inputType.setWidth(FORMITEM_WIDTH);
+		inputTypeSelectItem = new SelectItem();
+		inputTypeSelectItem.setName(FRM_INPUTTYPE);
+		inputTypeSelectItem.setTitle(MESSAGES.searchAttributeWindowInputTypeLabel());
+		inputTypeSelectItem.setWidth(FORMITEM_WIDTH);
+		inputTypeSelectItem.setRequired(true);
+		inputTypeSelectItem.setAddUnknownValues(false);
 
 		label = new TextItem();
-		label.setTitle("Label");
+		label.setTitle(MESSAGES.searchAttributeWindowLabelLabel());
 		label.setRequired(true);
 		label.setWidth(FORMITEM_WIDTH);
 
-		form.setFields(attributeName, label, operation, inputType);
+		form.setFields(attributeNameSelectItem, label, operationSelectItem, inputTypeSelectItem);
 
 		// layout structure //
 		VLayout layout = new VLayout(10);
 		layout.addMember(form);
-
 		window = new SaveCancelWindow(layout);
 	}
 
-	private DataSource getDummyDataSource() {
-		String FIELD_ID = "id";
-		String FIELD_LABEL = "value";
-		DataSource dataSource = new DataSource();
-		dataSource.setClientOnly(true);
-		DataSourceField label = new DataSourceIntegerField(FIELD_ID);
-		DataSourceField regex = new DataSourceTextField("FIELD_LABEL");
-		dataSource.setFields(label, regex);
-
-		Record record;
-		record = new Record();
-		record.setAttribute(FIELD_ID, 0);
-		record.setAttribute(FIELD_LABEL, ".*");
-		dataSource.addData(record);
-		record = new Record();
-		record.setAttribute(FIELD_ID, 1);
-		record.setAttribute(FIELD_LABEL, "yahoo");
-		dataSource.addData(record);
-		record = new Record();
-		record.setAttribute(FIELD_ID, 2);
-		record.setAttribute(FIELD_LABEL, "geonames");
-		dataSource.addData(record);
-		record = new Record();
-		record.setAttribute(FIELD_ID, 3);
-		record.setAttribute(FIELD_LABEL, "offline");
-		dataSource.addData(record);
-
-		return dataSource;
-	}
-
-	private LinkedHashMap<String, String> getDummyLinkedHashMap() {
-		LinkedHashMap<String, String> valueMap = new LinkedHashMap<String, String>();
-		valueMap.put("one", "oneone");
-		valueMap.put("two", "twotwo");
-		valueMap.put("three", "threethree");
-		return valueMap;
+	@Override
+	public String getSelectedAttributeName() {
+		Object value = attributeNameSelectItem.getValue();
+		if (value != null && attributeNameMap != null && attributeNameMap.size() > 0) {
+			for (String attrName : attributeNameMap.keySet()) {
+				if (value.equals(attrName)) {
+					return attrName;
+				}
+			}
+		}
+		return null;
 	}
 
 	@Override
-	public void setSearchAttribute(SearchAttribute searchAttribute) {
-		this.searchAttribute = searchAttribute;
-		updateView();
+	public SearchAttribute.Operation getSelectedOperation() {
+		Object value = operationSelectItem.getValue();
+		if (value != null && operationMap != null && operationMap.size() > 0) {
+			for (SearchAttribute.Operation operation : operationMap.keySet()) {
+				if (value.equals(operation)) {
+					return operation;
+				}
+			}
+		}
+		return null;
+	}
+
+	@Override
+	public SearchAttribute.InputType getSelectedInputType() {
+		Object value = inputTypeSelectItem.getValue();
+		if (value != null && inputTypeMap != null && inputTypeMap.size() > 0) {
+			for (SearchAttribute.InputType type : inputTypeMap.keySet()) {
+				if (value.equals(type)) {
+					return type;
+				}
+			}
+		}
+		return null;
+	}
+
+	@Override
+	public void setAttributeNameMap(LinkedHashMap<String, String> attributeNameMap) {
+		this.attributeNameMap = attributeNameMap;
+		if (attributeNameMap == null) {
+			attributeNameSelectItem.clearValue();
+		} else {
+			attributeNameSelectItem.setValueMap(attributeNameMap);
+		}
+
+	}
+
+	@Override
+	public void setSelectedAttributeName(String attributeName) {
+		if (attributeNameMap != null && attributeNameMap.size() > 0 &&
+				attributeNameMap.keySet().contains(attributeName)) {
+			attributeNameSelectItem.setValue(attributeNameMap.get(attributeName));
+		}
+	}
+
+	@Override
+	public void setOperationMap(LinkedHashMap<SearchAttribute.Operation, String> operationMap) {
+		this.operationMap = operationMap;
+		if (operationMap == null) {
+			operationSelectItem.clearValue();
+		} else {
+			operationSelectItem.setValueMap(operationMap);
+		}
+	}
+
+	@Override
+	public void selectOperationMap(SearchAttribute.AttributeType attributeType) {
+		form.getField(FRM_OPERATION).setValueMap(defaultOperationValueMaps.get(attributeType));
+	}
+
+	@Override
+	public void setSelectedOperation(SearchAttribute.Operation operation) {
+		if (operationMap != null && operationMap.size() > 0 &&
+				operationMap.keySet().contains(operation)) {
+			operationSelectItem.setValue(operationMap.get(operation));
+		}
+	}
+
+	@Override
+	public void setInputTypeMap(LinkedHashMap<SearchAttribute.InputType, String> inputTypeMap) {
+		this.inputTypeMap = inputTypeMap;
+		if (inputTypeMap == null) {
+			inputTypeSelectItem.clearValue();
+		} else {
+			inputTypeSelectItem.setValueMap(inputTypeMap);
+		}
+	}
+
+	@Override
+	public void selectInputTypeMap(SearchAttribute.AttributeType attributeType) {
+		form.getField(FRM_INPUTTYPE).setValueMap(defaultInputTypeValueMaps.get(attributeType));
+	}
+
+	@Override
+	public void setSelectedInputType(SearchAttribute.InputType inputType) {
+		if (inputTypeMap != null && inputTypeMap.size() > 0 &&
+				inputTypeMap.keySet().contains(inputType)) {
+			inputTypeSelectItem.setValue(inputTypeMap.get(inputType));
+		}
+	}
+
+	@Override
+	public void setLabelText(String labelText) {
+		label.setValue(labelText);
+	}
+
+	@Override
+	public void setFieldsEnabled(boolean enabled) {
+		label.setCanEdit(enabled);
+		operationSelectItem.setCanEdit(enabled);
+		inputTypeSelectItem.setCanEdit(enabled);
 	}
 
 	@Override
 	public void setHandler(SearchAttributePresenter.Handler handler) {
+		window.setHandler(handler);
 		this.handler = handler;
-	}
-
-	@Override
-	public void updateStatus() {
-		if (searchAttribute != null) {
-			searchAttribute.setAttribute(attributeName.getValueAsString());
-			searchAttribute.setLabel(label.getValueAsString());
-			searchAttribute.setOperation(operation.getValueAsString());
-			searchAttribute.setInputType(inputType.getValueAsString());
-		}
-
-	}
-
-	@Override
-	public void updateView() {
-		if (searchAttribute != null) {
-			form.clearValues();
-			attributeName.setValue(searchAttribute.getAttribute());
-			label.setValue(searchAttribute.getLabel());
-			operation.setValue(searchAttribute.getOperation());
-			inputType.setValue(searchAttribute.getInputType());
-		}
 	}
 
 	@Override
@@ -194,18 +256,32 @@ public class SearchAttributeView implements SearchAttributePresenter.View {
 	}
 
 	@Override
-	public SearchAttribute getSearchAttribute() {
-		return searchAttribute;
+	public String getLabel() {
+		return label.getValueAsString();
 	}
 
 	@Override
-	public void show(SearchAttribute searchAttribute) {
-		setSearchAttribute(searchAttribute);
+	public void show() {
 	  	window.show();
 	}
 
 	@Override
 	public void hide() {
 	   	window.hide();
+	}
+
+	@Override
+	public void clearValues() {
+		form.clearValues();
+	}
+
+	@Override
+	public void setDefaultOperationValueMaps(final Map<SearchAttribute.AttributeType, LinkedHashMap<SearchAttribute.Operation, String>> defaultOperationValueMaps) {
+		this.defaultOperationValueMaps = defaultOperationValueMaps;
+	}
+
+	@Override
+	public void setDefaultInputTypeValueMaps(final Map<SearchAttribute.AttributeType, LinkedHashMap<SearchAttribute.InputType, String>> defaultInputTypeValueMaps) {
+		this.defaultInputTypeValueMaps = defaultInputTypeValueMaps;
 	}
 }

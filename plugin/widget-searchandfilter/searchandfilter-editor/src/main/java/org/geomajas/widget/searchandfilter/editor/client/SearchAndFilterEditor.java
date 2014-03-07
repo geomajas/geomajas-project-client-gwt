@@ -14,13 +14,20 @@ import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.event.shared.SimpleEventBus;
 import com.google.web.bindery.event.shared.HandlerRegistration;
+import com.smartgwt.client.widgets.form.DynamicForm;
 import org.geomajas.plugin.deskmanager.client.gwt.manager.editor.WidgetEditorFactoryRegistry;
-import org.geomajas.widget.searchandfilter.editor.client.configuration.SearchesStatus;
-import org.geomajas.widget.searchandfilter.editor.client.configuration.SearchesStatusImpl;
 import org.geomajas.widget.searchandfilter.editor.client.event.SearchesInfoChangedEvent;
+import org.geomajas.widget.searchandfilter.editor.client.event.VectorLayerInfoChangedEvent;
 import org.geomajas.widget.searchandfilter.editor.client.view.ViewManager;
 import org.geomajas.widget.searchandfilter.editor.client.view.ViewManagerImpl;
 
+import java.util.HashMap;
+import java.util.Map;
+
+
+import com.smartgwt.client.widgets.form.fields.SelectItem;
+import com.smartgwt.client.widgets.form.fields.events.ChangeEvent;
+import com.smartgwt.client.widgets.form.fields.events.ChangeHandler;
 
 /**
  * Entry Point and central class for the SearchAndFilterEditor plugin.
@@ -60,6 +67,18 @@ public class SearchAndFilterEditor implements EntryPoint {
 
 	public static void fireSearchesInfoChangedEvent(SearchesInfoChangedEvent event) {
 		eventBus.fireEvent(event);
+	}
+
+	public static HandlerRegistration addVectorLayerInfoChangedHandler(VectorLayerInfoChangedEvent.Handler handler) {
+		return eventBus.addHandler(VectorLayerInfoChangedEvent.getType(), handler);
+	}
+
+	public static void fireVectorLayerInfoChangedEvent() {
+		eventBus.fireEvent(new VectorLayerInfoChangedEvent());
+	}
+
+	public static SearchAttributeService getSearchAttributeService() {
+		return SearchAttributeServiceImpl.getInstance();
 	}
 
 }

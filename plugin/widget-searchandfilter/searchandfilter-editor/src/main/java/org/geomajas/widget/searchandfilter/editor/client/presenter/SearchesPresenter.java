@@ -11,11 +11,11 @@
 package org.geomajas.widget.searchandfilter.editor.client.presenter;
 
 import com.smartgwt.client.widgets.Canvas;
-import org.geomajas.widget.searchandfilter.editor.client.configuration.SearchConfig;
-import org.geomajas.widget.searchandfilter.editor.client.configuration.SearchesStatus;
+import org.geomajas.widget.searchandfilter.configuration.client.SearchConfig;
+import org.geomajas.widget.searchandfilter.editor.client.SearchesStatus;
 
 /**
- * Interface for the presenter of {@link org.geomajas.widget.searchandfilter.editor.client.configuration.SearchesInfo}.
+ * Interface for the presenter of {@link org.geomajas.widget.searchandfilter.configuration.client.SearchesInfo}.
  *
  * @author Jan Venstermans
  */

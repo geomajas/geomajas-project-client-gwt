@@ -407,11 +407,13 @@ public class LayerConfigurationWindow extends Window {
 				if (editor instanceof VectorLayerWidgetEditor) {
 					final VectorLayerWidgetEditor vectorLayerWidgetEditor =
 							(VectorLayerWidgetEditor) editor;
-					if (layerDto.getLayerModel().getLayerType().equals("Raster")) {
+					if (layerDto.getClientLayerInfo() instanceof ClientVectorLayerInfo) {
+						vectorLayerWidgetEditor.setClientVectorLayerInfo(
+								(ClientVectorLayerInfo)layerDto.getClientLayerInfo());
+					} else {
 						// layer is raster, so don't add this editor as a tab.
 						return;
 					}
-					vectorLayerWidgetEditor.setLayerDto(layerDto);
 				}
 			}
 

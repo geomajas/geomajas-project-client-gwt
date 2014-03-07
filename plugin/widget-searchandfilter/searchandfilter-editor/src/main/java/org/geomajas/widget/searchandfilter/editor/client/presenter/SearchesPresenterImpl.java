@@ -12,7 +12,7 @@ package org.geomajas.widget.searchandfilter.editor.client.presenter;
 
 import com.smartgwt.client.widgets.Canvas;
 import org.geomajas.widget.searchandfilter.editor.client.SearchAndFilterEditor;
-import org.geomajas.widget.searchandfilter.editor.client.configuration.SearchConfig;
+import org.geomajas.widget.searchandfilter.configuration.client.SearchConfig;
 import org.geomajas.widget.searchandfilter.editor.client.event.SearchesInfoChangedEvent;
 
 /**

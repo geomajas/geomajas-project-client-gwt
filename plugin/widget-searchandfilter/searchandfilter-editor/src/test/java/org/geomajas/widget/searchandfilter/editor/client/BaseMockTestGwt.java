@@ -11,17 +11,9 @@
 package org.geomajas.widget.searchandfilter.editor.client;
 
 import com.google.gwtmockito.GwtMockitoTestRunner;
-import org.geomajas.widget.searchandfilter.editor.client.configuration.SearchesStatus;
-import org.geomajas.widget.searchandfilter.editor.client.presenter.SearchAttributePresenter;
-import org.geomajas.widget.searchandfilter.editor.client.presenter.SearchPresenter;
-import org.geomajas.widget.searchandfilter.editor.client.presenter.SearchesPresenter;
-import org.geomajas.widget.searchandfilter.editor.client.view.SearchesViewFactory;
-import org.geomajas.widget.searchandfilter.editor.client.view.ViewManager;
-import org.geomajas.widget.searchandfilter.search.dto.AndCriterion;
-import org.geomajas.widget.searchandfilter.search.dto.AttributeCriterion;
-import org.geomajas.widget.searchandfilter.search.dto.GeometryCriterion;
-import org.geomajas.widget.searchandfilter.search.dto.OrCriterion;
-import org.geomajas.widget.searchandfilter.service.DtoSearchConverterServiceImpl;
+import org.geomajas.widget.searchandfilter.editor.client.view.SearchAttributeView;
+import org.geomajas.widget.searchandfilter.editor.client.view.SearchView;
+import org.geomajas.widget.searchandfilter.editor.client.view.SearchesView;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -35,23 +27,23 @@ import org.mockito.Mock;
  *
  */
 @RunWith(GwtMockitoTestRunner.class)
-public class BaseMockTest {
+public class BaseMockTestGwt {
 
 	@Mock
-	protected SearchesPresenter.View searchesView;
+	protected SearchesView searchesView;
+
+	//@Mock
+	//protected SearchesViewFactory searchesViewFactory;
 
 	@Mock
-	protected SearchesViewFactory searchesViewFactory;
+	protected SearchView searchView;
 
 	@Mock
-	protected SearchPresenter.View searchView;
-
-	@Mock
-	protected SearchAttributePresenter.View searchAttributeView;
+	protected SearchAttributeView searchAttributeView;
 
 	@Before
 	public void setUp() {
-		SearchAndFilterEditor.setViewManager(new ViewManager() {
+		/*SearchAndFilterEditor.setViewManager(new ViewManager() {
 			@Override
 			public SearchesPresenter.View getSearchesView() {
 				return searchesView;
@@ -59,7 +51,7 @@ public class BaseMockTest {
 
 			@Override
 			public SearchesViewFactory getSearchesViewFactory() {
-				return searchesViewFactory;
+				return new SearchesViewFactory();
 			}
 
 			@Override
@@ -71,7 +63,15 @@ public class BaseMockTest {
 			public SearchAttributePresenter.View getSearchAttributeView() {
 				return searchAttributeView;
 			}
-		});
+		});*/
+	}
+
+	@Test
+	public void test1() {
+		int i = 5;
+		i*=2;
+		Assert.assertEquals(10, i);
+
 	}
 
 }

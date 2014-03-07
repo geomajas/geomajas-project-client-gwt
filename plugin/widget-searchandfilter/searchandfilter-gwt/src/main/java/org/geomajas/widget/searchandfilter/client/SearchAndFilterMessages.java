@@ -133,29 +133,4 @@ public interface SearchAndFilterMessages extends Messages {
 	String searchFreeTitle();
 	String searchFreeTooltip();
 
-//	search editor
-	String detailTabSearches();
-
-	String searchesGroupTitle();
-
-	String searchesGridColumnSearchName();
-	String searchesGridColumnSearchNameTooltip();
-	String searchesGridColumnSearchDescription();
-	String searchesGridColumnSearchDescriptionTooltip();
-	String searchesGridColumnActions();
-	String searchesGridColumnActionsTooltip();
-
-	String searchDetailsWindowTitle();
-
-	String searchDetailsWindowFieldTitleLabel();
-	String searchDetailsWindowFieldTitleTooltip();
-	String searchDetailsWindowFieldDescriptionLabel();
-	String searchDetailsWindowFieldDescriptionTooltip();
-	String searchDetailsWindowFieldTitleInWindowLabel();
-	String searchDetailsWindowFieldTitleInWindowTooltip();
-	String searchDetailsWindowFieldIconUrlLabel();
-	String searchDetailsWindowFieldIconUrlTooltip();
-
-	String saveButtonText();
-	String cancelButtonText();
 }

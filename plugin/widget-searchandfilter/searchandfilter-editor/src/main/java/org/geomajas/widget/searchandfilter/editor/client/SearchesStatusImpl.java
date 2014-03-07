@@ -8,12 +8,18 @@
  * by the Geomajas Contributors License Agreement. For full licensing
  * details, see LICENSE.txt in the project root.
  */
-package org.geomajas.widget.searchandfilter.editor.client.configuration;
+package org.geomajas.widget.searchandfilter.editor.client;
 
-import org.geomajas.plugin.deskmanager.domain.dto.LayerDto;
-import org.geomajas.plugin.deskmanager.domain.dto.LayerModelDto;
-import org.geomajas.widget.searchandfilter.editor.client.SearchAndFilterEditor;
+import org.geomajas.configuration.PrimitiveAttributeInfo;
+import org.geomajas.configuration.client.ClientVectorLayerInfo;
+import org.geomajas.widget.searchandfilter.configuration.client.SearchAttribute;
+import org.geomajas.widget.searchandfilter.configuration.client.SearchConfig;
+import org.geomajas.widget.searchandfilter.configuration.client.SearchesInfo;
 import org.geomajas.widget.searchandfilter.editor.client.event.SearchesInfoChangedEvent;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Singleton implementation of {@link SearchesStatus}.
@@ -26,7 +32,7 @@ public class SearchesStatusImpl implements SearchesStatus {
 
 	private boolean disabled;
 
-	private LayerDto layerDto;
+	private ClientVectorLayerInfo clientVectorLayerInfo;
 
 	private SearchesInfo searchesInfo;
 
@@ -96,13 +102,14 @@ public class SearchesStatusImpl implements SearchesStatus {
 	}
 
 	@Override
-	public LayerDto getLayerDto() {
-		return layerDto;
+	public ClientVectorLayerInfo getClientVectorLayerInfo() {
+		return clientVectorLayerInfo;
 	}
 
 	@Override
-	public void setLayerDto(LayerDto layerDto) {
-		this.layerDto = layerDto;
+	public void setClientVectorLayerInfo(ClientVectorLayerInfo clientVectorLayerInfo) {
+		this.clientVectorLayerInfo = clientVectorLayerInfo;
+		SearchAndFilterEditor.fireVectorLayerInfoChangedEvent();
 	}
 
 	@Override
@@ -127,6 +134,16 @@ public class SearchesStatusImpl implements SearchesStatus {
 			searchConfig.getAttributes().add(searchAttribute);
 			SearchAndFilterEditor.fireSearchesInfoChangedEvent(new SearchesInfoChangedEvent());
 		}
+	}
+
+	@Override
+	public void saveSearchAttribute(SearchAttribute searchAttribute, SearchConfig searchConfig, boolean newAttribute) {
+		if (newAttribute) {
+			searchConfig.getAttributes().add(searchAttribute);
+		} else {
+			// TODO update
+		}
+		SearchAndFilterEditor.fireSearchesInfoChangedEvent(new SearchesInfoChangedEvent());
 	}
 
 	@Override

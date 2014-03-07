@@ -36,11 +36,10 @@ import org.geomajas.gwt.client.util.WidgetLayout;
 import org.geomajas.plugin.deskmanager.client.gwt.common.FileUploadForm;
 import org.geomajas.plugin.deskmanager.client.gwt.common.impl.DeskmanagerIcon;
 import org.geomajas.plugin.deskmanager.domain.dto.LayerModelDto;
-import org.geomajas.widget.searchandfilter.client.SearchAndFilterMessages;
-import org.geomajas.widget.searchandfilter.editor.client.SearchAttributeWindow;
-import org.geomajas.widget.searchandfilter.editor.client.configuration.SearchAttribute;
-import org.geomajas.widget.searchandfilter.editor.client.configuration.SearchConfig;
-import org.geomajas.widget.searchandfilter.editor.client.presenter.SavePresenter;
+import org.geomajas.widget.searchandfilter.configuration.client.SearchAttribute;
+import org.geomajas.widget.searchandfilter.configuration.client.SearchConfig;
+import org.geomajas.widget.searchandfilter.editor.client.SearchAndFilterEditor;
+import org.geomajas.widget.searchandfilter.editor.client.i18n.SearchAndFilterEditorMessages;
 import org.geomajas.widget.searchandfilter.editor.client.presenter.SearchPresenter;
 
 /**
@@ -50,8 +49,8 @@ import org.geomajas.widget.searchandfilter.editor.client.presenter.SearchPresent
  */
 public class SearchView implements SearchPresenter.View {
 
-	private static final SearchAndFilterMessages MESSAGES =
-			GWT.create(SearchAndFilterMessages.class);
+	private static final SearchAndFilterEditorMessages MESSAGES =
+			GWT.create(SearchAndFilterEditorMessages.class);
 
 	private static final int FORMITEM_WIDTH = 300;
 
@@ -314,7 +313,7 @@ public class SearchView implements SearchPresenter.View {
 			actionsFld.setCanEdit(false);
 			actionsFld.setAlign(Alignment.CENTER);
 
-			setFields(attributeNameFld, labelFld, operationFld, inputTypeFld);
+			setFields(attributeNameFld, labelFld, operationFld, inputTypeFld, actionsFld);
 
 			addRecordDoubleClickHandler(new RecordDoubleClickHandler() {
 
@@ -352,26 +351,14 @@ public class SearchView implements SearchPresenter.View {
 
 					public void onClick(ClickEvent event) {
 
-						configureSearch(rollOverRecord);
+						SearchAttribute searchAttribute = (SearchAttribute)
+								rollOverRecord.getAttributeAsObject(FLD_OBJECT);
+						handler.onEdit(searchAttribute);
 					}
 				});
 				rollOverCanvas.addMember(editProps);
 			}
 			return rollOverCanvas;
-		}
-
-		private void configureSearch(final ListGridRecord record) {
-			final SearchAttribute searchAttribute = (SearchAttribute) record.getAttributeAsObject(FLD_OBJECT);
-			SearchAttributeWindow window = new SearchAttributeWindow(layerModelDto, searchAttribute, new BooleanCallback() {
-
-				public void execute(Boolean value) {
-					if (value) {
-						update();
-						updateData(record);
-					}
-				}
-			});
-			window.show();
 		}
 
 		public void fillGrid(SearchConfig searchConfig) {
@@ -387,10 +374,12 @@ public class SearchView implements SearchPresenter.View {
 
 		public void addRow(SearchAttribute attribute) {
 			ListGridRecord record = new ListGridRecord();
-			record.setAttribute(FLD_ATTRIBUTE_NAME, attribute.getAttribute());
+			record.setAttribute(FLD_ATTRIBUTE_NAME, attribute.getAttributeName());
 			record.setAttribute(FLD_LABEL, attribute.getLabel());
-			record.setAttribute(FLD_OPERATION, attribute.getOperation());
-			record.setAttribute(FLD_INPUT_TYPE, attribute.getInputType());
+			record.setAttribute(FLD_OPERATION, SearchAndFilterEditor.getSearchAttributeService().
+					getOperationStringRepresentation(attribute.getAttributeType(), attribute.getOperation()));
+			record.setAttribute(FLD_INPUT_TYPE, SearchAndFilterEditor.getSearchAttributeService().
+					getInputTypeStringRepresentation(attribute.getAttributeType(), attribute.getInputType()));
 			record.setAttribute(FLD_OBJECT, attribute);
 			addData(record);
 		}

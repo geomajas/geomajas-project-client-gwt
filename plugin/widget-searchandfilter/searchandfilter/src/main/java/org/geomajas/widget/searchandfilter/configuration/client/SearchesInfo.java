@@ -8,10 +8,9 @@
  * by the Geomajas Contributors License Agreement. For full licensing
  * details, see LICENSE.txt in the project root.
  */
-package org.geomajas.widget.searchandfilter.editor.client.configuration;
+package org.geomajas.widget.searchandfilter.configuration.client;
 
 import org.geomajas.configuration.client.ClientWidgetInfo;
-import org.geomajas.widget.searchandfilter.editor.client.configuration.SearchConfig;
 
 import java.util.ArrayList;
 import java.util.List;

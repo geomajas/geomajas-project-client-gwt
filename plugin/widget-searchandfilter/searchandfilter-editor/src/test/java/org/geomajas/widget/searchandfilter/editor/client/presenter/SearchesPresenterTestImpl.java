@@ -10,8 +10,8 @@
  */
 package org.geomajas.widget.searchandfilter.editor.client.presenter;
 
-import org.geomajas.widget.searchandfilter.editor.client.BaseMockTest;
-import org.geomajas.widget.searchandfilter.editor.client.configuration.SearchConfig;
+import org.geomajas.widget.searchandfilter.editor.client.BaseMockitoTestImpl;
+import org.geomajas.widget.searchandfilter.configuration.client.SearchConfig;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -24,7 +24,7 @@ import static org.mockito.Mockito.any;
  * @author Jan Venstermans
  *
  */
-public class SearchesPresenterTest extends BaseMockTest {
+public class SearchesPresenterTestImpl extends BaseMockitoTestImpl{
 
 	private SearchesPresenterImpl searchesPresenter;
 

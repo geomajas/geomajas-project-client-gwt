@@ -13,31 +13,31 @@ package org.geomajas.widget.searchandfilter.editor.client.event;
 import com.google.web.bindery.event.shared.Event;
 
 /**
- * Event to indicate a new search has been created.
+ * Event to indicate a change in {@link ClientVectorLayerInfo}.
  * 
  * @author Jan Venstermans
  * 
  */
-public class SearchesInfoChangedEvent extends Event<SearchesInfoChangedEvent.Handler> {
+public class VectorLayerInfoChangedEvent extends Event<VectorLayerInfoChangedEvent.Handler> {
 
 	/**
 	 * Handler for this event.
 	 *
-	 * @author Jan De Moerloose
+	 * @author Jan Venstermans
 	 *
 	 */
 	public interface Handler {
 
 		/**
-		 * Notifies tab selection.
+		 * Notifies change in {@link ClientVectorLayerInfo}.
 		 *
 		 * @param event the event
 		 */
-		void onSearchInfoChanged(SearchesInfoChangedEvent event);
+		void onVectorLayerInfoChanged(VectorLayerInfoChangedEvent event);
 
 	}
 
-	public SearchesInfoChangedEvent() {
+	public VectorLayerInfoChangedEvent() {
 	}
 	
 	private static final Type<Handler> TYPE = new Type<Handler>();
@@ -53,7 +53,7 @@ public class SearchesInfoChangedEvent extends Event<SearchesInfoChangedEvent.Han
 
 	@Override
 	protected void dispatch(Handler handler) {
-		handler.onSearchInfoChanged(this);
+		handler.onVectorLayerInfoChanged(this);
 	}
 
 	@Override
@@ -68,7 +68,7 @@ public class SearchesInfoChangedEvent extends Event<SearchesInfoChangedEvent.Han
 
 	@Override
 	public String toString() {
-		return "SearchesInfoChangedEvent[" + "]";
+		return "VectorLayerInfoChangedEvent[" + "]";
 	}
 
 }

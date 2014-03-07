@@ -11,16 +11,11 @@
 package org.geomajas.widget.searchandfilter.editor.client;
 
 import com.smartgwt.client.widgets.Canvas;
+import org.geomajas.configuration.client.ClientVectorLayerInfo;
 import org.geomajas.configuration.client.ClientWidgetInfo;
-import org.geomajas.plugin.deskmanager.client.gwt.manager.editor.LayerWidgetEditor;
 import org.geomajas.plugin.deskmanager.client.gwt.manager.editor.VectorLayerWidgetEditor;
-import org.geomajas.plugin.deskmanager.domain.dto.LayerDto;
 import org.geomajas.plugin.deskmanager.domain.dto.LayerModelDto;
-import org.geomajas.widget.searchandfilter.editor.client.configuration.SearchesInfo;
-import org.geomajas.widget.searchandfilter.editor.client.configuration.SearchesStatus;
-import org.geomajas.widget.searchandfilter.editor.client.configuration.SearchesStatusImpl;
-import org.geomajas.widget.searchandfilter.editor.client.presenter.SearchPresenter;
-import org.geomajas.widget.searchandfilter.editor.client.presenter.SearchPresenterImpl;
+import org.geomajas.widget.searchandfilter.configuration.client.SearchesInfo;
 import org.geomajas.widget.searchandfilter.editor.client.presenter.SearchesPresenter;
 import org.geomajas.widget.searchandfilter.editor.client.presenter.SearchesPresenterImpl;
 
@@ -74,8 +69,9 @@ public class SearchConfigurationEditor implements VectorLayerWidgetEditor {
 		// Do nothing
 	}
 
+
 	@Override
-	public void setLayerDto(LayerDto layerDto) {
-		status.setLayerDto(layerDto);
+	public void setClientVectorLayerInfo(ClientVectorLayerInfo clientVectorLayerInfo) {
+		status.setClientVectorLayerInfo(clientVectorLayerInfo);
 	}
 }
