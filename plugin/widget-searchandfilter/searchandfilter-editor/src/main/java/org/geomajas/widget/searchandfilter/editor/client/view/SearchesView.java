@@ -28,7 +28,6 @@ import com.smartgwt.client.widgets.layout.VLayout;
 import org.geomajas.gwt.client.util.WidgetLayout;
 import org.geomajas.plugin.deskmanager.client.gwt.common.impl.DeskmanagerIcon;
 import org.geomajas.widget.searchandfilter.configuration.client.SearchConfig;
-import org.geomajas.widget.searchandfilter.editor.client.SearchesStatus;
 import org.geomajas.widget.searchandfilter.editor.client.i18n.SearchAndFilterEditorMessages;
 import org.geomajas.widget.searchandfilter.editor.client.presenter.SearchesPresenter;
 
@@ -42,7 +41,8 @@ import java.util.List;
  */
 public class SearchesView implements SearchesPresenter.View {
 
-	private final SearchAndFilterEditorMessages MESSAGES = GWT.create(SearchAndFilterEditorMessages.class);
+	private final SearchAndFilterEditorMessages messages =
+			GWT.create(SearchAndFilterEditorMessages.class);
 
 	private SearchListGrid grid;
 
@@ -53,7 +53,7 @@ public class SearchesView implements SearchesPresenter.View {
 	public SearchesView() {
 		layout = new VLayout(5);
 		layout.setIsGroup(true);
-		layout.setGroupTitle(MESSAGES.searchesGroupTitle());
+		layout.setGroupTitle(messages.searchesGroupTitle());
 		layout.setOverflow(Overflow.AUTO);
 
 		// the grid
@@ -72,7 +72,7 @@ public class SearchesView implements SearchesPresenter.View {
 		addImg.setSrc(WidgetLayout.iconAdd);
 		addImg.setShowDown(false);
 		addImg.setShowRollOver(false);
-		addImg.setPrompt("tooltip to do");
+		addImg.setPrompt(messages.searchesAddSearchConfigButtonTooltip());
 		addImg.setHeight(16);
 		addImg.setWidth(16);
 		addImg.addClickHandler(new ClickHandler() {
@@ -137,20 +137,18 @@ public class SearchesView implements SearchesPresenter.View {
 			setShowRecordComponentsByCell(true);
 
 		/*columns*/
-			ListGridField nameFld = new ListGridField(FLD_NAME, MESSAGES.searchesGridColumnSearchName());
+			ListGridField nameFld = new ListGridField(FLD_NAME, messages.searchesGridColumnSearchName());
 			nameFld.setWidth(70);
-			nameFld.setPrompt(MESSAGES.searchesGridColumnSearchNameTooltip());
 
-			ListGridField publicFld = new ListGridField(FLD_DESCRIPTION, MESSAGES.searchesGridColumnSearchDescription());
+			ListGridField publicFld = new ListGridField(
+					FLD_DESCRIPTION, messages.searchesGridColumnSearchDescription());
 			publicFld.setWidth("*");
-			publicFld.setPrompt(MESSAGES.searchesGridColumnSearchDescriptionTooltip());
 
-			ListGridField actionsFld = new ListGridField(FLD_ACTIONS, MESSAGES.searchesGridColumnActions());
+			ListGridField actionsFld = new ListGridField(FLD_ACTIONS, messages.searchesGridColumnActions());
 			actionsFld.setType(ListGridFieldType.ICON);
 			actionsFld.setWidth(FLD_ACTIONS_WIDTH);
 			actionsFld.setCanEdit(false);
 			actionsFld.setAlign(Alignment.CENTER);
-			publicFld.setPrompt(MESSAGES.searchesGridColumnActionsTooltip());
 
 			setFields(nameFld, publicFld, actionsFld);
 		}
@@ -171,7 +169,7 @@ public class SearchesView implements SearchesPresenter.View {
 				editProps.setShowRollOver(false);
 				editProps.setLayoutAlign(Alignment.CENTER);
 				editProps.setSrc(DeskmanagerIcon.IMG_SRC_COG);
-				editProps.setPrompt("jabada");
+				editProps.setPrompt(messages.searchesGridColumnActionsTooltip());
 				editProps.setShowDisabledIcon(false);
 				editProps.setHeight(16);
 				editProps.setWidth(16);

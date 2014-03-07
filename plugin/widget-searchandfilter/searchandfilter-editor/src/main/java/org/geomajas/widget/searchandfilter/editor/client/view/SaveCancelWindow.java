@@ -30,7 +30,7 @@ import org.geomajas.widget.searchandfilter.editor.client.presenter.EditorPresent
  */
 public class SaveCancelWindow extends Window implements EditorPresenter.SaveView {
 
-	private final SearchAndFilterEditorMessages MESSAGES =
+	private final SearchAndFilterEditorMessages messages =
 			GWT.create(SearchAndFilterEditorMessages.class);
 
 	private Canvas content;
@@ -64,7 +64,6 @@ public class SaveCancelWindow extends Window implements EditorPresenter.SaveView
 		setKeepInParentRect(true);
 		setOverflow(Overflow.HIDDEN);
 		setAutoCenter(true);
-		setTitle(MESSAGES.searchDetailsWindowTitle());
 		setShowCloseButton(false);
 		setShowMinimizeButton(false);
 		setShowMaximizeButton(false);
@@ -74,7 +73,7 @@ public class SaveCancelWindow extends Window implements EditorPresenter.SaveView
 		// buttons //
 
 		HLayout buttons = new HLayout(10);
-		IButton save = new IButton(MESSAGES.saveButtonText());
+		IButton save = new IButton(messages.saveButtonText());
 		save.setIcon(WidgetLayout.iconSave);
 		save.addClickHandler(new ClickHandler() {
 
@@ -82,7 +81,7 @@ public class SaveCancelWindow extends Window implements EditorPresenter.SaveView
 				saved();
 			}
 		});
-		IButton cancel = new IButton(MESSAGES.cancelButtonText());
+		IButton cancel = new IButton(messages.cancelButtonText());
 		cancel.setIcon(WidgetLayout.iconCancel);
 		cancel.addClickHandler(new ClickHandler() {
 

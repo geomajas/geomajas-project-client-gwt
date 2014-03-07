@@ -27,9 +27,9 @@ import org.mockito.Mock;
  *
  */
 @RunWith(GwtMockitoTestRunner.class)
-public class BaseMockTestGwt {
+public class BaseGwtMockitoTest {
 
-	@Mock
+	/*@Mock
 	protected SearchesView searchesView;
 
 	//@Mock
@@ -64,13 +64,12 @@ public class BaseMockTestGwt {
 				return searchAttributeView;
 			}
 		});*/
-	}
+	//}*/
+
 
 	@Test
 	public void test1() {
-		int i = 5;
-		i*=2;
-		Assert.assertEquals(10, i);
+		//dummy test for the setUp before method
 
 	}
 

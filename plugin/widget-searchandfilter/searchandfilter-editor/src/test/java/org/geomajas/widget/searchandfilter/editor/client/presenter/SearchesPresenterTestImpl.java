@@ -10,8 +10,7 @@
  */
 package org.geomajas.widget.searchandfilter.editor.client.presenter;
 
-import org.geomajas.widget.searchandfilter.editor.client.BaseMockitoTestImpl;
-import org.geomajas.widget.searchandfilter.configuration.client.SearchConfig;
+import org.geomajas.widget.searchandfilter.editor.client.BasePowerMockitoTest;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -24,7 +23,7 @@ import static org.mockito.Mockito.any;
  * @author Jan Venstermans
  *
  */
-public class SearchesPresenterTestImpl extends BaseMockitoTestImpl{
+public class SearchesPresenterTestImpl extends BasePowerMockitoTest {
 
 	private SearchesPresenterImpl searchesPresenter;
 
@@ -36,7 +35,7 @@ public class SearchesPresenterTestImpl extends BaseMockitoTestImpl{
 
 	@Test
 	public void constructor() {
-		verify(searchesView).setHandler(searchesPresenter);
+		verify(searchesViewMock).setHandler(searchesPresenter);
 	}
 
 	@Test

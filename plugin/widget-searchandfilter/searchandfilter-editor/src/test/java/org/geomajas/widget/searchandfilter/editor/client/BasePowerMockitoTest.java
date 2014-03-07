@@ -10,7 +10,6 @@
  */
 package org.geomajas.widget.searchandfilter.editor.client;
 
-import com.google.gwtmockito.GwtMockitoTestRunner;
 import org.geomajas.widget.searchandfilter.editor.client.presenter.SearchAttributePresenter;
 import org.geomajas.widget.searchandfilter.editor.client.presenter.SearchPresenter;
 import org.geomajas.widget.searchandfilter.editor.client.presenter.SearchesPresenter;
@@ -19,12 +18,13 @@ import org.geomajas.widget.searchandfilter.editor.client.view.SearchView;
 import org.geomajas.widget.searchandfilter.editor.client.view.SearchesView;
 import org.geomajas.widget.searchandfilter.editor.client.view.SearchesViewFactory;
 import org.geomajas.widget.searchandfilter.editor.client.view.ViewManager;
+import org.geomajas.widget.searchandfilter.editor.client.view.ViewManagerImpl;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mock;
 import org.powermock.api.mockito.PowerMockito;
+import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
 import static org.mockito.Mockito.mock;
@@ -37,55 +37,53 @@ import static org.mockito.Mockito.when;
  *
  */
 @RunWith(PowerMockRunner.class)
-public class BaseMockitoTestImpl {
+@PrepareForTest({ViewManagerImpl.class, SearchesViewFactory.class, SearchAndFilterEditor.class })
+public class BasePowerMockitoTest {
 
-	//protected SearchesPresenter.View searchesView = mock(SearchesPresenter.View.class);
-	protected SearchesView searchesView = mock(SearchesView.class);
+	protected SearchesView searchesViewMock;
 
-	protected SearchesViewFactory searchesViewFactory = mock(SearchesViewFactory.class);;
+	protected SearchView searchViewMock;
 
-	protected SearchPresenter.View searchView = mock(SearchPresenter.View.class);
+	protected SearchAttributeView searchAttributeViewMock;
 
-	protected SearchAttributePresenter.View searchAttributeView = mock(SearchAttributePresenter.View.class);
+	protected SearchAttributeService searchAttributeServiceMock;
 
 	@Before
-	public void setUp() {
-		try {
-			PowerMockito.whenNew(SearchesView.class).withNoArguments().thenReturn(searchesView);
-			//PowerMockito.whenNew(SearchesPresenter.View.class).withNoArguments().thenReturn(searchesView);
-		} catch (Exception e) {
-
-		}
+	public void setUp() throws Exception {
+		searchesViewMock = mock(SearchesView.class);
+		searchViewMock = mock(SearchView.class);
+		searchAttributeViewMock = mock(SearchAttributeView.class);
+		searchAttributeServiceMock = mock(SearchAttributeService.class);
+		PowerMockito.whenNew(SearchesView.class).withNoArguments().thenReturn(searchesViewMock);
+		PowerMockito.whenNew(SearchView.class).withNoArguments().thenReturn(searchViewMock);
+		PowerMockito.whenNew(SearchAttributeView.class).withNoArguments().thenReturn(searchAttributeViewMock);
+		//PowerMockito.whenNew(SearchAttributeServiceImpl.class).withNoArguments().thenReturn(searchAttributeServiceMock);
 		SearchAndFilterEditor.setViewManager(new ViewManager() {
 			@Override
 			public SearchesPresenter.View getSearchesView() {
-				return searchesView;
+				return searchesViewMock;
 			}
 
 			@Override
 			public SearchesViewFactory getSearchesViewFactory() {
-				return searchesViewFactory;
+				return new SearchesViewFactory();
 			}
 
 			@Override
 			public SearchPresenter.View getSearchView() {
-				return searchView;
+				return searchViewMock;
 			}
 
 			@Override
 			public SearchAttributePresenter.View getSearchAttributeView() {
-				return searchAttributeView;
+				return searchAttributeViewMock;
 			}
 		});
-		when(searchesViewFactory.createSearchesView()).thenReturn(searchesView);
 	}
 
 	@Test
 	public void test1() {
-		int i = 5;
-		i*=2;
-		Assert.assertEquals(10, i);
-
+		//dummy test for the setUp before method
 	}
 
 }

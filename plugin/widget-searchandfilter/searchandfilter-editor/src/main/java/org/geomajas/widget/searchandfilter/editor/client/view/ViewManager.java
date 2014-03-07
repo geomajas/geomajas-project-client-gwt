@@ -15,7 +15,7 @@ import org.geomajas.widget.searchandfilter.editor.client.presenter.SearchPresent
 import org.geomajas.widget.searchandfilter.editor.client.presenter.SearchesPresenter;
 
 /**
- * Interface for manager that will provide the views to the presenters.
+ * Manager of views.
  *
  * @author Jan Venstermans
  */

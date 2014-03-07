@@ -29,7 +29,7 @@ import java.util.Map;
  */
 public final class SearchAttributeServiceImpl implements SearchAttributeService {
 
-	private final SearchAndFilterEditorMessages MESSAGES =
+	private final SearchAndFilterEditorMessages messages =
 			GWT.create(SearchAndFilterEditorMessages.class);
 
 	private static SearchAttributeService instance;
@@ -53,21 +53,21 @@ public final class SearchAttributeServiceImpl implements SearchAttributeService 
 			case Integer:
 				switch (operation) {
 					case EqualTo:
-						return MESSAGES.searchAttributeOperationEqualToInteger();
+						return messages.searchAttributeOperationEqualToInteger();
 					case LargerThan:
-						return MESSAGES.searchAttributeOperationLargerThanInteger();
+						return messages.searchAttributeOperationLargerThanInteger();
 					case SmallerThan:
-						return MESSAGES.searchAttributeOperationSmallerThanInteger();
+						return messages.searchAttributeOperationSmallerThanInteger();
 				}
 				break;
 			case String:
 				switch (operation) {
 					case EqualTo:
-						return MESSAGES.searchAttributeOperationEqualToString();
+						return messages.searchAttributeOperationEqualToString();
 					case LargerThan:
-						return MESSAGES.searchAttributeOperationLargerThanString();
+						return messages.searchAttributeOperationLargerThanString();
 					case SmallerThan:
-						return MESSAGES.searchAttributeOperationSmallerThanString();
+						return messages.searchAttributeOperationSmallerThanString();
 				}
 				break;
 			}
@@ -81,11 +81,11 @@ public final class SearchAttributeServiceImpl implements SearchAttributeService 
 		if (inputType != null) {
 			switch (inputType) {
 				case DropDown:
-					return MESSAGES.searchAttributeInputTypeDropDownToString();
+					return messages.searchAttributeInputTypeDropDownToString();
 				case FreeNr:
-					return MESSAGES.searchAttributeInputTypeFreeNrToString();
+					return messages.searchAttributeInputTypeFreeNrToString();
 				case FreeText:
-					return MESSAGES.searchAttributeInputTypeFreeTextToString();
+					return messages.searchAttributeInputTypeFreeTextToString();
 			}
 		}
 		return null;
@@ -95,7 +95,8 @@ public final class SearchAttributeServiceImpl implements SearchAttributeService 
 	public Map<org.geomajas.configuration.PrimitiveAttributeInfo, SearchAttribute.AttributeType>
 	getPrimitiveAttributesMap() {
 		Map<org.geomajas.configuration.PrimitiveAttributeInfo, SearchAttribute.AttributeType>
-				attributesMap = new HashMap<org.geomajas.configuration.PrimitiveAttributeInfo, SearchAttribute.AttributeType>();
+				attributesMap =
+				new HashMap<org.geomajas.configuration.PrimitiveAttributeInfo, SearchAttribute.AttributeType>();
 		ClientVectorLayerInfo clientVectorLayerInfo =
 				SearchAndFilterEditor.getSearchesStatus().getClientVectorLayerInfo();
 		if (clientVectorLayerInfo != null) {
@@ -125,7 +126,8 @@ public final class SearchAttributeServiceImpl implements SearchAttributeService 
 	@Override
 	public LinkedHashMap<SearchAttribute.Operation, String> getOperationsValueMap(
 			SearchAttribute.AttributeType attributeType) {
-		LinkedHashMap<SearchAttribute.Operation, String> result = new LinkedHashMap<SearchAttribute.Operation, String>();
+		LinkedHashMap<SearchAttribute.Operation, String> result
+				= new LinkedHashMap<SearchAttribute.Operation, String>();
 		for (SearchAttribute.Operation operation : attributeType.getOperations()) {
 			result.put(operation, SearchAndFilterEditor.getSearchAttributeService().
 					getOperationStringRepresentation(attributeType, operation));
@@ -136,7 +138,8 @@ public final class SearchAttributeServiceImpl implements SearchAttributeService 
 	@Override
 	public LinkedHashMap<SearchAttribute.InputType, String> getInputTypeMap(
 			SearchAttribute.AttributeType attributeType) {
-		LinkedHashMap<SearchAttribute.InputType, String> result = new LinkedHashMap<SearchAttribute.InputType, String>();
+		LinkedHashMap<SearchAttribute.InputType, String> result
+				= new LinkedHashMap<SearchAttribute.InputType, String>();
 		for (SearchAttribute.InputType type : attributeType.getInputTypes()) {
 			result.put(type, SearchAndFilterEditor.getSearchAttributeService().
 					getInputTypeStringRepresentation(attributeType, type));

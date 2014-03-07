@@ -11,6 +11,7 @@
 package org.geomajas.widget.searchandfilter.configuration.client;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -33,7 +34,7 @@ public class SearchAttribute implements Serializable {
 
 	private InputType inputType;
 
-	private List<String> inputTypeValues;
+	private List<String> inputTypeDropDownValues = new ArrayList<String>();
 
 	/**
 	 * Datatype of attribute. This type will know what
@@ -126,11 +127,11 @@ public class SearchAttribute implements Serializable {
 		this.inputType = inputType;
 	}
 
-	public List<String> getInputTypeValues() {
-		return inputTypeValues;
+	public List<String> getInputTypeDropDownValues() {
+		return inputTypeDropDownValues;
 	}
 
-	public void setInputTypeValues(List<String> inputTypeValues) {
-		this.inputTypeValues = inputTypeValues;
+	public void setInputTypeDropDownValues(List<String> inputTypeDropDownValues) {
+		this.inputTypeDropDownValues = inputTypeDropDownValues;
 	}
 }

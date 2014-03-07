@@ -26,7 +26,7 @@ public interface SearchAttributePresenter {
 	/**
 	 * View interface for {@link SearchAttributePresenter}.
 	 */
-	interface View extends EditorPresenter.FormView, EditorPresenter.WindowView {
+	interface View extends EditorPresenter.FormView, EditorPresenter.WindowView, EditorPresenter.GridView<String> {
 
 		void setHandler(Handler handler);
 
@@ -55,6 +55,7 @@ public interface SearchAttributePresenter {
 		void setOperationMap(LinkedHashMap<SearchAttribute.Operation, String> operationMap);
 		void setInputTypeMap(LinkedHashMap<SearchAttribute.InputType, String> inputTypeMap);
 		void setFieldsEnabled(boolean enabled);
+		void setInputTypeDropDown(boolean inputDropDown);
 	}
 
 	/**
@@ -62,6 +63,8 @@ public interface SearchAttributePresenter {
 	 */
 	interface Handler extends EditorPresenter.SaveHandler {
 		void onSelectAttributeName(String attributeName);
+		void onChangeSelectInputType();
+		void onAddDropDownValue();
 	}
 
 	void updateView();

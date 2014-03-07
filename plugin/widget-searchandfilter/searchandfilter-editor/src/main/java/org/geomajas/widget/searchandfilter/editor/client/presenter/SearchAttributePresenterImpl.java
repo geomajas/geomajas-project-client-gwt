@@ -16,6 +16,7 @@ import org.geomajas.widget.searchandfilter.configuration.client.SearchAttribute;
 import org.geomajas.widget.searchandfilter.configuration.client.SearchConfig;
 import org.geomajas.widget.searchandfilter.editor.client.event.VectorLayerInfoChangedEvent;
 
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -88,7 +89,8 @@ public class SearchAttributePresenterImpl implements SearchAttributePresenter,
 	public void onSave() {
 		if (view.validateForm()) {
 			updateSelectedSearchAttributed();
-			SearchAndFilterEditor.getSearchesStatus().saveSearchAttribute(searchAttribute, parentSearch, newSearchAttribute);
+			SearchAndFilterEditor.getSearchesStatus().
+					saveSearchAttribute(searchAttribute, parentSearch, newSearchAttribute);
 			emptySelectedAttribute();
 			view.hide();
 		}
@@ -120,6 +122,24 @@ public class SearchAttributePresenterImpl implements SearchAttributePresenter,
 			searchAttribute.setAttributeType(selectedAttributeType);
 			updateView();
 		}
+	}
+
+	@Override
+	public void onChangeSelectInputType() {
+		boolean dropdownType = SearchAttribute.InputType.DropDown.equals(view.getSelectedInputType());
+		//view.setInputTypeDropDown(dropdownType);
+		if(!dropdownType) {
+			searchAttribute.getInputTypeDropDownValues().clear();
+		}
+	}
+
+	@Override
+	public void onAddDropDownValue() {
+		if (searchAttribute.getInputTypeDropDownValues() == null) {
+			searchAttribute.setInputTypeDropDownValues(new ArrayList<String>());
+		}
+		searchAttribute.getInputTypeDropDownValues().add("");
+		view.updateGrid(searchAttribute.getInputTypeDropDownValues());
 	}
 
 	private PrimitiveAttributeInfo getPrimitiveAttributeFromName(String name) {
@@ -154,6 +174,8 @@ public class SearchAttributePresenterImpl implements SearchAttributePresenter,
 			view.setLabelText(searchAttribute.getLabel());
 			view.setSelectedOperation(searchAttribute.getOperation());
 			view.setSelectedInputType(searchAttribute.getInputType());
+			onChangeSelectInputType();
+			view.updateGrid(searchAttribute.getInputTypeDropDownValues());
 		}
 	}
 
@@ -164,7 +186,7 @@ public class SearchAttributePresenterImpl implements SearchAttributePresenter,
 			searchAttribute.setLabel(null);
 			searchAttribute.setOperation(null);
 			searchAttribute.setInputType(null);
-			searchAttribute.setInputTypeValues(null);
+			searchAttribute.getInputTypeDropDownValues().clear();
 		}
 	}
 
@@ -182,6 +204,7 @@ public class SearchAttributePresenterImpl implements SearchAttributePresenter,
 					SearchAndFilterEditor.getSearchAttributeService().getInputTypeMap(selectedAttributeType);
 			view.setInputTypeMap(inputTypeMap);
 			view.setSelectedInputType(inputTypeMap.keySet().iterator().next());
+			onChangeSelectInputType();
 		}
 	}
 

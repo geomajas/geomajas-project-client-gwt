@@ -22,35 +22,43 @@ import com.google.gwt.i18n.client.Messages;
  */
 public interface SearchAndFilterEditorMessages extends Messages {
 
+	/* General */
 	String detailTabSearches();
 	String searchesGroupTitle();
+	String saveButtonText();
+	String cancelButtonText();
 
+	/* Searches panel */
 	String searchesGridColumnSearchName();
-	String searchesGridColumnSearchNameTooltip();
 	String searchesGridColumnSearchDescription();
-	String searchesGridColumnSearchDescriptionTooltip();
 	String searchesGridColumnActions();
 	String searchesGridColumnActionsTooltip();
+	String searchesAddSearchConfigButtonTooltip();
 
+	/* Search window */
 	String searchDetailsWindowTitle();
 	String searchDetailsWindowFieldTitleLabel();
-	String searchDetailsWindowFieldTitleTooltip();
 	String searchDetailsWindowFieldDescriptionLabel();
-	String searchDetailsWindowFieldDescriptionTooltip();
 	String searchDetailsWindowFieldTitleInWindowLabel();
-	String searchDetailsWindowFieldTitleInWindowTooltip();
 	String searchDetailsWindowFieldIconUrlLabel();
-	String searchDetailsWindowFieldIconUrlTooltip();
+	String searchDetailsWindowGridColumnAttributeName();
+	String searchDetailsWindowGridColumnLabel();
+	String searchDetailsWindowGridColumnOperation();
+	String searchDetailsWindowGridColumnInputType();
+	String searchDetailsWindowGridColumnActions();
+	String searchDetailsWindowGridColumnActionsTooltip();
+	String searchDetailsWindowAddSearchAttributeButtonTooltip();
 
+	/* SearchAttribute window */
+	String searchAttributeWindowTitle();
 	String searchAttributeWindowAttributeNameLabel();
 	String searchAttributeWindowLabelLabel();
 	String searchAttributeWindowOperationLabel();
 	String searchAttributeWindowInputTypeLabel();
+	String searchAttributeWindowInputDropDownButtonTooltip();
+	String searchAttributeWindowGridValue();
 
-	String saveButtonText();
-	String cancelButtonText();
-
-	/* SearchAttribute */
+	/* SearchAttribute Service */
 	String searchAttributeOperationEqualToString();
 	String searchAttributeOperationEqualToInteger();
 	String searchAttributeOperationSmallerThanString();
@@ -61,4 +69,5 @@ public interface SearchAndFilterEditorMessages extends Messages {
 	String searchAttributeInputTypeFreeTextToString();
 	String searchAttributeInputTypeFreeNrToString();
 	String searchAttributeInputTypeDropDownToString();
+
 }

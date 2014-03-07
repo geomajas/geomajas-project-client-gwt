@@ -15,7 +15,6 @@ import com.smartgwt.client.types.Alignment;
 import com.smartgwt.client.types.ListGridEditEvent;
 import com.smartgwt.client.types.ListGridFieldType;
 import com.smartgwt.client.types.SelectionStyle;
-import com.smartgwt.client.util.BooleanCallback;
 import com.smartgwt.client.widgets.Canvas;
 import com.smartgwt.client.widgets.ImgButton;
 import com.smartgwt.client.widgets.events.ClickEvent;
@@ -35,9 +34,7 @@ import com.smartgwt.client.widgets.layout.VLayout;
 import org.geomajas.gwt.client.util.WidgetLayout;
 import org.geomajas.plugin.deskmanager.client.gwt.common.FileUploadForm;
 import org.geomajas.plugin.deskmanager.client.gwt.common.impl.DeskmanagerIcon;
-import org.geomajas.plugin.deskmanager.domain.dto.LayerModelDto;
 import org.geomajas.widget.searchandfilter.configuration.client.SearchAttribute;
-import org.geomajas.widget.searchandfilter.configuration.client.SearchConfig;
 import org.geomajas.widget.searchandfilter.editor.client.SearchAndFilterEditor;
 import org.geomajas.widget.searchandfilter.editor.client.i18n.SearchAndFilterEditorMessages;
 import org.geomajas.widget.searchandfilter.editor.client.presenter.SearchPresenter;
@@ -51,7 +48,7 @@ import java.util.List;
  */
 public class SearchView implements SearchPresenter.View {
 
-	private final SearchAndFilterEditorMessages MESSAGES =
+	private final SearchAndFilterEditorMessages messages =
 			GWT.create(SearchAndFilterEditorMessages.class);
 
 	private static final int FORMITEM_WIDTH = 300;
@@ -96,49 +93,40 @@ public class SearchView implements SearchPresenter.View {
 		form.setWrapItemTitles(false);
 
 		titleFld = new TextItem(FLD_NAME);
-		titleFld.setTitle(MESSAGES.searchDetailsWindowFieldTitleLabel());
+		titleFld.setTitle(messages.searchDetailsWindowFieldTitleLabel());
 		titleFld.setRequired(true);
 		titleFld.setWidth(FORMITEM_WIDTH);
 		titleFld.setWrapTitle(false);
-		titleFld.setTooltip(MESSAGES.searchDetailsWindowFieldTitleTooltip());
 
 		descriptionFld = new TextAreaItem();
-		descriptionFld.setTitle(MESSAGES.searchDetailsWindowFieldDescriptionLabel());
+		descriptionFld.setTitle(messages.searchDetailsWindowFieldDescriptionLabel());
 		descriptionFld.setRequired(true);
 		descriptionFld.setWidth(FORMITEM_WIDTH);
 		descriptionFld.setWrapTitle(false);
-		descriptionFld.setTooltip(MESSAGES.searchDetailsWindowFieldDescriptionTooltip());
 
 		titleInWindowFld = new TextItem();
-		titleInWindowFld.setTitle(MESSAGES.searchDetailsWindowFieldTitleInWindowLabel());
+		titleInWindowFld.setTitle(messages.searchDetailsWindowFieldTitleInWindowLabel());
 		titleInWindowFld.setRequired(true);
 		titleInWindowFld.setWidth(FORMITEM_WIDTH);
 		titleInWindowFld.setWrapTitle(false);
-		titleInWindowFld.setTooltip(MESSAGES.searchDetailsWindowFieldTitleInWindowTooltip());
 
 		uploadForm = new FileUploadForm();
 		CanvasItem uploadItem = new CanvasItem();
 		uploadItem.setCanvas(uploadForm);
 		uploadItem.setWidth(FORMITEM_WIDTH);
-		uploadItem.setTitle(MESSAGES.searchDetailsWindowFieldIconUrlLabel());
+		uploadItem.setTitle(messages.searchDetailsWindowFieldIconUrlLabel());
 		uploadItem.setRequired(false);
 		uploadItem.setWrapTitle(false);
-		uploadItem.setTooltip(MESSAGES.searchDetailsWindowFieldIconUrlTooltip());
 
 		form.setFields(titleFld, descriptionFld, titleInWindowFld, uploadItem);
 
 		// attribute table //
 
 		VLayout gridLayout = new VLayout();
-		//ScrollPanel panel = new ScrollPanel();
 		gridLayout.setWidth(ATTRIBUTES_GRID_WIDTH);
 		gridLayout.setHeight(ATTRIBUTES_GRID_HEIGHT);
 		grid = new SearchAttributeListGrid();
 		gridLayout.addMember(grid);
-		//gridLayout.addMember(panel);
-		//gridLayout.setWidth(ATTRIBUTES_GRID_WIDTH);
-		//grid.setHeight(ATTRIBUTES_GRID_HEIGHT - );
-		//grid.setOverflow(Overflow.AUTO);
 
 		Layout addImgContainer = new Layout();
 		addImgContainer.setWidth(64 + 16); //16 from scroller in grid
@@ -150,7 +138,7 @@ public class SearchView implements SearchPresenter.View {
 		addImg.setSrc(WidgetLayout.iconAdd);
 		addImg.setShowDown(false);
 		addImg.setShowRollOver(false);
-		addImg.setPrompt("tooltip to do");
+		addImg.setPrompt(messages.searchDetailsWindowAddSearchAttributeButtonTooltip());
 		addImg.setHeight(16);
 		addImg.setWidth(16);
 		addImg.addClickHandler(new ClickHandler() {
@@ -169,6 +157,7 @@ public class SearchView implements SearchPresenter.View {
 		layout.addMember(gridLayout);
 
 		window = new SaveCancelWindow(layout);
+		window.setTitle(messages.searchDetailsWindowTitle());
 	}
 
 	@Override
@@ -300,26 +289,25 @@ public class SearchView implements SearchPresenter.View {
 
 
 		/*columns*/
-			ListGridField attributeNameFld = new ListGridField(FLD_ATTRIBUTE_NAME, "Attribute");
+			ListGridField attributeNameFld = new ListGridField(FLD_ATTRIBUTE_NAME,
+					messages.searchDetailsWindowGridColumnAttributeName());
 			attributeNameFld.setWidth(FLD_ATTRIBUTE_NAME_WIDTH);
-			attributeNameFld.setPrompt("Attribute tooltip.");
 			attributeNameFld.setCanEdit(true);
 
-			ListGridField labelFld = new ListGridField(FLD_LABEL, "Label");
+			ListGridField labelFld = new ListGridField(FLD_LABEL, messages.searchDetailsWindowGridColumnLabel());
 			labelFld.setWidth(FLD_LABEL_WIDTH);
-			labelFld.setPrompt("Label tooltip.");
 			labelFld.setCanEdit(true);
 
-			ListGridField operationFld = new ListGridField(FLD_OPERATION, "Operation");
+			ListGridField operationFld = new ListGridField(FLD_OPERATION,
+					messages.searchDetailsWindowGridColumnOperation());
 			operationFld.setWidth(FLD_OPERATION_WIDTH);
-			operationFld.setPrompt("Operation tooltip.");
 			operationFld.setCanEdit(true);
 
-			ListGridField inputTypeFld = new ListGridField(FLD_INPUT_TYPE, "Input type");
+			ListGridField inputTypeFld = new ListGridField(FLD_INPUT_TYPE,
+					messages.searchDetailsWindowGridColumnInputType());
 			inputTypeFld.setWidth("*");
-			inputTypeFld.setPrompt("Input type tooltip.");
 
-			ListGridField actionsFld = new ListGridField(FLD_ACTIONS, MESSAGES.searchesGridColumnActions());
+			ListGridField actionsFld = new ListGridField(FLD_ACTIONS, messages.searchDetailsWindowGridColumnActions());
 			actionsFld.setType(ListGridFieldType.ICON);
 			actionsFld.setWidth(FLD_ACTIONS_WIDTH);
 			actionsFld.setCanEdit(false);
@@ -355,7 +343,7 @@ public class SearchView implements SearchPresenter.View {
 				editProps.setShowRollOver(false);
 				editProps.setLayoutAlign(Alignment.CENTER);
 				editProps.setSrc(DeskmanagerIcon.IMG_SRC_COG);
-				editProps.setPrompt("jabada");
+				editProps.setPrompt(messages.searchDetailsWindowGridColumnActionsTooltip());
 				editProps.setShowDisabledIcon(false);
 				editProps.setHeight(16);
 				editProps.setWidth(16);
