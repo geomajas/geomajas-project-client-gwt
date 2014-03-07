@@ -153,7 +153,7 @@
 				<groupId>com.smartgwt</groupId>
 				<artifactId>smartgwt</artifactId>
 				<version>${gwt-client-smartgwt-version}</version>
-			</dependency>
+    </dependency>
 			<dependency>
 				<groupId>com.smartgwt</groupId>
 				<artifactId>smartgwt-skins</artifactId>

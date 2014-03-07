@@ -31,10 +31,18 @@ public final class FitLayout {
 	/** Offset from current pointer position for displaying tooltip. */
 	public static int tooltipOffsetY = 12;
 
+
+	/*============================================================
+	Icons
+    ============================================================*/
+	public static String iconMouseTooltipRibbon = "[ISOMORPHIC]/geomajas/osgeo/mouse_tooltip_ribbon_24.png";
+
 	// CHECKSTYLE VISIBILITY MODIFIER: ON
 
 	private FitLayout() {
 		// do not allow instantiation.
 	}
+
+
 
 }

@@ -50,6 +50,8 @@ public final class WidgetLayout {
 	public static String iconAddImage = "[ISOMORPHIC]/geomajas/silk/image-add.png";
 	/** AJAX loading icon. */
 	public static String iconAjaxLoading = "[ISOMORPHIC]/geomajas/ajax-loader.gif";
+	/** AJAX loading 16x16px animated icon. */
+	public static String iconAjaxLoading16 = "[ISOMORPHIC]/geomajas/ajax_loader_16.gif";
 	/** Display attributes icon. */
 	public static String iconAttributesDisplay = "[ISOMORPHIC]/geomajas/osgeo/attributes-display.png";
 	/** Show attributes icon. */
@@ -90,6 +92,8 @@ public final class WidgetLayout {
 	public static String iconHide = "[ISOMORPHIC]/geomajas/osgeo/hide.png";
 	/** Info icon. */
 	public static String iconInfo = "[ISOMORPHIC]/geomajas/osgeo/info.png";
+	/** Info icon ribbonbar . */
+	public static String iconInfoRibbon = "[ISOMORPHIC]/geomajas/osgeo/info.png";
 	/** Disabled labels icon. */
 	public static String iconLabelsDisabled = "[ISOMORPHIC]/geomajas/widget/layertree/labels-disabled.png";
 	/** Hide labels icon. */
@@ -135,7 +139,7 @@ public final class WidgetLayout {
 	/** Pan icon. */
 	public static String iconPan = "[ISOMORPHIC]/geomajas/osgeo/pan.png";
 	/** Pan info icon. */
-	public static String iconPanInfo = "[ISOMORPHIC]/geomajas/osgeo/pan-info.png";
+	public static String iconPanInfo = "[ISOMORPHIC]/geomajas/osgeo/pan_info.png";
 	/** Pan to selection icon. */
 	public static String iconPanToSelection = "[ISOMORPHIC]/geomajas/osgeo/pan_to_selection.png";
 	/** Clear picker icon. */
