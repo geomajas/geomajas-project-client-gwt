@@ -1,7 +1,7 @@
 /*
  * This is part of Geomajas, a GIS framework, http://www.geomajas.org/.
  *
- * Copyright 2008-2013 Geosparc nv, http://www.geosparc.com/, Belgium.
+ * Copyright 2008-2014 Geosparc nv, http://www.geosparc.com/, Belgium.
  *
  * The program is available in open source according to the GNU Affero
  * General Public License. All contributions in this program are covered
@@ -20,6 +20,7 @@ import org.geomajas.gwt.client.widget.MapWidget;
 import org.geomajas.gwt.example.base.SamplePanel;
 import org.geomajas.gwt.example.base.SamplePanelFactory;
 import org.geomajas.plugin.editing.client.snap.SnapSourceProvider;
+import org.geomajas.plugin.editing.client.snap.SnappingRule;
 import org.geomajas.plugin.editing.client.snap.algorithm.NearestEdgeSnapAlgorithm;
 import org.geomajas.plugin.editing.client.snap.algorithm.NearestVertexSnapAlgorithm;
 import org.geomajas.plugin.editing.gwt.client.GeometryEditor;
@@ -113,9 +114,9 @@ public class EditingPanel extends SamplePanel implements MapModelChangedHandler 
 		editor.getSnappingService().clearSnappingRules();
 		SnapSourceProvider snapSourceProvider = new VectorLayerSourceProvider(editor.getMapWidget().getMapModel()
 				.getVectorLayer("clientLayerGepCountries"));
-//		editor.setSnapOnInsert(true);
-//		editor.setSnapOnDrag(true);
-		editor.getSnappingService().addSnappingRule(new NearestVertexSnapAlgorithm(), snapSourceProvider, 200000, true);
-		editor.getSnappingService().addSnappingRule(new NearestEdgeSnapAlgorithm(), snapSourceProvider, 100000, false);
+		editor.getSnappingService().addSnappingRule(new SnappingRule(new NearestVertexSnapAlgorithm(),
+				snapSourceProvider, 200000));
+		editor.getSnappingService().addSnappingRule(new SnappingRule(new NearestEdgeSnapAlgorithm(),
+				snapSourceProvider, 100000));
 	}
 }

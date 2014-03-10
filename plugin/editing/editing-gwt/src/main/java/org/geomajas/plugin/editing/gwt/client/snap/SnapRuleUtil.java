@@ -1,7 +1,7 @@
 /*
  * This is part of Geomajas, a GIS framework, http://www.geomajas.org/.
  *
- * Copyright 2008-2013 Geosparc nv, http://www.geosparc.com/, Belgium.
+ * Copyright 2008-2014 Geosparc nv, http://www.geosparc.com/, Belgium.
  *
  * The program is available in open source according to the GNU Affero
  * General Public License. All contributions in this program are covered
@@ -17,6 +17,7 @@ import org.geomajas.gwt.client.map.layer.VectorLayer;
 import org.geomajas.gwt.client.widget.MapWidget;
 import org.geomajas.plugin.editing.client.snap.SnapAlgorithm;
 import org.geomajas.plugin.editing.client.snap.SnapService;
+import org.geomajas.plugin.editing.client.snap.SnappingRule;
 import org.geomajas.plugin.editing.client.snap.algorithm.NearestEdgeSnapAlgorithm;
 import org.geomajas.plugin.editing.client.snap.algorithm.NearestVertexSnapAlgorithm;
 
@@ -46,7 +47,7 @@ public final class SnapRuleUtil {
 			}
 
 			VectorLayerSourceProvider sourceProvider = new VectorLayerSourceProvider((VectorLayer) layer);
-			service.addSnappingRule(algorithm, sourceProvider, snappingRuleInfo.getDistance(), false);
+			service.addSnappingRule(new SnappingRule(algorithm, sourceProvider, snappingRuleInfo.getDistance()));
 			return true;
 		}
 		return false;

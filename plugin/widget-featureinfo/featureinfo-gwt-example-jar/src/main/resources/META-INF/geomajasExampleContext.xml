@@ -1,7 +1,7 @@
 <!--
   ~ This is part of Geomajas, a GIS framework, http://www.geomajas.org/.
   ~
-  ~ Copyright 2008-2013 Geosparc nv, http://www.geosparc.com/, Belgium.
+  ~ Copyright 2008-2014 Geosparc nv, http://www.geosparc.com/, Belgium.
   ~
   ~ The program is available in open source according to the GNU Affero
   ~ General Public License. All contributions in this program are covered
@@ -24,10 +24,12 @@ http://www.springframework.org/schema/context http://www.springframework.org/sch
 	<import resource="classpath:org/geomajas/widget/featureinfo/gwt/example/context/mapOverview.xml"/>
 	<import resource="classpath:org/geomajas/widget/featureinfo/gwt/example/context/clientLayerCountries.xml"/>
 	<import resource="classpath:org/geomajas/widget/featureinfo/gwt/example/context/clientLayerCountriesWms.xml"/>
+	<import resource="classpath:org/geomajas/widget/featureinfo/gwt/example/context/clientLayerCountriesWmsHtml.xml"/>
 	<import resource="classpath:org/geomajas/widget/featureinfo/gwt/example/context/clientLayerOsm.xml"/>
 	<import resource="classpath:org/geomajas/widget/featureinfo/gwt/example/context/clientLayerPopulatedPlaces110m.xml"/>
 	<import resource="classpath:org/geomajas/widget/featureinfo/gwt/example/context/layerCountries.xml"/>
 	<import resource="classpath:org/geomajas/widget/featureinfo/gwt/example/context/layerCountriesWms.xml"/>
+	<import resource="classpath:org/geomajas/widget/featureinfo/gwt/example/context/layerCountriesWmsHtml.xml"/>
 	<import resource="classpath:org/geomajas/widget/featureinfo/gwt/example/context/layerOsm.xml"/>
 	<import resource="classpath:org/geomajas/widget/featureinfo/gwt/example/context/layerPopulatedPlaces110m.xml"/>
 

@@ -1,7 +1,7 @@
 /*
  * This is part of Geomajas, a GIS framework, http://www.geomajas.org/.
  *
- * Copyright 2008-2013 Geosparc nv, http://www.geosparc.com/, Belgium.
+ * Copyright 2008-2014 Geosparc nv, http://www.geosparc.com/, Belgium.
  *
  * The program is available in open source according to the GNU Affero
  * General Public License. All contributions in this program are covered
@@ -15,6 +15,7 @@ import org.geomajas.annotation.Api;
 import org.geomajas.geometry.Geometry;
 import org.geomajas.plugin.editing.client.GeometryArrayFunction;
 import org.geomajas.plugin.editing.client.service.GeometryEditService;
+import org.geomajas.plugin.editing.client.service.GeometryEditServiceImpl;
 import org.geomajas.plugin.editing.client.split.GeometrySplitService;
 import org.geomajas.plugin.editing.client.split.event.GeometrySplitStartEvent;
 import org.geomajas.plugin.editing.client.split.event.GeometrySplitStopEvent;
@@ -51,7 +52,7 @@ public class JsGeometrySplitService implements Exportable {
 	 * Default constructor.
 	 */
 	public JsGeometrySplitService() {
-		this.delegate = new GeometrySplitService();
+		this.delegate = new GeometrySplitService(new GeometryEditServiceImpl());
 		editService = new JsGeometryEditService(delegate.getGeometryEditService());
 	}
 

@@ -1,7 +1,7 @@
 /*
  * This is part of Geomajas, a GIS framework, http://www.geomajas.org/.
  *
- * Copyright 2008-2013 Geosparc nv, http://www.geosparc.com/, Belgium.
+ * Copyright 2008-2014 Geosparc nv, http://www.geosparc.com/, Belgium.
  *
  * The program is available in open source according to the GNU Affero
  * General Public License. All contributions in this program are covered
@@ -152,7 +152,7 @@ public class JsGeometryMergeService implements Exportable {
 	 * Start the merging process. From this point on add some geometries and call either <code>stop</code> or
 	 * <code>cancel</code>.
 	 * 
-	 * @throws GeometryMergeException
+	 * @exception GeometryMergeException
 	 *             In case a merging process is already started.
 	 */
 	public void start() throws GeometryMergeException {
@@ -164,7 +164,7 @@ public class JsGeometryMergeService implements Exportable {
 	 * 
 	 * @param geometry
 	 *            The geometry to add.
-	 * @throws GeometryMergeException
+	 * @exception GeometryMergeException
 	 *             In case the merging process has not been started.
 	 */
 	public void addGeometry(Geometry geometry) throws GeometryMergeException {
@@ -176,7 +176,7 @@ public class JsGeometryMergeService implements Exportable {
 	 * 
 	 * @param geometry
 	 *            The geometry to remove.
-	 * @throws GeometryMergeException
+	 * @exception GeometryMergeException
 	 *             In case the merging process has not been started.
 	 */
 	public void removeGeometry(Geometry geometry) throws GeometryMergeException {
@@ -186,7 +186,7 @@ public class JsGeometryMergeService implements Exportable {
 	/**
 	 * Clear the entire list of geometries for merging, basically resetting the process.
 	 * 
-	 * @throws GeometryMergeException
+	 * @exception GeometryMergeException
 	 *             In case the merging process has not been started.
 	 */
 	public void clearGeometries() throws GeometryMergeException {
@@ -199,7 +199,7 @@ public class JsGeometryMergeService implements Exportable {
 	 * 
 	 * @param callback
 	 *            The call-back function that will receive the merged geometry.
-	 * @throws GeometryMergeException
+	 * @exception GeometryMergeException
 	 *             Thrown in case the merging process has not been started or some other merging error.
 	 */
 	public void stop(final GeometryFunction callback) throws GeometryMergeException {
@@ -209,7 +209,7 @@ public class JsGeometryMergeService implements Exportable {
 	/**
 	 * End the merging process without executing the merge operation. This method will simply clean up.
 	 * 
-	 * @throws GeometryMergeException
+	 * @exception GeometryMergeException
 	 *             In case the merging process has not been started.
 	 */
 	public void cancel() throws GeometryMergeException {

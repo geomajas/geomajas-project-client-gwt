@@ -1,7 +1,7 @@
 /*
  * This is part of Geomajas, a GIS framework, http://www.geomajas.org/.
  *
- * Copyright 2008-2013 Geosparc nv, http://www.geosparc.com/, Belgium.
+ * Copyright 2008-2014 Geosparc nv, http://www.geosparc.com/, Belgium.
  *
  * The program is available in open source according to the GNU Affero
  * General Public License. All contributions in this program are covered
@@ -221,13 +221,12 @@ public final class Authentication {
 				} else {
 					userToken = loginResponse.getToken();
 					Authentication.this.userId = userId;
-					UserDetail userDetail = new UserDetail();
+					UserDetail userDetail = GwtCommandDispatcher.getInstance().getUserDetail();
 					userDetail.setUserId(loginResponse.getUserId());
 					userDetail.setUserName(loginResponse.getUserName());
 					userDetail.setUserOrganization(loginResponse.getUserOrganization());
 					userDetail.setUserDivision(loginResponse.getUserDivision());
 					userDetail.setUserLocale(loginResponse.getUserLocale());
-					GwtCommandDispatcher.getInstance().setUserToken(userToken, userDetail);
 					if (callback != null) {
 						callback.execute(true);
 					}

@@ -49,7 +49,26 @@ http://www.springframework.org/schema/tx http://www.springframework.org/schema/t
 
 	<bean name="DeselectAll" class="org.geomajas.configuration.client.ClientToolInfo" />
 
-	<bean name="MeasureDistanceMode" class="org.geomajas.configuration.client.ClientToolInfo" />
+	<bean name="MeasureDistanceMode" class="org.geomajas.configuration.client.ClientToolInfo">
+		<property name="parameters">
+			<list>
+				<bean class="org.geomajas.configuration.Parameter">
+					<property name="name">
+						<util:constant
+								static-field="org.geomajas.gwt.client.action.toolbar.MeasureModalAction.SHOW_AREA" />
+					</property>
+					<property name="value" value="true" />
+				</bean>
+				<bean class="org.geomajas.configuration.Parameter">
+					<property name="name">
+						<util:constant
+								static-field="org.geomajas.gwt.client.action.toolbar.MeasureModalAction.SHOW_COORDINATE" />
+					</property>
+					<property name="value" value="true" />
+				</bean>
+			</list>
+		</property>
+	</bean>
 
 	<bean name="FeatureInfoMode" class="org.geomajas.configuration.client.ClientToolInfo" />
 
