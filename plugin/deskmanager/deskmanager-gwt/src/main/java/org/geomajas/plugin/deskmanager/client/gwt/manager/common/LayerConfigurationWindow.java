@@ -402,7 +402,7 @@ public class LayerConfigurationWindow extends Window {
 				if (editor instanceof VectorLayerWidgetEditor) {
 					final VectorLayerWidgetEditor vectorLayerWidgetEditor =
 							(VectorLayerWidgetEditor) editor;
-					if (layerDto.getClientLayerInfo() instanceof ClientVectorLayerInfo) {
+					if (layerDto.getReferencedLayerInfo() instanceof ClientVectorLayerInfo) {
 						vectorLayerWidgetEditor.setClientVectorLayerInfo(
 								(ClientVectorLayerInfo) layerDto.getClientLayerInfo());
 					} else {
