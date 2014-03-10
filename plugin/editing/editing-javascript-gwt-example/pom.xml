@@ -148,6 +148,7 @@
 				<configuration>
 					<disableCastChecking>true</disableCastChecking>
 					<disableClassMetadata>true</disableClassMetadata>
+					<!--<style>PRETTY</style>-->
 					<!--<logLevel>DEBUG</logLevel>-->
 					<!--<draftCompile>true</draftCompile>-->
 					<!--<optimizationLevel>0</optimizationLevel>-->

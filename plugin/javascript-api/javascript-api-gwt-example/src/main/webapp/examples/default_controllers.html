@@ -26,10 +26,23 @@
 			map = Geomajas().createMap("app", "mapMain", "js-map-element");
 		}
 
-		function applyMapController(id) {
-			var mapController = Geomajas().createMapController(map, id);
+		function applyMapController(id, options) {
+			var mapController = Geomajas().createMapController(map, id, options);
 			map.setMapController(mapController);
 		}
+		
+		function applyMeasureDistanceController() {
+			var mapController = Geomajas().createMapController(map, 'MeasureDistanceMode');
+			map.setMapController(mapController);
+			mapController.setInfoHandler(showDistanceInfo);
+		}
+		
+		function showDistanceInfo(info) {
+	        document.getElementById("infoLength").innerHTML = info.getTotalDistance();
+	        document.getElementById("infoSegment").innerHTML = info.getLastSegment();
+		}
+		
+
 	</script>
 </head>
 
@@ -38,6 +51,13 @@
 		<div class="title">Geomajas JavaScript API test</div>
 		<div class="subtitle">This example uses an empty GWT application - JavaScript only</div>
 	</div>
+    <div>
+        <h6 id="infoHeader"></h6>
+        <table>
+            <tr><td>Total length</td><td id="infoLength"></td></tr>
+            <tr><td>Last segment</td><td><p id="infoSegment"></p></td></tr>
+        </table>
+    </div>
 	<div>
 		<table cellspacing="0" cellpadding="5">
 			<tr>
@@ -53,8 +73,9 @@
 					Activate a controller on the map (only one can be active at a time):
 					<button onclick="applyMapController('PanMode')">Navigation</button><br>
 					<button onclick="applyMapController('MeasureDistanceMode')">Measure distances</button><br>
-					<button onclick="applyMapController('FeatureInfoMode')">Feature Info</button><br>
-					<button onclick="applyMapController('SelectionMode')">Selection (multiple features)</button><br>
+					<button onclick="applyMeasureDistanceController()">Measure distances (custom callback)</button><br>
+					<button onclick="applyMapController('FeatureInfoMode')">Feature Info</button><br>					
+					<button onclick="applyMapController('SelectionMode', {clickTimeout: 300, coverageRatio: 5.7, pixelTolerance: 3.7})">Selection (multiple features)</button><br>
 					<button onclick="applyMapController('SingleSelectionMode')">Selection (single feature)</button><br>
 					<button onclick="applyMapController('EditMode')">Editing</button>
 				</td>

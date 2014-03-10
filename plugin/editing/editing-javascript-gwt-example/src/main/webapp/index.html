@@ -12,7 +12,9 @@
 		  -->
 	<head>
 		<meta http-equiv="content-type" content="text/html;charset=utf-8" />
+        <!--<meta name="gwt:property" content="locale=nl">-->
 		<link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon" />
+        <!--<meta name="gwt:property" content="locale=nl">-->
 
 		<title>Geomajas Javascript API Showcase</title>
 		<link type="text/css" rel="stylesheet" href="geomajas.css" />
@@ -70,6 +72,7 @@
 				editor = new org.geomajas.plugin.editing.GeometryEditor();
 				editor.setMap(map);
 				service = editor.getService();
+                editor.getService().setValidating(true);
                 styleService = editor.getStyleService();
                 styleService.getVertexStyle().setFillColor("blue");
                 styleService.getEdgeStyle().setStrokeColor("red");
@@ -79,13 +82,15 @@
                 // customize context menu when vertex is selected
                 var contextMenuRegistry = new
                         org.geomajas.plugin.editing.contextmenu.ContextMenuRegister(editor);
-                contextMenuRegistry.addRemoveSelectedVertexOperation("delete");
-                contextMenuRegistry.addDeselectAllVertexOperation("deselect");
-                contextMenuRegistry.addZoomInVertexOperation("zoom in");
-                contextMenuRegistry.addZoomOutVertexOperation("zoom out");
-                contextMenuRegistry.addZoomToFullObjectVertexOperation("zoom to full object");
+                contextMenuRegistry.addRemoveVertexOperation("delete");
+//                contextMenuRegistry.addDeselectVertexOperation("deselect");
+//                contextMenuRegistry.addZoomInVertexOperation("zoom in");
+//                contextMenuRegistry.addZoomOutVertexOperation("zoom out");
+//                contextMenuRegistry.addZoomToFullObjectVertexOperation("zoom to full object");
+                contextMenuRegistry.setOnOneMenuItemSimulateClick(true);
 
                 factory = new org.geomajas.plugin.editing.handler.GeometryHandlerFactory();
+                service.addGeometryEditValidationHandler(showValidation);
 			}
 
 			function cancel() {
@@ -333,6 +338,9 @@
 				}
 			}
 			
+			function showValidation(event) {
+				log("validation event "+event.getCode());
+			}			
 
 			function log(txt) {
 				var el = document.getElementById("log");

@@ -67,15 +67,16 @@ public class EditingPanel extends SamplePanel implements MapModelChangedHandler 
 		// register operations for vertex contect menu
 		editor.setContextMenuController(new GeometryIndexContextMenuController(map, editor.getEditService()));
 		editor.getContextMenuController().addVertexOperation(
-				GeometryIndexContextMenuController.VertexOperation.REMOVE, "verwijder punt");
+				GeometryIndexContextMenuController.GeometryIndexOperation.REMOVE, "verwijder punt");
 		editor.getContextMenuController().addVertexOperation(
-				GeometryIndexContextMenuController.VertexOperation.DESELECT, "deselecteer punt");
+				GeometryIndexContextMenuController.GeometryIndexOperation.DESELECT, "deselecteer punt");
 		editor.getContextMenuController().addVertexOperation(
-				GeometryIndexContextMenuController.VertexOperation.ZOOM_IN, "zoom in");
+				GeometryIndexContextMenuController.GeometryIndexOperation.ZOOM_IN, "zoom in");
 		editor.getContextMenuController().addVertexOperation(
-				GeometryIndexContextMenuController.VertexOperation.ZOOM_OUT, "zoom uit");
+				GeometryIndexContextMenuController.GeometryIndexOperation.ZOOM_OUT, "zoom uit");
 		editor.getContextMenuController().addVertexOperation(
-				GeometryIndexContextMenuController.VertexOperation.ZOOM_TO_FULL_OBJECT, "zoom naar object");
+				GeometryIndexContextMenuController.GeometryIndexOperation.ZOOM_TO_FULL_OBJECT, "zoom naar object");		
+		editor.getEditService().setValidating(true);
 
 		VLayout layout = new VLayout();
 		MenuBar editingToolStrip = new MenuBar(editor);

@@ -35,20 +35,21 @@ import org.geomajas.plugin.jsapi.client.map.controller.MapController;
 import org.geomajas.plugin.jsapi.client.spatial.BboxService;
 import org.geomajas.plugin.jsapi.client.spatial.GeometryService;
 import org.geomajas.plugin.jsapi.gwt.client.exporter.map.MapImpl;
+import org.geomajas.plugin.jsapi.gwt.client.exporter.map.controller.measuredistance.MeasureDistanceInfoControllerImpl;
 import org.geomajas.plugin.jsapi.gwt.client.exporter.spatial.BboxServiceImpl;
 import org.geomajas.plugin.jsapi.gwt.client.exporter.spatial.GeometryServiceImpl;
 import org.timepedia.exporter.client.Export;
 import org.timepedia.exporter.client.ExportPackage;
 import org.timepedia.exporter.client.Exportable;
 
+import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.DOM;
 
 /**
  * MapRegistry provides a registry where {@link org.geomajas.plugin.jsapi.client.map.Map} components can be registered
- * fromGWT
- * to be retrieved from plain JavaScript.
+ * fromGWT to be retrieved from plain JavaScript.
  * 
  * @author Oliver May
  * @author Pieter De Graef
@@ -80,12 +81,9 @@ public final class GeomajasServiceImpl implements Exportable, GeomajasService {
 	/**
 	 * Register the given {@link Map} with applicationId and mapId.
 	 * 
-	 * @param applicationId
-	 *            the application id.
-	 * @param mapId
-	 *            the map id.
-	 * @param elementId
-	 *            the DOM element ID onto which to attach the map.
+	 * @param applicationId the application id.
+	 * @param mapId the map id.
+	 * @param elementId the DOM element ID onto which to attach the map.
 	 */
 	@Export
 	public Map createMap(String applicationId, String mapId, String elementId) {
@@ -110,12 +108,9 @@ public final class GeomajasServiceImpl implements Exportable, GeomajasService {
 	/**
 	 * Register the given {@link Map} with applicationId and mapId.
 	 * 
-	 * @param applicationId
-	 *            the application id.
-	 * @param mapId
-	 *            the map id.
-	 * @param map
-	 *            the map to register.
+	 * @param applicationId the application id.
+	 * @param mapId the map id.
+	 * @param map the map to register.
 	 */
 	public void registerMap(String applicationId, String mapId, Map map) {
 		HashMap<String, Map> mapMap;
@@ -134,10 +129,8 @@ public final class GeomajasServiceImpl implements Exportable, GeomajasService {
 	/**
 	 * Return the {@link Map} that is registered with the given application and map ID.
 	 * 
-	 * @param applicationId
-	 *            the application id.
-	 * @param mapId
-	 *            the map id.
+	 * @param applicationId the application id.
+	 * @param mapId the map id.
 	 * @return the map.
 	 */
 	@Export
@@ -152,8 +145,7 @@ public final class GeomajasServiceImpl implements Exportable, GeomajasService {
 	/**
 	 * Add a handler that is called whenever the client starts communicating with the back-end.
 	 * 
-	 * @param handler
-	 *            The actual handler (closure).
+	 * @param handler The actual handler (closure).
 	 * @return The registration for the handler. Using this object the handler can be removed again.
 	 */
 	@Export
@@ -171,8 +163,7 @@ public final class GeomajasServiceImpl implements Exportable, GeomajasService {
 	/**
 	 * Add a handler that is called whenever the client stops communicating with the back-end.
 	 * 
-	 * @param handler
-	 *            The actual handler (closure).
+	 * @param handler The actual handler (closure).
 	 * @return The registration for the handler. Using this object the handler can be removed again.
 	 */
 	@Export
@@ -186,34 +177,40 @@ public final class GeomajasServiceImpl implements Exportable, GeomajasService {
 				});
 		return new JsHandlerRegistration(new HandlerRegistration[] { registration });
 	}
-
+	
 	/**
 	 * Create a known controller for the map. Different implementations may 'know' different controllers, so it's best
 	 * to check with the implementing class.
 	 * 
-	 * @param map
-	 *            The onto which the controller should be applied.
-	 * @param id
-	 *            The unique ID for the map controller (implementation specific).
+	 * @param map The onto which the controller should be applied.
+	 * @param id The unique ID for the map controller (implementation specific).
+	 * @param options extra options for the controller
 	 * @return The map controller, or null if it could not be found.
 	 */
 	@Export
-	public MapController createMapController(Map map, String id) {
+	public MapController createMapController(Map map, String id, JavaScriptObject options) {
 		MapWidget mapWidget = ((MapImpl) map).getMapWidget();
-		if ("PanMode".equalsIgnoreCase(id)) {
-			return createMapController(map, new PanController(mapWidget));
-		} else if (ToolId.TOOL_MEASURE_DISTANCE_MODE.equalsIgnoreCase(id)) {
-			return createMapController(map, new MeasureDistanceController(mapWidget));
-		} else if (ToolId.TOOL_FEATURE_INFO.equalsIgnoreCase(id)) {
-			return createMapController(map, new FeatureInfoController(mapWidget, 3));
-		} else if (ToolId.TOOL_SELECTION_MODE.equalsIgnoreCase(id)) {
-			return createMapController(map, new SelectionController(mapWidget, 500, 0.5f, false, 3));
-		} else if ("SingleSelectionMode".equalsIgnoreCase(id)) {
-			return createMapController(map, new SingleSelectionController(mapWidget, false, 3));
-		} else if (ToolId.TOOL_EDIT.equalsIgnoreCase(id)) {
-			return createMapController(map, new ParentEditController(mapWidget));
+		final GraphicsController controller = createController(mapWidget, id, options);
+		MapController mapController = new MapController(map, controller);
+		if (ToolId.TOOL_MEASURE_DISTANCE_MODE.equalsIgnoreCase(id)) {
+			mapController = new MeasureDistanceInfoControllerImpl(map, (MeasureDistanceController) controller);
+		} else {
+			mapController = new MapController(map, controller);
 		}
-		return null;
+
+		mapController.setActivationHandler(new ExportableFunction() {
+
+			public void execute() {
+				controller.onActivate();
+			}
+		});
+		mapController.setDeactivationHandler(new ExportableFunction() {
+
+			public void execute() {
+				controller.onDeactivate();
+			}
+		});
+		return mapController;
 	}
 
 	/**
@@ -240,21 +237,57 @@ public final class GeomajasServiceImpl implements Exportable, GeomajasService {
 	// Private methods:
 	// ------------------------------------------------------------------------
 
-	private MapController createMapController(Map map, final GraphicsController controller) {
-		MapController mapController = new MapController(map, controller);
 
-		mapController.setActivationHandler(new ExportableFunction() {
-
-			public void execute() {
-				controller.onActivate();
-			}
-		});
-		mapController.setDeactivationHandler(new ExportableFunction() {
-
-			public void execute() {
-				controller.onDeactivate();
-			}
-		});
-		return mapController;
+	private GraphicsController createController(MapWidget mapWidget, String id, JavaScriptObject options) {
+		if ("PanMode".equalsIgnoreCase(id)) {
+			return new PanController(mapWidget);
+		} else if (ToolId.TOOL_MEASURE_DISTANCE_MODE.equalsIgnoreCase(id)) {
+			return new MeasureDistanceController(mapWidget);
+		} else if (ToolId.TOOL_FEATURE_INFO.equalsIgnoreCase(id)) {
+			int pixelTolerance = getIntOption("pixelTolerance", options, 3);
+			return new FeatureInfoController(mapWidget, pixelTolerance);
+		} else if (ToolId.TOOL_SELECTION_MODE.equalsIgnoreCase(id)) {
+			return new SelectionController(mapWidget, 
+					getIntOption("clickTimeout", options, 500),
+					getFloatOption("coverageRatio", options, 0.5f),
+					getBooleanOption("priorityToSelectedLayer", options, false),
+					getIntOption("pixelTolerance", options, 3)
+			);
+		} else if ("SingleSelectionMode".equalsIgnoreCase(id)) {
+			return new SingleSelectionController(mapWidget,
+					getBooleanOption("priorityToSelectedLayer", options, false),
+					getIntOption("pixelTolerance", options, 3)
+			);
+		} else if (ToolId.TOOL_EDIT.equalsIgnoreCase(id)) {
+			return new ParentEditController(mapWidget);
+		} else {
+			return null;
+		}
 	}
+
+
+	private native boolean getBooleanOption(String name, JavaScriptObject options, boolean b)/*-{
+		if(options && name in options) {
+			return options[name];
+		} else {
+			return b;
+		}
+  	}-*/;
+
+	private native int getIntOption(String name, JavaScriptObject options, int i)/*-{
+		if(options && name in options) {
+			return options[name];
+		} else {
+			return i;
+		}
+  	}-*/;
+
+	private native float getFloatOption(String name, JavaScriptObject options, float f)/*-{
+		if(options && name in options) {
+			return options[name];
+		} else {
+			return f;
+		}
+  	}-*/;
+
 }

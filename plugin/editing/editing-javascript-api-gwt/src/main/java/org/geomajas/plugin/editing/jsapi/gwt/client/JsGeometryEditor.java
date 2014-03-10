@@ -15,6 +15,7 @@ import org.geomajas.annotation.Api;
 import org.geomajas.configuration.SnappingRuleInfo;
 import org.geomajas.gwt.client.map.layer.Layer;
 import org.geomajas.gwt.client.map.layer.VectorLayer;
+import org.geomajas.gwt.client.util.Log;
 import org.geomajas.gwt.client.widget.MapWidget;
 import org.geomajas.plugin.editing.gwt.client.GeometryEditor;
 import org.geomajas.plugin.editing.gwt.client.GeometryEditorImpl;
@@ -91,9 +92,12 @@ public class JsGeometryEditor implements Exportable {
 	 * @param layerId The vector layer to use the configuration from.
 	 */
 	public void addLayerSnappingRules(String layerId) {
+
 		Layer<?> layer = mapWidget.getMapModel().getLayer(layerId);
 		if (layer != null && layer instanceof VectorLayer) {
 			VectorLayer vLayer = (VectorLayer) layer;
+			Log.logServer(Log.LEVEL_INFO, "Adding snapping rules of layer " + layerId + ". It has " +
+					vLayer.getLayerInfo().getSnappingRules().size() + "snapping rules.");
 			for (SnappingRuleInfo snappingRuleInfo : vLayer.getLayerInfo().getSnappingRules()) {
 				SnapRuleUtil.addRule(delegate.getSnappingService(), mapWidget, snappingRuleInfo);
 			}

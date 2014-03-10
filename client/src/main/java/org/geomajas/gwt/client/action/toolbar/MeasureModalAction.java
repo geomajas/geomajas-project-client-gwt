@@ -55,7 +55,7 @@ public class MeasureModalAction extends ToolbarModalAction implements Configurab
 	}
 
 	public void onSelect(ClickEvent event) {
-		mapWidget.setController(new MeasureDistanceController(mapWidget, showArea, showCoordinate));
+		mapWidget.setController(new MeasureDistanceController(mapWidget, showArea, showCoordinate, null));
 	}
 
 	public void onDeselect(ClickEvent event) {

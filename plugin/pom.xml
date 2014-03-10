@@ -26,24 +26,24 @@
 	<description>Geomajas GWT client: Plugin parent</description>
 
 	<modules>
-		<module>layer-geotools</module>
-		<module>layer-googlemaps</module>
+		<!--<module>layer-geotools</module>-->
+		<!--<module>layer-googlemaps</module>-->
 		<module>layer-wms</module>
-		<module>geocoder</module>
+		<!--<module>geocoder</module>-->
 		<module>javascript-api</module>
 		<module>editing</module>
-		<module>print</module>
+		<!--<module>print</module>-->
 		<module>rasterizing</module>
-		<module>reporting</module>
-		<module>runtimeconfig</module>
-		<module>staticsecurity</module>
-		<module>vendorspecificpipeline</module>
-		<module>deskmanager</module>
-		<module>widget-advancedviews</module>
-		<module>widget-featureinfo</module>
-		<module>widget-layer</module>
-		<module>widget-searchandfilter</module>
-		<module>widget-utility</module>
+		<!--<module>reporting</module>-->
+		<!--<module>runtimeconfig</module>-->
+		<!--<module>staticsecurity</module>-->
+		<!--<module>vendorspecificpipeline</module>-->
+		<!--<module>deskmanager</module>-->
+		<!--<module>widget-advancedviews</module>-->
+		<!--<module>widget-featureinfo</module>-->
+		<!--<module>widget-layer</module>-->
+		<!--<module>widget-searchandfilter</module>-->
+		<!--<module>widget-utility</module>-->
 	</modules>
 
 	<!-- Inlude all resources, java sources and gwt files in builds -->
