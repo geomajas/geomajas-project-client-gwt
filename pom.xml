@@ -448,6 +448,11 @@
 				<artifactId>geomajas-widget-searchandfilter-editor</artifactId>
 				<version>${project.version}</version>
 			</dependency>
+			<dependency>
+				<groupId>org.geomajas.widget</groupId>
+				<artifactId>geomajas-widget-searchandfilter-ribbon-gwt</artifactId>
+				<version>${project.version}</version>
+			</dependency>
 
 			<dependency>
 				<groupId>org.springframework</groupId>
