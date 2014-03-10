@@ -14,6 +14,7 @@ import com.smartgwt.client.widgets.Canvas;
 import org.geomajas.widget.searchandfilter.configuration.client.SearchAttribute;
 
 import java.util.LinkedHashMap;
+import java.util.List;
 
 /**
  * Interface for the presenter that deals with changing
@@ -56,6 +57,8 @@ public interface SearchAttributePresenter {
 		void setInputTypeMap(LinkedHashMap<SearchAttribute.InputType, String> inputTypeMap);
 		void setFieldsEnabled(boolean enabled);
 		void setInputTypeDropDown(boolean inputDropDown);
+
+		List<String> getDropDownValues();
 	}
 
 	/**
@@ -65,6 +68,7 @@ public interface SearchAttributePresenter {
 		void onSelectAttributeName(String attributeName);
 		void onChangeSelectInputType();
 		void onAddDropDownValue();
+		void onChangeDropdownValues();
 	}
 
 	void updateView();

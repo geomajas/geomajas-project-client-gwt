@@ -13,14 +13,12 @@ package org.geomajas.widget.searchandfilter.editor.client.view;
 import com.google.gwt.core.client.GWT;
 import com.smartgwt.client.types.Alignment;
 import com.smartgwt.client.types.ListGridEditEvent;
-import com.smartgwt.client.types.ListGridFieldType;
 import com.smartgwt.client.types.SelectionStyle;
 import com.smartgwt.client.widgets.Canvas;
 import com.smartgwt.client.widgets.ImgButton;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.form.DynamicForm;
-import com.smartgwt.client.widgets.form.fields.ButtonItem;
 import com.smartgwt.client.widgets.form.fields.SelectItem;
 import com.smartgwt.client.widgets.form.fields.TextItem;
 import com.smartgwt.client.widgets.form.fields.events.ChangedEvent;
@@ -28,24 +26,19 @@ import com.smartgwt.client.widgets.form.fields.events.ChangedHandler;
 import com.smartgwt.client.widgets.grid.ListGrid;
 import com.smartgwt.client.widgets.grid.ListGridField;
 import com.smartgwt.client.widgets.grid.ListGridRecord;
-import com.smartgwt.client.widgets.grid.events.CellOutEvent;
-import com.smartgwt.client.widgets.grid.events.CellOutHandler;
 import com.smartgwt.client.widgets.grid.events.CellSavedEvent;
 import com.smartgwt.client.widgets.grid.events.CellSavedHandler;
-import com.smartgwt.client.widgets.grid.events.ChangeEvent;
-import com.smartgwt.client.widgets.grid.events.ChangeHandler;
 import com.smartgwt.client.widgets.grid.events.RecordDoubleClickEvent;
 import com.smartgwt.client.widgets.grid.events.RecordDoubleClickHandler;
 import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.Layout;
 import com.smartgwt.client.widgets.layout.VLayout;
 import org.geomajas.gwt.client.util.WidgetLayout;
-import org.geomajas.plugin.deskmanager.client.gwt.common.impl.DeskmanagerIcon;
 import org.geomajas.widget.searchandfilter.configuration.client.SearchAttribute;
-import org.geomajas.widget.searchandfilter.editor.client.SearchAndFilterEditor;
 import org.geomajas.widget.searchandfilter.editor.client.i18n.SearchAndFilterEditorMessages;
 import org.geomajas.widget.searchandfilter.editor.client.presenter.SearchAttributePresenter;
 
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 
@@ -79,6 +72,8 @@ public class SearchAttributeView implements SearchAttributePresenter.View {
 	private TextItem label;
 
 	private DropdownValueListGrid grid;
+
+	private ImgButton addImg;
 
 	private VLayout gridLayout;
 
@@ -161,7 +156,7 @@ public class SearchAttributeView implements SearchAttributePresenter.View {
 		addImgContainer.setHeight(16);
 		addImgContainer.setLayoutAlign(Alignment.RIGHT);
 
-		ImgButton addImg = new ImgButton();
+		addImg = new ImgButton();
 		addImg.setSrc(WidgetLayout.iconAdd);
 		addImg.setShowDown(false);
 		addImg.setShowRollOver(false);
@@ -316,8 +311,15 @@ public class SearchAttributeView implements SearchAttributePresenter.View {
 
 	@Override
 	public void setInputTypeDropDown(boolean inputDropDown) {
-		gridLayout.setVisible(inputDropDown);
+		grid.setVisible(inputDropDown);
+		addImg.setVisible(inputDropDown);
+		//gridLayout.setHeight(inputDropDown ? VALUES_GRID_HEIGHT : 0);
 		window.redraw();
+	}
+
+	@Override
+	public List<String> getDropDownValues() {
+		return grid.getDropDownValues();
 	}
 
 	@Override
@@ -376,8 +378,7 @@ public class SearchAttributeView implements SearchAttributePresenter.View {
 			valueFld.addCellSavedHandler(new CellSavedHandler() {
 				@Override
 				public void onCellSaved(CellSavedEvent cellSavedEvent) {
-					// TODO send to handler
-					int i= 45;
+					handler.onChangeDropdownValues();
 				}
 			});
 
@@ -409,6 +410,14 @@ public class SearchAttributeView implements SearchAttributePresenter.View {
 			record.setAttribute(FLD_DROPDOWN_VALUE, value);
 			record.setAttribute(FLD_OBJECT, value);
 			addData(record);
+		}
+
+		public List<String> getDropDownValues() {
+			List<String> values = new ArrayList<String>();
+			for (int i = 0 ; i < getDataAsRecordList().getLength() ; i++) {
+				values.add(getRecord(i).getAttributeAsString("dropdownValue"));
+			}
+			return values;
 		}
 	}
 }

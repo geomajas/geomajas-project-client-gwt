@@ -10,25 +10,17 @@
  */
 package org.geomajas.widget.searchandfilter.editor.client.view;
 
-import com.google.gwt.core.client.GWT;
 import com.smartgwt.client.types.Alignment;
-import com.smartgwt.client.types.Overflow;
-import com.smartgwt.client.widgets.Canvas;
-import com.smartgwt.client.widgets.IButton;
 import com.smartgwt.client.widgets.ImgButton;
-import com.smartgwt.client.widgets.Window;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.grid.ListGrid;
-import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.Layout;
 import com.smartgwt.client.widgets.layout.VLayout;
 import org.geomajas.gwt.client.util.WidgetLayout;
-import org.geomajas.widget.searchandfilter.editor.client.i18n.SearchAndFilterEditorMessages;
-import org.geomajas.widget.searchandfilter.editor.client.presenter.EditorPresenter;
 
 /**
- * Wrapper around a layout, resulting in a window with cancel and save button.
+ * A VLayout containing a grid and an add button.
  *
  * @author Jan Venstermans
  */
@@ -85,6 +77,9 @@ public class AddableListGridLayout extends VLayout {
 		void onAddItem();
 	}
 
+	/**
+	 *
+	 */
 	public interface Grid {
 
 	}
@@ -93,6 +88,9 @@ public class AddableListGridLayout extends VLayout {
 		this.handler = handler;
 	}
 
+	/**
+	 *
+	 */
 	public abstract class AddableListGrid extends ListGrid {
 
 

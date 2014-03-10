@@ -107,6 +107,11 @@ public class SearchAttributePresenterImpl implements SearchAttributePresenter,
 			searchAttribute.setOperation(view.getSelectedOperation());
 			searchAttribute.setInputType(view.getSelectedInputType());
 			searchAttribute.setLabel(view.getLabel());
+			if (searchAttribute.getInputType().equals(SearchAttribute.InputType.DropDown)) {
+				searchAttribute.setInputTypeDropDownValues(view.getDropDownValues());
+			} else {
+				searchAttribute.getInputTypeDropDownValues().clear();
+			}
 			// attribute type and attribute name are inserted upon selection of that value.
 		}
 	}
@@ -127,10 +132,7 @@ public class SearchAttributePresenterImpl implements SearchAttributePresenter,
 	@Override
 	public void onChangeSelectInputType() {
 		boolean dropdownType = SearchAttribute.InputType.DropDown.equals(view.getSelectedInputType());
-		//view.setInputTypeDropDown(dropdownType);
-		if(!dropdownType) {
-			searchAttribute.getInputTypeDropDownValues().clear();
-		}
+		view.setInputTypeDropDown(dropdownType);
 	}
 
 	@Override
@@ -140,6 +142,11 @@ public class SearchAttributePresenterImpl implements SearchAttributePresenter,
 		}
 		searchAttribute.getInputTypeDropDownValues().add("");
 		view.updateGrid(searchAttribute.getInputTypeDropDownValues());
+	}
+
+	@Override
+	public void onChangeDropdownValues() {
+		searchAttribute.setInputTypeDropDownValues(view.getDropDownValues());
 	}
 
 	private PrimitiveAttributeInfo getPrimitiveAttributeFromName(String name) {

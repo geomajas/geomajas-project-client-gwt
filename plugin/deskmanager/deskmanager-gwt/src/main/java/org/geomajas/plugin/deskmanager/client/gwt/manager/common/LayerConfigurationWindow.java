@@ -10,29 +10,6 @@
  */
 package org.geomajas.plugin.deskmanager.client.gwt.manager.common;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
-import com.smartgwt.client.widgets.Slider;
-import org.geomajas.configuration.client.ClientLayerInfo;
-import org.geomajas.configuration.client.ClientRasterLayerInfo;
-import org.geomajas.configuration.client.ClientVectorLayerInfo;
-import org.geomajas.configuration.client.ClientWidgetInfo;
-import org.geomajas.gwt.client.util.WidgetLayout;
-import org.geomajas.layer.LayerType;
-import org.geomajas.plugin.deskmanager.client.gwt.manager.editor.LayerWidgetEditor;
-import org.geomajas.plugin.deskmanager.client.gwt.manager.editor.VectorLayerWidgetEditor;
-import org.geomajas.plugin.deskmanager.client.gwt.manager.editor.WidgetEditor;
-import org.geomajas.plugin.deskmanager.client.gwt.manager.editor.WidgetEditorFactory;
-import org.geomajas.plugin.deskmanager.client.gwt.manager.editor.WidgetEditorFactoryRegistry;
-import org.geomajas.plugin.deskmanager.client.gwt.manager.i18n.ManagerMessages;
-import org.geomajas.plugin.deskmanager.client.gwt.manager.service.DataCallback;
-import org.geomajas.plugin.deskmanager.client.gwt.manager.service.ManagerCommandService;
-import org.geomajas.plugin.deskmanager.client.gwt.manager.service.SensibleScaleConverter;
-import org.geomajas.plugin.deskmanager.client.gwt.manager.util.ExpertSldEditorHelper;
-import org.geomajas.plugin.deskmanager.domain.dto.LayerDto;
-
 import com.google.gwt.core.client.GWT;
 import com.smartgwt.client.types.Overflow;
 import com.smartgwt.client.types.Side;
@@ -40,6 +17,7 @@ import com.smartgwt.client.types.TitleOrientation;
 import com.smartgwt.client.util.BooleanCallback;
 import com.smartgwt.client.util.SC;
 import com.smartgwt.client.widgets.IButton;
+import com.smartgwt.client.widgets.Slider;
 import com.smartgwt.client.widgets.Window;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
@@ -51,7 +29,24 @@ import com.smartgwt.client.widgets.layout.LayoutSpacer;
 import com.smartgwt.client.widgets.layout.VLayout;
 import com.smartgwt.client.widgets.tab.Tab;
 import com.smartgwt.client.widgets.tab.TabSet;
-import org.geomajas.plugin.deskmanager.domain.dto.LayerModelDto;
+import org.geomajas.configuration.client.ClientLayerInfo;
+import org.geomajas.configuration.client.ClientRasterLayerInfo;
+import org.geomajas.configuration.client.ClientVectorLayerInfo;
+import org.geomajas.configuration.client.ClientWidgetInfo;
+import org.geomajas.gwt.client.util.WidgetLayout;
+import org.geomajas.plugin.deskmanager.client.gwt.manager.editor.LayerWidgetEditor;
+import org.geomajas.plugin.deskmanager.client.gwt.manager.editor.VectorLayerWidgetEditor;
+import org.geomajas.plugin.deskmanager.client.gwt.manager.editor.WidgetEditor;
+import org.geomajas.plugin.deskmanager.client.gwt.manager.editor.WidgetEditorFactory;
+import org.geomajas.plugin.deskmanager.client.gwt.manager.editor.WidgetEditorFactoryRegistry;
+import org.geomajas.plugin.deskmanager.client.gwt.manager.i18n.ManagerMessages;
+import org.geomajas.plugin.deskmanager.client.gwt.manager.service.SensibleScaleConverter;
+import org.geomajas.plugin.deskmanager.client.gwt.manager.util.ExpertSldEditorHelper;
+import org.geomajas.plugin.deskmanager.domain.dto.LayerDto;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Configuration window for individual layers.
@@ -409,7 +404,7 @@ public class LayerConfigurationWindow extends Window {
 							(VectorLayerWidgetEditor) editor;
 					if (layerDto.getClientLayerInfo() instanceof ClientVectorLayerInfo) {
 						vectorLayerWidgetEditor.setClientVectorLayerInfo(
-								(ClientVectorLayerInfo)layerDto.getClientLayerInfo());
+								(ClientVectorLayerInfo) layerDto.getClientLayerInfo());
 					} else {
 						// layer is raster, so don't add this editor as a tab.
 						return;
