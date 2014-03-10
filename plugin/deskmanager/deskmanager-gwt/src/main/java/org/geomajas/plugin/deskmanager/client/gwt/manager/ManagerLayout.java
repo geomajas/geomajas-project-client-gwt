@@ -10,6 +10,7 @@
  */
 package org.geomajas.plugin.deskmanager.client.gwt.manager;
 
+import com.smartgwt.client.widgets.layout.HLayout;
 import org.geomajas.plugin.deskmanager.client.gwt.manager.blueprints.Blueprints;
 import org.geomajas.plugin.deskmanager.client.gwt.manager.common.ManagerTab;
 import org.geomajas.plugin.deskmanager.client.gwt.manager.datalayer.Datalayers;
@@ -37,6 +38,11 @@ public class ManagerLayout extends VLayout implements EditSessionHandler {
 	private static final ManagerMessages MESSAGES = GWT.create(ManagerMessages.class);
 	
 	private TabSet tabSet;
+
+	public ManagerLayout(HLayout header) {
+		this();
+		addMember(header, 0);
+	}
 
 	public ManagerLayout() {
 		super();
