@@ -12,8 +12,6 @@ package org.geomajas.plugin.deskmanager.client.gwt.manager.editor;
 
 import org.geomajas.annotation.Api;
 import org.geomajas.configuration.client.ClientVectorLayerInfo;
-import org.geomajas.plugin.deskmanager.domain.dto.LayerDto;
-import org.geomajas.plugin.deskmanager.domain.dto.LayerModelDto;
 
 
 /**
@@ -26,5 +24,9 @@ import org.geomajas.plugin.deskmanager.domain.dto.LayerModelDto;
 @Api (allMethods = true)
 public interface VectorLayerWidgetEditor extends LayerWidgetEditor {
 
+	/**
+	 * Set the {@link ClientVectorLayerInfo} of the vector layer.
+	 * @param clientVectorLayerInfo
+	 */
 	void setClientVectorLayerInfo(ClientVectorLayerInfo clientVectorLayerInfo);
 }
