@@ -26,6 +26,8 @@ public final class DeskmanagerLayoutConstants {
 	/*============================================================
 		Margins
 	============================================================*/
+	/** Manager content center width. */
+	public static String centerContentWidth = "100%";
 
 
 	/*============================================================
@@ -33,6 +35,9 @@ public final class DeskmanagerLayoutConstants {
 	============================================================*/
 	/** desk manager bottom style tabpane style. */
 	public static final String DESKMANAGER_TABPANE_DETAIL_STYLE = "deskmanagerTabpaneDetailBottom";
+
+	/** center content style. */
+	public static final String STYLE_CENTER_CONTENT = "deskmanagerCenterContent";
 
 
 	/*============================================================
@@ -44,6 +49,8 @@ public final class DeskmanagerLayoutConstants {
 	public static String iconSave = "[ISOMORPHIC]/images/silk/accept.png";
 
 	public static String iconCog = "[ISOMORPHIC]/images/icons/cog.png";
+
+	public static String iconOpensampleloket = "[ISOMORPHIC]/images/silk/application_view_gallery.png";
 
 	// CHECKSTYLE VISIBILITY MODIFIER: ON
 
