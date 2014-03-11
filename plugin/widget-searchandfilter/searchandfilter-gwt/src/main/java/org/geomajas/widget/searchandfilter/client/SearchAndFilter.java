@@ -16,6 +16,7 @@ import org.geomajas.gwt.client.action.ToolbarBaseAction;
 import org.geomajas.gwt.client.action.toolbar.ToolbarRegistry;
 import org.geomajas.gwt.client.widget.MapWidget;
 import org.geomajas.widget.searchandfilter.client.action.CombinedSearchAction;
+import org.geomajas.widget.searchandfilter.client.action.ConfiguredSearchAction;
 import org.geomajas.widget.searchandfilter.client.action.FavouritesSearchAction;
 import org.geomajas.widget.searchandfilter.client.action.FreeSearchAction;
 import org.geomajas.widget.searchandfilter.client.action.SpatialSearchAction;
@@ -55,6 +56,13 @@ public class SearchAndFilter implements EntryPoint {
 
 			public ToolbarBaseAction createTool(MapWidget mapWidget) {
 				return new FreeSearchAction();
+			}
+		});
+
+		ToolbarRegistry.put(ConfiguredSearchAction.IDENTIFIER, new ToolCreator() {
+
+			public ToolbarBaseAction createTool(MapWidget mapWidget) {
+				return new ConfiguredSearchAction();
 			}
 		});
 	}

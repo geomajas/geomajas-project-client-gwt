@@ -133,4 +133,7 @@ public interface SearchAndFilterMessages extends Messages {
 	String searchFreeTitle();
 	String searchFreeTooltip();
 
+	/* configured searches */
+	String searchConfiguredTitleDefault();
+	String searchConfiguredTooltipDefault();
 }
