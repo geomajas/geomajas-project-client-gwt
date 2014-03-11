@@ -145,7 +145,9 @@ public class EditLayerSettingsStep extends WizardStepPanel {
 //			layerConfig.getClientLayerInfo().setLabel(sfup.getFileName());
 //		}
 
-		layerConfig.getClientLayerInfo().setLabel(info.getName());
+		if (info != null) {
+			layerConfig.getClientLayerInfo().setLabel(info.getName());
+		}
 
 		if (layerConfig instanceof DynamicRasterLayerConfiguration) {
 			featureInfoFormatItem.setValueMap(info.getGetFeatureInfoFormats().toArray(new String[0]));
