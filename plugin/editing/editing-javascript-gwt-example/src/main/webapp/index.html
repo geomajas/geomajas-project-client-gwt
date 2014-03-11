@@ -75,7 +75,7 @@
                 styleService.getEdgeStyle().setStrokeColor("red");
                 styleService.getPointSymbolizerShapeAndSize().setShape("circle");
                 styleService.getPointSymbolizerShapeAndSize().setSize(6);
-
+                styleService.setCloseRingWhileInserting(true);
                 factory = new org.geomajas.plugin.editing.handler.GeometryHandlerFactory();
 			}
 
@@ -102,6 +102,18 @@
 					service.redo();
 				} else {
 					alert("No REDO operation available.");
+				}
+			}
+			
+			function suspend() {
+				if (service.isStarted() && !service.isSuspended()) {
+					service.suspend();
+				}
+			}
+
+			function resume() {
+				if (service.isSuspended()) {
+					service.resume();
 				}
 			}
 
@@ -370,6 +382,8 @@
 						<button id="cancel" onclick="cancel()">Cancel</button><br/>
 						<button id="undo" onclick="undo()">Undo</button><br/>
 						<button id="redo" onclick="redo()">Redo</button>
+						<button id="suspend" onclick="suspend()">Suspend</button><br/>
+						<button id="resume" onclick="resume()">Resume</button>
                         <div>
                             <h6 id="infoHeader"></h6>
                             <table>

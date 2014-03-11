@@ -80,6 +80,9 @@ public class MenuBar extends ToolStrip {
 		addGeometryEditSuspensionHandler(redoBtn);
 		addButton(redoBtn);
 
+		SuspendBtn suspendBtn = new SuspendBtn(editor.getEditService());
+		addButton(suspendBtn);
+
 		addSeparator();
 
 		AddRingBtn addRingBtn = new AddRingBtn(editor.getEditService());
