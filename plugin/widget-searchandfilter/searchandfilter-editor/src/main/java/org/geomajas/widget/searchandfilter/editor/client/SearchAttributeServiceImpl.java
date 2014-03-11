@@ -13,7 +13,7 @@ package org.geomajas.widget.searchandfilter.editor.client;
 import com.google.gwt.core.client.GWT;
 import org.geomajas.configuration.PrimitiveAttributeInfo;
 import org.geomajas.configuration.client.ClientVectorLayerInfo;
-import org.geomajas.widget.searchandfilter.configuration.client.SearchAttribute;
+import org.geomajas.widget.searchandfilter.search.dto.ConfiguredSearchAttribute;
 import org.geomajas.widget.searchandfilter.editor.client.i18n.SearchAndFilterEditorMessages;
 
 import java.util.HashMap;
@@ -46,8 +46,8 @@ public final class SearchAttributeServiceImpl implements SearchAttributeService 
 	}
 
 	@Override
-	public String getOperationStringRepresentation(SearchAttribute.AttributeType attributeType,
-												   SearchAttribute.Operation operation) {
+	public String getOperationStringRepresentation(ConfiguredSearchAttribute.AttributeType attributeType,
+												   ConfiguredSearchAttribute.Operation operation) {
 		if (attributeType != null && operation != null) {
 			switch (attributeType) {
 			case Integer:
@@ -76,8 +76,8 @@ public final class SearchAttributeServiceImpl implements SearchAttributeService 
 	}
 
 	@Override
-	public String getInputTypeStringRepresentation(SearchAttribute.AttributeType attributeType,
-												   SearchAttribute.InputType inputType) {
+	public String getInputTypeStringRepresentation(ConfiguredSearchAttribute.AttributeType attributeType,
+												   ConfiguredSearchAttribute.InputType inputType) {
 		if (inputType != null) {
 			switch (inputType) {
 				case DropDown:
@@ -92,11 +92,11 @@ public final class SearchAttributeServiceImpl implements SearchAttributeService 
 	}
 
 	@Override
-	public Map<org.geomajas.configuration.PrimitiveAttributeInfo, SearchAttribute.AttributeType>
+	public Map<org.geomajas.configuration.PrimitiveAttributeInfo, ConfiguredSearchAttribute.AttributeType>
 	getPrimitiveAttributesMap() {
-		Map<org.geomajas.configuration.PrimitiveAttributeInfo, SearchAttribute.AttributeType>
+		Map<org.geomajas.configuration.PrimitiveAttributeInfo, ConfiguredSearchAttribute.AttributeType>
 				attributesMap =
-				new HashMap<org.geomajas.configuration.PrimitiveAttributeInfo, SearchAttribute.AttributeType>();
+				new HashMap<org.geomajas.configuration.PrimitiveAttributeInfo, ConfiguredSearchAttribute.AttributeType>();
 		ClientVectorLayerInfo clientVectorLayerInfo =
 				SearchAndFilterEditor.getSearchesStatus().getClientVectorLayerInfo();
 		if (clientVectorLayerInfo != null) {
@@ -105,13 +105,13 @@ public final class SearchAttributeServiceImpl implements SearchAttributeService 
 			for (org.geomajas.configuration.AttributeInfo attr : attributeInfoList) {
 				if (attr instanceof PrimitiveAttributeInfo) {
 					PrimitiveAttributeInfo primAttr = (PrimitiveAttributeInfo) attr;
-					SearchAttribute.AttributeType attributeType = null;
+					ConfiguredSearchAttribute.AttributeType attributeType = null;
 					switch (primAttr.getType()) {
 						case STRING:
-							attributeType = SearchAttribute.AttributeType.String;
+							attributeType = ConfiguredSearchAttribute.AttributeType.String;
 							break;
 						case INTEGER:
-							attributeType = SearchAttribute.AttributeType.Integer;
+							attributeType = ConfiguredSearchAttribute.AttributeType.Integer;
 							break;
 					}
 					if (attributeType != null) {
@@ -124,11 +124,11 @@ public final class SearchAttributeServiceImpl implements SearchAttributeService 
 	}
 
 	@Override
-	public LinkedHashMap<SearchAttribute.Operation, String> getOperationsValueMap(
-			SearchAttribute.AttributeType attributeType) {
-		LinkedHashMap<SearchAttribute.Operation, String> result
-				= new LinkedHashMap<SearchAttribute.Operation, String>();
-		for (SearchAttribute.Operation operation : attributeType.getOperations()) {
+	public LinkedHashMap<ConfiguredSearchAttribute.Operation, String> getOperationsValueMap(
+			ConfiguredSearchAttribute.AttributeType attributeType) {
+		LinkedHashMap<ConfiguredSearchAttribute.Operation, String> result
+				= new LinkedHashMap<ConfiguredSearchAttribute.Operation, String>();
+		for (ConfiguredSearchAttribute.Operation operation : attributeType.getOperations()) {
 			result.put(operation, SearchAndFilterEditor.getSearchAttributeService().
 					getOperationStringRepresentation(attributeType, operation));
 		}
@@ -136,11 +136,11 @@ public final class SearchAttributeServiceImpl implements SearchAttributeService 
 	}
 
 	@Override
-	public LinkedHashMap<SearchAttribute.InputType, String> getInputTypeMap(
-			SearchAttribute.AttributeType attributeType) {
-		LinkedHashMap<SearchAttribute.InputType, String> result
-				= new LinkedHashMap<SearchAttribute.InputType, String>();
-		for (SearchAttribute.InputType type : attributeType.getInputTypes()) {
+	public LinkedHashMap<ConfiguredSearchAttribute.InputType, String> getInputTypeMap(
+			ConfiguredSearchAttribute.AttributeType attributeType) {
+		LinkedHashMap<ConfiguredSearchAttribute.InputType, String> result
+				= new LinkedHashMap<ConfiguredSearchAttribute.InputType, String>();
+		for (ConfiguredSearchAttribute.InputType type : attributeType.getInputTypes()) {
 			result.put(type, SearchAndFilterEditor.getSearchAttributeService().
 					getInputTypeStringRepresentation(attributeType, type));
 		}

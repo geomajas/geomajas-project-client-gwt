@@ -11,30 +11,30 @@
 package org.geomajas.widget.searchandfilter.editor.client;
 
 import org.geomajas.configuration.client.ClientVectorLayerInfo;
-import org.geomajas.widget.searchandfilter.configuration.client.SearchAttribute;
-import org.geomajas.widget.searchandfilter.configuration.client.SearchConfig;
-import org.geomajas.widget.searchandfilter.configuration.client.SearchesInfo;
+import org.geomajas.widget.searchandfilter.search.dto.ConfiguredSearch;
+import org.geomajas.widget.searchandfilter.search.dto.ConfiguredSearchAttribute;
+import org.geomajas.widget.searchandfilter.search.dto.ConfiguredSearchesInfo;
 
 /**
  * Interface for managing the status of the current
- * {@link org.geomajas.widget.searchandfilter.configuration.client.SearchesInfo}
+ * {@link org.geomajas.widget.searchandfilter.search.dto.ConfiguredSearchesInfo}
  * and {@link ClientVectorLayerInfo}.
  *
  * @author Jan Venstermans
  */
 public interface SearchesStatus {
 
-	void setSearchesInfo(SearchesInfo searchesInfo);
+	void setSearchesInfo(ConfiguredSearchesInfo searchesInfo);
 
-	SearchesInfo getSearchesInfo();
+	ConfiguredSearchesInfo getSearchesInfo();
 
-	void setSelectedSearchConfig(SearchConfig selectedSearchConfig);
+	void setSelectedSearchConfig(ConfiguredSearch selectedSearchConfig);
 
-	SearchConfig getSelectedSearchConfig();
+	ConfiguredSearch getSelectedSearchConfig();
 
-	void setSelectedSearchAttribute(SearchAttribute selectedSearchAttribute);
+	void setSelectedSearchAttribute(ConfiguredSearchAttribute selectedSearchAttribute);
 
-	SearchAttribute getSelectedSearchAttribute();
+	ConfiguredSearchAttribute getSelectedSearchAttribute();
 
 	boolean isDisabled();
 
@@ -46,13 +46,13 @@ public interface SearchesStatus {
 
 	/* save */
 
-	void saveSearch(SearchConfig searchConfig, boolean newSearch);
+	void saveSearch(ConfiguredSearch searchConfig, boolean newSearch);
 
-	void saveSearchAttribute(SearchAttribute searchAttribute, SearchConfig searchConfig, boolean newAttribute);
+	void saveSearchAttribute(ConfiguredSearchAttribute searchAttribute, ConfiguredSearch searchConfig, boolean newAttribute);
 
 	/* remove */
 
-	void removeSearch(SearchConfig searchConfig);
+	void removeSearch(ConfiguredSearch searchConfig);
 
-	void removeSearchAttribute(SearchAttribute searchAttribute, SearchConfig searchConfig);
+	void removeSearchAttribute(ConfiguredSearchAttribute searchAttribute, ConfiguredSearch searchConfig);
 }

@@ -11,14 +11,14 @@
 package org.geomajas.widget.searchandfilter.editor.client.presenter;
 
 import com.smartgwt.client.widgets.Canvas;
-import org.geomajas.widget.searchandfilter.configuration.client.SearchAttribute;
+import org.geomajas.widget.searchandfilter.search.dto.ConfiguredSearchAttribute;
 
 import java.util.LinkedHashMap;
 import java.util.List;
 
 /**
  * Interface for the presenter that deals with changing
- * {@link org.geomajas.widget.searchandfilter.configuration.client.SearchAttribute}.
+ * {@link org.geomajas.widget.searchandfilter.search.dto.ConfiguredSearchAttribute}.
  *
  * @author Jan Venstermans
  */
@@ -36,15 +36,15 @@ public interface SearchAttributePresenter {
 		/* model elements setters */
 
 		void setSelectedAttributeName(String attributeName);
-		void setSelectedOperation(SearchAttribute.Operation operation);
-		void setSelectedInputType(SearchAttribute.InputType inputType);
+		void setSelectedOperation(ConfiguredSearchAttribute.Operation operation);
+		void setSelectedInputType(ConfiguredSearchAttribute.InputType inputType);
 		void setLabelText(String labelText);
 
 		/* model elements getters */
 
 		String getSelectedAttributeName();
-		SearchAttribute.Operation getSelectedOperation();
-		SearchAttribute.InputType getSelectedInputType();
+		ConfiguredSearchAttribute.Operation getSelectedOperation();
+		ConfiguredSearchAttribute.InputType getSelectedInputType();
 		String getLabel();
 
 		/* configuration after layer selection */
@@ -53,8 +53,8 @@ public interface SearchAttributePresenter {
 
 		/* configuration after attribute name selection */
 
-		void setOperationMap(LinkedHashMap<SearchAttribute.Operation, String> operationMap);
-		void setInputTypeMap(LinkedHashMap<SearchAttribute.InputType, String> inputTypeMap);
+		void setOperationMap(LinkedHashMap<ConfiguredSearchAttribute.Operation, String> operationMap);
+		void setInputTypeMap(LinkedHashMap<ConfiguredSearchAttribute.InputType, String> inputTypeMap);
 		void setFieldsEnabled(boolean enabled);
 		void setInputTypeDropDown(boolean inputDropDown);
 
@@ -79,5 +79,5 @@ public interface SearchAttributePresenter {
 
 	void createSearchAttribute();
 
-	void setSearchAttribute(SearchAttribute searchAttribute);
+	void setSearchAttribute(ConfiguredSearchAttribute searchAttribute);
 }

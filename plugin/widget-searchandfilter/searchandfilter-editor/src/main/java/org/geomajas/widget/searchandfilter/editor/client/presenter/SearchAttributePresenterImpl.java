@@ -12,8 +12,8 @@ package org.geomajas.widget.searchandfilter.editor.client.presenter;
 
 import org.geomajas.configuration.PrimitiveAttributeInfo;
 import org.geomajas.widget.searchandfilter.editor.client.SearchAndFilterEditor;
-import org.geomajas.widget.searchandfilter.configuration.client.SearchAttribute;
-import org.geomajas.widget.searchandfilter.configuration.client.SearchConfig;
+import org.geomajas.widget.searchandfilter.search.dto.ConfiguredSearch;
+import org.geomajas.widget.searchandfilter.search.dto.ConfiguredSearchAttribute;
 import org.geomajas.widget.searchandfilter.editor.client.event.VectorLayerInfoChangedEvent;
 
 import java.util.ArrayList;
@@ -30,13 +30,13 @@ public class SearchAttributePresenterImpl implements SearchAttributePresenter,
 
 	private View view;
 
-	private SearchAttribute searchAttribute;
+	private ConfiguredSearchAttribute searchAttribute;
 
-	private SearchConfig parentSearch;
+	private ConfiguredSearch parentSearch;
 
 	private boolean newSearchAttribute;
 
-	private Map<PrimitiveAttributeInfo, SearchAttribute.AttributeType> attributeTypeMap;
+	private Map<PrimitiveAttributeInfo, ConfiguredSearchAttribute.AttributeType> attributeTypeMap;
 
 	public SearchAttributePresenterImpl() {
 		this.view = SearchAndFilterEditor.getViewManager().getSearchAttributeView();
@@ -49,11 +49,11 @@ public class SearchAttributePresenterImpl implements SearchAttributePresenter,
 		SearchAndFilterEditor.addVectorLayerInfoChangedHandler(this);
 	}
 
-	private SearchAttribute getSelectedSearchAttribute() {
+	private ConfiguredSearchAttribute getSelectedSearchAttribute() {
 		return SearchAndFilterEditor.getSearchesStatus().getSelectedSearchAttribute();
 	}
 
-	private SearchConfig getSelectedSearchConfig() {
+	private ConfiguredSearch getSelectedSearchConfig() {
 		return SearchAndFilterEditor.getSearchesStatus().getSelectedSearchConfig();
 	}
 
@@ -76,7 +76,7 @@ public class SearchAttributePresenterImpl implements SearchAttributePresenter,
 		emptySelectedAttribute();
 		newSearchAttribute = newAttribute;
 		if (newAttribute) {
-			this.searchAttribute = new SearchAttribute();
+			this.searchAttribute = new ConfiguredSearchAttribute();
 		} else {
 			this.searchAttribute = getSelectedSearchAttribute();
 		}
@@ -106,8 +106,8 @@ public class SearchAttributePresenterImpl implements SearchAttributePresenter,
 		if (searchAttribute != null) {
 			searchAttribute.setOperation(view.getSelectedOperation());
 			searchAttribute.setInputType(view.getSelectedInputType());
-			searchAttribute.setLabel(view.getLabel());
-			if (searchAttribute.getInputType().equals(SearchAttribute.InputType.DropDown)) {
+			searchAttribute.setDisplayText(view.getLabel());
+			if (searchAttribute.getInputType().equals(ConfiguredSearchAttribute.InputType.DropDown)) {
 				searchAttribute.setInputTypeDropDownValues(view.getDropDownValues());
 			} else {
 				searchAttribute.getInputTypeDropDownValues().clear();
@@ -123,7 +123,7 @@ public class SearchAttributePresenterImpl implements SearchAttributePresenter,
 		PrimitiveAttributeInfo attributeInfo = getPrimitiveAttributeFromName(attributeName);
 		if (attributeInfo != null) {
 			searchAttribute.setAttributeName(attributeName);
-			SearchAttribute.AttributeType selectedAttributeType = attributeTypeMap.get(attributeInfo);
+			ConfiguredSearchAttribute.AttributeType selectedAttributeType = attributeTypeMap.get(attributeInfo);
 			searchAttribute.setAttributeType(selectedAttributeType);
 			updateView();
 		}
@@ -131,7 +131,7 @@ public class SearchAttributePresenterImpl implements SearchAttributePresenter,
 
 	@Override
 	public void onChangeSelectInputType() {
-		boolean dropdownType = SearchAttribute.InputType.DropDown.equals(view.getSelectedInputType());
+		boolean dropdownType = ConfiguredSearchAttribute.InputType.DropDown.equals(view.getSelectedInputType());
 		view.setInputTypeDropDown(dropdownType);
 	}
 
@@ -167,7 +167,7 @@ public class SearchAttributePresenterImpl implements SearchAttributePresenter,
 	}
 
 	@Override
-	public void setSearchAttribute(SearchAttribute searchAttribute) {
+	public void setSearchAttribute(ConfiguredSearchAttribute searchAttribute) {
 		this.searchAttribute = searchAttribute;
 		updateView();
 	}
@@ -178,7 +178,7 @@ public class SearchAttributePresenterImpl implements SearchAttributePresenter,
 		if (searchAttribute != null && searchAttribute.getAttributeType() != null) {
 			view.setSelectedAttributeName(searchAttribute.getAttributeName());
 			changeViewAccordingToAttributeType(searchAttribute.getAttributeType());
-			view.setLabelText(searchAttribute.getLabel());
+			view.setLabelText(searchAttribute.getDisplayText());
 			view.setSelectedOperation(searchAttribute.getOperation());
 			view.setSelectedInputType(searchAttribute.getInputType());
 			onChangeSelectInputType();
@@ -190,24 +190,24 @@ public class SearchAttributePresenterImpl implements SearchAttributePresenter,
 		if (searchAttribute != null) {
 			searchAttribute.setAttributeName(null);
 			searchAttribute.setAttributeType(null);
-			searchAttribute.setLabel(null);
+			searchAttribute.setDisplayText(null);
 			searchAttribute.setOperation(null);
 			searchAttribute.setInputType(null);
 			searchAttribute.getInputTypeDropDownValues().clear();
 		}
 	}
 
-	private void changeViewAccordingToAttributeType(SearchAttribute.AttributeType selectedAttributeType) {
+	private void changeViewAccordingToAttributeType(ConfiguredSearchAttribute.AttributeType selectedAttributeType) {
 		boolean hasAttributeType =  selectedAttributeType != null;
 		// enable or disable the other fields
 		view.setFieldsEnabled(hasAttributeType);
 		// fill choice lists of drop downs
 		if (hasAttributeType) {
-			LinkedHashMap<SearchAttribute.Operation, String> operationMap =
+			LinkedHashMap<ConfiguredSearchAttribute.Operation, String> operationMap =
 					SearchAndFilterEditor.getSearchAttributeService().getOperationsValueMap(selectedAttributeType);
 			view.setOperationMap(operationMap);
 			view.setSelectedOperation(operationMap.keySet().iterator().next());
-			LinkedHashMap<SearchAttribute.InputType, String> inputTypeMap =
+			LinkedHashMap<ConfiguredSearchAttribute.InputType, String> inputTypeMap =
 					SearchAndFilterEditor.getSearchAttributeService().getInputTypeMap(selectedAttributeType);
 			view.setInputTypeMap(inputTypeMap);
 			view.setSelectedInputType(inputTypeMap.keySet().iterator().next());

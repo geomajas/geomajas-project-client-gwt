@@ -12,8 +12,6 @@
 <!-- TODO Should be named SearchAndFilter, but this name in this package has been used by the GWT version -->
 
 <module>
-	
-	<source path="configuration/client" />
 	<source path="command/dto" />
 	<source path="search/dto" />
 	

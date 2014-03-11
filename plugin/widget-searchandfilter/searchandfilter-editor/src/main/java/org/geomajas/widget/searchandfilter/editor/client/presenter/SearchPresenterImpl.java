@@ -11,8 +11,8 @@
 package org.geomajas.widget.searchandfilter.editor.client.presenter;
 
 import org.geomajas.widget.searchandfilter.editor.client.SearchAndFilterEditor;
-import org.geomajas.widget.searchandfilter.configuration.client.SearchAttribute;
-import org.geomajas.widget.searchandfilter.configuration.client.SearchConfig;
+import org.geomajas.widget.searchandfilter.search.dto.ConfiguredSearch;
+import org.geomajas.widget.searchandfilter.search.dto.ConfiguredSearchAttribute;
 import org.geomajas.widget.searchandfilter.editor.client.event.SearchesInfoChangedEvent;
 
 /**
@@ -27,7 +27,7 @@ public class SearchPresenterImpl implements SearchPresenter, SearchPresenter.Han
 
 	private SearchAttributePresenter searchAttributePresenter;
 
-	private SearchConfig searchConfig;
+	private ConfiguredSearch searchConfig;
 
 	private boolean newSearchConfig;
 
@@ -42,7 +42,7 @@ public class SearchPresenterImpl implements SearchPresenter, SearchPresenter.Han
 		SearchAndFilterEditor.addSearchesInfoChangedHandler(this);
 	}
 
-	private SearchConfig getSelectedSearchConfig() {
+	private ConfiguredSearch getSelectedSearchConfig() {
 		return SearchAndFilterEditor.getSearchesStatus().getSelectedSearchConfig();
 	}
 
@@ -52,12 +52,12 @@ public class SearchPresenterImpl implements SearchPresenter, SearchPresenter.Han
 	}
 
 	@Override
-	public void onSelect(SearchAttribute attribute) {
+	public void onSelect(ConfiguredSearchAttribute attribute) {
 		SearchAndFilterEditor.getSearchesStatus().setSelectedSearchAttribute(attribute);
 	}
 
 	@Override
-	public void onEdit(SearchAttribute attribute) {
+	public void onEdit(ConfiguredSearchAttribute attribute) {
 		onSelect(attribute);
 		searchAttributePresenter.editSelectedAttribute();
 	}
@@ -81,7 +81,7 @@ public class SearchPresenterImpl implements SearchPresenter, SearchPresenter.Han
 		emptySelectedSearchConfig();
 		newSearchConfig = newSearch;
 		if (newSearch) {
-			this.searchConfig = new SearchConfig();
+			this.searchConfig = new ConfiguredSearch();
 		} else {
 			this.searchConfig = getSelectedSearchConfig();
 		}

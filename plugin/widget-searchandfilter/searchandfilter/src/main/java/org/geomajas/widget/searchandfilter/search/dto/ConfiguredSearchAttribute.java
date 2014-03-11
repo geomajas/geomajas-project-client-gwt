@@ -8,9 +8,8 @@
  * by the Geomajas Contributors License Agreement. For full licensing
  * details, see LICENSE.txt in the project root.
  */
-package org.geomajas.widget.searchandfilter.configuration.client;
+package org.geomajas.widget.searchandfilter.search.dto;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,15 +19,11 @@ import java.util.List;
  *
  * @author Jan Venstermans
  */
-public class SearchAttribute implements Serializable {
+public class ConfiguredSearchAttribute extends AttributeCriterion {
 
 	private static final long serialVersionUID = 100L;
 
 	private AttributeType attributeType;
-
-	private String attributeName;
-
-	private String label;
 
 	private Operation operation;
 
@@ -38,8 +33,8 @@ public class SearchAttribute implements Serializable {
 
 	/**
 	 * Datatype of attribute. This type will know what
-	 * {@link org.geomajas.widget.searchandfilter.configuration.client.SearchAttribute.Operation} and
-	 * {@link org.geomajas.widget.searchandfilter.configuration.client.SearchAttribute.InputType}
+	 * {@link ConfiguredSearchAttribute.Operation} and
+	 * {@link ConfiguredSearchAttribute.InputType}
 	 * values can be associated with itself.
 	 */
 	public enum AttributeType {
@@ -95,22 +90,6 @@ public class SearchAttribute implements Serializable {
 		this.attributeType = attributeType;
 	}
 
-	public String getAttributeName() {
-		return attributeName;
-	}
-
-	public void setAttributeName(String attributeName) {
-		this.attributeName = attributeName;
-	}
-
-	public String getLabel() {
-		return label;
-	}
-
-	public void setLabel(String label) {
-		this.label = label;
-	}
-
 	public Operation getOperation() {
 		return operation;
 	}
@@ -133,5 +112,13 @@ public class SearchAttribute implements Serializable {
 
 	public void setInputTypeDropDownValues(List<String> inputTypeDropDownValues) {
 		this.inputTypeDropDownValues = inputTypeDropDownValues;
+	}
+
+	@Override
+	public String getDisplayText() {
+		if (super.getDisplayText().equals(super.toString())) {
+			return null;
+		}
+		return super.getDisplayText();
 	}
 }

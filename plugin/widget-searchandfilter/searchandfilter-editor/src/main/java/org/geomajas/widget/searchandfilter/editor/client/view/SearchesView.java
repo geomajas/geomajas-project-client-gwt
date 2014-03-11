@@ -27,7 +27,7 @@ import com.smartgwt.client.widgets.layout.Layout;
 import com.smartgwt.client.widgets.layout.VLayout;
 import org.geomajas.gwt.client.util.WidgetLayout;
 import org.geomajas.plugin.deskmanager.client.gwt.common.impl.DeskmanagerIcon;
-import org.geomajas.widget.searchandfilter.configuration.client.SearchConfig;
+import org.geomajas.widget.searchandfilter.search.dto.ConfiguredSearch;
 import org.geomajas.widget.searchandfilter.editor.client.i18n.SearchAndFilterEditorMessages;
 import org.geomajas.widget.searchandfilter.editor.client.presenter.SearchesPresenter;
 
@@ -96,7 +96,7 @@ public class SearchesView implements SearchesPresenter.View {
 	}
 
 	@Override
-	public void updateGrid(List<SearchConfig> list) {
+	public void updateGrid(List<ConfiguredSearch> list) {
 		grid.fillGrid(list);
 	}
 
@@ -118,7 +118,7 @@ public class SearchesView implements SearchesPresenter.View {
 
 		private static final int FLD_ACTIONS_WIDTH = 60;
 
-		private SearchConfig rollOverSearchConfig;
+		private ConfiguredSearch rollOverSearchConfig;
 
 		private HLayout rollOverCanvas;
 
@@ -156,7 +156,7 @@ public class SearchesView implements SearchesPresenter.View {
 		@Override
 		protected Canvas getRollOverCanvas(Integer rowNum, Integer colNum) {
 			ListGridRecord rollOverRecord = getRecord(rowNum);
-			rollOverSearchConfig = (SearchConfig) rollOverRecord.getAttributeAsObject(FLD_OBJECT);
+			rollOverSearchConfig = (ConfiguredSearch) rollOverRecord.getAttributeAsObject(FLD_OBJECT);
 
 			if (rollOverCanvas == null) {
 				rollOverCanvas = new HLayout(3);
@@ -184,11 +184,11 @@ public class SearchesView implements SearchesPresenter.View {
 			return rollOverCanvas;
 		}
 
-		public void fillGrid(List<SearchConfig> searchConfigList) {
+		public void fillGrid(List<ConfiguredSearch> searchConfigList) {
 			deselectAllRecords();
 			setData(new ListGridRecord[]{});
 			// fill
-			for (SearchConfig config : searchConfigList) {
+			for (ConfiguredSearch config : searchConfigList) {
 				ListGridRecord record = new ListGridRecord();
 				record.setAttribute(FLD_NAME, config.getTitle());
 				record.setAttribute(FLD_DESCRIPTION, config.getDescription());

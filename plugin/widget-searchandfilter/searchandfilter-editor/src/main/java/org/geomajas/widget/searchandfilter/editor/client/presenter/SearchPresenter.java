@@ -11,11 +11,11 @@
 package org.geomajas.widget.searchandfilter.editor.client.presenter;
 
 import com.smartgwt.client.widgets.Canvas;
-import org.geomajas.widget.searchandfilter.configuration.client.SearchAttribute;
+import org.geomajas.widget.searchandfilter.search.dto.ConfiguredSearchAttribute;
 
 /**
  * Interface for the presenter that deals with changing
- * {@link org.geomajas.widget.searchandfilter.configuration.client.SearchConfig}.
+ * {@link org.geomajas.widget.searchandfilter.search.dto.ConfiguredSearch}.
  *
  * @author Jan Venstermans
  */
@@ -25,7 +25,7 @@ public interface SearchPresenter {
 	 * View interface for {@link SearchPresenter}.
 	 */
 	interface View extends EditorPresenter.FormView, EditorPresenter.WindowView,
-			EditorPresenter.GridView<SearchAttribute> {
+			EditorPresenter.GridView<ConfiguredSearchAttribute> {
 
 		void setHandler(Handler handler);
 
@@ -52,9 +52,9 @@ public interface SearchPresenter {
 	interface Handler extends EditorPresenter.SaveHandler {
 		void onAddAttribute();
 
-		void onSelect(SearchAttribute attribute);
+		void onSelect(ConfiguredSearchAttribute attribute);
 
-		void onEdit(SearchAttribute attribute);
+		void onEdit(ConfiguredSearchAttribute attribute);
 	}
 
 	View getView();

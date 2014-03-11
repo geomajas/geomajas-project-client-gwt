@@ -11,9 +11,9 @@
 package org.geomajas.widget.searchandfilter.editor.client;
 
 import org.geomajas.configuration.client.ClientVectorLayerInfo;
-import org.geomajas.widget.searchandfilter.configuration.client.SearchAttribute;
-import org.geomajas.widget.searchandfilter.configuration.client.SearchConfig;
-import org.geomajas.widget.searchandfilter.configuration.client.SearchesInfo;
+import org.geomajas.widget.searchandfilter.search.dto.ConfiguredSearch;
+import org.geomajas.widget.searchandfilter.search.dto.ConfiguredSearchAttribute;
+import org.geomajas.widget.searchandfilter.search.dto.ConfiguredSearchesInfo;
 import org.geomajas.widget.searchandfilter.editor.client.event.SearchesInfoChangedEvent;
 
 /**
@@ -29,11 +29,11 @@ public final class SearchesStatusImpl implements SearchesStatus {
 
 	private ClientVectorLayerInfo clientVectorLayerInfo;
 
-	private SearchesInfo searchesInfo;
+	private ConfiguredSearchesInfo searchesInfo;
 
-	private SearchConfig selectedSearchConfig;
+	private ConfiguredSearch selectedSearchConfig;
 
-	private SearchAttribute selectedSearchAttribute;
+	private ConfiguredSearchAttribute selectedSearchAttribute;
 
 	private SearchesStatusImpl() {
 
@@ -47,7 +47,7 @@ public final class SearchesStatusImpl implements SearchesStatus {
 	}
 
 	@Override
-	public void setSearchesInfo(SearchesInfo searchesInfo) {
+	public void setSearchesInfo(ConfiguredSearchesInfo searchesInfo) {
 		this.searchesInfo = searchesInfo;
 		this.selectedSearchConfig = null;
 		this.selectedSearchAttribute = null;
@@ -55,12 +55,12 @@ public final class SearchesStatusImpl implements SearchesStatus {
 	}
 
 	@Override
-	public SearchesInfo getSearchesInfo() {
+	public ConfiguredSearchesInfo getSearchesInfo() {
 		return searchesInfo;
 	}
 
 	@Override
-	public void setSelectedSearchConfig(SearchConfig selectedSearchConfig) {
+	public void setSelectedSearchConfig(ConfiguredSearch selectedSearchConfig) {
 		if (isSearchesInfoContainsSearchConfig(selectedSearchConfig)) {
 			this.selectedSearchConfig = selectedSearchConfig;
 			this.selectedSearchAttribute = null;
@@ -69,12 +69,12 @@ public final class SearchesStatusImpl implements SearchesStatus {
 	}
 
 	@Override
-	public SearchConfig getSelectedSearchConfig() {
+	public ConfiguredSearch getSelectedSearchConfig() {
 		return selectedSearchConfig;
 	}
 
 	@Override
-	public void setSelectedSearchAttribute(SearchAttribute selectedSearchAttribute) {
+	public void setSelectedSearchAttribute(ConfiguredSearchAttribute selectedSearchAttribute) {
 		if (isSelectedSearchConfigContainsSearchAttribute(selectedSearchAttribute)) {
 			this.selectedSearchAttribute = selectedSearchAttribute;
 			SearchAndFilterEditor.fireSearchesInfoChangedEvent(new SearchesInfoChangedEvent());
@@ -82,7 +82,7 @@ public final class SearchesStatusImpl implements SearchesStatus {
 	}
 
 	@Override
-	public SearchAttribute getSelectedSearchAttribute() {
+	public ConfiguredSearchAttribute getSelectedSearchAttribute() {
 		return selectedSearchAttribute;
 	}
 
@@ -108,7 +108,7 @@ public final class SearchesStatusImpl implements SearchesStatus {
 	}
 
 	@Override
-	public void saveSearch(SearchConfig searchConfig, boolean newSearch) {
+	public void saveSearch(ConfiguredSearch searchConfig, boolean newSearch) {
 		if (!isSearchesInfoContainsSearchConfig(searchConfig) && newSearch) {
 			searchesInfo.getSearchConfigs().add(searchConfig);
 		}
@@ -116,7 +116,7 @@ public final class SearchesStatusImpl implements SearchesStatus {
 	}
 
 	@Override
-	public void saveSearchAttribute(SearchAttribute searchAttribute, SearchConfig searchConfig, boolean newAttribute) {
+	public void saveSearchAttribute(ConfiguredSearchAttribute searchAttribute, ConfiguredSearch searchConfig, boolean newAttribute) {
 		if (newAttribute) {
 			searchConfig.getAttributes().add(searchAttribute);
 		} else {
@@ -126,7 +126,7 @@ public final class SearchesStatusImpl implements SearchesStatus {
 	}
 
 	@Override
-	public void removeSearch(SearchConfig searchConfig) {
+	public void removeSearch(ConfiguredSearch searchConfig) {
 		if (isSearchesInfoContainsSearchConfig(searchConfig)) {
 			searchesInfo.getSearchConfigs().remove(searchConfig);
 			SearchAndFilterEditor.fireSearchesInfoChangedEvent(new SearchesInfoChangedEvent());
@@ -134,7 +134,7 @@ public final class SearchesStatusImpl implements SearchesStatus {
 	}
 
 	@Override
-	public void removeSearchAttribute(SearchAttribute searchAttribute, SearchConfig searchConfig) {
+	public void removeSearchAttribute(ConfiguredSearchAttribute searchAttribute, ConfiguredSearch searchConfig) {
 		if (isSearchesInfoContainsSearchConfig(searchConfig)
 				&& searchConfig.getAttributes().contains(searchAttribute)) {
 			searchConfig.getAttributes().remove(searchAttribute);
@@ -144,9 +144,9 @@ public final class SearchesStatusImpl implements SearchesStatus {
 
 	/* private methods */
 
-	private boolean isSearchesInfoContainsSearchConfig(SearchConfig searchConfig) {
+	private boolean isSearchesInfoContainsSearchConfig(ConfiguredSearch searchConfig) {
 		if (searchesInfo != null && searchesInfo.getSearchConfigs() != null) {
-			for (SearchConfig config : searchesInfo.getSearchConfigs()) {
+			for (ConfiguredSearch config : searchesInfo.getSearchConfigs()) {
 				if (searchConfig.getTitle().equals(config.getTitle())) {
 					return true;
 				}
@@ -155,7 +155,7 @@ public final class SearchesStatusImpl implements SearchesStatus {
 		return false;
 	}
 
-	private boolean isSelectedSearchConfigContainsSearchAttribute(SearchAttribute searchAttribute) {
+	private boolean isSelectedSearchConfigContainsSearchAttribute(ConfiguredSearchAttribute searchAttribute) {
 		if (selectedSearchConfig != null && selectedSearchConfig.getAttributes() != null &&
 				selectedSearchConfig.getAttributes().contains(searchAttribute)) {
 			return true;

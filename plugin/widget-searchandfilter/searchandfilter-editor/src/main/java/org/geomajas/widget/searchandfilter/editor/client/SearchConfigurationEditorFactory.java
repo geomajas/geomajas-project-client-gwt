@@ -13,7 +13,7 @@ package org.geomajas.widget.searchandfilter.editor.client;
 import com.google.gwt.core.client.GWT;
 import org.geomajas.plugin.deskmanager.client.gwt.manager.editor.WidgetEditor;
 import org.geomajas.plugin.deskmanager.client.gwt.manager.editor.WidgetEditorFactory;
-import org.geomajas.widget.searchandfilter.configuration.client.SearchesInfo;
+import org.geomajas.widget.searchandfilter.search.dto.ConfiguredSearchesInfo;
 import org.geomajas.widget.searchandfilter.editor.client.i18n.SearchAndFilterEditorMessages;
 
 
@@ -35,7 +35,7 @@ public class SearchConfigurationEditorFactory implements WidgetEditorFactory {
 
 	@Override
 	public String getKey() {
-		return SearchesInfo.IDENTIFIER;
+		return ConfiguredSearchesInfo.IDENTIFIER;
 	}
 
 	@Override

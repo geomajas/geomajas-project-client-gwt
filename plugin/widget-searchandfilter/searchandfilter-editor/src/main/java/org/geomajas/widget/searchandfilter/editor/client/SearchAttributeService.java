@@ -10,30 +10,30 @@
  */
 package org.geomajas.widget.searchandfilter.editor.client;
 
-import org.geomajas.widget.searchandfilter.configuration.client.SearchAttribute;
+import org.geomajas.widget.searchandfilter.search.dto.ConfiguredSearchAttribute;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
- * Interface for the presenter of {@link org.geomajas.widget.searchandfilter.configuration.client.SearchesInfo}.
+ * Interface for the presenter of {@link org.geomajas.widget.searchandfilter.search.dto.ConfiguredSearchesInfo}.
  *
  * @author Jan Venstermans
  */
 public interface SearchAttributeService {
 
-	String getOperationStringRepresentation(SearchAttribute.AttributeType attributeType,
-											SearchAttribute.Operation operation);
+	String getOperationStringRepresentation(ConfiguredSearchAttribute.AttributeType attributeType,
+											ConfiguredSearchAttribute.Operation operation);
 
-	String getInputTypeStringRepresentation(SearchAttribute.AttributeType attributeType,
-											SearchAttribute.InputType inputType);
+	String getInputTypeStringRepresentation(ConfiguredSearchAttribute.AttributeType attributeType,
+											ConfiguredSearchAttribute.InputType inputType);
 
-	Map<org.geomajas.configuration.PrimitiveAttributeInfo, SearchAttribute.AttributeType>
+	Map<org.geomajas.configuration.PrimitiveAttributeInfo, ConfiguredSearchAttribute.AttributeType>
 	getPrimitiveAttributesMap();
 
-	LinkedHashMap<SearchAttribute.Operation, String> getOperationsValueMap(
-			SearchAttribute.AttributeType attributeType);
+	LinkedHashMap<ConfiguredSearchAttribute.Operation, String> getOperationsValueMap(
+			ConfiguredSearchAttribute.AttributeType attributeType);
 
-	LinkedHashMap<SearchAttribute.InputType, String> getInputTypeMap(
-			SearchAttribute.AttributeType attributeType);
+	LinkedHashMap<ConfiguredSearchAttribute.InputType, String> getInputTypeMap(
+			ConfiguredSearchAttribute.AttributeType attributeType);
 }

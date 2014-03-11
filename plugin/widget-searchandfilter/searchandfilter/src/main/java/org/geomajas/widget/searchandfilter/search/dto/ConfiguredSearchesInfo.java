@@ -8,7 +8,7 @@
  * by the Geomajas Contributors License Agreement. For full licensing
  * details, see LICENSE.txt in the project root.
  */
-package org.geomajas.widget.searchandfilter.configuration.client;
+package org.geomajas.widget.searchandfilter.search.dto;
 
 import org.geomajas.configuration.client.ClientWidgetInfo;
 
@@ -22,22 +22,22 @@ import java.util.List;
  * @author Jan Venstermans
  * 
  */
-public class SearchesInfo implements ClientWidgetInfo {
+public class ConfiguredSearchesInfo implements ClientWidgetInfo {
 
 	/**
 	 * Use this identifier in your configuration files (beans).
 	 */
-	public static final String IDENTIFIER = "SearchesInfo";
+	public static final String IDENTIFIER = "ConfiguredSearchesInfo";
 
 	private static final long serialVersionUID = 100L;
 
-	private List<SearchConfig> searchConfigs = new ArrayList<SearchConfig>();
+	private List<ConfiguredSearch> searchConfigs = new ArrayList<ConfiguredSearch>();
 
-	public List<SearchConfig> getSearchConfigs() {
+	public List<ConfiguredSearch> getSearchConfigs() {
 		return searchConfigs;
 	}
 
-	public void setSearchConfigs(List<SearchConfig> searchConfigs) {
+	public void setSearchConfigs(List<ConfiguredSearch> searchConfigs) {
 		this.searchConfigs = searchConfigs;
 	}
 }

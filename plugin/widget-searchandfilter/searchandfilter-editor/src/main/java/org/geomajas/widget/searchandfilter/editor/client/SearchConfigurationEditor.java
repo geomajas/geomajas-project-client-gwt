@@ -15,7 +15,7 @@ import org.geomajas.configuration.client.ClientVectorLayerInfo;
 import org.geomajas.configuration.client.ClientWidgetInfo;
 import org.geomajas.plugin.deskmanager.client.gwt.manager.editor.VectorLayerWidgetEditor;
 import org.geomajas.plugin.deskmanager.domain.dto.LayerModelDto;
-import org.geomajas.widget.searchandfilter.configuration.client.SearchesInfo;
+import org.geomajas.widget.searchandfilter.search.dto.ConfiguredSearchesInfo;
 import org.geomajas.widget.searchandfilter.editor.client.presenter.SearchesPresenter;
 import org.geomajas.widget.searchandfilter.editor.client.presenter.SearchesPresenterImpl;
 
@@ -51,9 +51,9 @@ public class SearchConfigurationEditor implements VectorLayerWidgetEditor {
 	@Override
 	public void setWidgetConfiguration(ClientWidgetInfo configuration) {
 		if (configuration == null) {
-			status.setSearchesInfo(new SearchesInfo());
-		} else if (configuration instanceof SearchesInfo) {
-			status.setSearchesInfo((SearchesInfo) configuration);
+			status.setSearchesInfo(new ConfiguredSearchesInfo());
+		} else if (configuration instanceof ConfiguredSearchesInfo) {
+			status.setSearchesInfo((ConfiguredSearchesInfo) configuration);
 		} else {
 			throw new IllegalArgumentException();
 		}

@@ -49,7 +49,7 @@ public interface SearchAndFilterEditorMessages extends Messages {
 	String searchDetailsWindowGridColumnActionsTooltip();
 	String searchDetailsWindowAddSearchAttributeButtonTooltip();
 
-	/* SearchAttribute window */
+	/* ConfiguredSearchAttribute window */
 	String searchAttributeWindowTitle();
 	String searchAttributeWindowAttributeNameLabel();
 	String searchAttributeWindowLabelLabel();
@@ -58,7 +58,7 @@ public interface SearchAndFilterEditorMessages extends Messages {
 	String searchAttributeWindowInputDropDownButtonTooltip();
 	String searchAttributeWindowGridValue();
 
-	/* SearchAttribute Service */
+	/* ConfiguredSearchAttribute Service */
 	String searchAttributeOperationEqualToString();
 	String searchAttributeOperationEqualToInteger();
 	String searchAttributeOperationSmallerThanString();

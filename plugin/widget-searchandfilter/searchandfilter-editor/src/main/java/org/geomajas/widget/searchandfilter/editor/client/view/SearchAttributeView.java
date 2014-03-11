@@ -34,7 +34,7 @@ import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.Layout;
 import com.smartgwt.client.widgets.layout.VLayout;
 import org.geomajas.gwt.client.util.WidgetLayout;
-import org.geomajas.widget.searchandfilter.configuration.client.SearchAttribute;
+import org.geomajas.widget.searchandfilter.search.dto.ConfiguredSearchAttribute;
 import org.geomajas.widget.searchandfilter.editor.client.i18n.SearchAndFilterEditorMessages;
 import org.geomajas.widget.searchandfilter.editor.client.presenter.SearchAttributePresenter;
 
@@ -81,8 +81,8 @@ public class SearchAttributeView implements SearchAttributePresenter.View {
 
 	/* model elements */
 	private LinkedHashMap<String, String> attributeNameMap;
-	private LinkedHashMap<SearchAttribute.Operation, String> operationMap;
-	private LinkedHashMap<SearchAttribute.InputType, String> inputTypeMap;
+	private LinkedHashMap<ConfiguredSearchAttribute.Operation, String> operationMap;
+	private LinkedHashMap<ConfiguredSearchAttribute.InputType, String> inputTypeMap;
 
 	/**
 	 * Construct a search configuration window.
@@ -219,12 +219,12 @@ public class SearchAttributeView implements SearchAttributePresenter.View {
 	}
 
 	@Override
-	public void setSelectedOperation(SearchAttribute.Operation operation) {
+	public void setSelectedOperation(ConfiguredSearchAttribute.Operation operation) {
 		setDropDownValue(operationSelectItem, operation);
 	}
 
 	@Override
-	public void setSelectedInputType(SearchAttribute.InputType inputType) {
+	public void setSelectedInputType(ConfiguredSearchAttribute.InputType inputType) {
 		setDropDownValue(inputTypeSelectItem, inputType);
 	}
 
@@ -245,12 +245,12 @@ public class SearchAttributeView implements SearchAttributePresenter.View {
 	}
 
 	@Override
-	public SearchAttribute.Operation getSelectedOperation() {
+	public ConfiguredSearchAttribute.Operation getSelectedOperation() {
 		return getSelectedKey(operationSelectItem, operationMap);
 	}
 
 	@Override
-	public SearchAttribute.InputType getSelectedInputType() {
+	public ConfiguredSearchAttribute.InputType getSelectedInputType() {
 		return getSelectedKey(inputTypeSelectItem, inputTypeMap);
 	}
 
@@ -283,7 +283,7 @@ public class SearchAttributeView implements SearchAttributePresenter.View {
 	}
 
 	@Override
-	public void setOperationMap(LinkedHashMap<SearchAttribute.Operation, String> operationMap) {
+	public void setOperationMap(LinkedHashMap<ConfiguredSearchAttribute.Operation, String> operationMap) {
 		this.operationMap = operationMap;
 		if (operationMap == null) {
 			operationSelectItem.clearValue();
@@ -293,7 +293,7 @@ public class SearchAttributeView implements SearchAttributePresenter.View {
 	}
 
 	@Override
-	public void setInputTypeMap(LinkedHashMap<SearchAttribute.InputType, String> inputTypeMap) {
+	public void setInputTypeMap(LinkedHashMap<ConfiguredSearchAttribute.InputType, String> inputTypeMap) {
 		this.inputTypeMap = inputTypeMap;
 		if (inputTypeMap == null) {
 			inputTypeSelectItem.clearValue();
@@ -389,7 +389,7 @@ public class SearchAttributeView implements SearchAttributePresenter.View {
 				public void onRecordDoubleClick(RecordDoubleClickEvent event) {
 					ListGridRecord record = getSelectedRecord();
 					if (record != null) {
-						SearchAttribute layerConfig = (SearchAttribute) record.getAttributeAsObject(FLD_OBJECT);
+						ConfiguredSearchAttribute layerConfig = (ConfiguredSearchAttribute) record.getAttributeAsObject(FLD_OBJECT);
 						//themeConfigurationPanel.selectLayerConfig(layerConfig);
 					}
 				}

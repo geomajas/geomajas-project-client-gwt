@@ -11,9 +11,9 @@
 package org.geomajas.widget.searchandfilter.editor.client.presenter;
 
 import com.smartgwt.client.widgets.Canvas;
-import org.geomajas.widget.searchandfilter.configuration.client.SearchesInfo;
+import org.geomajas.widget.searchandfilter.search.dto.ConfiguredSearchesInfo;
 import org.geomajas.widget.searchandfilter.editor.client.SearchAndFilterEditor;
-import org.geomajas.widget.searchandfilter.configuration.client.SearchConfig;
+import org.geomajas.widget.searchandfilter.search.dto.ConfiguredSearch;
 import org.geomajas.widget.searchandfilter.editor.client.event.SearchesInfoChangedEvent;
 
 /**
@@ -28,7 +28,7 @@ public class SearchesPresenterImpl implements SearchesPresenter, SearchesPresent
 
 	private SearchPresenter searchPresenter;
 
-	private SearchesInfo searchesInfo;
+	private ConfiguredSearchesInfo searchesInfo;
 
 	public SearchesPresenterImpl() {
 		this.view = SearchAndFilterEditor.getViewManager().getSearchesViewFactory().createSearchesView();
@@ -48,12 +48,12 @@ public class SearchesPresenterImpl implements SearchesPresenter, SearchesPresent
 	}
 
 	@Override
-	public void onSelect(SearchConfig config) {
+	public void onSelect(ConfiguredSearch config) {
 		SearchAndFilterEditor.getSearchesStatus().setSelectedSearchConfig(config);
 	}
 
 	@Override
-	public void onEdit(SearchConfig config) {
+	public void onEdit(ConfiguredSearch config) {
 		onSelect(config);
 		searchPresenter.editSelectedSearch();
 	}

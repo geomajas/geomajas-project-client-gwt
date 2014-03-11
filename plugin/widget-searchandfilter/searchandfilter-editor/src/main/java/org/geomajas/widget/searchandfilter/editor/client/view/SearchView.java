@@ -34,7 +34,7 @@ import com.smartgwt.client.widgets.layout.VLayout;
 import org.geomajas.gwt.client.util.WidgetLayout;
 import org.geomajas.plugin.deskmanager.client.gwt.common.FileUploadForm;
 import org.geomajas.plugin.deskmanager.client.gwt.common.impl.DeskmanagerIcon;
-import org.geomajas.widget.searchandfilter.configuration.client.SearchAttribute;
+import org.geomajas.widget.searchandfilter.search.dto.ConfiguredSearchAttribute;
 import org.geomajas.widget.searchandfilter.editor.client.SearchAndFilterEditor;
 import org.geomajas.widget.searchandfilter.editor.client.i18n.SearchAndFilterEditorMessages;
 import org.geomajas.widget.searchandfilter.editor.client.presenter.SearchPresenter;
@@ -177,7 +177,7 @@ public class SearchView implements SearchPresenter.View {
 	}
 
 	@Override
-	public void updateGrid(List<SearchAttribute> searchAttributeList) {
+	public void updateGrid(List<ConfiguredSearchAttribute> searchAttributeList) {
 		grid.fillGrid(searchAttributeList);
 	}
 
@@ -320,7 +320,7 @@ public class SearchView implements SearchPresenter.View {
 				public void onRecordDoubleClick(RecordDoubleClickEvent event) {
 					ListGridRecord record = getSelectedRecord();
 					if (record != null) {
-						SearchAttribute layerConfig = (SearchAttribute) record.getAttributeAsObject(FLD_OBJECT);
+						ConfiguredSearchAttribute layerConfig = (ConfiguredSearchAttribute) record.getAttributeAsObject(FLD_OBJECT);
 						//themeConfigurationPanel.selectLayerConfig(layerConfig);
 					}
 				}
@@ -351,7 +351,7 @@ public class SearchView implements SearchPresenter.View {
 
 					public void onClick(ClickEvent event) {
 
-						SearchAttribute searchAttribute = (SearchAttribute)
+						ConfiguredSearchAttribute searchAttribute = (ConfiguredSearchAttribute)
 								rollOverRecord.getAttributeAsObject(FLD_OBJECT);
 						handler.onEdit(searchAttribute);
 					}
@@ -361,19 +361,19 @@ public class SearchView implements SearchPresenter.View {
 			return rollOverCanvas;
 		}
 
-		public void fillGrid(List<SearchAttribute> searchAttributeList) {
+		public void fillGrid(List<ConfiguredSearchAttribute> searchAttributeList) {
 			deselectAllRecords();
 			setData(new ListGridRecord[]{});
 			// fill
-			for (SearchAttribute attribute : searchAttributeList) {
+			for (ConfiguredSearchAttribute attribute : searchAttributeList) {
 				addRow(attribute);
 			}
 		}
 
-		public void addRow(SearchAttribute attribute) {
+		public void addRow(ConfiguredSearchAttribute attribute) {
 			ListGridRecord record = new ListGridRecord();
 			record.setAttribute(FLD_ATTRIBUTE_NAME, attribute.getAttributeName());
-			record.setAttribute(FLD_LABEL, attribute.getLabel());
+			record.setAttribute(FLD_LABEL, attribute.getDisplayText());
 			record.setAttribute(FLD_OPERATION, SearchAndFilterEditor.getSearchAttributeService().
 					getOperationStringRepresentation(attribute.getAttributeType(), attribute.getOperation()));
 			record.setAttribute(FLD_INPUT_TYPE, SearchAndFilterEditor.getSearchAttributeService().
