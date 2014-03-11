@@ -104,6 +104,18 @@
 					alert("No REDO operation available.");
 				}
 			}
+			
+			function suspend() {
+				if (service.isStarted() && !service.isSuspended()) {
+					service.suspend();
+				}
+			}
+
+			function resume() {
+				if (service.isSuspended()) {
+					service.resume();
+				}
+			}
 
 			function drawPoint() {
                 service.stop();
@@ -370,6 +382,8 @@
 						<button id="cancel" onclick="cancel()">Cancel</button><br/>
 						<button id="undo" onclick="undo()">Undo</button><br/>
 						<button id="redo" onclick="redo()">Redo</button>
+						<button id="suspend" onclick="suspend()">Suspend</button><br/>
+						<button id="resume" onclick="resume()">Resume</button>
                         <div>
                             <h6 id="infoHeader"></h6>
                             <table>

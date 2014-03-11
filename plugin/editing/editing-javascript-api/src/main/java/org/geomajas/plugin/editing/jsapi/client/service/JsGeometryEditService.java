@@ -22,9 +22,11 @@ import org.geomajas.plugin.editing.client.event.GeometryEditChangeStateEvent;
 import org.geomajas.plugin.editing.client.event.GeometryEditInsertEvent;
 import org.geomajas.plugin.editing.client.event.GeometryEditMoveEvent;
 import org.geomajas.plugin.editing.client.event.GeometryEditRemoveEvent;
+import org.geomajas.plugin.editing.client.event.GeometryEditResumeEvent;
 import org.geomajas.plugin.editing.client.event.GeometryEditShapeChangedEvent;
 import org.geomajas.plugin.editing.client.event.GeometryEditStartEvent;
 import org.geomajas.plugin.editing.client.event.GeometryEditStopEvent;
+import org.geomajas.plugin.editing.client.event.GeometryEditSuspendEvent;
 import org.geomajas.plugin.editing.client.event.GeometryEditTentativeMoveEvent;
 import org.geomajas.plugin.editing.client.operation.GeometryOperationFailedException;
 import org.geomajas.plugin.editing.client.service.GeometryEditService;
@@ -36,9 +38,11 @@ import org.geomajas.plugin.editing.jsapi.client.event.GeometryEditChangeStateHan
 import org.geomajas.plugin.editing.jsapi.client.event.GeometryEditInsertHandler;
 import org.geomajas.plugin.editing.jsapi.client.event.GeometryEditMoveHandler;
 import org.geomajas.plugin.editing.jsapi.client.event.GeometryEditRemoveHandler;
+import org.geomajas.plugin.editing.jsapi.client.event.GeometryEditResumeHandler;
 import org.geomajas.plugin.editing.jsapi.client.event.GeometryEditShapeChangedHandler;
 import org.geomajas.plugin.editing.jsapi.client.event.GeometryEditStartHandler;
 import org.geomajas.plugin.editing.jsapi.client.event.GeometryEditStopHandler;
+import org.geomajas.plugin.editing.jsapi.client.event.GeometryEditSuspendHandler;
 import org.geomajas.plugin.editing.jsapi.client.event.GeometryEditTentativeMoveHandler;
 import org.geomajas.plugin.jsapi.client.event.JsHandlerRegistration;
 import org.timepedia.exporter.client.Export;
@@ -158,6 +162,45 @@ public class JsGeometryEditService implements Exportable {
 			}
 		};
 		return new JsHandlerRegistration(new HandlerRegistration[] { delegate.addGeometryEditStopHandler(h) });
+	}
+	
+	/**
+	 * Register a {@link GeometryEditSuspendHandler} that catches events that signal the editing process was suspended.
+	 * 
+	 * @param handler
+	 *            The {@link GeometryEditSuspendHandler} to add as listener.
+	 * @return The registration of the handler.
+	 */
+	public JsHandlerRegistration addGeometryEditSuspendHandler(final GeometryEditSuspendHandler handler) {
+		org.geomajas.plugin.editing.client.event.GeometryEditSuspendHandler h;
+		h = new org.geomajas.plugin.editing.client.event.GeometryEditSuspendHandler() {
+
+			public void onGeometryEditSuspend(GeometryEditSuspendEvent event) {
+				handler.onGeometryEditSuspend(
+						new org.geomajas.plugin.editing.jsapi.client.event.GeometryEditSuspendEvent(
+						event.getGeometry()));
+			}
+		};
+		return new JsHandlerRegistration(new HandlerRegistration[] { delegate.addGeometryEditSuspendHandler(h) });
+	}
+
+	/**
+	 * Register a {@link GeometryEditResumeHandler} that catches events that signal the editing process was resumed.
+	 * 
+	 * @param handler
+	 *            The {@link GeometryEditResumeHandler} to add as listener.
+	 * @return The registration of the handler.
+	 */
+	public JsHandlerRegistration addGeometryEditResumeHandler(final GeometryEditResumeHandler handler) {
+		org.geomajas.plugin.editing.client.event.GeometryEditResumeHandler h;
+		h = new org.geomajas.plugin.editing.client.event.GeometryEditResumeHandler() {
+
+			public void onGeometryEditResume(GeometryEditResumeEvent event) {
+				handler.onGeometryEditResume(new org.geomajas.plugin.editing.jsapi.client.event.GeometryEditResumeEvent(
+						event.getGeometry()));
+			}
+		};
+		return new JsHandlerRegistration(new HandlerRegistration[] { delegate.addGeometryEditResumeHandler(h) });
 	}
 
 	/**
@@ -481,6 +524,38 @@ public class JsGeometryEditService implements Exportable {
 	 */
 	public Geometry stop() {
 		return delegate.stop();
+	}
+
+	/**
+	 * Suspend the geometry editing process.
+	 * 
+	 */
+	public void suspend() {
+		delegate.suspend();
+	}
+
+	/**
+	 * Resume the geometry editing process.
+	 * 
+	 */
+	public void resume() {
+		delegate.resume();
+	}	
+	
+	/**
+	 * Is the editing process started ?
+	 * @return true if started
+	 */
+	public boolean isStarted() {
+		return delegate.isStarted();
+	}
+
+	/**
+	 * Is the editing process suspended ?
+	 * @return true if suspended
+	 */
+	public boolean isSuspended() {
+		return delegate.isSuspended();
 	}
 
 	// ------------------------------------------------------------------------
