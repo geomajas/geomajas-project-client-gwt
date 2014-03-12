@@ -75,17 +75,23 @@ public class DropDownWithConfiguredSearchesRibbonButton extends DropDownRibbonBu
 				List<ButtonAction> actions = new ArrayList<ButtonAction>();
 				for (Map.Entry<String, List<ConfiguredSearch>> entry : searches.entrySet()) {
 					for (ConfiguredSearch searchConfig : entry.getValue()) {
-						ClientToolInfo info = new ClientToolInfo();
-						info.setId(ConfiguredSearchAction.IDENTIFIER);
-						ButtonAction innerAction = RibbonColumnRegistry.getAction(info, mapWidget);
-						((ConfiguredSearchAction) ((ToolbarButtonAction) innerAction).getToolbarAction()).
-								setSearchConfig(searchConfig, entry.getKey());
-						actions.add(innerAction);
+						// only add configured searches that have at least one search attribute
+						if (searchConfig.getAttributes() != null && searchConfig.getAttributes().size() > 0) {
+							ClientToolInfo info = new ClientToolInfo();
+							info.setId(ConfiguredSearchAction.IDENTIFIER);
+							ButtonAction innerAction = RibbonColumnRegistry.getAction(info, mapWidget);
+							((ConfiguredSearchAction) ((ToolbarButtonAction) innerAction).getToolbarAction()).
+									setSearchConfig(searchConfig, entry.getKey());
+							actions.add(innerAction);
+						}
 					}
 				}
-				getPanel().addGroup(createGroup(), actions);
-				// hard coded style names, that have been set before
-				getPanel().setStyleName(getPanel().getStyleName());
+				// it is possible all searches don't have search attributes, so do extra check
+				if (actions.size() > 0) {
+					getPanel().addGroup(createGroup(), actions);
+					// hard coded style names, that have been set before
+					getPanel().setStyleName(getPanel().getStyleName());
+				}
 			}
 		}
 	}

@@ -42,7 +42,7 @@ public class ConfiguredSearchCreator implements SearchWidgetCreator {
 
 	public SearchWidget createInstance(MapWidget mapWidget) {
 		return new DockableWindowConfiguredSearchWidget(IDENTIFIER,
-				getSearchWidgetName(), new ConfiguredSearchPanel2(mapWidget));
+				getSearchWidgetName(), new ConfiguredSearchPanel(mapWidget));
 	}
 
 	/**
@@ -50,7 +50,7 @@ public class ConfiguredSearchCreator implements SearchWidgetCreator {
 	 */
 	public class DockableWindowConfiguredSearchWidget extends DockableWindowSearchWidget {
 
-		private ConfiguredSearchPanel2 configuredSearchPanel;
+		private ConfiguredSearchPanel configuredSearchPanel;
 
 		/**
 		 * @param widgetId    needed to find the widget in the SearchWidgetRegistry.
@@ -58,7 +58,7 @@ public class ConfiguredSearchCreator implements SearchWidgetCreator {
 		 * @param configuredSearchPanel
 		 */
 		public DockableWindowConfiguredSearchWidget(String widgetId, String name,
-													ConfiguredSearchPanel2 configuredSearchPanel) {
+													ConfiguredSearchPanel configuredSearchPanel) {
 			super(widgetId, name, configuredSearchPanel);
 			this.configuredSearchPanel = configuredSearchPanel;
 		}

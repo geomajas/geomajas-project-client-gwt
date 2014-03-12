@@ -39,17 +39,14 @@ public class ConfiguredSearchAction extends ToolbarAction implements Configurabl
 
 	/**
 	 * Default constructor. This will create an action with some default values of icon, title and tooltip.
-	 * These values should be substituted by setting the {@link org.geomajas.widget.searchandfilter.search.dto.ConfiguredSearch} object for this action, using
+	 * These values should be substituted by setting the
+	 * {@link org.geomajas.widget.searchandfilter.search.dto.ConfiguredSearch} object for this action, using
 	 * {@link ConfiguredSearchAction#setSearchConfig(
-	 *org.geomajas.widget.searchandfilter.search.dto.ConfiguredSearch)} method.
+	 *org.geomajas.widget.searchandfilter.search.dto.ConfiguredSearch, String)} method.
 	 */
 	public ConfiguredSearchAction() {
 		super(GsfLayout.iconSearchFree, MESSAGES.searchConfiguredTitleDefault(),
 				MESSAGES.searchConfiguredTooltipDefault());
-	}
-
-	public ConfiguredSearch getSearchConfig() {
-		return searchConfig;
 	}
 
 	public void setSearchConfig(ConfiguredSearch searchConfig, String layerId) {

@@ -46,7 +46,6 @@ import org.geomajas.gwt.client.util.WidgetLayout;
 import org.geomajas.gwt.client.widget.FeatureSearch.LogicalOperator;
 import org.geomajas.gwt.client.widget.MapWidget;
 import org.geomajas.widget.searchandfilter.client.SearchAndFilterMessages;
-import org.geomajas.widget.searchandfilter.client.widget.attributesearch.AttributeCriterionPane;
 import org.geomajas.widget.searchandfilter.search.dto.AndCriterion;
 import org.geomajas.widget.searchandfilter.search.dto.AttributeCriterion;
 import org.geomajas.widget.searchandfilter.search.dto.Criterion;
@@ -159,7 +158,7 @@ public abstract class AbstractAttributeSearchPanel extends AbstractSearchPanel {
 
 		protected MapModel mapModel;
 
-		private List<AttributeCriterionPane> criterionPanes;
+		private List<AbstractAttributeCriterionPane> criterionPanes;
 
 		private List<HLayout> buttonPanes;
 
@@ -203,7 +202,7 @@ public abstract class AbstractAttributeSearchPanel extends AbstractSearchPanel {
 			this.manualLayerSelection = manualLayerSelection;
 			this.includeServerLayerInfo = includeServerLayerInfo;
 			this.enableRulesCrud = enableRulesCrud;
-			criterionPanes = new ArrayList<AttributeCriterionPane>();
+			criterionPanes = new ArrayList<AbstractAttributeCriterionPane>();
 			buttonPanes = new ArrayList<HLayout>();
 			addHandlers = new ArrayList<HandlerRegistration>();
 			removeHandlers = new ArrayList<HandlerRegistration>();
@@ -238,13 +237,15 @@ public abstract class AbstractAttributeSearchPanel extends AbstractSearchPanel {
 			addNewRow(index, null);
 		}
 
+		public abstract AbstractAttributeCriterionPane createAttributeCriterionPane(VectorLayer layer);
+
 		public void addNewRow(final int index, AttributeCriterion ac) {
 			if (null == layer) {
 				return;
 			}
 
 			// Empty row:
-			AttributeCriterionPane newRow = new AttributeCriterionPane(layer);
+			AbstractAttributeCriterionPane newRow =  createAttributeCriterionPane(layer);
 			newRow.setHeight(32);
 			newRow.setStyleName(STYLE_SEARCH_ROW);
 
@@ -376,7 +377,7 @@ public abstract class AbstractAttributeSearchPanel extends AbstractSearchPanel {
 					criteria = ((OrCriterion) criterion).getCriteria();
 				}
 
-				for (AttributeCriterionPane criterionPane : criterionPanes) {
+				for (AbstractAttributeCriterionPane criterionPane : criterionPanes) {
 					if (criterionPane.hasErrors()) {
 						SC.warn(I18nProvider.getSearch().warningInvalidCriteria());
 						return null;
@@ -408,7 +409,7 @@ public abstract class AbstractAttributeSearchPanel extends AbstractSearchPanel {
 		 * @param shouldAddEmptyRow should an empty row be added?
 		 */
 		public void empty(boolean shouldAddEmptyRow) {
-			for (AttributeCriterionPane criterionPane : criterionPanes) {
+			for (AbstractAttributeCriterionPane criterionPane : criterionPanes) {
 				criterionStack.removeMember(criterionPane);
 			}
 			criterionPanes.clear();
