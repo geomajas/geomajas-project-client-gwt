@@ -16,6 +16,8 @@ import org.geomajas.annotation.Api;
 /**
  * @author Oliver May
  *
+ * @author Dosi Bingov
+ *
  * @since 1.0.0
  */
 @Api
@@ -24,6 +26,18 @@ public final class GltLayout {
 	private GltLayout() {  }
 	
 	// CHECKSTYLE VISIBILITY MODIFIER: OFF
+
+	/*============================================================
+	Margins
+	============================================================*/
+	public static int layerTreeButtonSize = 22;
+
+	public static int layerTreeIconSize = 18;
+
+
+	/*============================================================
+	Icons
+	============================================================*/
 
 	/** Layer label overlay icon URL. */
 	public static String layerLabelOverlayUrl = "[ISOMORPHIC]/geomajas/layerIcons/layer_label_overlay.png";
@@ -51,6 +65,16 @@ public final class GltLayout {
 
 	public static String iconRemoveFilter = "[SKIN]/actions/remove.png";
 
+	public static String iconLayerSettings = "[ISOMORPHIC]/geomajas/silk/cog.png";
+
+	/**
+	 * The path where we put following layer tree icons.
+	 *
+	 * layer-show.png, layer-hide.png, layer-show-filtered.png, layer-show-labeled-filtered.png,
+	 * layer-show-outofrange.png, layer-show-outofrange-filtered.png, layer-show-outofrange-labeled.png,
+	 * layer-show-outofrange-labeled-filtered.png
+	 */
+	public static String layerTreeIconsPath = "[ISOMORPHIC]/geomajas/widget/layertree/";
 
 
 	// CHECKSTYLE VISIBILITY MODIFIER: ON

@@ -37,6 +37,10 @@ public final class FitLayout {
     ============================================================*/
 	public static String iconMouseTooltipRibbon = "[ISOMORPHIC]/geomajas/osgeo/mouse_tooltip_ribbon_24.png";
 
+	public static String iconLayerRaster = "[ISOMORPHIC]/geomajas/osgeo/layer-raster.png";
+
+	public static String iconDesktopSmall = "[ISOMORPHIC]/geomajas/geomajas_desktopicon_small.png";
+
 	// CHECKSTYLE VISIBILITY MODIFIER: ON
 
 	private FitLayout() {

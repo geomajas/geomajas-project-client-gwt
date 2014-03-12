@@ -52,6 +52,8 @@ public final class DeskmanagerLayoutConstants {
 
 	public static String iconOpensampleloket = "[ISOMORPHIC]/images/silk/application_view_gallery.png";
 
+	public static String iconClearSelection = "[ISOMORPHIC]/geomajas/osgeo/selected-delete.png";
+
 	// CHECKSTYLE VISIBILITY MODIFIER: ON
 
 }

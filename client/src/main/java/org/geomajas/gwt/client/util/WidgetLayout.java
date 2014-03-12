@@ -354,6 +354,15 @@ public final class WidgetLayout {
 	 */
 	public static int crocEyePositionTop = 110;
 
+	/*============================================================
+		Style names
+	============================================================*/
+	public static final String STYLE_MEASURE_DISTANCE_PANEL = "measureDistancePanel";
+
+	public static final String MEASURE_DISTANCE_PANEL_CONTENT = "measureDistancePanelContent";
+
+	public static final String MEASURE_DISTANCE_PANEL_HEADER = "measureDistancePanelHeader";
+
 	// CHECKSTYLE VISIBILITY MODIFIER: ON
 
 	private WidgetLayout() {
