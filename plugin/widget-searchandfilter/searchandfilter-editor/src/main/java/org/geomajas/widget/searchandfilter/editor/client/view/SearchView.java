@@ -34,8 +34,8 @@ import com.smartgwt.client.widgets.layout.VLayout;
 import org.geomajas.gwt.client.util.WidgetLayout;
 import org.geomajas.plugin.deskmanager.client.gwt.common.FileUploadForm;
 import org.geomajas.plugin.deskmanager.client.gwt.common.impl.DeskmanagerIcon;
+import org.geomajas.widget.searchandfilter.client.util.AttributeCriterionUtil;
 import org.geomajas.widget.searchandfilter.search.dto.ConfiguredSearchAttribute;
-import org.geomajas.widget.searchandfilter.editor.client.SearchAndFilterEditor;
 import org.geomajas.widget.searchandfilter.editor.client.i18n.SearchAndFilterEditorMessages;
 import org.geomajas.widget.searchandfilter.editor.client.presenter.SearchPresenter;
 
@@ -320,7 +320,8 @@ public class SearchView implements SearchPresenter.View {
 				public void onRecordDoubleClick(RecordDoubleClickEvent event) {
 					ListGridRecord record = getSelectedRecord();
 					if (record != null) {
-						ConfiguredSearchAttribute layerConfig = (ConfiguredSearchAttribute) record.getAttributeAsObject(FLD_OBJECT);
+						ConfiguredSearchAttribute layerConfig =
+								(ConfiguredSearchAttribute) record.getAttributeAsObject(FLD_OBJECT);
 						//themeConfigurationPanel.selectLayerConfig(layerConfig);
 					}
 				}
@@ -374,9 +375,9 @@ public class SearchView implements SearchPresenter.View {
 			ListGridRecord record = new ListGridRecord();
 			record.setAttribute(FLD_ATTRIBUTE_NAME, attribute.getAttributeName());
 			record.setAttribute(FLD_LABEL, attribute.getDisplayText());
-			record.setAttribute(FLD_OPERATION, SearchAndFilterEditor.getSearchAttributeService().
+			record.setAttribute(FLD_OPERATION, AttributeCriterionUtil.
 					getOperationStringRepresentation(attribute.getAttributeType(), attribute.getOperation()));
-			record.setAttribute(FLD_INPUT_TYPE, SearchAndFilterEditor.getSearchAttributeService().
+			record.setAttribute(FLD_INPUT_TYPE, AttributeCriterionUtil.
 					getInputTypeStringRepresentation(attribute.getAttributeType(), attribute.getInputType()));
 			record.setAttribute(FLD_OBJECT, attribute);
 			addData(record);

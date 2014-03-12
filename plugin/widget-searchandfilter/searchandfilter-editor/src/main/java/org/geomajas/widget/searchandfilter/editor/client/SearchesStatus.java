@@ -48,7 +48,8 @@ public interface SearchesStatus {
 
 	void saveSearch(ConfiguredSearch searchConfig, boolean newSearch);
 
-	void saveSearchAttribute(ConfiguredSearchAttribute searchAttribute, ConfiguredSearch searchConfig, boolean newAttribute);
+	void saveSearchAttribute(ConfiguredSearchAttribute searchAttribute,
+							 ConfiguredSearch searchConfig, boolean newAttribute);
 
 	/* remove */
 

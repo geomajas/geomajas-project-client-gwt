@@ -116,7 +116,8 @@ public final class SearchesStatusImpl implements SearchesStatus {
 	}
 
 	@Override
-	public void saveSearchAttribute(ConfiguredSearchAttribute searchAttribute, ConfiguredSearch searchConfig, boolean newAttribute) {
+	public void saveSearchAttribute(ConfiguredSearchAttribute searchAttribute,
+									ConfiguredSearch searchConfig, boolean newAttribute) {
 		if (newAttribute) {
 			searchConfig.getAttributes().add(searchAttribute);
 		} else {

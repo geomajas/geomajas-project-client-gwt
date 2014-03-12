@@ -136,4 +136,16 @@ public interface SearchAndFilterMessages extends Messages {
 	/* configured searches */
 	String searchConfiguredTitleDefault();
 	String searchConfiguredTooltipDefault();
+
+	/* AttributeCriterionUtil */
+	String searchAttributeOperationEqualToString();
+	String searchAttributeOperationEqualToInteger();
+	String searchAttributeOperationSmallerThanString();
+	String searchAttributeOperationSmallerThanInteger();
+	String searchAttributeOperationLargerThanString();
+	String searchAttributeOperationLargerThanInteger();
+
+	String searchAttributeInputTypeFreeTextToString();
+	String searchAttributeInputTypeFreeNrToString();
+	String searchAttributeInputTypeDropDownToString();
 }

@@ -57,7 +57,7 @@ public class BasePowerMockitoTest {
 		PowerMockito.whenNew(SearchesView.class).withNoArguments().thenReturn(searchesViewMock);
 		PowerMockito.whenNew(SearchView.class).withNoArguments().thenReturn(searchViewMock);
 		PowerMockito.whenNew(SearchAttributeView.class).withNoArguments().thenReturn(searchAttributeViewMock);
-		//PowerMockito.whenNew(SearchAttributeServiceImpl.class).withNoArguments().thenReturn(searchAttributeServiceMock);
+		//PowerMockito.whenNew(AttributeCriterionUtil.class).withNoArguments().thenReturn(searchAttributeServiceMock);
 		SearchAndFilterEditor.setViewManager(new ViewManager() {
 			@Override
 			public SearchesPresenter.View getSearchesView() {

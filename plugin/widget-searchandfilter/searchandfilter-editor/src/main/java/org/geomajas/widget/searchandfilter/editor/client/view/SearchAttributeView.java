@@ -389,7 +389,8 @@ public class SearchAttributeView implements SearchAttributePresenter.View {
 				public void onRecordDoubleClick(RecordDoubleClickEvent event) {
 					ListGridRecord record = getSelectedRecord();
 					if (record != null) {
-						ConfiguredSearchAttribute layerConfig = (ConfiguredSearchAttribute) record.getAttributeAsObject(FLD_OBJECT);
+						ConfiguredSearchAttribute layerConfig =
+								(ConfiguredSearchAttribute) record.getAttributeAsObject(FLD_OBJECT);
 						//themeConfigurationPanel.selectLayerConfig(layerConfig);
 					}
 				}

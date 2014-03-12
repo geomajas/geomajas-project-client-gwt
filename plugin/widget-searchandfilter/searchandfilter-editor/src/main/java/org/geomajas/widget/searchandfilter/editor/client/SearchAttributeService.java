@@ -22,12 +22,6 @@ import java.util.Map;
  */
 public interface SearchAttributeService {
 
-	String getOperationStringRepresentation(ConfiguredSearchAttribute.AttributeType attributeType,
-											ConfiguredSearchAttribute.Operation operation);
-
-	String getInputTypeStringRepresentation(ConfiguredSearchAttribute.AttributeType attributeType,
-											ConfiguredSearchAttribute.InputType inputType);
-
 	Map<org.geomajas.configuration.PrimitiveAttributeInfo, ConfiguredSearchAttribute.AttributeType>
 	getPrimitiveAttributesMap();
 

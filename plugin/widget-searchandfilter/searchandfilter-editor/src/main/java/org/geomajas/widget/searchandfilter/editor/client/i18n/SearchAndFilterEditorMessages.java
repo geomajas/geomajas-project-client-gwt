@@ -58,16 +58,4 @@ public interface SearchAndFilterEditorMessages extends Messages {
 	String searchAttributeWindowInputDropDownButtonTooltip();
 	String searchAttributeWindowGridValue();
 
-	/* ConfiguredSearchAttribute Service */
-	String searchAttributeOperationEqualToString();
-	String searchAttributeOperationEqualToInteger();
-	String searchAttributeOperationSmallerThanString();
-	String searchAttributeOperationSmallerThanInteger();
-	String searchAttributeOperationLargerThanString();
-	String searchAttributeOperationLargerThanInteger();
-
-	String searchAttributeInputTypeFreeTextToString();
-	String searchAttributeInputTypeFreeNrToString();
-	String searchAttributeInputTypeDropDownToString();
-
 }

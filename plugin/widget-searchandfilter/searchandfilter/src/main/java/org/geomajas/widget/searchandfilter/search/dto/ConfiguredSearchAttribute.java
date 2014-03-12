@@ -72,7 +72,22 @@ public class ConfiguredSearchAttribute extends AttributeCriterion {
 	 * Operation type that can be applied to the value of an vector layer attribute.
 	 */
 	public enum Operation {
-		EqualTo, SmallerThan, LargerThan;
+		EqualTo("="),
+		SmallerThan("<"),
+		LargerThan(">");
+
+		/**
+		 *   see {@link org.geomajas.gwt.client.widget.attribute.AttributeCriterionPane} for reference
+		 */
+		private String operatorString;
+
+		private Operation(String operatorString) {
+			this.operatorString = operatorString;
+		}
+
+		public String getOperatorString() {
+			return operatorString;
+		}
 	}
 
 	/**
