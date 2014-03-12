@@ -22,10 +22,10 @@ import java.util.List;
  *
  * @author Jan Venstermans
  */
-public interface SearchAttributePresenter {
+public interface ConfiguredSearchAttributePresenter {
 
 	/**
-	 * View interface for {@link SearchAttributePresenter}.
+	 * View interface for {@link ConfiguredSearchAttributePresenter}.
 	 */
 	interface View extends EditorPresenter.FormView, EditorPresenter.WindowView, EditorPresenter.GridView<String> {
 
@@ -62,13 +62,15 @@ public interface SearchAttributePresenter {
 	}
 
 	/**
-	 * Handler interface for {@link SearchAttributePresenter}.
+	 * Handler interface for {@link ConfiguredSearchAttributePresenter}.
 	 */
 	interface Handler extends EditorPresenter.SaveHandler {
 		void onSelectAttributeName(String attributeName);
 		void onChangeSelectInputType();
 		void onAddDropDownValue();
 		void onChangeDropdownValues();
+
+		void onRemove(String dropdownValue);
 	}
 
 	void updateView();

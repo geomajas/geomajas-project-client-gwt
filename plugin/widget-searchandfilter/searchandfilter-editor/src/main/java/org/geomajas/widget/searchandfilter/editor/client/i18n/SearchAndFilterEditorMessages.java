@@ -32,7 +32,8 @@ public interface SearchAndFilterEditorMessages extends Messages {
 	String searchesGridColumnSearchName();
 	String searchesGridColumnSearchDescription();
 	String searchesGridColumnActions();
-	String searchesGridColumnActionsTooltip();
+	String searchesGridEditSearchTooltip();
+	String searchesGridRemoveSearchTooltip();
 	String searchesAddSearchConfigButtonTooltip();
 
 	/* Search window */
@@ -57,5 +58,6 @@ public interface SearchAndFilterEditorMessages extends Messages {
 	String searchAttributeWindowInputTypeLabel();
 	String searchAttributeWindowInputDropDownButtonTooltip();
 	String searchAttributeWindowGridValue();
+	String searchAttributeWindowGridRemoveTooltip();
 
 }

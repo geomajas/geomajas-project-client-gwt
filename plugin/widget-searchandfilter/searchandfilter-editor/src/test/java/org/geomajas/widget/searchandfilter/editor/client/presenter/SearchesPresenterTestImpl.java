@@ -25,17 +25,17 @@ import static org.mockito.Mockito.any;
  */
 public class SearchesPresenterTestImpl extends BasePowerMockitoTest {
 
-	private SearchesPresenterImpl searchesPresenter;
+	private ConfiguredSearchesPresenterImpl searchesPresenter;
 
 	@Before
 	public void before() {
-		searchesPresenter = new SearchesPresenterImpl();
+		searchesPresenter = new ConfiguredSearchesPresenterImpl();
 	}
 
 
 	@Test
 	public void constructor() {
-		verify(searchesViewMock).setHandler(searchesPresenter);
+		verify(configuredSearchesViewMock).setHandler(searchesPresenter);
 	}
 
 	@Test

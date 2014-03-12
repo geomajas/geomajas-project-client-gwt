@@ -27,19 +27,20 @@ import com.smartgwt.client.widgets.layout.Layout;
 import com.smartgwt.client.widgets.layout.VLayout;
 import org.geomajas.gwt.client.util.WidgetLayout;
 import org.geomajas.plugin.deskmanager.client.gwt.common.impl.DeskmanagerIcon;
+import org.geomajas.widget.searchandfilter.editor.client.presenter.ConfiguredSearchesPresenter;
 import org.geomajas.widget.searchandfilter.search.dto.ConfiguredSearch;
 import org.geomajas.widget.searchandfilter.editor.client.i18n.SearchAndFilterEditorMessages;
-import org.geomajas.widget.searchandfilter.editor.client.presenter.SearchesPresenter;
 
 import java.util.List;
 
 /**
- * Default implementation of {@link SearchesPresenter.View}.
+ * Default implementation of {@link org.geomajas.widget.searchandfilter.editor.client
+ * .presenter.ConfiguredSearchesPresenter.View}.
  * 
  * @author Jan Venstermans
  * 
  */
-public class SearchesView implements SearchesPresenter.View {
+public class ConfiguredSearchesView implements ConfiguredSearchesPresenter.View {
 
 	private final SearchAndFilterEditorMessages messages =
 			GWT.create(SearchAndFilterEditorMessages.class);
@@ -48,9 +49,9 @@ public class SearchesView implements SearchesPresenter.View {
 
 	private VLayout layout;
 
-	private SearchesPresenter.Handler handler;
+	private ConfiguredSearchesPresenter.Handler handler;
 
-	public SearchesView() {
+	public ConfiguredSearchesView() {
 		layout = new VLayout(5);
 		layout.setIsGroup(true);
 		layout.setGroupTitle(messages.searchesGroupTitle());
@@ -86,7 +87,7 @@ public class SearchesView implements SearchesPresenter.View {
 	}
 
 	@Override
-	public void setHandler(SearchesPresenter.Handler handler) {
+	public void setHandler(ConfiguredSearchesPresenter.Handler handler) {
 		this.handler = handler;
 	}
 
@@ -101,7 +102,7 @@ public class SearchesView implements SearchesPresenter.View {
 	}
 
 	/**
-	 * Used by {@link SearchesView}.
+	 * Used by {@link ConfiguredSearchesView}.
 	 *
 	 * @author Jan Venstermans
 	 *
@@ -164,22 +165,39 @@ public class SearchesView implements SearchesPresenter.View {
 				rollOverCanvas.setWidth(FLD_ACTIONS_WIDTH);
 				rollOverCanvas.setHeight(22);
 
-				ImgButton editProps = new ImgButton();
-				editProps.setShowDown(false);
-				editProps.setShowRollOver(false);
-				editProps.setLayoutAlign(Alignment.CENTER);
-				editProps.setSrc(DeskmanagerIcon.IMG_SRC_COG);
-				editProps.setPrompt(messages.searchesGridColumnActionsTooltip());
-				editProps.setShowDisabledIcon(false);
-				editProps.setHeight(16);
-				editProps.setWidth(16);
-				editProps.addClickHandler(new com.smartgwt.client.widgets.events.ClickHandler() {
+				ImgButton editSearchButton = new ImgButton();
+				editSearchButton.setShowDown(false);
+				editSearchButton.setShowRollOver(false);
+				editSearchButton.setLayoutAlign(Alignment.CENTER);
+				editSearchButton.setSrc(DeskmanagerIcon.IMG_SRC_COG);
+				editSearchButton.setPrompt(messages.searchesGridEditSearchTooltip());
+				editSearchButton.setShowDisabledIcon(false);
+				editSearchButton.setHeight(16);
+				editSearchButton.setWidth(16);
+				editSearchButton.addClickHandler(new com.smartgwt.client.widgets.events.ClickHandler() {
 
 					public void onClick(ClickEvent event) {
 						handler.onEdit(rollOverSearchConfig);
 					}
 				});
-				rollOverCanvas.addMember(editProps);
+				rollOverCanvas.addMember(editSearchButton);
+
+				ImgButton removeSearchButton = new ImgButton();
+				removeSearchButton.setShowDown(false);
+				removeSearchButton.setShowRollOver(false);
+				removeSearchButton.setLayoutAlign(Alignment.CENTER);
+				removeSearchButton.setSrc(WidgetLayout.iconRemove);
+				removeSearchButton.setPrompt(messages.searchesGridRemoveSearchTooltip());
+				removeSearchButton.setShowDisabledIcon(false);
+				removeSearchButton.setHeight(16);
+				removeSearchButton.setWidth(16);
+				removeSearchButton.addClickHandler(new com.smartgwt.client.widgets.events.ClickHandler() {
+
+					public void onClick(ClickEvent event) {
+						handler.onRemove(rollOverSearchConfig);
+					}
+				});
+				rollOverCanvas.addMember(removeSearchButton);
 			}
 			return rollOverCanvas;
 		}

@@ -10,9 +10,9 @@
  */
 package org.geomajas.widget.searchandfilter.editor.client.view;
 
-import org.geomajas.widget.searchandfilter.editor.client.presenter.SearchAttributePresenter;
-import org.geomajas.widget.searchandfilter.editor.client.presenter.SearchPresenter;
-import org.geomajas.widget.searchandfilter.editor.client.presenter.SearchesPresenter;
+import org.geomajas.widget.searchandfilter.editor.client.presenter.ConfiguredSearchPresenter;
+import org.geomajas.widget.searchandfilter.editor.client.presenter.ConfiguredSearchAttributePresenter;
+import org.geomajas.widget.searchandfilter.editor.client.presenter.ConfiguredSearchesPresenter;
 
 /**
  * Default implementation of {@link ViewManager}.
@@ -21,47 +21,47 @@ import org.geomajas.widget.searchandfilter.editor.client.presenter.SearchesPrese
  */
 public class ViewManagerImpl implements ViewManager {
 
-	private SearchesPresenter.View searchesView = new SearchesView();
+	private ConfiguredSearchesPresenter.View searchesView = new ConfiguredSearchesView();
 
-	private SearchesViewFactory searchesViewFactory = new SearchesViewFactory();
+	private ConfiguredSearchesViewFactory configuredSearchesViewFactory = new ConfiguredSearchesViewFactory();
 
-	private SearchPresenter.View searchView = new SearchView();
+	private ConfiguredSearchPresenter.View searchView = new ConfiguredSearchView();
 
-	private SearchAttributePresenter.View searchAttributeView = new SearchAttributeView();
+	private ConfiguredSearchAttributePresenter.View searchAttributeView = new ConfiguredSearchAttributeView();
 
 	@Override
-	public SearchesPresenter.View getSearchesView() {
+	public ConfiguredSearchesPresenter.View getSearchesView() {
 		return searchesView;
 	}
 
 	@Override
-	public SearchesViewFactory getSearchesViewFactory() {
-		return searchesViewFactory;
+	public ConfiguredSearchesViewFactory getConfiguredSearchesViewFactory() {
+		return configuredSearchesViewFactory;
 	}
 
 	@Override
-	public SearchPresenter.View getSearchView() {
+	public ConfiguredSearchPresenter.View getSearchView() {
 		return searchView;
 	}
 
 	@Override
-	public SearchAttributePresenter.View getSearchAttributeView() {
+	public ConfiguredSearchAttributePresenter.View getSearchAttributeView() {
 		return searchAttributeView;
 	}
 
-	public void setSearchesView(SearchesPresenter.View searchesView) {
+	public void setSearchesView(ConfiguredSearchesPresenter.View searchesView) {
 		this.searchesView = searchesView;
 	}
 
-	public void setSearchesViewFactory(SearchesViewFactory searchesViewFactory) {
-		this.searchesViewFactory = searchesViewFactory;
+	public void setConfiguredSearchesViewFactory(ConfiguredSearchesViewFactory configuredSearchesViewFactory) {
+		this.configuredSearchesViewFactory = configuredSearchesViewFactory;
 	}
 
-	public void setSearchView(SearchPresenter.View searchView) {
+	public void setSearchView(ConfiguredSearchPresenter.View searchView) {
 		this.searchView = searchView;
 	}
 
-	public void setSearchAttributeView(SearchAttributePresenter.View searchAttributeView) {
+	public void setSearchAttributeView(ConfiguredSearchAttributePresenter.View searchAttributeView) {
 
 		this.searchAttributeView = searchAttributeView;
 	}

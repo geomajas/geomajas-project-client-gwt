@@ -10,16 +10,15 @@
  */
 package org.geomajas.widget.searchandfilter.editor.client;
 
-import org.geomajas.widget.searchandfilter.editor.client.presenter.SearchAttributePresenter;
-import org.geomajas.widget.searchandfilter.editor.client.presenter.SearchPresenter;
-import org.geomajas.widget.searchandfilter.editor.client.presenter.SearchesPresenter;
-import org.geomajas.widget.searchandfilter.editor.client.view.SearchAttributeView;
-import org.geomajas.widget.searchandfilter.editor.client.view.SearchView;
-import org.geomajas.widget.searchandfilter.editor.client.view.SearchesView;
-import org.geomajas.widget.searchandfilter.editor.client.view.SearchesViewFactory;
+import org.geomajas.widget.searchandfilter.editor.client.presenter.ConfiguredSearchPresenter;
+import org.geomajas.widget.searchandfilter.editor.client.presenter.ConfiguredSearchAttributePresenter;
+import org.geomajas.widget.searchandfilter.editor.client.presenter.ConfiguredSearchesPresenter;
+import org.geomajas.widget.searchandfilter.editor.client.view.ConfiguredSearchAttributeView;
+import org.geomajas.widget.searchandfilter.editor.client.view.ConfiguredSearchView;
+import org.geomajas.widget.searchandfilter.editor.client.view.ConfiguredSearchesView;
+import org.geomajas.widget.searchandfilter.editor.client.view.ConfiguredSearchesViewFactory;
 import org.geomajas.widget.searchandfilter.editor.client.view.ViewManager;
 import org.geomajas.widget.searchandfilter.editor.client.view.ViewManagerImpl;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -28,7 +27,6 @@ import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
 /**
  * Basic test class with mock for the startup class.
@@ -37,46 +35,46 @@ import static org.mockito.Mockito.when;
  *
  */
 @RunWith(PowerMockRunner.class)
-@PrepareForTest({ViewManagerImpl.class, SearchesViewFactory.class, SearchAndFilterEditor.class })
+@PrepareForTest({ViewManagerImpl.class, ConfiguredSearchesViewFactory.class, SearchAndFilterEditor.class })
 public class BasePowerMockitoTest {
 
-	protected SearchesView searchesViewMock;
+	protected ConfiguredSearchesView configuredSearchesViewMock;
 
-	protected SearchView searchViewMock;
+	protected ConfiguredSearchView configuredSearchViewMock;
 
-	protected SearchAttributeView searchAttributeViewMock;
+	protected ConfiguredSearchAttributeView configuredSearchAttributeViewMock;
 
-	protected SearchAttributeService searchAttributeServiceMock;
+	protected ConfiguredSearchAttributeService configuredSearchAttributeServiceMock;
 
 	@Before
 	public void setUp() throws Exception {
-		searchesViewMock = mock(SearchesView.class);
-		searchViewMock = mock(SearchView.class);
-		searchAttributeViewMock = mock(SearchAttributeView.class);
-		searchAttributeServiceMock = mock(SearchAttributeService.class);
-		PowerMockito.whenNew(SearchesView.class).withNoArguments().thenReturn(searchesViewMock);
-		PowerMockito.whenNew(SearchView.class).withNoArguments().thenReturn(searchViewMock);
-		PowerMockito.whenNew(SearchAttributeView.class).withNoArguments().thenReturn(searchAttributeViewMock);
-		//PowerMockito.whenNew(AttributeCriterionUtil.class).withNoArguments().thenReturn(searchAttributeServiceMock);
+		configuredSearchesViewMock = mock(ConfiguredSearchesView.class);
+		configuredSearchViewMock = mock(ConfiguredSearchView.class);
+		configuredSearchAttributeViewMock = mock(ConfiguredSearchAttributeView.class);
+		configuredSearchAttributeServiceMock = mock(ConfiguredSearchAttributeService.class);
+		PowerMockito.whenNew(ConfiguredSearchesView.class).withNoArguments().thenReturn(configuredSearchesViewMock);
+		PowerMockito.whenNew(ConfiguredSearchView.class).withNoArguments().thenReturn(configuredSearchViewMock);
+		PowerMockito.whenNew(ConfiguredSearchAttributeView.class).withNoArguments().thenReturn(configuredSearchAttributeViewMock);
+		//PowerMockito.whenNew(AttributeCriterionUtil.class).withNoArguments().thenReturn(configuredSearchAttributeServiceMock);
 		SearchAndFilterEditor.setViewManager(new ViewManager() {
 			@Override
-			public SearchesPresenter.View getSearchesView() {
-				return searchesViewMock;
+			public ConfiguredSearchesPresenter.View getSearchesView() {
+				return configuredSearchesViewMock;
 			}
 
 			@Override
-			public SearchesViewFactory getSearchesViewFactory() {
-				return new SearchesViewFactory();
+			public ConfiguredSearchesViewFactory getConfiguredSearchesViewFactory() {
+				return new ConfiguredSearchesViewFactory();
 			}
 
 			@Override
-			public SearchPresenter.View getSearchView() {
-				return searchViewMock;
+			public ConfiguredSearchPresenter.View getSearchView() {
+				return configuredSearchViewMock;
 			}
 
 			@Override
-			public SearchAttributePresenter.View getSearchAttributeView() {
-				return searchAttributeViewMock;
+			public ConfiguredSearchAttributePresenter.View getSearchAttributeView() {
+				return configuredSearchAttributeViewMock;
 			}
 		});
 	}

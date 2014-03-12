@@ -16,24 +16,24 @@ import org.geomajas.widget.searchandfilter.search.dto.ConfiguredSearchAttribute;
 import org.geomajas.widget.searchandfilter.editor.client.event.SearchesInfoChangedEvent;
 
 /**
- * Default implementation of {@link SearchPresenter}.
+ * Default implementation of {@link ConfiguredSearchPresenter}.
  *
  * @author Jan Venstermans
  */
-public class SearchPresenterImpl implements SearchPresenter, SearchPresenter.Handler,
+public class ConfiguredSearchPresenterImpl implements ConfiguredSearchPresenter, ConfiguredSearchPresenter.Handler,
 		SearchesInfoChangedEvent.Handler {
 
 	private View view;
 
-	private SearchAttributePresenter searchAttributePresenter;
+	private ConfiguredSearchAttributePresenter configuredSearchAttributePresenter;
 
 	private ConfiguredSearch searchConfig;
 
 	private boolean newSearchConfig;
 
-	public SearchPresenterImpl() {
+	public ConfiguredSearchPresenterImpl() {
 		this.view = SearchAndFilterEditor.getViewManager().getSearchView();
-		this.searchAttributePresenter = new SearchAttributePresenterImpl();
+		this.configuredSearchAttributePresenter = new ConfiguredSearchAttributePresenterImpl();
 		view.setHandler(this);
 		bind();
 	}
@@ -43,23 +43,38 @@ public class SearchPresenterImpl implements SearchPresenter, SearchPresenter.Han
 	}
 
 	private ConfiguredSearch getSelectedSearchConfig() {
-		return SearchAndFilterEditor.getSearchesStatus().getSelectedSearchConfig();
+		return SearchAndFilterEditor.getConfiguredSearchesStatus().getSelectedSearchConfig();
 	}
 
 	@Override
 	public void onAddAttribute() {
-		searchAttributePresenter.createSearchAttribute();
+		// if current search has not been saved, this should first be done
+		if (newSearchConfig) {
+			if (view.validateForm()) {
+				updateSelectedSearchConfig();
+				SearchAndFilterEditor.getConfiguredSearchesStatus().saveSearch(searchConfig, newSearchConfig);
+			} else {
+				// needs to be validated first
+				return;
+			}
+		}
+		configuredSearchAttributePresenter.createSearchAttribute();
 	}
 
 	@Override
 	public void onSelect(ConfiguredSearchAttribute attribute) {
-		SearchAndFilterEditor.getSearchesStatus().setSelectedSearchAttribute(attribute);
+		SearchAndFilterEditor.getConfiguredSearchesStatus().setSelectedSearchAttribute(attribute);
 	}
 
 	@Override
 	public void onEdit(ConfiguredSearchAttribute attribute) {
 		onSelect(attribute);
-		searchAttributePresenter.editSelectedAttribute();
+		configuredSearchAttributePresenter.editSelectedAttribute();
+	}
+
+	@Override
+	public void onRemove(ConfiguredSearchAttribute attribute) {
+		SearchAndFilterEditor.getConfiguredSearchesStatus().removeSearchAttribute(attribute, searchConfig);
 	}
 
 	@Override
@@ -104,7 +119,7 @@ public class SearchPresenterImpl implements SearchPresenter, SearchPresenter.Han
 	public void onSave() {
 		if (view.validateForm()) {
 			updateSelectedSearchConfig();
-			SearchAndFilterEditor.getSearchesStatus().saveSearch(searchConfig, newSearchConfig);
+			SearchAndFilterEditor.getConfiguredSearchesStatus().saveSearch(searchConfig, newSearchConfig);
 			emptySelectedSearchConfig();
 			view.hide();
 		}

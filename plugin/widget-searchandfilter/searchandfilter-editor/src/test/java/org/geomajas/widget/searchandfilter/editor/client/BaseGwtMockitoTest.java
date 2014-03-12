@@ -11,14 +11,8 @@
 package org.geomajas.widget.searchandfilter.editor.client;
 
 import com.google.gwtmockito.GwtMockitoTestRunner;
-import org.geomajas.widget.searchandfilter.editor.client.view.SearchAttributeView;
-import org.geomajas.widget.searchandfilter.editor.client.view.SearchView;
-import org.geomajas.widget.searchandfilter.editor.client.view.SearchesView;
-import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mock;
 
 /**
  * Basic test class with mock for the startup class.
@@ -30,37 +24,37 @@ import org.mockito.Mock;
 public class BaseGwtMockitoTest {
 
 	/*@Mock
-	protected SearchesView searchesView;
+	protected ConfiguredSearchesView searchesView;
 
 	//@Mock
-	//protected SearchesViewFactory searchesViewFactory;
+	//protected ConfiguredSearchesViewFactory searchesViewFactory;
 
 	@Mock
-	protected SearchView searchView;
+	protected ConfiguredSearchView searchView;
 
 	@Mock
-	protected SearchAttributeView searchAttributeView;
+	protected ConfiguredSearchAttributeView searchAttributeView;
 
 	@Before
 	public void setUp() {
 		/*SearchAndFilterEditor.setViewManager(new ViewManager() {
 			@Override
-			public SearchesPresenter.View getSearchesView() {
+			public ConfiguredSearchesPresenter.View getSearchesView() {
 				return searchesView;
 			}
 
 			@Override
-			public SearchesViewFactory getSearchesViewFactory() {
-				return new SearchesViewFactory();
+			public ConfiguredSearchesViewFactory getConfiguredSearchesViewFactory() {
+				return new ConfiguredSearchesViewFactory();
 			}
 
 			@Override
-			public SearchPresenter.View getSearchView() {
+			public ConfiguredSearchPresenter.View getSearchView() {
 				return searchView;
 			}
 
 			@Override
-			public SearchAttributePresenter.View getSearchAttributeView() {
+			public ConfiguredSearchAttributePresenter.View getSearchAttributeView() {
 				return searchAttributeView;
 			}
 		});*/

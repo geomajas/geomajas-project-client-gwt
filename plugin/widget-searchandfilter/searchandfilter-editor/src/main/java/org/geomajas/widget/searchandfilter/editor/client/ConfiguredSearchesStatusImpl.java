@@ -17,13 +17,13 @@ import org.geomajas.widget.searchandfilter.search.dto.ConfiguredSearchesInfo;
 import org.geomajas.widget.searchandfilter.editor.client.event.SearchesInfoChangedEvent;
 
 /**
- * Singleton implementation of {@link SearchesStatus}.
+ * Singleton implementation of {@link ConfiguredSearchesStatus}.
  *
  * @author Jan Venstermans
  */
-public final class SearchesStatusImpl implements SearchesStatus {
+public final class ConfiguredSearchesStatusImpl implements ConfiguredSearchesStatus {
 
-	private static SearchesStatus instance;
+	private static ConfiguredSearchesStatus instance;
 
 	private boolean disabled;
 
@@ -35,13 +35,13 @@ public final class SearchesStatusImpl implements SearchesStatus {
 
 	private ConfiguredSearchAttribute selectedSearchAttribute;
 
-	private SearchesStatusImpl() {
+	private ConfiguredSearchesStatusImpl() {
 
 	}
 
-	public static SearchesStatus getInstance() {
+	public static ConfiguredSearchesStatus getInstance() {
 		if (instance == null) {
-			instance = new SearchesStatusImpl();
+			instance = new ConfiguredSearchesStatusImpl();
 		}
 		return instance;
 	}

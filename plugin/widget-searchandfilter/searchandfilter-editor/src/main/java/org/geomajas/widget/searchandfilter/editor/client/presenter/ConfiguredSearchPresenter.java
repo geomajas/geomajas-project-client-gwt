@@ -19,10 +19,10 @@ import org.geomajas.widget.searchandfilter.search.dto.ConfiguredSearchAttribute;
  *
  * @author Jan Venstermans
  */
-public interface SearchPresenter {
+public interface ConfiguredSearchPresenter {
 
 	/**
-	 * View interface for {@link SearchPresenter}.
+	 * View interface for {@link ConfiguredSearchPresenter}.
 	 */
 	interface View extends EditorPresenter.FormView, EditorPresenter.WindowView,
 			EditorPresenter.GridView<ConfiguredSearchAttribute> {
@@ -47,7 +47,7 @@ public interface SearchPresenter {
 	}
 
 	/**
-	 * Handler interface for {@link SearchPresenter}.
+	 * Handler interface for {@link ConfiguredSearchPresenter}.
 	 */
 	interface Handler extends EditorPresenter.SaveHandler {
 		void onAddAttribute();
@@ -55,6 +55,8 @@ public interface SearchPresenter {
 		void onSelect(ConfiguredSearchAttribute attribute);
 
 		void onEdit(ConfiguredSearchAttribute attribute);
+
+		void onRemove(ConfiguredSearchAttribute attribute);
 	}
 
 	View getView();

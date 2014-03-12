@@ -28,38 +28,38 @@ import com.smartgwt.client.widgets.grid.ListGridField;
 import com.smartgwt.client.widgets.grid.ListGridRecord;
 import com.smartgwt.client.widgets.grid.events.CellSavedEvent;
 import com.smartgwt.client.widgets.grid.events.CellSavedHandler;
-import com.smartgwt.client.widgets.grid.events.RecordDoubleClickEvent;
-import com.smartgwt.client.widgets.grid.events.RecordDoubleClickHandler;
 import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.Layout;
 import com.smartgwt.client.widgets.layout.VLayout;
 import org.geomajas.gwt.client.util.WidgetLayout;
-import org.geomajas.widget.searchandfilter.search.dto.ConfiguredSearchAttribute;
 import org.geomajas.widget.searchandfilter.editor.client.i18n.SearchAndFilterEditorMessages;
-import org.geomajas.widget.searchandfilter.editor.client.presenter.SearchAttributePresenter;
+import org.geomajas.widget.searchandfilter.editor.client.presenter.ConfiguredSearchAttributePresenter;
+import org.geomajas.widget.searchandfilter.search.dto.ConfiguredSearchAttribute;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 
 /**
- * Default implementation of {@link SearchAttributePresenter.View}.
+ * Default implementation of {@link org.geomajas.widget.searchandfilter.editor.client
+ * .presenter.ConfiguredSearchAttributePresenter.View}.
  *
  * @author Jan Venstermans
  */
-public class SearchAttributeView implements SearchAttributePresenter.View {
+public class ConfiguredSearchAttributeView implements ConfiguredSearchAttributePresenter.View {
 
 	private final SearchAndFilterEditorMessages messages =
 			GWT.create(SearchAndFilterEditorMessages.class);
 
+	private static final int FORM_WIDTH = 200;
 	private static final int FORMITEM_WIDTH = 150;
 	private static final String FRM_OPERATION = "operation";
 	private static final String FRM_INPUTTYPE = "inputType";
 
-	private static final int VALUES_GRID_WIDTH = 150;
+	private static final int VALUES_GRID_WIDTH = 200;
 	private static final int VALUES_GRID_HEIGHT = 200;
 
-	private SearchAttributePresenter.Handler handler;
+	private ConfiguredSearchAttributePresenter.Handler handler;
 
 	/* form elements */
 	private DynamicForm form;
@@ -88,7 +88,7 @@ public class SearchAttributeView implements SearchAttributePresenter.View {
 	 * Construct a search configuration window.
 	 *
 	 */
-	public SearchAttributeView() {
+	public ConfiguredSearchAttributeView() {
 		layout();
 	}
 
@@ -100,7 +100,7 @@ public class SearchAttributeView implements SearchAttributePresenter.View {
 
 		form = new DynamicForm();
 		form.setAutoFocus(true); /* Set focus on first field */
-		form.setWidth(FORMITEM_WIDTH + 100);
+		form.setWidth(FORM_WIDTH);
 		form.setWrapItemTitles(false);
 
 		attributeNameSelectItem = new SelectItem();
@@ -174,11 +174,13 @@ public class SearchAttributeView implements SearchAttributePresenter.View {
 
 		// layout structure //
 		VLayout layout = new VLayout(10);
+		layout.setAlign(Alignment.CENTER);
 		layout.addMember(form);
 		layout.addMember(gridLayout);
 
 		window = new SaveCancelWindow(layout);
 		window.setTitle(messages.searchAttributeWindowTitle());
+		setInputTypeDropDown(false);
 	}
 
 	@Override
@@ -313,7 +315,6 @@ public class SearchAttributeView implements SearchAttributePresenter.View {
 	public void setInputTypeDropDown(boolean inputDropDown) {
 		grid.setVisible(inputDropDown);
 		addImg.setVisible(inputDropDown);
-		//gridLayout.setHeight(inputDropDown ? VALUES_GRID_HEIGHT : 0);
 		window.redraw();
 	}
 
@@ -323,7 +324,7 @@ public class SearchAttributeView implements SearchAttributePresenter.View {
 	}
 
 	@Override
-	public void setHandler(SearchAttributePresenter.Handler handler) {
+	public void setHandler(ConfiguredSearchAttributePresenter.Handler handler) {
 		window.setSaveHandler(handler);
 		this.handler = handler;
 	}
@@ -334,7 +335,7 @@ public class SearchAttributeView implements SearchAttributePresenter.View {
 	}
 
 	/**
-	 * Used by {@link SearchAttributeView}.
+	 * Used by {@link ConfiguredSearchAttributeView}.
 	 *
 	 * @author Jan Venstermans
 	 *
@@ -343,16 +344,16 @@ public class SearchAttributeView implements SearchAttributePresenter.View {
 
 		public static final String FLD_DROPDOWN_VALUE = "dropdownValue";
 
+		private static final String FLD_DEL = "delete";
+
 		public static final String FLD_OBJECT = "object";
 
-		private static final int FLD_DROPDOWN_VALUE_WIDTH = 150;
-
-		private ListGridRecord rollOverRecord;
-
-		private HLayout rollOverCanvas;
+		private static final String FLD_DROPDOWN_VALUE_WIDTH = "*";
+		private static final int FLD_REMOVE_BUTTON_WIDTH = 50;
 
 		public DropdownValueListGrid() {
 			super();
+			/*grid config*/
 			setCanEdit(true);
 			setEditEvent(ListGridEditEvent.CLICK);
 			setEditByCell(true);
@@ -367,10 +368,7 @@ public class SearchAttributeView implements SearchAttributePresenter.View {
 			setShowRecordComponents(true);
 			setShowRecordComponentsByCell(true);
 
-		/*grid config*/
-
-
-		/*columns*/
+			/*columns*/
 			ListGridField valueFld = new ListGridField(FLD_DROPDOWN_VALUE,
 					messages.searchAttributeWindowGridValue());
 			valueFld.setWidth(FLD_DROPDOWN_VALUE_WIDTH);
@@ -382,19 +380,11 @@ public class SearchAttributeView implements SearchAttributePresenter.View {
 				}
 			});
 
-			setFields(valueFld);
+			ListGridField delete = new ListGridField(FLD_DEL, "");
+			delete.setWidth(FLD_REMOVE_BUTTON_WIDTH);
+			delete.setAlign(Alignment.CENTER);
 
-			addRecordDoubleClickHandler(new RecordDoubleClickHandler() {
-
-				public void onRecordDoubleClick(RecordDoubleClickEvent event) {
-					ListGridRecord record = getSelectedRecord();
-					if (record != null) {
-						ConfiguredSearchAttribute layerConfig =
-								(ConfiguredSearchAttribute) record.getAttributeAsObject(FLD_OBJECT);
-						//themeConfigurationPanel.selectLayerConfig(layerConfig);
-					}
-				}
-			});
+			setFields(valueFld, delete);
 		}
 
 		public void fillGrid(List<String> dropdownValues) {
@@ -419,6 +409,34 @@ public class SearchAttributeView implements SearchAttributePresenter.View {
 				values.add(getRecord(i).getAttributeAsString("dropdownValue"));
 			}
 			return values;
+		}
+
+		@Override
+		protected Canvas createRecordComponent(final ListGridRecord record, Integer colNum) {
+			if (FLD_DEL.equals(grid.getFieldName(colNum))) {
+				HLayout layout = new HLayout();
+				layout.setHeight(16);
+				layout.setWidth(1);
+
+				ImgButton deleteImg = new ImgButton();
+				deleteImg.setSrc(WidgetLayout.iconRemove);
+				deleteImg.setShowDown(false);
+				deleteImg.setShowRollOver(false);
+				deleteImg.setPrompt(messages.searchAttributeWindowGridRemoveTooltip());
+				deleteImg.setHeight(16);
+				deleteImg.setWidth(16);
+				deleteImg.addClickHandler(new ClickHandler() {
+
+					public void onClick(ClickEvent event) {
+						handler.onRemove((String) record.getAttributeAsObject(FLD_DROPDOWN_VALUE));
+					}
+				});
+
+				layout.addMember(deleteImg);
+
+				return layout;
+			}
+			return super.createRecordComponent(record, colNum);
 		}
 	}
 }

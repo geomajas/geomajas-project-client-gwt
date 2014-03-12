@@ -15,32 +15,32 @@ import org.geomajas.configuration.client.ClientVectorLayerInfo;
 import org.geomajas.configuration.client.ClientWidgetInfo;
 import org.geomajas.plugin.deskmanager.client.gwt.manager.editor.VectorLayerWidgetEditor;
 import org.geomajas.plugin.deskmanager.domain.dto.LayerModelDto;
+import org.geomajas.widget.searchandfilter.editor.client.presenter.ConfiguredSearchesPresenter;
+import org.geomajas.widget.searchandfilter.editor.client.presenter.ConfiguredSearchesPresenterImpl;
 import org.geomajas.widget.searchandfilter.search.dto.ConfiguredSearchesInfo;
-import org.geomajas.widget.searchandfilter.editor.client.presenter.SearchesPresenter;
-import org.geomajas.widget.searchandfilter.editor.client.presenter.SearchesPresenterImpl;
 
 /**
  * Editor for the searches configuration.
- * Actualy a wrapper around {@link org.geomajas.widget.searchandfilter.editor.client.view.SearchesView}.
+ * Actualy a wrapper around {@link org.geomajas.widget.searchandfilter.editor.client.view.ConfiguredSearchesView}.
  *
  * @author Jan Venstermans
  *
  */
-public class SearchConfigurationEditor implements VectorLayerWidgetEditor {
+public class ConfiguredSearchEditor implements VectorLayerWidgetEditor {
 
-	private SearchesPresenter searchesPresenter;
+	private ConfiguredSearchesPresenter configuredSearchesPresenter;
 
-	private SearchesStatus status;
+	private ConfiguredSearchesStatus status;
 
-	public SearchConfigurationEditor() {
-		status = SearchesStatusImpl.getInstance();
+	public ConfiguredSearchEditor() {
+		status = ConfiguredSearchesStatusImpl.getInstance();
 		//create presenters
-		searchesPresenter = new SearchesPresenterImpl();
+		configuredSearchesPresenter = new ConfiguredSearchesPresenterImpl();
 	}
 
 	@Override
 	public Canvas getCanvas() {
-		return searchesPresenter.getCanvas();
+		return configuredSearchesPresenter.getCanvas();
 	}
 
 	@Override

@@ -19,10 +19,10 @@ import org.geomajas.widget.searchandfilter.search.dto.ConfiguredSearch;
  *
  * @author Jan Venstermans
  */
-public interface SearchesPresenter {
+public interface ConfiguredSearchesPresenter {
 
 	/**
-	 * View interface for {@link SearchesPresenter}.
+	 * View interface for {@link ConfiguredSearchesPresenter}.
 	 */
 	interface View extends EditorPresenter.GridView<ConfiguredSearch> {
 
@@ -32,14 +32,16 @@ public interface SearchesPresenter {
 	}
 
 	/**
-	 * Handler interface for {@link SearchesPresenter}.
+	 * Handler interface for {@link ConfiguredSearchesPresenter}.
 	 */
 	interface Handler {
 		void onAddSearch();
 
-		void onSelect(ConfiguredSearch config);
+		void onSelect(ConfiguredSearch search);
 
-		void onEdit(ConfiguredSearch config);
+		void onEdit(ConfiguredSearch search);
+
+		void onRemove(ConfiguredSearch search);
 	}
 
 	View getView();

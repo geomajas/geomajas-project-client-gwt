@@ -20,7 +20,7 @@ import java.util.Map;
  *
  * @author Jan Venstermans
  */
-public interface SearchAttributeService {
+public interface ConfiguredSearchAttributeService {
 
 	Map<org.geomajas.configuration.PrimitiveAttributeInfo, ConfiguredSearchAttribute.AttributeType>
 	getPrimitiveAttributesMap();

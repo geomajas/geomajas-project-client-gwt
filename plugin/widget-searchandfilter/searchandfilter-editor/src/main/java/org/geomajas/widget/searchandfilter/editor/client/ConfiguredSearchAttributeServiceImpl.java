@@ -24,24 +24,24 @@ import java.util.Map;
 
 /**
  * Singleton implementation of
- * {@link org.geomajas.widget.searchandfilter.editor.client.SearchesStatus}.
+ * {@link ConfiguredSearchesStatus}.
  *
  * @author Jan Venstermans
  */
-public final class SearchAttributeServiceImpl implements SearchAttributeService {
+public final class ConfiguredSearchAttributeServiceImpl implements ConfiguredSearchAttributeService {
 
 	private final SearchAndFilterEditorMessages messages =
 			GWT.create(SearchAndFilterEditorMessages.class);
 
-	private static SearchAttributeService instance;
+	private static ConfiguredSearchAttributeService instance;
 
-	private SearchAttributeServiceImpl() {
+	private ConfiguredSearchAttributeServiceImpl() {
 
 	}
 
-	public static SearchAttributeService getInstance() {
+	public static ConfiguredSearchAttributeService getInstance() {
 		if (instance == null) {
-			instance = new SearchAttributeServiceImpl();
+			instance = new ConfiguredSearchAttributeServiceImpl();
 		}
 		return instance;
 	}
@@ -54,7 +54,7 @@ public final class SearchAttributeServiceImpl implements SearchAttributeService 
 				new HashMap<org.geomajas.configuration.PrimitiveAttributeInfo,
 						ConfiguredSearchAttribute.AttributeType>();
 		ClientVectorLayerInfo clientVectorLayerInfo =
-				SearchAndFilterEditor.getSearchesStatus().getClientVectorLayerInfo();
+				SearchAndFilterEditor.getConfiguredSearchesStatus().getClientVectorLayerInfo();
 		if (clientVectorLayerInfo != null) {
 			List<org.geomajas.configuration.AttributeInfo> attributeInfoList =
 					clientVectorLayerInfo.getFeatureInfo().getAttributes();

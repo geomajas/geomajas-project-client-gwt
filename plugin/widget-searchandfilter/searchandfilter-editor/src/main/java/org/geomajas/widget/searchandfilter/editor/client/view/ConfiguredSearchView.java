@@ -35,18 +35,19 @@ import org.geomajas.gwt.client.util.WidgetLayout;
 import org.geomajas.plugin.deskmanager.client.gwt.common.FileUploadForm;
 import org.geomajas.plugin.deskmanager.client.gwt.common.impl.DeskmanagerIcon;
 import org.geomajas.widget.searchandfilter.client.util.AttributeCriterionUtil;
+import org.geomajas.widget.searchandfilter.editor.client.presenter.ConfiguredSearchPresenter;
 import org.geomajas.widget.searchandfilter.search.dto.ConfiguredSearchAttribute;
 import org.geomajas.widget.searchandfilter.editor.client.i18n.SearchAndFilterEditorMessages;
-import org.geomajas.widget.searchandfilter.editor.client.presenter.SearchPresenter;
 
 import java.util.List;
 
 /**
- * Default implementation of {@link SearchPresenter.View}.
+ * Default implementation of {@link org.geomajas.widget.searchandfilter.editor.client
+ * .presenter.ConfiguredSearchPresenter.View}.
  *
  * @author Jan Venstermans
  */
-public class SearchView implements SearchPresenter.View {
+public class ConfiguredSearchView implements ConfiguredSearchPresenter.View {
 
 	private final SearchAndFilterEditorMessages messages =
 			GWT.create(SearchAndFilterEditorMessages.class);
@@ -58,7 +59,7 @@ public class SearchView implements SearchPresenter.View {
 
 	public static final String FLD_NAME = "Name";
 
-	private SearchPresenter.Handler handler;
+	private ConfiguredSearchPresenter.Handler handler;
 
 	private DynamicForm form;
 
@@ -78,7 +79,7 @@ public class SearchView implements SearchPresenter.View {
 	 * Construct a search configuration window.
 	 *
 	 */
-	public SearchView() {
+	public ConfiguredSearchView() {
 		layout();
 	}
 
@@ -171,7 +172,7 @@ public class SearchView implements SearchPresenter.View {
 	}
 
 	@Override
-	public void setHandler(SearchPresenter.Handler handler) {
+	public void setHandler(ConfiguredSearchPresenter.Handler handler) {
 		window.setSaveHandler(handler);
 		this.handler = handler;
 	}
@@ -237,7 +238,7 @@ public class SearchView implements SearchPresenter.View {
 	}
 
 	/**
-	 * Used by {@link SearchView}.
+	 * Used by {@link ConfiguredSearchView}.
 	 *
 	 * @author Jan Venstermans
 	 *
@@ -263,7 +264,7 @@ public class SearchView implements SearchPresenter.View {
 
 		private static final int FLD_ACTIONS_WIDTH = 60;
 
-		private ListGridRecord rollOverRecord;
+		private ConfiguredSearchAttribute rollOverSearchAttribute;
 
 		private HLayout rollOverCanvas;
 
@@ -330,8 +331,9 @@ public class SearchView implements SearchPresenter.View {
 
 		@Override
 		protected Canvas getRollOverCanvas(Integer rowNum, Integer colNum) {
-
-			rollOverRecord = getRecord(rowNum);
+			ListGridRecord rollOverRecord = getRecord(rowNum);
+			rollOverSearchAttribute = (ConfiguredSearchAttribute)
+					rollOverRecord.getAttributeAsObject(FLD_OBJECT);
 
 			if (rollOverCanvas == null) {
 				rollOverCanvas = new HLayout(3);
@@ -351,13 +353,27 @@ public class SearchView implements SearchPresenter.View {
 				editProps.addClickHandler(new com.smartgwt.client.widgets.events.ClickHandler() {
 
 					public void onClick(ClickEvent event) {
-
-						ConfiguredSearchAttribute searchAttribute = (ConfiguredSearchAttribute)
-								rollOverRecord.getAttributeAsObject(FLD_OBJECT);
-						handler.onEdit(searchAttribute);
+						handler.onEdit(rollOverSearchAttribute);
 					}
 				});
 				rollOverCanvas.addMember(editProps);
+
+				ImgButton removeSearchAttributeButton = new ImgButton();
+				removeSearchAttributeButton.setShowDown(false);
+				removeSearchAttributeButton.setShowRollOver(false);
+				removeSearchAttributeButton.setLayoutAlign(Alignment.CENTER);
+				removeSearchAttributeButton.setSrc(WidgetLayout.iconRemove);
+				removeSearchAttributeButton.setPrompt(messages.searchesGridRemoveSearchTooltip());
+				removeSearchAttributeButton.setShowDisabledIcon(false);
+				removeSearchAttributeButton.setHeight(16);
+				removeSearchAttributeButton.setWidth(16);
+				removeSearchAttributeButton.addClickHandler(new com.smartgwt.client.widgets.events.ClickHandler() {
+
+					public void onClick(ClickEvent event) {
+						handler.onRemove(rollOverSearchAttribute);
+					}
+				});
+				rollOverCanvas.addMember(removeSearchAttributeButton);
 			}
 			return rollOverCanvas;
 		}

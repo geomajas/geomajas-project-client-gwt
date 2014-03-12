@@ -17,24 +17,24 @@ import org.geomajas.widget.searchandfilter.search.dto.ConfiguredSearch;
 import org.geomajas.widget.searchandfilter.editor.client.event.SearchesInfoChangedEvent;
 
 /**
- * Default implementation of {@link SearchesPresenter}.
+ * Default implementation of {@link ConfiguredSearchesPresenter}.
  *
  * @author Jan Venstermans
  */
-public class SearchesPresenterImpl implements SearchesPresenter, SearchesPresenter.Handler,
-		SearchesInfoChangedEvent.Handler {
+public class ConfiguredSearchesPresenterImpl implements ConfiguredSearchesPresenter,
+		ConfiguredSearchesPresenter.Handler, SearchesInfoChangedEvent.Handler {
 
 	private View view;
 
-	private SearchPresenter searchPresenter;
+	private ConfiguredSearchPresenter configuredSearchPresenter;
 
 	private ConfiguredSearchesInfo searchesInfo;
 
-	public SearchesPresenterImpl() {
-		this.view = SearchAndFilterEditor.getViewManager().getSearchesViewFactory().createSearchesView();
-		this.searchPresenter = new SearchPresenterImpl();
+	public ConfiguredSearchesPresenterImpl() {
+		this.view = SearchAndFilterEditor.getViewManager().getConfiguredSearchesViewFactory().createSearchesView();
+		this.configuredSearchPresenter = new ConfiguredSearchPresenterImpl();
 		view.setHandler(this);
-		searchesInfo = SearchAndFilterEditor.getSearchesStatus().getSearchesInfo();
+		searchesInfo = SearchAndFilterEditor.getConfiguredSearchesStatus().getSearchesInfo();
 		bind();
 	}
 
@@ -44,18 +44,23 @@ public class SearchesPresenterImpl implements SearchesPresenter, SearchesPresent
 
 	@Override
 	public void onAddSearch() {
-		searchPresenter.createSearch();
+		configuredSearchPresenter.createSearch();
 	}
 
 	@Override
-	public void onSelect(ConfiguredSearch config) {
-		SearchAndFilterEditor.getSearchesStatus().setSelectedSearchConfig(config);
+	public void onSelect(ConfiguredSearch search) {
+		SearchAndFilterEditor.getConfiguredSearchesStatus().setSelectedSearchConfig(search);
 	}
 
 	@Override
-	public void onEdit(ConfiguredSearch config) {
-		onSelect(config);
-		searchPresenter.editSelectedSearch();
+	public void onEdit(ConfiguredSearch search) {
+		onSelect(search);
+		configuredSearchPresenter.editSelectedSearch();
+	}
+
+	@Override
+	public void onRemove(ConfiguredSearch search) {
+		SearchAndFilterEditor.getConfiguredSearchesStatus().removeSearch(search);
 	}
 
 	@Override
@@ -70,7 +75,7 @@ public class SearchesPresenterImpl implements SearchesPresenter, SearchesPresent
 
 	@Override
 	public void onSearchInfoChanged(SearchesInfoChangedEvent event) {
-		searchesInfo = SearchAndFilterEditor.getSearchesStatus().getSearchesInfo();
+		searchesInfo = SearchAndFilterEditor.getConfiguredSearchesStatus().getSearchesInfo();
 		updateView();
 	}
 

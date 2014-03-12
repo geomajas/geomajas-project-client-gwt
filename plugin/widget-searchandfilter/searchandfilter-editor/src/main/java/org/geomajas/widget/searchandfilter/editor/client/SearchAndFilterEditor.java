@@ -36,12 +36,12 @@ public final class SearchAndFilterEditor implements EntryPoint {
 
 	@Override
 	public void onModuleLoad() {
-		WidgetEditorFactoryRegistry.getMapRegistry().register(new SearchConfigurationEditorFactory());
-		WidgetEditorFactoryRegistry.getApplicationRegistry().register(new SearchConfigurationEditorFactory());
+		WidgetEditorFactoryRegistry.getMapRegistry().register(new ConfiguredSearchEditorFactory());
+		WidgetEditorFactoryRegistry.getApplicationRegistry().register(new ConfiguredSearchEditorFactory());
 	}
 
-	public static SearchesStatus getSearchesStatus() {
-		return SearchesStatusImpl.getInstance();
+	public static ConfiguredSearchesStatus getConfiguredSearchesStatus() {
+		return ConfiguredSearchesStatusImpl.getInstance();
 	}
 
 	public static ViewManager getViewManager() {
@@ -68,8 +68,8 @@ public final class SearchAndFilterEditor implements EntryPoint {
 		eventBus.fireEvent(new VectorLayerInfoChangedEvent());
 	}
 
-	public static SearchAttributeService getSearchAttributeService() {
-		return SearchAttributeServiceImpl.getInstance();
+	public static ConfiguredSearchAttributeService getSearchAttributeService() {
+		return ConfiguredSearchAttributeServiceImpl.getInstance();
 	}
 
 }

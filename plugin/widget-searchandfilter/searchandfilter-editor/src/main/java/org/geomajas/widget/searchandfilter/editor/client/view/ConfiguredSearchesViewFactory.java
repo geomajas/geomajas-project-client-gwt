@@ -10,18 +10,19 @@
  */
 package org.geomajas.widget.searchandfilter.editor.client.view;
 
-import org.geomajas.widget.searchandfilter.editor.client.presenter.SearchesPresenter;
+import org.geomajas.widget.searchandfilter.editor.client.presenter.ConfiguredSearchesPresenter;
 
 /**
- * Default factory for  {@link SearchesPresenter.View}.
+ * Default factory for  {@link org.geomajas.widget.searchandfilter.editor.client
+ * .presenter.ConfiguredSearchesPresenter.View}.
  *
  * @author Jan Venstermans
  *
  */
-public class SearchesViewFactory {
+public class ConfiguredSearchesViewFactory {
 
-	public SearchesPresenter.View createSearchesView() {
-		 return new SearchesView();
+	public ConfiguredSearchesPresenter.View createSearchesView() {
+		 return new ConfiguredSearchesView();
 	}
 
 }

@@ -10,9 +10,9 @@
  */
 package org.geomajas.widget.searchandfilter.editor.client.view;
 
-import org.geomajas.widget.searchandfilter.editor.client.presenter.SearchAttributePresenter;
-import org.geomajas.widget.searchandfilter.editor.client.presenter.SearchPresenter;
-import org.geomajas.widget.searchandfilter.editor.client.presenter.SearchesPresenter;
+import org.geomajas.widget.searchandfilter.editor.client.presenter.ConfiguredSearchAttributePresenter;
+import org.geomajas.widget.searchandfilter.editor.client.presenter.ConfiguredSearchPresenter;
+import org.geomajas.widget.searchandfilter.editor.client.presenter.ConfiguredSearchesPresenter;
 
 /**
  * Manager of views.
@@ -21,11 +21,11 @@ import org.geomajas.widget.searchandfilter.editor.client.presenter.SearchesPrese
  */
 public interface ViewManager {
 
-	SearchesPresenter.View getSearchesView();
+	ConfiguredSearchesPresenter.View getSearchesView();
 
-	SearchesViewFactory getSearchesViewFactory();
+	ConfiguredSearchesViewFactory getConfiguredSearchesViewFactory();
 
-	SearchPresenter.View getSearchView();
+	ConfiguredSearchPresenter.View getSearchView();
 
-	SearchAttributePresenter.View getSearchAttributeView();
+	ConfiguredSearchAttributePresenter.View getSearchAttributeView();
 }

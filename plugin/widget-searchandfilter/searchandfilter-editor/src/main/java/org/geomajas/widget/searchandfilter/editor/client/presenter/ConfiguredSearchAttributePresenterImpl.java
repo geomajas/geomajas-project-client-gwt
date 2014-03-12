@@ -21,12 +21,12 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
- * Default implementation of {@link SearchAttributePresenter}.
+ * Default implementation of {@link ConfiguredSearchAttributePresenter}.
  *
  * @author Jan Venstermans
  */
-public class SearchAttributePresenterImpl implements SearchAttributePresenter,
-		SearchAttributePresenter.Handler, VectorLayerInfoChangedEvent.Handler {
+public class ConfiguredSearchAttributePresenterImpl implements ConfiguredSearchAttributePresenter,
+		ConfiguredSearchAttributePresenter.Handler, VectorLayerInfoChangedEvent.Handler {
 
 	private View view;
 
@@ -38,7 +38,7 @@ public class SearchAttributePresenterImpl implements SearchAttributePresenter,
 
 	private Map<PrimitiveAttributeInfo, ConfiguredSearchAttribute.AttributeType> attributeTypeMap;
 
-	public SearchAttributePresenterImpl() {
+	public ConfiguredSearchAttributePresenterImpl() {
 		this.view = SearchAndFilterEditor.getViewManager().getSearchAttributeView();
 		view.setHandler(this);
 		updateAttributeTypeMap();
@@ -50,11 +50,11 @@ public class SearchAttributePresenterImpl implements SearchAttributePresenter,
 	}
 
 	private ConfiguredSearchAttribute getSelectedSearchAttribute() {
-		return SearchAndFilterEditor.getSearchesStatus().getSelectedSearchAttribute();
+		return SearchAndFilterEditor.getConfiguredSearchesStatus().getSelectedSearchAttribute();
 	}
 
 	private ConfiguredSearch getSelectedSearchConfig() {
-		return SearchAndFilterEditor.getSearchesStatus().getSelectedSearchConfig();
+		return SearchAndFilterEditor.getConfiguredSearchesStatus().getSelectedSearchConfig();
 	}
 
 	@Override
@@ -89,7 +89,7 @@ public class SearchAttributePresenterImpl implements SearchAttributePresenter,
 	public void onSave() {
 		if (view.validateForm()) {
 			updateSelectedSearchAttributed();
-			SearchAndFilterEditor.getSearchesStatus().
+			SearchAndFilterEditor.getConfiguredSearchesStatus().
 					saveSearchAttribute(searchAttribute, parentSearch, newSearchAttribute);
 			emptySelectedAttribute();
 			view.hide();
@@ -126,6 +126,7 @@ public class SearchAttributePresenterImpl implements SearchAttributePresenter,
 			ConfiguredSearchAttribute.AttributeType selectedAttributeType = attributeTypeMap.get(attributeInfo);
 			searchAttribute.setAttributeType(selectedAttributeType);
 			updateView();
+			// still set the default operation and inputtype
 		}
 	}
 
@@ -147,6 +148,16 @@ public class SearchAttributePresenterImpl implements SearchAttributePresenter,
 	@Override
 	public void onChangeDropdownValues() {
 		searchAttribute.setInputTypeDropDownValues(view.getDropDownValues());
+	}
+
+	@Override
+	public void onRemove(String dropdownValue) {
+		try {
+		   	searchAttribute.getInputTypeDropDownValues().remove(dropdownValue);
+			updateView();
+		} catch (Exception e) {
+			// do nothing
+		}
 	}
 
 	private PrimitiveAttributeInfo getPrimitiveAttributeFromName(String name) {

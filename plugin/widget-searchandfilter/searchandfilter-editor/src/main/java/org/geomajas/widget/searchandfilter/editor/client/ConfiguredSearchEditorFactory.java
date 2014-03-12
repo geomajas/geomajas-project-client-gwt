@@ -23,14 +23,14 @@ import org.geomajas.widget.searchandfilter.editor.client.i18n.SearchAndFilterEdi
  * @author Jan Venstermans
  *
  */
-public class SearchConfigurationEditorFactory implements WidgetEditorFactory {
+public class ConfiguredSearchEditorFactory implements WidgetEditorFactory {
 
 	private static final SearchAndFilterEditorMessages MESSAGES =
 			GWT.create(SearchAndFilterEditorMessages.class);
 
 	@Override
 	public WidgetEditor createEditor() {
-		return (WidgetEditor) new SearchConfigurationEditor();
+		return (WidgetEditor) new ConfiguredSearchEditor();
 	}
 
 	@Override

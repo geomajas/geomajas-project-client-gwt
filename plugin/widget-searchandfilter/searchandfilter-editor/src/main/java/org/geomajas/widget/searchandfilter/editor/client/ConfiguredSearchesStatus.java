@@ -22,7 +22,7 @@ import org.geomajas.widget.searchandfilter.search.dto.ConfiguredSearchesInfo;
  *
  * @author Jan Venstermans
  */
-public interface SearchesStatus {
+public interface ConfiguredSearchesStatus {
 
 	void setSearchesInfo(ConfiguredSearchesInfo searchesInfo);
 
