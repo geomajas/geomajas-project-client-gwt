@@ -20,6 +20,7 @@ import org.geomajas.widget.searchandfilter.client.SearchAndFilterMessages;
 import org.geomajas.widget.searchandfilter.client.util.CriterionUtil;
 import org.geomajas.widget.searchandfilter.client.util.DataCallback;
 import org.geomajas.widget.searchandfilter.client.util.FavouritesCommService;
+import org.geomajas.widget.searchandfilter.client.util.GsfLayout;
 import org.geomajas.widget.searchandfilter.client.widget.attributesearch.AttributeSearchCreator;
 import org.geomajas.widget.searchandfilter.client.widget.attributesearch.AttributeSearchPanel;
 import org.geomajas.widget.searchandfilter.client.widget.search.CombinedSearchCreator;
@@ -206,10 +207,6 @@ public class SearchFavouritesListPanel extends AbstractSearchPanel implements Fa
 	 */
 	private class FavouritesListGrid extends ListGrid {
 
-		private static final String BTN_DELETE_IMG = "[SKIN]/actions/remove.png";
-		private static final String BTN_SEARCH_IMG = "[ISOMORPHIC]/geomajas/silk/find.png";
-		private static final String BTN_FILTER_IMG = "[ISOMORPHIC]/geomajas/smartgwt/filter.png";
-
 		private HLayout rollOverTools;
 		private ImgButton filterBtn;
 		private FavouriteListRecord rollOverRecord;
@@ -227,7 +224,7 @@ public class SearchFavouritesListPanel extends AbstractSearchPanel implements Fa
 				searchBtn.setShowDown(false);
 				searchBtn.setShowRollOver(false);
 				searchBtn.setLayoutAlign(Alignment.CENTER);
-				searchBtn.setSrc(BTN_SEARCH_IMG);
+				searchBtn.setSrc(GsfLayout.iconFind);
 				searchBtn.setPrompt(MESSAGES.searchWidgetSearch());
 				searchBtn.setHeight(16);
 				searchBtn.setWidth(16);
@@ -242,7 +239,7 @@ public class SearchFavouritesListPanel extends AbstractSearchPanel implements Fa
 				filterBtn.setActionType(SelectionType.CHECKBOX);
 				filterBtn.setShowDown(false);
 				filterBtn.setShowRollOver(false);
-				filterBtn.setSrc(BTN_FILTER_IMG);
+				filterBtn.setSrc(GsfLayout.iconFilter);
 				filterBtn.setLayoutAlign(Alignment.CENTER);
 				filterBtn.setPrompt(MESSAGES.searchFavouritesListWidgetFilter());
 				filterBtn.setHeight(16);
@@ -375,7 +372,7 @@ public class SearchFavouritesListPanel extends AbstractSearchPanel implements Fa
 			});
 
 			IButton deleteButton = new IButton(MESSAGES.searchFavouritesListWidgetDelete());
-			deleteButton.setIcon(BTN_DELETE_IMG);
+			deleteButton.setIcon(GsfLayout.iconDelete);
 			deleteButton.setShowDisabledIcon(false);
 			deleteButton.addClickHandler(new ClickHandler() {
 				public void onClick(ClickEvent event) {

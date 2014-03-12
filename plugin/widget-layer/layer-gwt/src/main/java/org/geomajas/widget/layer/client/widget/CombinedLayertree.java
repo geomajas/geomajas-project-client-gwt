@@ -38,7 +38,6 @@ import org.geomajas.gwt.client.widget.MapWidget;
 import org.geomajas.sld.FeatureTypeStyleInfo;
 import org.geomajas.sld.RuleInfo;
 import org.geomajas.sld.UserStyleInfo;
-import org.geomajas.widget.layer.client.i18n.LayerMessages;
 import org.geomajas.widget.layer.client.util.LayerIconUtil;
 import org.geomajas.widget.layer.configuration.client.ClientAbstractNodeInfo;
 import org.geomajas.widget.layer.configuration.client.ClientBranchNodeInfo;
@@ -60,6 +59,7 @@ import com.smartgwt.client.widgets.layout.LayoutSpacer;
 import com.smartgwt.client.widgets.tree.TreeGrid;
 import com.smartgwt.client.widgets.tree.TreeNode;
 import com.smartgwt.client.widgets.tree.events.LeafClickEvent;
+import org.geomajas.widget.layer.client.i18n.LayerMessages;
 
 /**
  * A layertree widget with combined legend per layer.
@@ -74,10 +74,8 @@ public class CombinedLayertree extends LayerTreeBase {
 
 	private static final String LEGEND_ICONS_TYPE = ".png";
 
-	private static final String SHOW_LAYERINFO_ICON = "[ISOMORPHIC]/geomajas/silk/cog.png";
-
 	private static final LayerMessages MESSAGES = GWT.create(LayerMessages.class);
-
+	
 	private static final String EXPANDED_ATTR = "isExpanded";
 
 	private final MapWidget mapWidget;

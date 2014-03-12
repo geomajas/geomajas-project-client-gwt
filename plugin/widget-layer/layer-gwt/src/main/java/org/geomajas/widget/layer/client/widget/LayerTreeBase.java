@@ -23,6 +23,7 @@ import org.geomajas.gwt.client.map.layer.Layer;
 import org.geomajas.gwt.client.map.layer.VectorLayer;
 import org.geomajas.gwt.client.util.Log;
 import org.geomajas.gwt.client.widget.MapWidget;
+import org.geomajas.widget.layer.client.util.GltLayout;
 import org.geomajas.widget.layer.client.widget.CombinedLayertree.LayerTreeLegendNode;
 import org.geomajas.widget.layer.configuration.client.ClientAbstractNodeInfo;
 import org.geomajas.widget.layer.configuration.client.ClientLayerTreeInfo;
@@ -58,11 +59,9 @@ import com.smartgwt.client.widgets.tree.events.LeafClickHandler;
 public abstract class LayerTreeBase extends Canvas implements LeafClickHandler, FolderClickHandler,
 		LayerSelectionHandler {
 
-	protected static final String ICON_BASE = "[ISOMORPHIC]/geomajas/widget/layertree/";
+	protected static final String ICON_HIDE = GltLayout.layerTreeIconsPath + "layer-hide.png";
 
-	protected static final String ICON_HIDE = ICON_BASE + "layer-hide.png";
-
-	protected static final String ICON_SHOW = ICON_BASE + "layer-show";
+	protected static final String ICON_SHOW = GltLayout.layerTreeIconsPath + "layer-show";
 
 	protected static final String ICON_SHOW_OUT_OF_RANGE = "-outofrange";
 
@@ -74,9 +73,7 @@ public abstract class LayerTreeBase extends Canvas implements LeafClickHandler, 
 
 	protected static final String IMG_TAGNAME = "IMG";
 
-	protected static final int LAYERTREEBUTTON_SIZE = 22;
 
-	protected static final int DEFAULT_ICONSIZE = 18;
 
 	protected final HTMLFlow htmlSelectedLayer = new HTMLFlow(I18nProvider.getLayerTree().activeLayer(
 			I18nProvider.getLayerTree().none()));

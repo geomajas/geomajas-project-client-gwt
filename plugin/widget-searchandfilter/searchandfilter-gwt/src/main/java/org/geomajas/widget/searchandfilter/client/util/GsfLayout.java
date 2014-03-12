@@ -23,6 +23,8 @@ import com.smartgwt.client.widgets.Canvas;
  * Implemented as static class to allow overwriting values at application start, thus allowing skinning.
  *
  * @author Joachim Van der Auwera
+ *
+ * @author Dosi Bingov
  * @since 1.0.0
  */
 @Api
@@ -56,6 +58,23 @@ public final class GsfLayout {
 	public static String iconSearchFree = "[ISOMORPHIC]/geomajas/searchIcons/free.png";
 	/** Icon for the combined search action. */
 	public static String iconSearchCombined = "[ISOMORPHIC]/geomajas/searchIcons/combined.png";
+	/** Icon add */
+	public static String iconAdd = "[ISOMORPHIC]/geomajas/silk/add.png";
+
+	public static String iconShowDetail = "[ISOMORPHIC]/geomajas/widget/multifeaturelistgrid/info.gif";
+
+	public static String iconExport = "[ISOMORPHIC]/geomajas/widget/multifeaturelistgrid/table_save.png";
+
+	public static String iconBookmark = "[ISOMORPHIC]/geomajas/osgeo/bookmark_new.png";
+
+	public static String iconFind = "[ISOMORPHIC]/geomajas/silk/find.png";
+
+	public static String iconFilter = "[ISOMORPHIC]/geomajas/smartgwt/filter.png";
+
+	public static String iconRemoveFilter = "[ISOMORPHIC]/geomajas/smartgwt/filter.png";
+
+	public static  String iconDelete = "[SKIN]/actions/remove.png";
+
 	/** Average width in pixels text characters, used to calculate button size. 
 	 * (buttonOffset + buttonFontWidth * title.length()) */
 	public static int buttonFontWidth = 7;
