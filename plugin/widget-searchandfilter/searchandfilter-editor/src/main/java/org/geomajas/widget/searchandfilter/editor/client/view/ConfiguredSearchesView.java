@@ -101,6 +101,11 @@ public class ConfiguredSearchesView implements ConfiguredSearchesPresenter.View 
 		grid.fillGrid(list);
 	}
 
+	@Override
+	public void clearGrid() {
+		grid.clear();
+	}
+
 	/**
 	 * Used by {@link ConfiguredSearchesView}.
 	 *

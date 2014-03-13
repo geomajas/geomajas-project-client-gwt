@@ -53,6 +53,7 @@ public class ConfiguredSearchPresenterImpl implements ConfiguredSearchPresenter,
 			if (view.validateForm()) {
 				updateSelectedSearchConfig();
 				SearchAndFilterEditor.getConfiguredSearchesStatus().saveSearch(searchConfig, newSearchConfig);
+				SearchAndFilterEditor.getConfiguredSearchesStatus().setSelectedSearchConfig(searchConfig);
 			} else {
 				// needs to be validated first
 				return;

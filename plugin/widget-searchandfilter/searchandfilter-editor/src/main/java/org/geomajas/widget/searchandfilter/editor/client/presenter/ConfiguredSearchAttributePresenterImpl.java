@@ -38,6 +38,11 @@ public class ConfiguredSearchAttributePresenterImpl implements ConfiguredSearchA
 
 	private Map<PrimitiveAttributeInfo, ConfiguredSearchAttribute.AttributeType> attributeTypeMap;
 
+	/* model elements */
+	private LinkedHashMap<String, String> attributeNameMap;
+	private LinkedHashMap<ConfiguredSearchAttribute.Operation, String> operationMap;
+	private LinkedHashMap<ConfiguredSearchAttribute.InputType, String> inputTypeMap;
+
 	public ConfiguredSearchAttributePresenterImpl() {
 		this.view = SearchAndFilterEditor.getViewManager().getSearchAttributeView();
 		view.setHandler(this);
@@ -80,6 +85,7 @@ public class ConfiguredSearchAttributePresenterImpl implements ConfiguredSearchA
 		} else {
 			this.searchAttribute = getSelectedSearchAttribute();
 		}
+		updateOperationAndInputMaps();
 		this.parentSearch = getSelectedSearchConfig();
 		updateView();
 		getView().show();
@@ -88,7 +94,7 @@ public class ConfiguredSearchAttributePresenterImpl implements ConfiguredSearchA
 	@Override
 	public void onSave() {
 		if (view.validateForm()) {
-			updateSelectedSearchAttributed();
+			updateSelectedSearchAttribute();
 			SearchAndFilterEditor.getConfiguredSearchesStatus().
 					saveSearchAttribute(searchAttribute, parentSearch, newSearchAttribute);
 			emptySelectedAttribute();
@@ -98,35 +104,39 @@ public class ConfiguredSearchAttributePresenterImpl implements ConfiguredSearchA
 
 	private void emptySelectedAttribute() {
 		searchAttribute = null;
-		// empty view
 		view.clearFormValues();
+		view.setInputTypeDropDown(false);
+		view.clearGrid();
 	}
 
-	private void updateSelectedSearchAttributed() {
+	private void updateSelectedSearchAttribute() {
 		if (searchAttribute != null) {
+			searchAttribute.setDisplayText(view.getLabel());
+			// attribute type and attribute name are inserted upon selection of that value.
 			searchAttribute.setOperation(view.getSelectedOperation());
 			searchAttribute.setInputType(view.getSelectedInputType());
-			searchAttribute.setDisplayText(view.getLabel());
 			if (searchAttribute.getInputType().equals(ConfiguredSearchAttribute.InputType.DropDown)) {
 				searchAttribute.setInputTypeDropDownValues(view.getDropDownValues());
 			} else {
 				searchAttribute.getInputTypeDropDownValues().clear();
 			}
-			// attribute type and attribute name are inserted upon selection of that value.
 		}
 	}
 
 	@Override
 	public void onSelectAttributeName(String attributeName) {
 		clearSearchAttribute();
-		view.clearFormValues();
+		searchAttribute.setDisplayText(view.getLabel()); // keep the label upon change of attribute name
 		PrimitiveAttributeInfo attributeInfo = getPrimitiveAttributeFromName(attributeName);
 		if (attributeInfo != null) {
 			searchAttribute.setAttributeName(attributeName);
 			ConfiguredSearchAttribute.AttributeType selectedAttributeType = attributeTypeMap.get(attributeInfo);
 			searchAttribute.setAttributeType(selectedAttributeType);
+			updateOperationAndInputMaps();
+			searchAttribute.setOperation(operationMap.keySet().iterator().next());
+			searchAttribute.setInputType(inputTypeMap.keySet().iterator().next());
+			searchAttribute.getInputTypeDropDownValues().clear();
 			updateView();
-			// still set the default operation and inputtype
 		}
 	}
 
@@ -186,10 +196,12 @@ public class ConfiguredSearchAttributePresenterImpl implements ConfiguredSearchA
 	@Override
 	public void updateView() {
 		view.clearFormValues();
+		view.setInputTypeDropDown(false);
+		view.clearGrid();
 		if (searchAttribute != null && searchAttribute.getAttributeType() != null) {
+			view.setLabelText(searchAttribute.getDisplayText());
 			view.setSelectedAttributeName(searchAttribute.getAttributeName());
 			changeViewAccordingToAttributeType(searchAttribute.getAttributeType());
-			view.setLabelText(searchAttribute.getDisplayText());
 			view.setSelectedOperation(searchAttribute.getOperation());
 			view.setSelectedInputType(searchAttribute.getInputType());
 			onChangeSelectInputType();
@@ -208,22 +220,27 @@ public class ConfiguredSearchAttributePresenterImpl implements ConfiguredSearchA
 		}
 	}
 
+	private void updateOperationAndInputMaps() {
+		if (searchAttribute.getAttributeType() != null) {
+			operationMap = SearchAndFilterEditor.getSearchAttributeService().
+					getOperationsValueMap(searchAttribute.getAttributeType());
+			inputTypeMap = SearchAndFilterEditor.getSearchAttributeService().
+					getInputTypeMap(searchAttribute.getAttributeType());
+		}
+	}
+
+	/**
+	 * Changes to the view as a result of a certain attribute type.
+	 * In this case: set editability of certain fields + set the map values for operation and input type.
+	 * @param selectedAttributeType
+	 */
 	private void changeViewAccordingToAttributeType(ConfiguredSearchAttribute.AttributeType selectedAttributeType) {
 		boolean hasAttributeType =  selectedAttributeType != null;
 		// enable or disable the other fields
 		view.setFieldsEnabled(hasAttributeType);
 		// fill choice lists of drop downs
-		if (hasAttributeType) {
-			LinkedHashMap<ConfiguredSearchAttribute.Operation, String> operationMap =
-					SearchAndFilterEditor.getSearchAttributeService().getOperationsValueMap(selectedAttributeType);
-			view.setOperationMap(operationMap);
-			view.setSelectedOperation(operationMap.keySet().iterator().next());
-			LinkedHashMap<ConfiguredSearchAttribute.InputType, String> inputTypeMap =
-					SearchAndFilterEditor.getSearchAttributeService().getInputTypeMap(selectedAttributeType);
-			view.setInputTypeMap(inputTypeMap);
-			view.setSelectedInputType(inputTypeMap.keySet().iterator().next());
-			onChangeSelectInputType();
-		}
+		view.setOperationMap(hasAttributeType ? operationMap : null);
+		view.setInputTypeMap(hasAttributeType ? inputTypeMap : null);
 	}
 
 	private void updateAttributeTypeMap() {

@@ -183,6 +183,11 @@ public class ConfiguredSearchView implements ConfiguredSearchPresenter.View {
 	}
 
 	@Override
+	public void clearGrid() {
+		grid.clear();
+	}
+
+	@Override
 	public Canvas getCanvas() {
 		return window;
 	}
@@ -257,8 +262,8 @@ public class ConfiguredSearchView implements ConfiguredSearchPresenter.View {
 
 		public static final String FLD_OBJECT = "object";
 
+		private static final int FLD_LABEL_WIDTH = 120;
 		private static final int FLD_ATTRIBUTE_NAME_WIDTH = 80;
-		private static final int FLD_LABEL_WIDTH = 80;
 		private static final int FLD_OPERATION_WIDTH = 80;
 		private static final int FLD_INPUT_TYPE_WIDTH = 80;
 
@@ -290,14 +295,14 @@ public class ConfiguredSearchView implements ConfiguredSearchPresenter.View {
 
 
 		/*columns*/
+			ListGridField labelFld = new ListGridField(FLD_LABEL, messages.searchDetailsWindowGridColumnLabel());
+			labelFld.setWidth("*");
+			labelFld.setCanEdit(true);
+
 			ListGridField attributeNameFld = new ListGridField(FLD_ATTRIBUTE_NAME,
 					messages.searchDetailsWindowGridColumnAttributeName());
 			attributeNameFld.setWidth(FLD_ATTRIBUTE_NAME_WIDTH);
 			attributeNameFld.setCanEdit(true);
-
-			ListGridField labelFld = new ListGridField(FLD_LABEL, messages.searchDetailsWindowGridColumnLabel());
-			labelFld.setWidth(FLD_LABEL_WIDTH);
-			labelFld.setCanEdit(true);
 
 			ListGridField operationFld = new ListGridField(FLD_OPERATION,
 					messages.searchDetailsWindowGridColumnOperation());
@@ -306,7 +311,7 @@ public class ConfiguredSearchView implements ConfiguredSearchPresenter.View {
 
 			ListGridField inputTypeFld = new ListGridField(FLD_INPUT_TYPE,
 					messages.searchDetailsWindowGridColumnInputType());
-			inputTypeFld.setWidth("*");
+			inputTypeFld.setWidth(FLD_INPUT_TYPE_WIDTH);
 
 			ListGridField actionsFld = new ListGridField(FLD_ACTIONS, messages.searchDetailsWindowGridColumnActions());
 			actionsFld.setType(ListGridFieldType.ICON);
@@ -314,7 +319,7 @@ public class ConfiguredSearchView implements ConfiguredSearchPresenter.View {
 			actionsFld.setCanEdit(false);
 			actionsFld.setAlign(Alignment.CENTER);
 
-			setFields(attributeNameFld, labelFld, operationFld, inputTypeFld, actionsFld);
+			setFields(labelFld, attributeNameFld, operationFld, inputTypeFld, actionsFld);
 
 			addRecordDoubleClickHandler(new RecordDoubleClickHandler() {
 

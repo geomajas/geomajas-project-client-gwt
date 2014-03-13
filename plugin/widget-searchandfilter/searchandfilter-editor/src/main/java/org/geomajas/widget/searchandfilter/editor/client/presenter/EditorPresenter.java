@@ -44,6 +44,8 @@ public interface EditorPresenter {
 	 */
 	interface GridView<T> {
 		void updateGrid(List<T> list);
+
+		void clearGrid();
 	}
 
 	/**

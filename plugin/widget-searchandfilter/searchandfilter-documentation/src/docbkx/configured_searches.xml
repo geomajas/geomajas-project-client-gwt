@@ -11,10 +11,16 @@
   ~ by the Geomajas Contributors License Agreement. For full licensing
   ~ details, see LICENSE.txt in the project root.
   -->
-<chapter id="chapter-introduction">
-  <title>Introduction</title>
+<chapter id="chapter-howto">
+  <title>Configured Searches</title>
 
-	<para>Vector layers can display geometrical information on a map, e.g. countries as polygons.
-		Mostly, the vector layer contains more information about these features, e.g. the name of a country.
-		The Search And Filter Widget libraries offer methods to search and/or filter the feature info.</para>
+	<para>This section explains how pre-configured searches on a specific vector layer can be saved.</para>
+
+	<section id="manager">
+		<title>Manager section: saving the pre-configured searches</title>
+	</section>
+
+	<section id="geodesk">
+		<title>Geodesk section: executing the pre-configured searches</title>
+	</section>
 </chapter>

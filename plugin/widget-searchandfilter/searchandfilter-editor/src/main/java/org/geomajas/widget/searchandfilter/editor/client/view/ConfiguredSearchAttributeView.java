@@ -103,6 +103,11 @@ public class ConfiguredSearchAttributeView implements ConfiguredSearchAttributeP
 		form.setWidth(FORM_WIDTH);
 		form.setWrapItemTitles(false);
 
+		label = new TextItem();
+		label.setTitle(messages.searchAttributeWindowLabelLabel());
+		label.setRequired(true);
+		label.setWidth(FORMITEM_WIDTH);
+
 		attributeNameSelectItem = new SelectItem();
 		attributeNameSelectItem.setTitle(messages.searchAttributeWindowAttributeNameLabel());
 		attributeNameSelectItem.setWidth(FORMITEM_WIDTH);
@@ -136,12 +141,7 @@ public class ConfiguredSearchAttributeView implements ConfiguredSearchAttributeP
 			}
 		});
 
-		label = new TextItem();
-		label.setTitle(messages.searchAttributeWindowLabelLabel());
-		label.setRequired(true);
-		label.setWidth(FORMITEM_WIDTH);
-
-		form.setFields(attributeNameSelectItem, label, operationSelectItem,
+		form.setFields(label, attributeNameSelectItem, operationSelectItem,
 				inputTypeSelectItem);
 
 		VLayout gridLayout = new VLayout();
@@ -306,7 +306,6 @@ public class ConfiguredSearchAttributeView implements ConfiguredSearchAttributeP
 
 	@Override
 	public void setFieldsEnabled(boolean enabled) {
-		label.setCanEdit(enabled);
 		operationSelectItem.setCanEdit(enabled);
 		inputTypeSelectItem.setCanEdit(enabled);
 	}
@@ -332,6 +331,11 @@ public class ConfiguredSearchAttributeView implements ConfiguredSearchAttributeP
 	@Override
 	public void updateGrid(List<String> list) {
 		grid.fillGrid(list);
+	}
+
+	@Override
+	public void clearGrid() {
+		grid.clear();
 	}
 
 	/**
