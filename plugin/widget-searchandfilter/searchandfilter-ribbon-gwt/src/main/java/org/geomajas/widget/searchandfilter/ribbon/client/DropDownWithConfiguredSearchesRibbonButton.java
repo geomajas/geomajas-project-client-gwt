@@ -11,6 +11,7 @@
 
 package org.geomajas.widget.searchandfilter.ribbon.client;
 
+import com.google.gwt.core.client.GWT;
 import org.geomajas.configuration.client.ClientLayerInfo;
 import org.geomajas.configuration.client.ClientToolInfo;
 import org.geomajas.gwt.client.action.ToolbarBaseAction;
@@ -21,6 +22,7 @@ import org.geomajas.gwt.client.map.event.MapModelChangedEvent;
 import org.geomajas.gwt.client.map.event.MapModelChangedHandler;
 import org.geomajas.gwt.client.widget.MapWidget;
 import org.geomajas.widget.searchandfilter.client.action.ConfiguredSearchAction;
+import org.geomajas.widget.searchandfilter.ribbon.client.i18n.SearchAndFilterRibbonMessages;
 import org.geomajas.widget.searchandfilter.search.dto.ConfiguredSearch;
 import org.geomajas.widget.searchandfilter.search.dto.ConfiguredSearchesInfo;
 import org.geomajas.widget.utility.gwt.client.action.ButtonAction;
@@ -43,6 +45,9 @@ public class DropDownWithConfiguredSearchesRibbonButton extends DropDownRibbonBu
 		implements MapModelChangedHandler {
 
 	private MapWidget mapWidget;
+
+	private static final SearchAndFilterRibbonMessages RIBBON_MESSAGES
+			= GWT.create(SearchAndFilterRibbonMessages.class);
 
 	public DropDownWithConfiguredSearchesRibbonButton(final DropDownButtonAction action,
 													  List<ClientToolInfo> tools, MapWidget mapWidget) {
@@ -107,7 +112,7 @@ public class DropDownWithConfiguredSearchesRibbonButton extends DropDownRibbonBu
 		if (toolbarAction != null) {
 			if (toolbarAction instanceof ButtonGroup) {
 				buttonGroup = (ButtonGroup) toolbarAction;
-				buttonGroup.setTitle("Configured Searches");
+				buttonGroup.setTitle(RIBBON_MESSAGES.dropDownConfiguredSearchesGroupTitle());
 				//TODO: make configurable?
 				buttonGroup.configure("buttonLayout", "ICON_TITLE_AND_DESCRIPTION");
 			}

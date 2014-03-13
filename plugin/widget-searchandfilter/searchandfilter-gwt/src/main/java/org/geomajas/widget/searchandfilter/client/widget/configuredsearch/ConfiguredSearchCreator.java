@@ -10,23 +10,25 @@
  */
 package org.geomajas.widget.searchandfilter.client.widget.configuredsearch;
 
+import com.google.gwt.core.client.GWT;
 import org.geomajas.gwt.client.widget.MapWidget;
+import org.geomajas.widget.searchandfilter.client.SearchAndFilterMessages;
 import org.geomajas.widget.searchandfilter.client.widget.search.DockableWindowSearchWidget;
 import org.geomajas.widget.searchandfilter.client.widget.search.SearchWidget;
 import org.geomajas.widget.searchandfilter.client.widget.search.SearchWidgetCreator;
 import org.geomajas.widget.searchandfilter.search.dto.ConfiguredSearch;
 
 /**
- * Creator (or factory) pattern needed because GWT cannot instantiate classes
- * starting from name (as String).
+ * Creator (or factory) pattern for constructing {@link ConfiguredSearchPanel} object.
+ * By default, they are created in a {@link DockableWindowConfiguredSearchWidget} window.
  * 
- * @author Kristof Heirwegh
+ * @author Jan Venstermans
  */
 public class ConfiguredSearchCreator implements SearchWidgetCreator {
 
 	public static final String IDENTIFIER = "ConfiguredSearch";
 
-	//private final SearchAndFilterMessages messages = GWT.create(SearchAndFilterMessages.class);
+	private final SearchAndFilterMessages messages = GWT.create(SearchAndFilterMessages.class);
 
 	public ConfiguredSearchCreator() {
 	}
@@ -36,8 +38,7 @@ public class ConfiguredSearchCreator implements SearchWidgetCreator {
 	}
 
 	public String getSearchWidgetName() {
-		//return messages.configuredSearchWidgetTitle();
-		return "Configured Search Creator"; //TODO put this test value in messages
+		return messages.configuredSearchWidgetTitle();
 	}
 
 	public SearchWidget createInstance(MapWidget mapWidget) {

@@ -22,7 +22,7 @@ import org.geomajas.widget.searchandfilter.client.widget.search.SearchWidgetRegi
 import org.geomajas.widget.searchandfilter.search.dto.ConfiguredSearch;
 
 /**
- * Toolbar action for configured searches.
+ * Toolbar action for {@link ConfiguredSearch}.
  * 
  * @author Jan Venstermans
  * 
@@ -45,8 +45,8 @@ public class ConfiguredSearchAction extends ToolbarAction implements Configurabl
 	 *org.geomajas.widget.searchandfilter.search.dto.ConfiguredSearch, String)} method.
 	 */
 	public ConfiguredSearchAction() {
-		super(GsfLayout.iconSearchFree, MESSAGES.searchConfiguredTitleDefault(),
-				MESSAGES.searchConfiguredTooltipDefault());
+		super(GsfLayout.iconSearchFree, MESSAGES.configuredSearchTitleDefault(),
+				MESSAGES.configuredSearchTooltipDefault());
 	}
 
 	public void setSearchConfig(ConfiguredSearch searchConfig, String layerId) {

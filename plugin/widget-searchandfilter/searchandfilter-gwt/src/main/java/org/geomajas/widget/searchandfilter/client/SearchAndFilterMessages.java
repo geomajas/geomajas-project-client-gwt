@@ -134,8 +134,9 @@ public interface SearchAndFilterMessages extends Messages {
 	String searchFreeTooltip();
 
 	/* configured searches */
-	String searchConfiguredTitleDefault();
-	String searchConfiguredTooltipDefault();
+	String configuredSearchWidgetTitle();
+	String configuredSearchTitleDefault();
+	String configuredSearchTooltipDefault();
 
 	/* AttributeCriterionUtil */
 	String searchAttributeOperationEqualToString();

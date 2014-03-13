@@ -38,10 +38,10 @@ public class ConfiguredSearchAttribute extends AttributeCriterion {
 	 * values can be associated with itself.
 	 */
 	public enum AttributeType {
-		String(new Operation[] {Operation.EqualTo},
-				new InputType[] {InputType.FreeText, InputType.DropDown}),
-		Integer(new Operation[] {Operation.EqualTo, Operation.SmallerThan, Operation.LargerThan},
-				new InputType[] {InputType.FreeNr, InputType.DropDown});
+		String(new Operation[] {Operation.EqualToString},
+				new InputType[] {InputType.FreeValue, InputType.DropDown}),
+		Integer(new Operation[] {Operation.EqualToInteger, Operation.SmallerThan, Operation.LargerThan},
+				new InputType[] {InputType.FreeValue, InputType.DropDown});
 
 		private Operation[] operations;
 		private InputType[] inputTypes;
@@ -72,21 +72,24 @@ public class ConfiguredSearchAttribute extends AttributeCriterion {
 	 * Operation type that can be applied to the value of an vector layer attribute.
 	 */
 	public enum Operation {
-		EqualTo("="),
+		EqualToString("like"), //use "like" in stead of "=" to enable wildcards
+		EqualToInteger("="),
 		SmallerThan("<"),
 		LargerThan(">");
 
 		/**
-		 *   see {@link org.geomajas.gwt.client.widget.attribute.AttributeCriterionPane} for reference
+		 *   A code string representation of the search operator. Inspired by
+		 *   {@link org.geomajas.gwt.client.widget.attribute
+		 *                       .AttributeCriterionPane#getOperatorCodeFromLabel(String)}
 		 */
-		private String operatorString;
+		private String operatorCode;
 
-		private Operation(String operatorString) {
-			this.operatorString = operatorString;
+		private Operation(String operatorCode) {
+			this.operatorCode = operatorCode;
 		}
 
-		public String getOperatorString() {
-			return operatorString;
+		public String getOperatorCode() {
+			return operatorCode;
 		}
 	}
 
@@ -94,7 +97,7 @@ public class ConfiguredSearchAttribute extends AttributeCriterion {
 	 * Type of input for the reference value of the operation.
 	 */
 	public enum InputType {
-		FreeText, DropDown, FreeNr;
+		FreeValue, DropDown;
 	}
 
 	public AttributeType getAttributeType() {
