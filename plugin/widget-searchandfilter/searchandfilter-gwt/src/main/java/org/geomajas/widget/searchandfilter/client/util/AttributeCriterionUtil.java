@@ -42,11 +42,17 @@ public final class AttributeCriterionUtil {
 	public static final String CQL_TIME_FORMAT = "yyyy-MM-dd'T'HH:mm:ssZZZ";
 	public static final String ID_SUFFIX = ".@id";
 
-	private static final SearchAndFilterMessages MESSAGES =
-			GWT.create(SearchAndFilterMessages.class);
+	private static SearchAndFilterMessages messages;
 
 	private AttributeCriterionUtil() {
 
+	}
+
+	private static SearchAndFilterMessages getSearchAndFilterMessages() {
+		if (messages == null) {
+			messages = GWT.create(SearchAndFilterMessages.class);
+		}
+		return messages;
 	}
 
 	public static String getOperationStringRepresentation(ConfiguredSearchAttribute.AttributeType attributeType,
@@ -56,21 +62,21 @@ public final class AttributeCriterionUtil {
 			case Integer:
 				switch (operation) {
 					case EqualToInteger:
-						return MESSAGES.searchAttributeOperationEqualToInteger();
+						return getSearchAndFilterMessages().searchAttributeOperationEqualToInteger();
 					case LargerThan:
-						return MESSAGES.searchAttributeOperationLargerThanInteger();
+						return getSearchAndFilterMessages().searchAttributeOperationLargerThanInteger();
 					case SmallerThan:
-						return MESSAGES.searchAttributeOperationSmallerThanInteger();
+						return getSearchAndFilterMessages().searchAttributeOperationSmallerThanInteger();
 				}
 				break;
 			case String:
 				switch (operation) {
 					case EqualToString:
-						return MESSAGES.searchAttributeOperationEqualToString();
+						return getSearchAndFilterMessages().searchAttributeOperationEqualToString();
 					case LargerThan:
-						return MESSAGES.searchAttributeOperationLargerThanString();
+						return getSearchAndFilterMessages().searchAttributeOperationLargerThanString();
 					case SmallerThan:
-						return MESSAGES.searchAttributeOperationSmallerThanString();
+						return getSearchAndFilterMessages().searchAttributeOperationSmallerThanString();
 				}
 				break;
 			}
@@ -83,13 +89,13 @@ public final class AttributeCriterionUtil {
 		if (inputType != null) {
 			switch (inputType) {
 				case DropDown:
-					return MESSAGES.searchAttributeInputTypeDropDownToString();
+					return getSearchAndFilterMessages().searchAttributeInputTypeDropDownToString();
 				case FreeValue:
 					switch (attributeType) {
 						case String:
-							return MESSAGES.searchAttributeInputTypeFreeTextToString();
+							return getSearchAndFilterMessages().searchAttributeInputTypeFreeTextToString();
 						case Integer:
-							return MESSAGES.searchAttributeInputTypeFreeNrToString();
+							return getSearchAndFilterMessages().searchAttributeInputTypeFreeNrToString();
 					}
 			}
 		}

@@ -11,16 +11,8 @@
   ~ by the Geomajas Contributors License Agreement. For full licensing
   ~ details, see LICENSE.txt in the project root.
   -->
-<chapter id="chapter-howto">
-  <title>Configured Searches</title>
+<chapter id="chapter-introduction">
+  <title>Introduction</title>
 
-	<para>This section explains how pre-configured searches on a specific vector layer can be saved.</para>
-
-	<section id="manager">
-		<title>Manager section: saving the pre-configured searches</title>
-	</section>
-
-	<section id="geodesk">
-		<title>Geodesk section: executing the pre-configured searches</title>
-	</section>
+	<para>Documentation for the Deskmanager plugin.</para>
 </chapter>
