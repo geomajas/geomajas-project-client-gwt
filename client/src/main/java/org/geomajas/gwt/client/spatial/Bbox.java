@@ -101,6 +101,16 @@ public class Bbox {
 		height = bounds.getHeight();
 	}
 
+	/**
+	 * Convert the GWT bounding box to a DTO bounding box.
+	 *
+	 * @return the bbox
+	 */
+	public org.geomajas.geometry.Bbox toDtoBbox() {
+		return new org.geomajas.geometry.Bbox(getX(), getY(), getWidth(), getHeight());
+	}
+
+
 	// -------------------------------------------------------------------------
 	// Class specific functions:
 	// -------------------------------------------------------------------------
