@@ -65,6 +65,24 @@
 		<exclude name="*Test*.java"/>
 	</source>
 
+    <!-- main style sheet for smart gwt client -->
+    <define-property name="gwtclient.loadStyle" values="true,false"/>
+
+    <!-- set this property to false in your project module in case you use custom css -->
+    <set-property name="gwtclient.loadStyle" value="true" />
+
+    <replace-with class="org.geomajas.gwt.client.css.CssLoaderGwtClientImpl">
+        <when-type-is class="org.geomajas.gwt.client.css.CssLoaderGwtClient"/>
+        <when-property-is name="gwtclient.loadStyle" value="true"/>
+    </replace-with>
+
+    <replace-with class="org.geomajas.gwt.client.css.CssLoaderNoCssImpl">
+        <when-type-is class="org.geomajas.gwt.client.css.CssLoaderGwtClient"/>
+        <when-property-is name="gwtclient.loadStyle" value="false"/>
+    </replace-with>
+    <!-- end main style sheet for smart gwt client -->
+
+
 	<entry-point class="org.geomajas.gwt.client.GeomajasEntryPoint"/>
 
 </module>

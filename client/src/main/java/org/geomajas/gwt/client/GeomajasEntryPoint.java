@@ -12,6 +12,7 @@
 package org.geomajas.gwt.client;
 
 import org.geomajas.gwt.client.command.GwtCommandDispatcher;
+import org.geomajas.gwt.client.css.CssLoaderGwtClientImpl;
 import org.geomajas.gwt.client.handler.NotificationHandler;
 import org.geomajas.gwt.client.util.Notify;
 
@@ -26,6 +27,9 @@ import com.smartgwt.client.util.SC;
 public class GeomajasEntryPoint implements EntryPoint {
 
 	public void onModuleLoad() {
+		//load css gwt client
+		CssLoaderGwtClientImpl.load();
+
 		GwtCommandDispatcher dispatcher =  GwtCommandDispatcher.getInstance();
 		GwtCommandCallback callback = new GwtCommandCallback();
 		dispatcher.setCommandExceptionCallback(callback);

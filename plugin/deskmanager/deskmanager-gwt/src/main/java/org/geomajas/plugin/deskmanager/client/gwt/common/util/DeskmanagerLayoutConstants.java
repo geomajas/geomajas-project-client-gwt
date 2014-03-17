@@ -11,6 +11,8 @@
 package org.geomajas.plugin.deskmanager.client.gwt.common.util;
 
 
+import com.google.gwt.core.client.GWT;
+
 /**
  * Common css styles, icons and margins.
  *
@@ -29,15 +31,30 @@ public final class DeskmanagerLayoutConstants {
 	/** Manager content center width. */
 	public static String centerContentWidth = "100%";
 
+	public static int loadingScreenHeight = 300;
+
+	public static int loadingScreenWidth = 500;
+
+	public static int progressBarHeight = 30;
+
 
 	/*============================================================
 		Style names
 	============================================================*/
 	/** desk manager bottom style tabpane style. */
-	public static final String DESKMANAGER_TABPANE_DETAIL_STYLE = "deskmanagerTabpaneDetailBottom";
+	public static final String STYLE_DESKMANAGER_TABPANE_DETAIL = "gm-deskmanager-tabpane-detail";
 
 	/** center content style. */
-	public static final String STYLE_CENTER_CONTENT = "deskmanagerCenterContent";
+	public static final String STYLE_CENTER_CONTENT = "gm-deskmanager-center-content";
+
+	/** loading screen */
+	public static final String STYLE_LOADING_SCREEN = "gm-deskmanger-loadingscreen";
+
+	/** loading bar layout */
+	public static final String STYLE_PROGRESSBAR_LAYOUT = "gm-deskmanger-progressbar-layout";
+
+	/** loading bar */
+	public static final String STYLE_PROGRESSBAR = "gm-deskmanger-progressbar";
 
 
 	/*============================================================
@@ -54,6 +71,8 @@ public final class DeskmanagerLayoutConstants {
 
 	public static String iconClearSelection = "[ISOMORPHIC]/geomajas/osgeo/selected-delete.png";
 
+
 	// CHECKSTYLE VISIBILITY MODIFIER: ON
 
 }
+

@@ -1,0 +1,11 @@
+/* --- Geomajas GWT client css main style --- */
+.measureDistancePanel {
+    background: #FFFFFF;
+    border: 2px solid #D5D5D5;
+}
+.measureDistancePanel div.measureDistancePanelHeader {
+}
+.measureDistancePanel .measureDistancePanelContent div {
+    padding-left: 3px;
+}
+

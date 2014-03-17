@@ -15,7 +15,7 @@
 	<parent>
 		<groupId>org.geomajas</groupId>
 		<artifactId>geomajas-parent</artifactId>
-		<version>2.0.0</version>
+		<version>2.0.0-SNAPSHOT</version>
 	</parent>
 
 	<groupId>org.geomajas.project</groupId>
@@ -95,17 +95,6 @@
 				<version>${project.version}</version>
 				<type>war</type>
 			</dependency>
-
-			<dependency>
-				<groupId>org.seleniumhq.selenium</groupId>
-				<artifactId>selenium-java</artifactId>
-				<version>2.39.0</version>
-			</dependency>
-			<dependency>
-				<groupId>org.seleniumhq.selenium</groupId>
-				<artifactId>selenium-server</artifactId>
-				<version>2.39.0</version>
-			</dependency>
 			<dependency>
 				<groupId>org.geomajas</groupId>
 				<artifactId>geomajas-client-common-gwt</artifactId>
@@ -115,11 +104,6 @@
 				<groupId>org.geomajas</groupId>
 				<artifactId>geomajas-client-common-gwt-smartgwt</artifactId>
 				<version>${project.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.geomajas.plugin</groupId>
-				<artifactId>geomajas-client-gwt2-plugin-wms</artifactId>
-				<version>${gwt-client-common-gwt-version}</version>
 			</dependency>
 
 			<!-- depend -->
@@ -169,11 +153,11 @@
 				<groupId>com.smartgwt</groupId>
 				<artifactId>smartgwt</artifactId>
 				<version>${gwt-client-smartgwt-version}</version>
-    </dependency>
+            </dependency>
 			<dependency>
 				<groupId>com.smartgwt</groupId>
 				<artifactId>smartgwt-skins</artifactId>
-				<version>${gwt-client-smartgwt-version}</version>
+				<version>${gwt-client-smartgwt-skins-version}</version>
 			</dependency>
 			<dependency>
 				<groupId>commons-codec</groupId>
@@ -436,11 +420,6 @@
 				<artifactId>geomajas-widget-layer-editor</artifactId>
 				<version>${project.version}</version>
 			</dependency>
-			<dependency>
-				<groupId>org.geomajas.widget</groupId>
-				<artifactId>geomajas-widget-layer-gwt-example-jar</artifactId>
-				<version>${project.version}</version>
-			</dependency>
 
 			<!-- geomajas-client-gwt-widget-searchandfilter -->
 			<dependency>
@@ -451,16 +430,6 @@
 			<dependency>
 				<groupId>org.geomajas.widget</groupId>
 				<artifactId>geomajas-widget-searchandfilter-gwt</artifactId>
-				<version>${project.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.geomajas.widget</groupId>
-				<artifactId>geomajas-widget-searchandfilter-editor</artifactId>
-				<version>${project.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.geomajas.widget</groupId>
-				<artifactId>geomajas-widget-searchandfilter-ribbon-gwt</artifactId>
 				<version>${project.version}</version>
 			</dependency>
 
@@ -543,32 +512,6 @@
 				<module>smartgwt-archetype-documentation</module>
 				<module>documentation</module>
 			</modules>
-			<!-- Include resources, java and gwt files in build -->
-			<build>
-				<resources>
-					<resource>
-						<directory>src/main/resources</directory>
-					</resource>
-					<resource>
-						<directory>src/main/java</directory>
-						<includes>
-							<include>**/*.java</include>
-							<include>**/*.gwt.xml</include>
-						</includes>
-					</resource>
-				</resources>
-			</build>
-		</profile>
-		<profile>
-			<id>skipDocs</id>
-			<activation>
-				<property>
-					<name>skipDocs</name>
-				</property>
-			</activation>
-			<modules>
-				<module>plugin</module>
-			</modules>
 		</profile>
 		<profile>
 			<id>default</id>
@@ -613,13 +556,13 @@
 	</profiles>
 
 	<properties>
-		<gwt-client-server-version>1.15.0-SNAPSHOT</gwt-client-server-version>
+		<gwt-client-server-version>1.14.0-SNAPSHOT</gwt-client-server-version>
 		<gwt-client-gwt-version>2.5.1</gwt-client-gwt-version>
 		<gwt-client-gwt-maven-version>2.5.1</gwt-client-gwt-maven-version>
-		<gwt-client-common-gwt-version>2.0.0-M1</gwt-client-common-gwt-version>
-		<gwt-client-smartgwt-version>3.1</gwt-client-smartgwt-version>
+		<gwt-client-common-gwt-version>2.0.0-SNAPSHOT</gwt-client-common-gwt-version>
+		<gwt-client-smartgwt-version>4.1p1</gwt-client-smartgwt-version>
+        <gwt-client-smartgwt-skins-version>4.1p</gwt-client-smartgwt-skins-version>
 		<gwt-exporter-version>2.4.0</gwt-exporter-version>
-		<gwt-client-build-tools-version>2.0.0</gwt-client-build-tools-version>
 	</properties>
 	
 </project>
