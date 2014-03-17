@@ -4,9 +4,25 @@
 	<!--
 	<inherits name="org.geomajas.widget.utility.gwt.GwtUtilityWidgets" />
 	-->
+
     <!-- main style sheet for desk manager -->
-    <stylesheet src="sc/deskmanager-gwt-style.css" />
-	 
+    <define-property name="deskmanager.loadGeoDeskStyle"
+                     values="true,false"/>
+
+    <!-- set this property to false in your project module in case you use custom css -->
+    <set-property name="deskmanager.loadGeoDeskStyle" value="true" />
+
+    <replace-with class="org.geomajas.plugin.deskmanager.client.gwt.geodesk.css.CssLoaderGeodeskImpl">
+        <when-type-is class="org.geomajas.plugin.deskmanager.client.gwt.geodesk.css.CssLoaderGeodesk"/>
+        <when-property-is name="deskmanager.loadGeoDeskStyle" value="true"/>
+    </replace-with>
+
+    <replace-with class="org.geomajas.plugin.deskmanager.client.gwt.geodesk.css.CssLoaderNoCssImpl">
+        <when-type-is class="org.geomajas.plugin.deskmanager.client.gwt.geodesk.css.CssLoaderGeodesk"/>
+        <when-property-is name="deskmanager.loadGeoDeskStyle" value="false"/>
+    </replace-with>
+    <!-- end main style sheet for desk manager -->
+
 	<source path="client/gwt/common" />
 	<source path="client/gwt/geodesk" />
 

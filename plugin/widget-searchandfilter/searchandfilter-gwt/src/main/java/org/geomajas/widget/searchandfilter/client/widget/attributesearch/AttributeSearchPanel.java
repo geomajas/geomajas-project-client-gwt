@@ -636,7 +636,7 @@ public class AttributeSearchPanel extends AbstractSearchPanel {
 			btnHeader.setStyleName(STYLE_HEADER_BAR);
 			btnHeader.setWidth(70);
 			btnHeader.setHeight(26);
-			btnHeader.setBackgroundColor("#00FF00");
+			// btnHeader.setBackgroundColor("#00FF00");
 			buttonStack.addMember(btnHeader);
 
 			HLayout searchGrid = new HLayout();

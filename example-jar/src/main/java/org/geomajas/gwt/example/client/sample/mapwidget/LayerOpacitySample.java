@@ -69,10 +69,10 @@ public class LayerOpacitySample extends SamplePanel {
 		slider.addValueChangedHandler(new ValueChangedHandler() {
 
 			public void onValueChanged(ValueChangedEvent event) {
-				int intValue = event.getValue();
+				double sliderValue = event.getValue();
 				double value = 0;
-				if (intValue != 0) {
-					value = (double) intValue / (double) 100;
+				if (sliderValue != 0) {
+					value = sliderValue / (double) 100;
 				}
 
 				RasterLayer layer = (RasterLayer) map.getMapModel().getLayer("clientLayerOsm");

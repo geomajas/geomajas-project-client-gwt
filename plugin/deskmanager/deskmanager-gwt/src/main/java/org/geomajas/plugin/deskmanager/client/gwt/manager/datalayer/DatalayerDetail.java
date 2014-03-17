@@ -87,7 +87,7 @@ public class DatalayerDetail extends VLayout implements SelectionChangedHandler,
 	public DatalayerDetail() {
 		super(10);
 
-		setStyleName(DeskmanagerLayoutConstants.DESKMANAGER_TABPANE_DETAIL_STYLE);
+		setStyleName(DeskmanagerLayoutConstants.STYLE_DESKMANAGER_TABPANE_DETAIL);
 		settings = new DatalayerSettings();
 		connPar = new DatalayerConnectionParameters();
 		upload = new DatalayerShapeUpload();
