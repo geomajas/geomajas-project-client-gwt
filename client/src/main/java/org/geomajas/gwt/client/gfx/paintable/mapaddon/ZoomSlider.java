@@ -112,6 +112,7 @@ public class ZoomSlider extends MapAddon implements MapViewChangedHandler {
 		List<ScaleInfo> zoomLevels = mapWidget.getMapModel().getMapInfo().getScaleConfiguration().getZoomLevels();
 		int size = zoomLevels.size();
 		currentScaleList.clear();
+		boolean scaleFound = false;
 		for (int i = size - 1 ; i >= 0 ; i--) {
 			double scale = zoomLevels.get(i).getPixelPerUnit();
 			if (mapWidget.getMapModel().getMapView().isResolutionAvailable(1.0 / scale)) {
@@ -119,7 +120,8 @@ public class ZoomSlider extends MapAddon implements MapViewChangedHandler {
 				bounds.setY(sliderAreaHeight);
 				partBounds.add(bounds);
 				currentScaleList.add(scale);
-				if (scale == currentScale) {
+				if (scale <= currentScale && !scaleFound) {
+					scaleFound = true;
 					currentUnitY = sliderAreaHeight;
 				}
 				sliderAreaHeight += backgroundPartHeight;
@@ -158,10 +160,12 @@ public class ZoomSlider extends MapAddon implements MapViewChangedHandler {
 			double currentScale = mapWidget.getMapModel().getMapView().getCurrentScale();
 			for (int i = 0 ; i < currentScaleList.size() ; i++) {
 				double scale = currentScaleList.get(i);
-				if (currentScale == scale) {
+				//Look for first scale that is smaller or equal to the search scale to avoid rounding errors
+				if (scale <= currentScale) {
 					Bbox bounds = sliderArea.getIcon().getBounds();
 					bounds.setY(i * backgroundPart.getBounds().getHeight());
 					sliderArea.drawImage(sliderArea.applyMargins(bounds));
+					break;
 				}
 			}
 		}
