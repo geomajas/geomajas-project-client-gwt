@@ -8,7 +8,7 @@
  * by the Geomajas Contributors License Agreement. For full licensing
  * details, see LICENSE.txt in the project root.
  */
-package org.geomajas.widget.layer.client;
+package org.geomajas.widget.layer.client.i18n;
 
 import com.google.gwt.i18n.client.Messages;
 
@@ -74,7 +74,8 @@ public interface LayerMessages extends Messages {
 	String layerSelectAvailableLayers();
 	String layerSelectSelectedLayers();
 	String layerSelectPanelHelpText();
-	
 
-	
+	// layer list
+	String layerListGridColumnLayerName();
+	String layerListGridColumnVisibilityName();
 }

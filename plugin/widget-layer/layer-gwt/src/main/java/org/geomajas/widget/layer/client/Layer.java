@@ -11,6 +11,8 @@
 package org.geomajas.widget.layer.client;
 
 import com.google.gwt.core.client.EntryPoint;
+import org.geomajas.widget.layer.client.view.ViewManager;
+import org.geomajas.widget.layer.client.view.ViewManagerImpl;
 
 
 /**
@@ -21,12 +23,22 @@ import com.google.gwt.core.client.EntryPoint;
  */
 public class Layer implements EntryPoint {
 
+	private static ViewManager viewManager;
+
 	/* (non-Javadoc)
 	 * @see com.google.gwt.core.client.EntryPoint#onModuleLoad()
 	 */
 	public void onModuleLoad() {
-		// TODO Auto-generated method stub
-		
 	}
 
+	public static ViewManager getViewManager() {
+		if (viewManager == null) {
+			viewManager = new ViewManagerImpl();
+		}
+		return viewManager;
+	}
+
+	public static ViewManager setViewManager() {
+		return viewManager;
+	}
 }

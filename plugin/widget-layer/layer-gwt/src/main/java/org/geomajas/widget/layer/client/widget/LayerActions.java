@@ -15,7 +15,7 @@ import org.geomajas.configuration.client.ScaleInfo;
 import org.geomajas.gwt.client.map.layer.Layer;
 import org.geomajas.gwt.client.map.layer.RasterLayer;
 import org.geomajas.gwt.client.map.layer.VectorLayer;
-import org.geomajas.widget.layer.client.LayerMessages;
+import org.geomajas.widget.layer.client.i18n.LayerMessages;
 import org.geomajas.widget.layer.client.util.LayerIconUtil;
 import org.geomajas.widget.layer.configuration.client.ClientExtraLayerInfo;
 

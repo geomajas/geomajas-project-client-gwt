@@ -436,6 +436,11 @@
 				<artifactId>geomajas-widget-layer-editor</artifactId>
 				<version>${project.version}</version>
 			</dependency>
+			<dependency>
+				<groupId>org.geomajas.widget</groupId>
+				<artifactId>geomajas-widget-layer-gwt-example-jar</artifactId>
+				<version>${project.version}</version>
+			</dependency>
 
 			<!-- geomajas-client-gwt-widget-searchandfilter -->
 			<dependency>

@@ -23,6 +23,7 @@
 	<inherits name="org.geomajas.layer.wms.gwt.example.WmsExample"/>
 	<inherits name="org.geomajas.layer.geotools.gwt.example.GeoToolsExample"/>
 	<inherits name="org.geomajas.plugin.printing.gwt.example.PrintingExample"/>
+	<inherits name="org.geomajas.widget.layer.gwt.example.WidgetLayerExample"/>
 
 	<extend-property name="locale" values="nl"/>
 
