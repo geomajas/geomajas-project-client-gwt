@@ -160,12 +160,10 @@ public class ZoomSlider extends MapAddon implements MapViewChangedHandler {
 			double currentScale = mapWidget.getMapModel().getMapView().getCurrentScale();
 			for (int i = 0 ; i < currentScaleList.size() ; i++) {
 				double scale = currentScaleList.get(i);
-				//Look for first scale that is smaller or equal to the search scale to avoid rounding errors
-				if (scale <= currentScale) {
+				if (currentScale == scale) {
 					Bbox bounds = sliderArea.getIcon().getBounds();
 					bounds.setY(i * backgroundPart.getBounds().getHeight());
 					sliderArea.drawImage(sliderArea.applyMargins(bounds));
-					break;
 				}
 			}
 		}

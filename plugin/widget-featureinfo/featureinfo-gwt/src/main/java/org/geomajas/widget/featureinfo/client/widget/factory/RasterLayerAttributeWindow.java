@@ -51,7 +51,11 @@ public class RasterLayerAttributeWindow extends DockableWindow {
 		setCanDragResize(true);
 		setOverflow(Overflow.AUTO);
 		setKeepInParentRect(true);
-		setTitle("Object Detail - " + rasterFeature.getLabel());
+		if (rasterFeature.getLabel() != null) {
+			setTitle("Object Detail - " + rasterFeature.getLabel());
+		} else {
+			setTitle("Object Detail");
+		}
 		addItem(new RasterLayerAttributeCanvas(rasterFeature));
 	}
 	
@@ -66,18 +70,27 @@ public class RasterLayerAttributeWindow extends DockableWindow {
 			super();
 
 			if (feature.getAttributes().size() == 1 && feature.getAttributes().containsKey(HTML_ATTRIBUTE)) {
-				renderHtmlAttribute(feature.getAttributes().get(HTML_ATTRIBUTE));
+				renderIframeAttribute(feature.getAttributes().get(HTML_ATTRIBUTE));
 			} else if (feature.getAttributes().size() == 1 && feature.getAttributes().containsKey(TEXT_ATTRIBUTE)) {
-				renderHtmlAttribute(feature.getAttributes().get(TEXT_ATTRIBUTE));
+				renderTextAttribute(feature.getAttributes().get(TEXT_ATTRIBUTE));
 			} else {
 				renderAttributes(feature.getAttributes());
 			}
 		}
 
-		private void renderHtmlAttribute(Attribute feature) {
+		private void renderIframeAttribute(Attribute feature) {
+			HTMLPane htmlPane = new HTMLPane();
+			htmlPane.setWidth100();
+			htmlPane.setHeight100();
+			htmlPane.setContentsURL(feature.toString());
+			htmlPane.setContentsType(ContentsType.PAGE);
+			addMember(htmlPane);
+		}
+
+		private void renderTextAttribute(Attribute feature) {
 			HTMLPane pane = new HTMLPane();
-			pane.setContentsType(ContentsType.PAGE);
-			pane.setContents(feature.getValue().toString());
+			pane.setContentsType(ContentsType.FRAGMENT);
+			pane.setContents("<pre>" + feature.getValue().toString() + "</pre>");
 			addMember(pane);
 		}
 
