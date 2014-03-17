@@ -27,7 +27,7 @@ import org.geomajas.gwt.client.util.UrlBuilder;
 import org.geomajas.sld.FeatureTypeStyleInfo;
 import org.geomajas.sld.RuleInfo;
 import org.geomajas.sld.UserStyleInfo;
-import org.geomajas.widget.layer.client.LayerMessages;
+import org.geomajas.widget.layer.client.i18n.LayerMessages;
 import org.geomajas.widget.layer.client.util.LayerIconUtil;
 
 import com.google.gwt.core.client.GWT;

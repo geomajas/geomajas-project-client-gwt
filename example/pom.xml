@@ -94,6 +94,10 @@
 			<groupId>org.geomajas.plugin</groupId>
 			<artifactId>geomajas-layer-tms</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>org.geomajas.widget</groupId>
+			<artifactId>geomajas-widget-layer-gwt-example-jar</artifactId>
+		</dependency>
 
 		<!-- Google dependencies -->
 		<dependency>
