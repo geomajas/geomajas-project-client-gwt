@@ -18,7 +18,7 @@ http://www.springframework.org/schema/context/spring-context-2.5.xsd">
 		<property name="format" value="image/png"/>
 		<property name="styles" value=""/>
 		<property name="enableFeatureInfoSupport" value="true" />
-		<property name="feautureInfoFormat" value="HTML" />
+		<property name="featureInfoFormat" value="HTML" />
 		<property name="parameters">
 		<list>
 			<bean class="org.geomajas.configuration.Parameter">

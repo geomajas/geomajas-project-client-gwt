@@ -344,4 +344,8 @@ public interface ManagerMessages extends Messages {
 	String wmsPreviewLayerStepTitle();
 	String wmsPreviewLayerStepNextStepNotFound();
 
+	String layerSettingsEnableFeatureInfo();
+	String layerSettingsEnableFeatureInfoTooltip();
+	String layerSettingsFeatureInfoFormat();
+	String layerSettingsFeatureInfoFormatTooltip();
 }

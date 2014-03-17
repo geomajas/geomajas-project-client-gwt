@@ -10,12 +10,18 @@
  */
 package org.geomajas.plugin.deskmanager.client.gwt.manager.datalayer.steps;
 
+import com.smartgwt.client.widgets.form.DynamicForm;
+import com.smartgwt.client.widgets.form.fields.CheckboxItem;
+import com.smartgwt.client.widgets.form.fields.SelectItem;
+import org.geomajas.configuration.Parameter;
 import org.geomajas.plugin.deskmanager.client.gwt.manager.datalayer.NewLayerModelWizardWindow;
 import org.geomajas.plugin.deskmanager.client.gwt.manager.datalayer.Wizard;
 import org.geomajas.plugin.deskmanager.client.gwt.manager.datalayer.WizardStepPanel;
 import org.geomajas.plugin.deskmanager.client.gwt.manager.datalayer.panels.LayerSettingsForm;
 import org.geomajas.plugin.deskmanager.client.gwt.manager.datalayer.panels.MaxBoundsForm;
 import org.geomajas.plugin.deskmanager.client.gwt.manager.i18n.ManagerMessages;
+import org.geomajas.plugin.deskmanager.command.manager.dto.DynamicRasterLayerConfiguration;
+import org.geomajas.plugin.deskmanager.command.manager.dto.RasterCapabilitiesInfo;
 import org.geomajas.plugin.deskmanager.domain.dto.DynamicLayerConfiguration;
 
 import com.google.gwt.core.client.GWT;
@@ -31,7 +37,9 @@ import com.smartgwt.client.widgets.layout.VLayout;
 public class EditLayerSettingsStep extends WizardStepPanel {
 	
 	private static final ManagerMessages MESSAGES = GWT.create(ManagerMessages.class);
-	
+
+	private DynamicForm featureInfoForm;
+
 	private LayerSettingsForm form;
 	private MaxBoundsForm maxBoundsForm;
 
@@ -40,6 +48,12 @@ public class EditLayerSettingsStep extends WizardStepPanel {
 	private String prevStepName;
 
 	private DynamicLayerConfiguration layerConfig;
+
+	private RasterCapabilitiesInfo info;
+
+	private CheckboxItem enableFeatureInfoItem;
+
+	private SelectItem featureInfoFormatItem;
 
 	public EditLayerSettingsStep(Wizard parent) {
 		super(NewLayerModelWizardWindow.STEP_EDIT_LAYER_SETTINGS, 
@@ -55,7 +69,12 @@ public class EditLayerSettingsStep extends WizardStepPanel {
 			}
 		});
 		addMember(form);
-		
+
+
+		addMember(createFeatureInfoForm());
+
+
+
 		// -- maxbounds --
 		maxBoundsForm = new MaxBoundsForm();
 		maxBoundsForm.addItemChangedHandler(new ItemChangedHandler() {
@@ -85,26 +104,75 @@ public class EditLayerSettingsStep extends WizardStepPanel {
 		addMember(root);
 	}
 
+	private DynamicForm createFeatureInfoForm() {
+		featureInfoForm = new DynamicForm();
+		featureInfoForm.setColWidths("125", "*");
+
+		enableFeatureInfoItem = new CheckboxItem();
+		enableFeatureInfoItem.setTitle(MESSAGES.layerSettingsEnableFeatureInfo());
+		enableFeatureInfoItem.setTooltip(MESSAGES.layerSettingsEnableFeatureInfoTooltip());
+
+		featureInfoFormatItem = new SelectItem();
+		featureInfoFormatItem.setTitle(MESSAGES.layerSettingsFeatureInfoFormat());
+		featureInfoFormatItem.setTooltip(MESSAGES.layerSettingsFeatureInfoFormatTooltip());
+
+		featureInfoForm.setFields(enableFeatureInfoItem, featureInfoFormatItem);
+		featureInfoForm.addItemChangedHandler(new ItemChangedHandler() {
+			@Override
+			public void onItemChanged(ItemChangedEvent itemChangedEvent) {
+				fireChangedEvent();
+			}
+		});
+
+		return featureInfoForm;
+
+	}
+
 	/**
 	 * previous step can be vector or raster.
-	 * 
+	 *
 	 * @param layerConfig
-	 * @param previousStep
+	 * @param info
+	 * @param previousStepName
 	 */
-	public void setData(DynamicLayerConfiguration layerConfig, String previousStepName) {
+	public void setData(DynamicLayerConfiguration layerConfig, RasterCapabilitiesInfo info, String previousStepName) {
 		this.prevStepName = previousStepName;
 		this.layerConfig = layerConfig;
-		ShapefileUploadStep sfup = 
-			(ShapefileUploadStep) parent.getStep(NewLayerModelWizardWindow.STEP_SHAPEFILE_UPLOAD);
-		if (sfup != null && sfup.getFileName() != null) {
-			layerConfig.getClientLayerInfo().setLabel(sfup.getFileName());
+		this.info = info;
+//		ShapefileUploadStep sfup =
+//			(ShapefileUploadStep) parent.getStep(NewLayerModelWizardWindow.STEP_SHAPEFILE_UPLOAD);
+//		if (sfup != null && sfup.getFileName() != null) {
+//			layerConfig.getClientLayerInfo().setLabel(sfup.getFileName());
+//		}
+
+		if (info != null) {
+			layerConfig.getClientLayerInfo().setLabel(info.getName());
 		}
+
+		if (layerConfig instanceof DynamicRasterLayerConfiguration) {
+			featureInfoFormatItem.setValueMap(info.getGetFeatureInfoFormats().toArray(new String[0]));
+		} else {
+			featureInfoForm.hide();
+		}
+
+		isValid();
+
+
 	}
 
 	public DynamicLayerConfiguration getData() {
 		if (isValid()) {
 			form.getData();
 			maxBoundsForm.getData();
+
+			if (layerConfig instanceof DynamicRasterLayerConfiguration) {
+				//FIXME: magic strings
+				layerConfig.getParameters().add(new Parameter("enableFeatureInfoSupport",
+						enableFeatureInfoItem.getValueAsBoolean().toString()));
+				layerConfig.getParameters().add(new Parameter("featureInfoFormat",
+						featureInfoFormatItem.getValueAsString()));
+			}
+
 			return this.layerConfig;
 		} else {
 			return null;

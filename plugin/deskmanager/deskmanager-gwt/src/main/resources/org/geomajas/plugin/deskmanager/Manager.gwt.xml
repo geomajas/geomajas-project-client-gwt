@@ -1,5 +1,4 @@
 <module>
-	<inherits name="com.smartgwt.tools.SmartGwtTools" />
 	<inherits name="com.smartgwt.SmartGwt" />
 	<inherits name="org.geomajas.sld.editor.expert.GeomajasSldExpertSmartGwt"/>
 

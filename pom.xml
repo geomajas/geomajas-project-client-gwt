@@ -528,6 +528,32 @@
 				<module>smartgwt-archetype-documentation</module>
 				<module>documentation</module>
 			</modules>
+			<!-- Include resources, java and gwt files in build -->
+			<build>
+				<resources>
+					<resource>
+						<directory>src/main/resources</directory>
+					</resource>
+					<resource>
+						<directory>src/main/java</directory>
+						<includes>
+							<include>**/*.java</include>
+							<include>**/*.gwt.xml</include>
+						</includes>
+					</resource>
+				</resources>
+			</build>
+		</profile>
+		<profile>
+			<id>skipDocs</id>
+			<activation>
+				<property>
+					<name>skipDocs</name>
+				</property>
+			</activation>
+			<modules>
+				<module>plugin</module>
+			</modules>
 		</profile>
 		<profile>
 			<id>default</id>
