@@ -60,17 +60,17 @@ public class ClientWmsLayerInfo extends ClientRasterLayerInfo {
 
 	@Override
 	public ScaleInfo getMinimumScale() {
-		return new ScaleInfo(wmsLayer.getConfig().getMinimumScale());
+		throw new UnsupportedOperationException();
 	}
 
 	@Override
 	public ScaleInfo getMaximumScale() {
-		return new ScaleInfo(wmsLayer.getConfig().getMaximumScale());
+		throw new UnsupportedOperationException();
 	}
 
 	@Override
 	public ScaleInfo getZoomToPointScale() {
-		return new ScaleInfo(wmsLayer.getConfig().getMaximumScale());
+		throw new UnsupportedOperationException();
 	}
 
 	@Override
