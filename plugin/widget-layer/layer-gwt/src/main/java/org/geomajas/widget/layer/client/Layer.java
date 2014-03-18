@@ -38,7 +38,7 @@ public class Layer implements EntryPoint {
 		return viewManager;
 	}
 
-	public static ViewManager setViewManager() {
-		return viewManager;
+	public static void setViewManager(ViewManager viewManager) {
+		Layer.viewManager = viewManager;
 	}
 }

@@ -25,7 +25,7 @@ public class ViewManagerImpl implements ViewManager {
 	@Override
 	public LayerListPresenter.View getLayerListView() {
 		if (layerListView == null) {
-			return layerListView = new LayerListView();
+			layerListView = new LayerListView();
 		}
 		return layerListView;
 	}
