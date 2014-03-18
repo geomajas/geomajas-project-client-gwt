@@ -56,7 +56,7 @@ public class LayerListSample extends SamplePanel {
 
 		// Build the LayerList:
 		final LayerListPresenter layersManagementPresenter = new LayerListPresenterImpl(map);
-		layersManagementPresenter.getView().setDragDropEnabled(true);
+		layersManagementPresenter.setDragDropEnabled(true);
 		Canvas canvas = (Canvas) layersManagementPresenter.getWidget();
 		canvas.setHeight(100);
 		canvas.setWidth100();

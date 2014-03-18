@@ -32,7 +32,7 @@ import java.util.List;
  * @author Jan Venstermans
  * 
  */
-public class LayerListPresenterImpl implements LayerListPresenter, LayerListPresenter.Handler {
+public class LayerListPresenterImpl implements LayerListPresenter, LayerListPresenter.Handler, MapModelChangedHandler {
 
 	private MapWidget mapWidget;
 
@@ -53,12 +53,7 @@ public class LayerListPresenterImpl implements LayerListPresenter, LayerListPres
 	}
 
 	private void bind() {
-		mapWidget.getMapModel().addMapModelChangedHandler(new MapModelChangedHandler() {
-			@Override
-			public void onMapModelChanged(MapModelChangedEvent event) {
-				LayerListPresenterImpl.this.onMapModelChanged();
-			}
-		});
+		mapWidget.getMapModel().addMapModelChangedHandler(this);
 	}
 
 	@Override
@@ -85,6 +80,11 @@ public class LayerListPresenterImpl implements LayerListPresenter, LayerListPres
 	}
 
 	@Override
+	public void setDragDropEnabled(boolean dragDropEnabled) {
+		view.setDragDropEnabled(dragDropEnabled);
+	}
+
+	@Override
 	public void updateView() {
 		view.updateView(mapWidget.getMapModel().getLayers());
 	}
@@ -99,7 +99,8 @@ public class LayerListPresenterImpl implements LayerListPresenter, LayerListPres
 		return view.getWidget();
 	}
 
-	protected void onMapModelChanged() {
+	@Override
+	public void onMapModelChanged(MapModelChangedEvent event) {
 		List<Layer<?>> layers = mapWidget.getMapModel().getLayers();
 		amountOfRasterLayers = layers.size() -
 				LayerListPresenterImpl.this.mapWidget.getMapModel().getVectorLayers().size();

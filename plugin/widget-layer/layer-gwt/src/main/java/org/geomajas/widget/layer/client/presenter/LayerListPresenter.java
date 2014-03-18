@@ -46,6 +46,8 @@ public interface LayerListPresenter {
 		void onToggleVisibility(Layer layer);
 	}
 
+	void setDragDropEnabled(boolean dragDropEnabled);
+
 	void updateView();
 
 	View getView();
