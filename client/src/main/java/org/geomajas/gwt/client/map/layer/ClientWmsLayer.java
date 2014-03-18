@@ -80,7 +80,7 @@ public class ClientWmsLayer extends WmsLayerImpl {
 
 		private final MapModel mapModel;
 
-		private final List<Double> fixedScales = new ArrayList<Double>();
+		private final List<Double> fixedResolutions = new ArrayList<Double>();
 
 		public SmartGwtViewport(MapModel mapModel) {
 			this.mapModel = mapModel;
@@ -94,9 +94,9 @@ public class ClientWmsLayer extends WmsLayerImpl {
 				throw e;
 			}
 			for (Double resolution : mapModel.getMapView().getResolutions()) {
-				fixedScales.add(1 / resolution);
+				fixedResolutions.add(resolution);
 			}
-			Collections.sort(fixedScales);
+			Collections.sort(fixedResolutions);
 		}
 
 		@Override
@@ -105,53 +105,53 @@ public class ClientWmsLayer extends WmsLayerImpl {
 		}
 
 		@Override
-		public double getMinimumScale() {
-			if (fixedScales.size() == 0) {
-				return 0;
-			}
-			return fixedScales.get(0);
-		}
-
-		@Override
-		public double getMaximumScale() {
-			if (fixedScales.size() == 0) {
+		public double getMaximumResolution() {
+			if (fixedResolutions.size() == 0) {
 				return Double.MAX_VALUE;
 			}
-			return fixedScales.get(fixedScales.size() - 1);
+			return fixedResolutions.get(fixedResolutions.size() - 1);
 		}
 
 		@Override
-		public int getFixedScaleCount() {
-			return fixedScales.size();
-		}
-
-		@Override
-		public double getFixedScale(int index) {
-			if (index < 0) {
-				throw new IllegalArgumentException("Scale index cannot be found.");
-			}
-			if (index >= fixedScales.size()) {
-				throw new IllegalArgumentException("Scale index cannot be found.");
-			}
-			return fixedScales.get(index);
-		}
-
-		@Override
-		public int getFixedScaleIndex(double scale) {
-			double minimumScale = getMinimumScale();
-			if (scale <= minimumScale) {
+		public double getMinimumResolution() {
+			if (fixedResolutions.size() == 0) {
 				return 0;
 			}
-			double maximumScale = getMaximumScale();
-			if (scale >= maximumScale) {
-				return fixedScales.size() - 1;
+			return fixedResolutions.get(0);
+		}
+
+		@Override
+		public int getResolutionCount() {
+			return fixedResolutions.size();
+		}
+
+		@Override
+		public double getResolution(int index) {
+			if (index < 0) {
+				throw new IllegalArgumentException("Resolution index cannot be found.");
+			}
+			if (index >= fixedResolutions.size()) {
+				throw new IllegalArgumentException("Resolution index cannot be found.");
+			}
+			return fixedResolutions.get(index);
+		}
+
+		@Override
+		public int getResolutionIndex(double resolution) {
+			double maximumResolution = getMaximumResolution();
+			if (resolution >= maximumResolution) {
+				return fixedResolutions.size() - 1;
+			}
+			double minimumResolution = getMinimumResolution();
+			if (resolution <= minimumResolution) {
+				return 0;
 			}
 
-			for (int i = 0; i < fixedScales.size(); i++) {
-				double lower = fixedScales.get(i);
-				double upper = fixedScales.get(i + 1);
-				if (scale <= upper && scale > lower) {
-					if (Math.abs(upper - scale) >= Math.abs(lower - scale)) {
+			for (int i = 0; i < fixedResolutions.size(); i++) {
+				double lower = fixedResolutions.get(i);
+				double upper = fixedResolutions.get(i + 1);
+				if (resolution <= upper && resolution > lower) {
+					if (Math.abs(upper - resolution) >= Math.abs(lower - resolution)) {
 						return i;
 					} else {
 						return i + 1;
@@ -182,13 +182,13 @@ public class ClientWmsLayer extends WmsLayerImpl {
 		}
 
 		@Override
-		public double getScale() {
-			return mapModel.getMapView().getCurrentScale();
+		public double getResolution() {
+			return 1 / mapModel.getMapView().getCurrentScale();
 		}
 
 		@Override
 		public View getView() {
-			return new View(getPosition(), getScale());
+			return new View(getPosition(), getResolution());
 		}
 
 		@Override
@@ -207,8 +207,8 @@ public class ClientWmsLayer extends WmsLayerImpl {
 		}
 
 		@Override
-		public void applyScale(double v) {
-			applyScale(v, ZoomOption.FREE);
+		public void applyResolution(double r) {
+			applyResolution(r, ZoomOption.FREE);
 		}
 
 		private MapView.ZoomOption convertZoomOption(ZoomOption zoomOption) {
@@ -224,8 +224,8 @@ public class ClientWmsLayer extends WmsLayerImpl {
 		}
 
 		@Override
-		public void applyScale(double v, ZoomOption zoomOption) {
-			mapModel.getMapView().setCurrentScale(v, convertZoomOption(zoomOption));
+		public void applyResolution(double r, ZoomOption zoomOption) {
+			mapModel.getMapView().setCurrentScale(1 / r, convertZoomOption(zoomOption));
 		}
 
 		@Override
@@ -254,7 +254,7 @@ public class ClientWmsLayer extends WmsLayerImpl {
 		}
 
 		@Override
-		public double toScale(double v) {
+		public double toResolution(double r) {
 			throw new UnsupportedOperationException();
 		}
 
