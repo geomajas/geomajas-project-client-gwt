@@ -120,8 +120,8 @@ public class WmsSample extends SamplePanel {
 		wmsConfig.setVersion(WmsService.WmsVersion.V1_1_1);
 		wmsConfig.setBaseUrl(url);
 		wmsConfig.setTransparent(true);
-		wmsConfig.setMinimumScale(0);
-		wmsConfig.setMaximumScale(mapWidget.getMapModel().getMapInfo().getMaximumScale());
+		wmsConfig.setMaximumResolution(0);
+		wmsConfig.setMinimumResolution(1 / mapWidget.getMapModel().getMapInfo().getMaximumScale());
 
 		WmsTileConfiguration tileConfig = new WmsTileConfiguration(256, 256,
 				new Coordinate(-20026376.393709917, -20026376.393709917));
