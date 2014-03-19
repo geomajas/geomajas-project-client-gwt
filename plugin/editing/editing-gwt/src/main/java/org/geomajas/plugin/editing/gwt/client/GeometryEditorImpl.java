@@ -28,7 +28,6 @@ import org.geomajas.plugin.editing.client.service.GeometryEditService;
 import org.geomajas.plugin.editing.client.service.GeometryEditServiceImpl;
 import org.geomajas.plugin.editing.client.snap.SnapService;
 import org.geomajas.plugin.editing.gwt.client.controller.EditGeometryBaseController;
-import org.geomajas.plugin.editing.gwt.client.controller.GeometryIndexContextMenuController;
 import org.geomajas.plugin.editing.gwt.client.event.GeometryIndexMouseOverOutEvent;
 import org.geomajas.plugin.editing.gwt.client.gfx.GeometryRendererImpl;
 import org.geomajas.plugin.editing.gwt.client.gfx.StyleService;
@@ -61,8 +60,6 @@ public class GeometryEditorImpl implements GeometryEditor, GeometryEditStartHand
 	// Options:
 
 	private boolean zoomOnStart;
-
-	private GeometryIndexContextMenuController geometryIndexContextMenuController;
 
 	// Constructors:
 
@@ -156,18 +153,6 @@ public class GeometryEditorImpl implements GeometryEditor, GeometryEditStartHand
 	@Override
 	public StyleService getStyleService() {
 		return renderer.getStyleService();
-	}
-
-	@Override
-	public GeometryIndexContextMenuController getContextMenuController() {
-		return geometryIndexContextMenuController;
-	}
-
-	@Override
-	public void setContextMenuController(GeometryIndexContextMenuController contextMenuController) {
-		geometryIndexContextMenuController = contextMenuController;
-		getGeometryEditorSpecificEventbus().addHandler(GeometryIndexMouseOverOutEvent.getType(),
-				geometryIndexContextMenuController);
 	}
 
 	@Override

@@ -449,14 +449,14 @@ public class AttributeSearchPanel extends AbstractSearchPanel {
 		 */
 		public void setLogicalOperator(LogicalOperator operator) {
 			switch (operator) {
-			case AND:
-				logicalOperatorRadio.setValue(I18nProvider.getSearch().radioOperatorAnd());
-				break;
-			case OR:
-				logicalOperatorRadio.setValue(I18nProvider.getSearch().radioOperatorOr());
-				break;
-			default:
-				throw new IllegalStateException("Unhandled operator value " + operator);
+				case AND:
+					logicalOperatorRadio.setValue(I18nProvider.getSearch().radioOperatorAnd());
+					break;
+				case OR:
+					logicalOperatorRadio.setValue(I18nProvider.getSearch().radioOperatorOr());
+					break;
+				default:
+					throw new IllegalStateException("Unhandled operator value " + operator);
 			}
 		}
 

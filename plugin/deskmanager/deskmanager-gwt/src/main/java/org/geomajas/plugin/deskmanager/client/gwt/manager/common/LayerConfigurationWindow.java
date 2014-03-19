@@ -10,25 +10,6 @@
  */
 package org.geomajas.plugin.deskmanager.client.gwt.manager.common;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
-import com.smartgwt.client.widgets.Slider;
-import org.geomajas.configuration.client.ClientLayerInfo;
-import org.geomajas.configuration.client.ClientRasterLayerInfo;
-import org.geomajas.configuration.client.ClientVectorLayerInfo;
-import org.geomajas.configuration.client.ClientWidgetInfo;
-import org.geomajas.gwt.client.util.WidgetLayout;
-import org.geomajas.plugin.deskmanager.client.gwt.manager.editor.LayerWidgetEditor;
-import org.geomajas.plugin.deskmanager.client.gwt.manager.editor.WidgetEditor;
-import org.geomajas.plugin.deskmanager.client.gwt.manager.editor.WidgetEditorFactory;
-import org.geomajas.plugin.deskmanager.client.gwt.manager.editor.WidgetEditorFactoryRegistry;
-import org.geomajas.plugin.deskmanager.client.gwt.manager.i18n.ManagerMessages;
-import org.geomajas.plugin.deskmanager.client.gwt.manager.service.SensibleScaleConverter;
-import org.geomajas.plugin.deskmanager.client.gwt.manager.util.ExpertSldEditorHelper;
-import org.geomajas.plugin.deskmanager.domain.dto.LayerDto;
-
 import com.google.gwt.core.client.GWT;
 import com.smartgwt.client.types.Overflow;
 import com.smartgwt.client.types.Side;
@@ -36,6 +17,7 @@ import com.smartgwt.client.types.TitleOrientation;
 import com.smartgwt.client.util.BooleanCallback;
 import com.smartgwt.client.util.SC;
 import com.smartgwt.client.widgets.IButton;
+import com.smartgwt.client.widgets.Slider;
 import com.smartgwt.client.widgets.Window;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
@@ -47,6 +29,24 @@ import com.smartgwt.client.widgets.layout.LayoutSpacer;
 import com.smartgwt.client.widgets.layout.VLayout;
 import com.smartgwt.client.widgets.tab.Tab;
 import com.smartgwt.client.widgets.tab.TabSet;
+import org.geomajas.configuration.client.ClientLayerInfo;
+import org.geomajas.configuration.client.ClientRasterLayerInfo;
+import org.geomajas.configuration.client.ClientVectorLayerInfo;
+import org.geomajas.configuration.client.ClientWidgetInfo;
+import org.geomajas.gwt.client.util.WidgetLayout;
+import org.geomajas.plugin.deskmanager.client.gwt.manager.editor.LayerWidgetEditor;
+import org.geomajas.plugin.deskmanager.client.gwt.manager.editor.VectorLayerWidgetEditor;
+import org.geomajas.plugin.deskmanager.client.gwt.manager.editor.WidgetEditor;
+import org.geomajas.plugin.deskmanager.client.gwt.manager.editor.WidgetEditorFactory;
+import org.geomajas.plugin.deskmanager.client.gwt.manager.editor.WidgetEditorFactoryRegistry;
+import org.geomajas.plugin.deskmanager.client.gwt.manager.i18n.ManagerMessages;
+import org.geomajas.plugin.deskmanager.client.gwt.manager.service.SensibleScaleConverter;
+import org.geomajas.plugin.deskmanager.client.gwt.manager.util.ExpertSldEditorHelper;
+import org.geomajas.plugin.deskmanager.domain.dto.LayerDto;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Configuration window for individual layers.
@@ -374,11 +374,11 @@ public class LayerConfigurationWindow extends Window {
 	/**
 	 * Load all widget editors that are available on this blueprints user application, and add them to the tabset.
 	 *
-	 * @param bgd the basegeodesk.
+	 * @param layerDto the basegeodesk.
 	 */
-	private void loadWidgetTabs(LayerDto bgd) {
+	private void loadWidgetTabs(LayerDto layerDto) {
 		for (String key : WidgetEditorFactoryRegistry.getLayerRegistry().getWidgetEditors().keySet()) {
-			addWidgetTab(WidgetEditorFactoryRegistry.getMapRegistry().get(key), bgd.getWidgetInfo(), bgd);
+			addWidgetTab(WidgetEditorFactoryRegistry.getMapRegistry().get(key), layerDto.getWidgetInfo(), layerDto);
 		}
 	}
 
@@ -397,7 +397,21 @@ public class LayerConfigurationWindow extends Window {
 			final WidgetEditor editor = editorFactory.createEditor();
 			if (editor instanceof LayerWidgetEditor) {
 				((LayerWidgetEditor) editor).setLayer(layerDto.getLayerModel());
+				//  in case instanceof VectorLayerWidgetEditor, only add a tab for vector layers
+				// and add clientLayerInfo to the editor,
+				if (editor instanceof VectorLayerWidgetEditor) {
+					final VectorLayerWidgetEditor vectorLayerWidgetEditor =
+							(VectorLayerWidgetEditor) editor;
+					if (layerDto.getReferencedLayerInfo() instanceof ClientVectorLayerInfo) {
+						vectorLayerWidgetEditor.setClientVectorLayerInfo(
+								(ClientVectorLayerInfo) layerDto.getReferencedLayerInfo());
+					} else {
+						// layer is raster, so don't add this editor as a tab.
+						return;
+					}
+				}
 			}
+
 			editor.setWidgetConfiguration(widgetInfos.get(editorFactory.getKey()));
 
 			// Create tab layout

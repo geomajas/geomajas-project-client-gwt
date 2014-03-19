@@ -76,15 +76,6 @@
                 styleService.getPointSymbolizerShapeAndSize().setShape("circle");
                 styleService.getPointSymbolizerShapeAndSize().setSize(6);
 
-                // customize context menu when vertex is selected
-                var contextMenuRegistry = new
-                        org.geomajas.plugin.editing.contextmenu.ContextMenuRegister(editor);
-                contextMenuRegistry.addRemoveSelectedVertexOperation("delete");
-                contextMenuRegistry.addDeselectAllVertexOperation("deselect");
-                contextMenuRegistry.addZoomInVertexOperation("zoom in");
-                contextMenuRegistry.addZoomOutVertexOperation("zoom out");
-                contextMenuRegistry.addZoomToFullObjectVertexOperation("zoom to full object");
-
                 factory = new org.geomajas.plugin.editing.handler.GeometryHandlerFactory();
 			}
 

@@ -14,5 +14,7 @@
 <chapter id="chapter-introduction">
   <title>Introduction</title>
 
-  <para></para>
+	<para>Vector layers can display geometrical information on a map, e.g. countries as polygons.
+		Mostly, the vector layer contains more information about these features, e.g. the name of a country.
+		The Search And Filter Widget libraries offer methods to search and/or filter the feature info.</para>
 </chapter>

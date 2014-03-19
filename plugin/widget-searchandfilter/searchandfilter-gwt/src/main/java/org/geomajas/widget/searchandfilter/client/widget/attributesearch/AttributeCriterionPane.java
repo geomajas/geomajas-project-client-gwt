@@ -10,20 +10,6 @@
  */
 package org.geomajas.widget.searchandfilter.client.widget.attributesearch;
 
-import java.util.Date;
-
-import org.geomajas.configuration.AbstractAttributeInfo;
-import org.geomajas.configuration.AbstractReadOnlyAttributeInfo;
-import org.geomajas.configuration.AssociationAttributeInfo;
-import org.geomajas.configuration.AssociationType;
-import org.geomajas.configuration.PrimitiveAttributeInfo;
-import org.geomajas.configuration.PrimitiveType;
-import org.geomajas.gwt.client.i18n.I18nProvider;
-import org.geomajas.gwt.client.map.layer.VectorLayer;
-import org.geomajas.gwt.client.widget.attribute.AttributeFormFieldRegistry;
-import org.geomajas.widget.searchandfilter.search.dto.AttributeCriterion;
-
-import com.google.gwt.i18n.client.DateTimeFormat;
 import com.smartgwt.client.widgets.Canvas;
 import com.smartgwt.client.widgets.form.DynamicForm;
 import com.smartgwt.client.widgets.form.fields.BlurbItem;
@@ -32,6 +18,13 @@ import com.smartgwt.client.widgets.form.fields.FormItem;
 import com.smartgwt.client.widgets.form.fields.SelectItem;
 import com.smartgwt.client.widgets.form.fields.events.ChangedEvent;
 import com.smartgwt.client.widgets.form.fields.events.ChangedHandler;
+import org.geomajas.configuration.AbstractAttributeInfo;
+import org.geomajas.configuration.AbstractReadOnlyAttributeInfo;
+import org.geomajas.gwt.client.i18n.I18nProvider;
+import org.geomajas.gwt.client.map.layer.VectorLayer;
+import org.geomajas.gwt.client.widget.attribute.AttributeFormFieldRegistry;
+import org.geomajas.widget.searchandfilter.client.util.AttributeCriterionUtil;
+import org.geomajas.widget.searchandfilter.search.dto.AttributeCriterion;
 
 /**
  * Adjusted from see {@link AttributeCriterionPane} to work with AttributeCriterion.
@@ -89,7 +82,7 @@ public class AttributeCriterionPane extends Canvas {
 		if (ac != null) {
 			attributeSelect.setValue(getAttributeByName(ac.getAttributeName()).getLabel());
 			attributeChanged();
-			operatorSelect.setValue(getLabelFromOperatorCode(ac.getOperator()));
+			operatorSelect.setValue(AttributeCriterionUtil.getLabelFromOperatorCode(ac.getOperator()));
 			valueItem.setValue(trimLikeValue(ac.getValue(), ac.getOperator()));
 		}
 	}
@@ -116,95 +109,12 @@ public class AttributeCriterionPane extends Canvas {
 	 */
 	public AttributeCriterion getSearchCriterion() {
 		Object operator = operatorSelect.getValue();
-		Object value = valueItem.getValue();
-
-		if (selectedAttribute != null && operator != null) {
-			String operatorString = org.geomajas.gwt.client.widget.attribute.AttributeCriterionPane.
-					getOperatorCodeFromLabel(operator.toString());
-			String valueString = "";
-			String nameString = selectedAttribute.getName();
-			String displayText = nameString + " " + operatorString + " " + valueItem.getDisplayValue();
-			if (value != null) {
-				valueString = value.toString();
-			}
-
-			// CQL does not recognize "contains", so change to "like":
-			if ("contains".equals(operatorString)) {
-				operatorString = "like";
-				valueString = CQL_WILDCARD + valueString + CQL_WILDCARD;
-			}
-
-			// If value was null, and no "contains" operator, return null:
-			if (valueString == null || valueString.length() == 0) {
-				return null;
-			}
-
-			if (selectedAttribute instanceof PrimitiveAttributeInfo) {
-				PrimitiveAttributeInfo attr = (PrimitiveAttributeInfo) selectedAttribute;
-				if (attr.getType().equals(PrimitiveType.DATE)) {
-					if (value instanceof Date) {
-						// In case of a date, parse correctly for CQL: 2006-11-30T01:30:00Z
-						DateTimeFormat format = DateTimeFormat.getFormat(CQL_TIME_FORMAT);
-						valueString = format.format((Date) value);
-						if ("=".equals(operatorString)) {
-							// Date equals not supported by CQL, so we use the DURING operator instead and
-							// create a day period for this day (browser time zone !)
-							operatorString = "DURING";
-							String startOfDay = valueString.replaceAll("\\d\\d:\\d\\d:\\d\\d", "00:00:00");
-							// 1 day period, starting at 0h00
-							valueString = startOfDay + "/P1D";
-						} else if ("AFTER".equals(operatorString)) {
-							// we can't discriminate between date and timestamp values yet, use end of day for now
-							valueString = valueString.replaceAll("\\d\\d:\\d\\d:\\d\\d", "23:59:59");
-						} else if ("BEFORE".equals(operatorString)) {
-							// we can't discriminate between date and timestamp values yet, use start of day for now
-							valueString = valueString.replaceAll("\\d\\d:\\d\\d:\\d\\d", "00:00:00");
-						}
-					}
-				}
-			} else if (selectedAttribute instanceof AssociationAttributeInfo) {
-				AssociationAttributeInfo assInfo = (AssociationAttributeInfo) selectedAttribute;
-				if (AssociationType.MANY_TO_ONE == assInfo.getType()) {
-					nameString = nameString + ID_SUFFIX;
-				}
-			}
-
-			// Now create the criterion:
-			AttributeCriterion criterion = new AttributeCriterion();
-			criterion.setServerLayerId(layer.getServerLayerId());
-			criterion.setAttributeName(nameString);
-			criterion.setOperator(operatorString);
-			criterion.setValue(valueString);
-			criterion.setDisplayText(displayText);
-			return criterion;
+		if (operator != null) {
+			return AttributeCriterionUtil.getSearchCriterion(layer.getServerLayerId(), selectedAttribute, valueItem,
+					org.geomajas.gwt.client.widget.attribute.AttributeCriterionPane.
+							getOperatorCodeFromLabel(operator.toString()));
 		}
 		return null;
-	}
-
-
-	public static String getLabelFromOperatorCode(String operator) {
-		if (operator != null) {
-			if ("=".equals(operator)) {
-				return I18nProvider.getSearch().operatorEquals();
-			} else if ("<>".equals(operator)) {
-				return  I18nProvider.getSearch().operatorNotEquals();
-			} else if ("<".equals(operator)) {
-				return  I18nProvider.getSearch().operatorST();
-			} else if ("<=".equals(operator)) {
-				return  I18nProvider.getSearch().operatorSE();
-			} else if (">".equals(operator)) {
-				return  I18nProvider.getSearch().operatorBT();
-			} else if (">=".equals(operator)) {
-				return  I18nProvider.getSearch().operatorBE();
-			} else if ("LIKE".equalsIgnoreCase(operator)) {
-				return  I18nProvider.getSearch().operatorContains();
-			} else if ("BEFORE".equalsIgnoreCase(operator)) {
-				return  I18nProvider.getSearch().operatorBefore();
-			} else if ("AFTER".equalsIgnoreCase(operator)) {
-				return  I18nProvider.getSearch().operatorAfter();
-			}
-		}
-		return operator;
 	}
 
 	// -------------------------------------------------------------------------

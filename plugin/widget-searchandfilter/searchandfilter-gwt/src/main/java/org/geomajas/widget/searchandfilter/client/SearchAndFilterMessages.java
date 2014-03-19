@@ -132,4 +132,21 @@ public interface SearchAndFilterMessages extends Messages {
 	String searchSpatialTooltip();
 	String searchFreeTitle();
 	String searchFreeTooltip();
+
+	/* configured searches */
+	String configuredSearchWidgetTitle();
+	String configuredSearchTitleDefault();
+	String configuredSearchTooltipDefault();
+
+	/* AttributeCriterionUtil */
+	String searchAttributeOperationEqualToString();
+	String searchAttributeOperationEqualToInteger();
+	String searchAttributeOperationSmallerThanString();
+	String searchAttributeOperationSmallerThanInteger();
+	String searchAttributeOperationLargerThanString();
+	String searchAttributeOperationLargerThanInteger();
+
+	String searchAttributeInputTypeFreeTextToString();
+	String searchAttributeInputTypeFreeNrToString();
+	String searchAttributeInputTypeDropDownToString();
 }
