@@ -34,7 +34,8 @@ public class LayerListClientWmsPresenterImpl extends LayerListPresenterImpl
 
 	@Override
 	protected LayerListPresenter.View createViewInConstructor() {
-		LayerListClientWmsPresenter.View view = org.geomajas.widget.layer.client.Layer.getViewManager().getLayerListClientWmsView();
+		LayerListClientWmsPresenter.View view = org.geomajas.widget.layer.client.Layer.getViewFactory().
+				createLayerListClientWmsView();
 		view.setHandler(this);
 		return view;
 	}

@@ -10,21 +10,12 @@
  */
 package org.geomajas.widget.layer.client.presenter;
 
-import com.google.gwtmockito.GwtMockitoTestRunner;
-import junit.framework.Assert;
 import org.geomajas.gwt.client.map.MapModel;
 import org.geomajas.gwt.client.map.layer.RasterLayer;
 import org.geomajas.gwt.client.map.layer.VectorLayer;
 import org.geomajas.gwt.client.widget.MapWidget;
 import org.geomajas.widget.layer.client.BasicGwtMockTest;
-import org.geomajas.widget.layer.client.Layer;
-import org.geomajas.widget.layer.client.view.ControllerButtonsView;
-import org.geomajas.widget.layer.client.view.LayerListClientWmsView;
-import org.geomajas.widget.layer.client.view.LayerListView;
-import org.geomajas.widget.layer.client.view.ViewManager;
 import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.mockito.MockitoAnnotations;
 
 import java.util.ArrayList;
