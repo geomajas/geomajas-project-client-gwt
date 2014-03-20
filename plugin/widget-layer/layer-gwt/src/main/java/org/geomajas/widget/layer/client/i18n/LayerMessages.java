@@ -78,4 +78,39 @@ public interface LayerMessages extends Messages {
 	// layer list
 	String layerListGridColumnLayerName();
 	String layerListGridColumnVisibilityName();
+
+	// client wms layer list
+	String layerListClientWmsAddLayerButton();
+
+	String layerListClientWmsWizardGeneralTitle();
+	String layerListClientWmsWizardPreviousButtonText();
+	String layerListClientWmsWizardNextButtonText();
+	String layerListClientWmsWizardSaveButtonText();
+	String layerListClientWmsWizardCancelButtonText();
+
+	String wmsCapabilitiesStepNumbering();
+
+	String wmsCapabilitiesStepTitle();
+
+	String wmsCapabilitiesStepParametersCapabilitiesURL();
+
+	String wmsCapabilitiesStepParametersUserName();
+
+	String wmsCapabilitiesStepParametersPassword();
+
+	// capabilities step
+
+	String layerListClientWmsWizardStepGetCapabilitiesWindowTitle();
+	String layerListClientWmsWizardStepGetCapabilitiesUrlLabel();
+	String layerListClientWmsWizardStepGetCapabilitiesUserNameLabel();
+	String layerListClientWmsWizardStepGetCapabilitiesPasswordLabel();
+
+	// select layer step
+
+	String layerListClientWmsWizardStepSelectLayerWindowTitle();
+	String layerListClientWmsWizardStepSelectLayerGridName();
+	String layerListClientWmsWizardStepSelectLayerGridCrs();
+	String layerListClientWmsWizardStepSelectLayerGridDescription();
+
+	String layerListGridClientWmsColumnDeleteName();
 }

@@ -11,6 +11,7 @@
 
 <module>
 	<inherits name="org.geomajas.gwt.GeomajasClient" />
+	<inherits name="org.geomajas.plugin.wms.GeomajasClientPluginWms"/>
 	
 	<source path="client" />
 	<source path="configuration/client" />

@@ -24,4 +24,8 @@ public interface WidgetLayerExampleMessages extends Messages {
 	// layer list
 	String layerListDescription();
 	String layerListShowcaseTreeTitle();
+
+	// client wms layer list
+	String layerListClientWmsDescription();
+	String layerListClientWmsShowcaseTreeTitle();
 }

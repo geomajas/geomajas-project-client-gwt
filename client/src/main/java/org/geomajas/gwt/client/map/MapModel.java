@@ -1076,6 +1076,20 @@ public class MapModel implements Paintable, MapViewChangedHandler, HasFeatureSel
 	}
 
 	/**
+	 * Remove a layer from the map.
+	 * For the moment, only {@link InternalClientWmsLayer} is enabled to be removed
+	 *
+	 * @param layer the layer
+	 */
+	public void removeLayer(Layer<?> layer) {
+		if (layers.contains(layer)) {
+			if (layer instanceof InternalClientWmsLayer) {
+			   layers.remove(layer);
+			}
+		}
+	}
+
+	/**
 	 * Deselect the currently selected layer, includes sending the deselect events.
 	 * 
 	 * @param layer

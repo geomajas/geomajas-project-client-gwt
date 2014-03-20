@@ -35,21 +35,33 @@ import java.util.List;
 import java.util.ListIterator;
 
 /**
- * Default implementation of {LayerListPresenter.View}.
+ * Default implementation of {LayerListPresenter.ControllerButtonsView}.
  * 
  * @author Jan Venstermans
  * 
  */
 public class LayerListView extends Canvas implements LayerListPresenter.View {
 
-	private static final LayerMessages MESSAGES = GWT.create(LayerMessages.class);
+	protected static final LayerMessages MESSAGES = GWT.create(LayerMessages.class);
 
-	private LayersGrid grid;
+	protected LayersGrid grid;
 
 	private LayerListPresenter.Handler handler;
 
 	public LayerListView() {
-		grid = new LayersGrid();
+		grid = createLayersGrid();
+		buildGui();
+	}
+
+	/**
+	 * To enable custom grid.
+	 * @return
+	 */
+	protected LayersGrid createLayersGrid() {
+		return new LayersGrid();
+	}
+
+	protected void buildGui() {
 		addChild(grid);
 	}
 

@@ -44,16 +44,25 @@ public class LayerListPresenterImpl implements LayerListPresenter, LayerListPres
 
 	public LayerListPresenterImpl(MapWidget mapWidget) {
 		this.mapWidget = mapWidget;
-		this.view = org.geomajas.widget.layer.client.Layer.getViewManager().getLayerListView();
-		view.setHandler(this);
+		this.view = createViewInConstructor();
 		bind();
 		if (mapWidget.getMapModel().isInitialized()) {
 			updateView();
 		}
 	}
 
+	protected View createViewInConstructor() {
+		View view = org.geomajas.widget.layer.client.Layer.getViewManager().getLayerListView();
+		view.setHandler(this);
+		return view;
+	}
+
 	private void bind() {
 		mapWidget.getMapModel().addMapModelChangedHandler(this);
+	}
+
+	protected MapWidget getMapWidget() {
+		return mapWidget;
 	}
 
 	@Override
