@@ -10,6 +10,8 @@
  */
 package org.geomajas.widget.layer.client.view;
 
+import org.geomajas.widget.layer.client.presenter.CreateClientWmsPresenter;
+import org.geomajas.widget.layer.client.presenter.LayerListClientWmsPresenter;
 import org.geomajas.widget.layer.client.presenter.LayerListPresenter;
 
 /**
@@ -21,4 +23,12 @@ import org.geomajas.widget.layer.client.presenter.LayerListPresenter;
 public interface ViewManager {
 
 	LayerListPresenter.View getLayerListView();
+
+	LayerListClientWmsPresenter.View getLayerListClientWmsView();
+
+	CreateClientWmsPresenter.ControllerButtonsView getControllerButtonsView();
+
+	CreateClientWmsPresenter.GetCapabilitiesView getGetCapabilitiesView();
+
+	CreateClientWmsPresenter.SelectLayerView getSelectLayerView();
 }

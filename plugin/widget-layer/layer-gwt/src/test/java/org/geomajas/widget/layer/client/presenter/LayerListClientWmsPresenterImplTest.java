@@ -10,26 +10,23 @@
  */
 package org.geomajas.widget.layer.client.presenter;
 
-import com.google.gwtmockito.GwtMockitoTestRunner;
 import junit.framework.Assert;
 import org.geomajas.gwt.client.map.MapModel;
-import org.geomajas.gwt.client.map.event.MapModelChangedEvent;
 import org.geomajas.gwt.client.map.layer.Layer;
 import org.geomajas.gwt.client.map.layer.RasterLayer;
 import org.geomajas.gwt.client.map.layer.VectorLayer;
 import org.geomajas.gwt.client.widget.MapWidget;
 import org.geomajas.widget.layer.client.BasicGwtMockTest;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.stub;
-import static org.mockito.Mockito.mock;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.mockito.MockitoAnnotations;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import static org.mockito.Mockito.stub;
+import static org.mockito.Mockito.verify;
 //import org.mockito.Mock;
 
 
@@ -39,19 +36,31 @@ import java.util.List;
  * @author Jan Venstermans
  *
  */
-public class LayerListPresenterImplTest extends BasicForPresenterMock {
+public class LayerListClientWmsPresenterImplTest extends BasicForPresenterMock {
 
-	private LayerListPresenterImpl presenter;
+	private LayerListClientWmsPresenterImpl presenter;
 
 	@Before
 	public void before() {
-		presenter = new LayerListPresenterImpl(mapwidget);
+		presenter = new LayerListClientWmsPresenterImpl(mapwidget);
 	}
 
 	@Test
 	public void constructorTest() {
-		Assert.assertEquals(layerListView, presenter.getView());
-		verify(layerListView).setHandler(presenter);
+		Assert.assertEquals(layerListClientWmsView, presenter.getView());
+		verify(layerListClientWmsView).setHandler(presenter);
+	}
+
+	@Test
+	public void onAddLayerTest() {
+		presenter.onAddClientWmsLayer();
+		//
+	}
+
+	@Test
+	public void onRemoveLayerTest() {
+		presenter.onRemoveClientWmsLayer(null);
+		//
 	}
 
 	@Test
@@ -85,6 +94,6 @@ public class LayerListPresenterImplTest extends BasicForPresenterMock {
 	public void updateViewTest() {
 		presenter.updateView();
 		verify(mapModel).getLayers();
-		verify(layerListView).updateView(layers);
+		verify(layerListClientWmsView).updateView(layers);
 	}
 }

@@ -18,27 +18,27 @@ import org.geomajas.gwt.client.controller.PanController;
 import org.geomajas.gwt.client.widget.MapWidget;
 import org.geomajas.gwt.example.base.SamplePanel;
 import org.geomajas.gwt.example.base.SamplePanelFactory;
-import org.geomajas.widget.layer.client.presenter.LayerListPresenter;
-import org.geomajas.widget.layer.client.presenter.LayerListPresenterImpl;
+import org.geomajas.widget.layer.client.presenter.LayerListClientWmsPresenter;
+import org.geomajas.widget.layer.client.presenter.LayerListClientWmsPresenterImpl;
 import org.geomajas.widget.layer.gwt.example.client.i18n.WidgetLayerExampleMessages;
 
 /**
  * <p>
- * Sample that shows the usage of the {@link org.geomajas.widget.layer.client.presenter.LayerListPresenter}.
+ * Sample that shows the usage of the {@link org.geomajas.widget.layer.client.presenter.LayerListClientWmsPresenter}.
  * </p>
  * 
  * @author Jan Venstermans
  */
-public class LayerListSample extends SamplePanel {
+public class LayerListClientWmsSample extends SamplePanel {
 
 	private static final WidgetLayerExampleMessages MESSAGES = GWT.create(WidgetLayerExampleMessages.class);
 
-	public static final String TITLE = "LayerList";
+	public static final String TITLE = "LayerListClientWms";
 
 	public static final SamplePanelFactory FACTORY = new SamplePanelFactory() {
 
 		public SamplePanel createPanel() {
-			return new LayerListSample();
+			return new LayerListClientWmsSample();
 		}
 	};
 
@@ -50,12 +50,13 @@ public class LayerListSample extends SamplePanel {
 		// Build a map, and set a PanController:
 		VLayout mapLayout = new VLayout();
 		mapLayout.setShowEdges(true);
-		final MapWidget map = new MapWidget("mapLegend", "gwtExample");
+		//final MapWidget map = new MapWidget("mapLegend", "gwtExample");
+		final MapWidget map = new MapWidget("mapWmsClientWithResolutions", "appWmsClient");
 		map.setController(new PanController(map));
 		mapLayout.addMember(map);
 
 		// Build the LayerList:
-		final LayerListPresenter layersManagementPresenter = new LayerListPresenterImpl(map);
+		final LayerListClientWmsPresenter layersManagementPresenter = new LayerListClientWmsPresenterImpl(map);
 		layersManagementPresenter.setDragDropEnabled(true);
 		Canvas canvas = (Canvas) layersManagementPresenter.getWidget();
 		canvas.setHeight(100);
@@ -69,7 +70,7 @@ public class LayerListSample extends SamplePanel {
 	}
 
 	public String getDescription() {
-		return MESSAGES.layerListDescription();
+		return MESSAGES.layerListClientWmsDescription();
 	}
 
 	public String[] getConfigurationFiles() {

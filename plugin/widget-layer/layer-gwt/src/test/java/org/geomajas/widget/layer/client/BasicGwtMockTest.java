@@ -13,7 +13,11 @@ package org.geomajas.widget.layer.client;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwtmockito.GwtMockitoTestRunner;
 import junit.framework.Assert;
+import org.geomajas.widget.layer.client.presenter.CreateClientWmsPresenter;
+import org.geomajas.widget.layer.client.presenter.LayerListClientWmsPresenter;
 import org.geomajas.widget.layer.client.presenter.LayerListPresenter;
+import org.geomajas.widget.layer.client.view.ControllerButtonsView;
+import org.geomajas.widget.layer.client.view.LayerListClientWmsView;
 import org.geomajas.widget.layer.client.view.LayerListView;
 import org.geomajas.widget.layer.client.view.ViewManager;
 import org.geomajas.widget.layer.client.view.ViewManagerImpl;
@@ -36,6 +40,18 @@ public class BasicGwtMockTest {
 	@MockitoAnnotations.Mock
 	protected LayerListView layerListView;
 
+	@MockitoAnnotations.Mock
+	protected LayerListClientWmsView layerListClientWmsView;
+
+	@MockitoAnnotations.Mock
+	protected ControllerButtonsView controllerButtonsView;
+
+	@MockitoAnnotations.Mock
+	protected CreateClientWmsPresenter.GetCapabilitiesView getCapabilitiesView;
+
+	@MockitoAnnotations.Mock
+	protected CreateClientWmsPresenter.SelectLayerView selectLayerView;
+
 	@Before
 	public void setUp() {
 		Layer.setViewManager(new ViewManager() {
@@ -44,6 +60,26 @@ public class BasicGwtMockTest {
 			public LayerListPresenter.View getLayerListView() {
 				return layerListView;
 			}
+
+			@Override
+			public LayerListClientWmsPresenter.View getLayerListClientWmsView() {
+				return layerListClientWmsView;
+			}
+
+			@Override
+			public CreateClientWmsPresenter.ControllerButtonsView getControllerButtonsView() {
+				return controllerButtonsView;
+			}
+
+			@Override
+			public CreateClientWmsPresenter.GetCapabilitiesView getGetCapabilitiesView() {
+				return getCapabilitiesView;
+			}
+
+			@Override
+			public CreateClientWmsPresenter.SelectLayerView getSelectLayerView() {
+				return selectLayerView;
+			}
 		});
 	}
 
@@ -51,6 +87,15 @@ public class BasicGwtMockTest {
 	@Test
 	public void setUpTest() {
 		Assert.assertNotNull(layerListView);
+		Assert.assertNotNull(layerListClientWmsView);
+		Assert.assertNotNull(controllerButtonsView);
+		Assert.assertNotNull(getCapabilitiesView);
+		Assert.assertNotNull(selectLayerView);
+
 		Assert.assertEquals(layerListView, Layer.getViewManager().getLayerListView());
+		Assert.assertEquals(layerListClientWmsView, Layer.getViewManager().getLayerListClientWmsView());
+		Assert.assertEquals(controllerButtonsView, Layer.getViewManager().getControllerButtonsView());
+		Assert.assertEquals(getCapabilitiesView, Layer.getViewManager().getGetCapabilitiesView());
+		Assert.assertEquals(selectLayerView, Layer.getViewManager().getSelectLayerView());
 	}
 }

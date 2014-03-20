@@ -10,47 +10,32 @@
  */
 package org.geomajas.widget.layer.client.presenter;
 
-import com.google.gwt.user.client.ui.Widget;
+import org.geomajas.gwt.client.map.layer.InternalClientWmsLayer;
 import org.geomajas.gwt.client.map.layer.Layer;
 
-import java.util.List;
-
 /**
- * Presenter for a list of layers.
+ * Extension of {@link org.geomajas.widget.layer.client.presenter.LayerListPresenter} for adding/deleting ClientWms layers.
  * 
  * @author Jan Venstermans
  * 
  */
-public interface LayerListPresenter {
+public interface LayerListClientWmsPresenter extends LayerListPresenter {
 
 	/**
 	 * ControllerButtonsView of the presenter.
 	 */
-	public interface View {
-		void setDragDropEnabled(boolean dragDropEnabled);
-
+	public interface View extends LayerListPresenter.View {
 		void setHandler(Handler handler);
-
-		void updateView(List<Layer<?>> layers);
-
-		Widget getWidget();
 	}
 
 	/**
 	 * ControllersButtonHandler of the presenter.
 	 */
-	public interface Handler {
+	public interface Handler extends LayerListPresenter.Handler {
 
-		void onMoveLayer(Layer layer, int index);
+		void onAddClientWmsLayer();
 
-		void onToggleVisibility(Layer layer);
+		void onRemoveClientWmsLayer(InternalClientWmsLayer layer);
 	}
 
-	void setDragDropEnabled(boolean dragDropEnabled);
-
-	void updateView();
-
-	View getView();
-
-	Widget getWidget();
 }
