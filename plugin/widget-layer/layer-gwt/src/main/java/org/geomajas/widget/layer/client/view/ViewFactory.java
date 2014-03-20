@@ -20,15 +20,15 @@ import org.geomajas.widget.layer.client.presenter.LayerListPresenter;
  * @author Jan Venstermans
  * 
  */
-public interface ViewManager {
+public interface ViewFactory {
 
-	LayerListPresenter.View getLayerListView();
+	LayerListPresenter.View createLayerListView();
 
-	LayerListClientWmsPresenter.View getLayerListClientWmsView();
+	LayerListClientWmsPresenter.View createLayerListClientWmsView();
 
-	CreateClientWmsPresenter.ControllerButtonsView getControllerButtonsView();
+	CreateClientWmsPresenter.ControllerButtonsView createControllerButtonsView();
 
-	CreateClientWmsPresenter.GetCapabilitiesView getGetCapabilitiesView();
+	CreateClientWmsPresenter.GetCapabilitiesView createGetCapabilitiesView();
 
-	CreateClientWmsPresenter.SelectLayerView getSelectLayerView();
+	CreateClientWmsPresenter.SelectLayerView createSelectLayerView();
 }

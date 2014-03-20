@@ -61,7 +61,7 @@ public class CreateClientWmsPresenterImpl implements CreateClientWmsPresenter,
 		selectedLayerInfo.setName("new Layer");
 		selectedLayerInfo.setWmsVersion(WmsService.WmsVersion.V1_3_0);
 
-		controllerButtonsWindow = Layer.getViewManager().getControllerButtonsView();
+		controllerButtonsWindow = Layer.getViewFactory().createControllerButtonsView();
 		controllerButtonsWindow.setControllersButtonHandler(this);
 
 		// set all buttons visible
@@ -77,11 +77,11 @@ public class CreateClientWmsPresenterImpl implements CreateClientWmsPresenter,
 		controllerButtonsWindow.setSaveButtonEnabled(false);
 
 		// steps
-		getCapabilitiesView = Layer.getViewManager().getGetCapabilitiesView();
+		getCapabilitiesView = Layer.getViewFactory().createGetCapabilitiesView();
 		getCapabilitiesView.setGetCapabilitiesHandler(this);
 		wizardSteps.add(getCapabilitiesView);
 
-		selectLayerView = Layer.getViewManager().getSelectLayerView();
+		selectLayerView = Layer.getViewFactory().createSelectLayerView();
 		selectLayerView.setSelectLayerFromCapabilitiesHandler(this);
 		wizardSteps.add(selectLayerView);
 

@@ -52,7 +52,7 @@ public class LayerListPresenterImpl implements LayerListPresenter, LayerListPres
 	}
 
 	protected View createViewInConstructor() {
-		View view = org.geomajas.widget.layer.client.Layer.getViewManager().getLayerListView();
+		View view = org.geomajas.widget.layer.client.Layer.getViewFactory().createLayerListView();
 		view.setHandler(this);
 		return view;
 	}
