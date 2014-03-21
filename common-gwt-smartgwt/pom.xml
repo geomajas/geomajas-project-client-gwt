@@ -46,13 +46,6 @@
 	</dependencies>
 
 	<profiles>
-		<!--  include sources in build -->
-		<profile>
-			<id>full-build</id>
-			<activation>
-				<activeByDefault>true</activeByDefault>
-			</activation>
-		</profile>
 		<!--  no sources needed in eclipse -->
 		<profile>
 			<id>m2e</id>
