@@ -40,18 +40,7 @@ public class LayerListClientWmsPresenterImplTest extends BasicForPresenterMock {
 		verify(layerListClientWmsView).setHandler(presenter);
 	}
 
-	@Test
-	public void onAddLayerTest() {
-		presenter.addClientWmsLayer();
-		//
-	}
-
-	@Test
-	public void onRemoveLayerTest() {
-		presenter.onRemoveClientWmsLayer(null);
-		//
-	}
-
+	/* do inherited methods still work */
 	@Test
 	public void onToggleVisibilityTest() {
 		// hide layer
