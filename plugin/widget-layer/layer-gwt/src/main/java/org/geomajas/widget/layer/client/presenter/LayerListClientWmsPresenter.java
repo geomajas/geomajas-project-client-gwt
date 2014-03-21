@@ -22,7 +22,7 @@ import org.geomajas.gwt.client.map.layer.Layer;
 public interface LayerListClientWmsPresenter extends LayerListPresenter {
 
 	/**
-	 * ControllerButtonsView of the presenter.
+	 * ControllerButtonsViewImpl of the presenter.
 	 */
 	public interface View extends LayerListPresenter.View {
 		void setHandler(Handler handler);

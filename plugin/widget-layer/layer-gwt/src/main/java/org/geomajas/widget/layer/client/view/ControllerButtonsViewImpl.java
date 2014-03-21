@@ -14,6 +14,7 @@ import com.google.gwt.core.client.GWT;
 import com.smartgwt.client.types.Overflow;
 import com.smartgwt.client.widgets.Canvas;
 import com.smartgwt.client.widgets.IButton;
+import com.smartgwt.client.widgets.Label;
 import com.smartgwt.client.widgets.Window;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
@@ -29,7 +30,7 @@ import org.geomajas.widget.layer.client.presenter.CreateClientWmsPresenter;
  * @author Kristof Heirwegh
  * @author Jan Venstermans
  */
-public class ControllerButtonsView extends Window implements CreateClientWmsPresenter.ControllerButtonsView {
+public class ControllerButtonsViewImpl extends Window implements CreateClientWmsPresenter.ControllerButtonsView {
 
 	private static final LayerMessages MESSAGES = GWT.create(LayerMessages.class);
 
@@ -67,6 +68,8 @@ public class ControllerButtonsView extends Window implements CreateClientWmsPres
 
 	private Canvas panelContainer;
 
+	private Label warningLabel;
+
 	/* buttons */
 	private IButton saveButton;
 
@@ -76,7 +79,7 @@ public class ControllerButtonsView extends Window implements CreateClientWmsPres
 
 	private IButton nextButton;
 
-	public ControllerButtonsView() {
+	public ControllerButtonsViewImpl() {
 		/* window config */
 		setHeight(HEIGHT);
 		setWidth(WIDTH);
@@ -95,6 +98,15 @@ public class ControllerButtonsView extends Window implements CreateClientWmsPres
 		panelContainer = new Canvas();
 		panelContainer.setWidth100();
 		panelContainer.setHeight("*");
+
+		// ----------------------------------------------------------
+
+		warningLabel = new Label();
+		warningLabel.setWidth100();
+		warningLabel.setAutoHeight();
+		warningLabel.setPadding(3);
+		warningLabel.setOverflow(Overflow.VISIBLE);
+		warningLabel.setVisible(false);
 
 		// ----------------------------------------------------------
 
@@ -155,6 +167,7 @@ public class ControllerButtonsView extends Window implements CreateClientWmsPres
 		vl.setWidth100();
 		vl.setMargin(10);
 		vl.addMember(panelContainer);
+		vl.addMember(warningLabel);
 		vl.addMember(buttons);
 		addItem(vl);
 	}
@@ -207,6 +220,18 @@ public class ControllerButtonsView extends Window implements CreateClientWmsPres
 	@Override
 	public Canvas getPanelContainer() {
 		return panelContainer;
+	}
+
+	@Override
+	public void setWarningLabelText(String text, boolean error){
+	   if (text == null || text.isEmpty()) {
+		  warningLabel.clear();
+		  warningLabel.setVisible(false);
+	   } else {
+		   warningLabel.setVisible(true);
+		   warningLabel.setContents("<b><i>" + text + "</i></b>");
+	   }
+		warningLabel.setBackgroundColor(error ? "#FFCCCC" : "transparent");
 	}
 
 	@Override

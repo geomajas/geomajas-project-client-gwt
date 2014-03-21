@@ -102,10 +102,11 @@ public interface LayerMessages extends Messages {
 
 	String layerListClientWmsWizardStepGetCapabilitiesWindowTitle();
 	String layerListClientWmsWizardStepGetCapabilitiesUrlLabel();
+	String layerListClientWmsWizardStepGetCapabilitiesUrlTooltip();
 	String layerListClientWmsWizardStepGetCapabilitiesUserNameLabel();
 	String layerListClientWmsWizardStepGetCapabilitiesPasswordLabel();
 
-	// select layer step
+	// step select layer
 
 	String layerListClientWmsWizardStepSelectLayerWindowTitle();
 	String layerListClientWmsWizardStepSelectLayerGridName();
@@ -113,4 +114,16 @@ public interface LayerMessages extends Messages {
 	String layerListClientWmsWizardStepSelectLayerGridDescription();
 
 	String layerListGridClientWmsColumnDeleteName();
+
+	// step edit settings
+	String layerListClientWmsWizardStepEditLayerSettingsWindowTitle();
+	String layerListClientWmsWizardStepEditLayerSettingsNameLabel();
+
+	String layerListClientWmsWizardStepSelectLayerInvalidMessage();
+
+	String layerListClientWmsWizardStepGetCapabilitiesInvalidMessage();
+
+	String layerListClientWmsWizardStepEditLayerSettingsInvalidMessage();
+
+	String layerListClientWmsWizardStepGetCapabilitiesStartSearch();
 }

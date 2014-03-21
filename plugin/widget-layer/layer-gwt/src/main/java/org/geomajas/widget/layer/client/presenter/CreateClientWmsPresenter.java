@@ -33,11 +33,20 @@ public interface CreateClientWmsPresenter {
 		void sendDataToHandler();
 		Widget getWidget();
 		String getTitle();
-		boolean validate();
+		boolean isValid();
+
+		String getInvalidMessage();
 	}
 
 	/**
-	 * ControllerButtonsView of the presenter.
+	 * Interface for steps of the wizard.
+	 */
+	public interface WizardStepHandler {
+		void setWarningLabelText(String text, boolean error);
+	}
+
+	/**
+	 * ControllerButtonsViewImpl of the presenter.
 	 */
 	public interface ControllerButtonsView {
 		void setControllersButtonHandler(ControllersButtonHandler handler);
@@ -53,6 +62,7 @@ public interface CreateClientWmsPresenter {
 		void setPreviousButtonEnabled(boolean enabled);
 
 		Canvas getPanelContainer();
+		void setWarningLabelText(String text, boolean error);
 
 		void show();
 		void hide();
@@ -80,8 +90,8 @@ public interface CreateClientWmsPresenter {
 	/**
 	 * GetCapabilitiesHandler of the presenter.
 	 */
-	public interface GetCapabilitiesHandler {
-		void onGetCapabilities(String wmsBaseUrl, String version, String userName, String password);
+	public interface GetCapabilitiesHandler extends WizardStepHandler {
+		void onFinisStepGetCapabilities(String wmsFullUrl, String userName, String password);
 	}
 
 	/**
@@ -95,8 +105,22 @@ public interface CreateClientWmsPresenter {
 	/**
 	 * Handler for a selection of a wms layer from a list.
 	 */
-	public interface SelectLayerHandler {
-		void onSelectLayer(WmsLayerInfo layerInfo);
+	public interface SelectLayerHandler extends WizardStepHandler  {
+		void onFinishStepSelectLayer(WmsLayerInfo layerInfo);
+	}
+
+	/**
+	 * View for extra specifications of layer.
+	 */
+	public interface EditLayerSettingsView extends WizardStepView {
+		void setEditLayerSettingsHandler(EditLayerSettingsHandler handler);
+	}
+
+	/**
+	 * Handler for extra specifications of layer.
+	 */
+	public interface EditLayerSettingsHandler extends WizardStepHandler {
+		void onFinishStepSetLayerName(String layerName);
 	}
 
 	void createClientWmsLayer(Callback<ClientWmsLayerInfo, String> callback);

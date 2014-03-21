@@ -13,22 +13,15 @@ package org.geomajas.widget.layer.client.view.wizard;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.ui.Widget;
 import com.smartgwt.client.types.ListGridFieldType;
-import com.smartgwt.client.types.Overflow;
 import com.smartgwt.client.types.SelectionStyle;
-import com.smartgwt.client.widgets.Label;
 import com.smartgwt.client.widgets.grid.ListGrid;
 import com.smartgwt.client.widgets.grid.ListGridField;
 import com.smartgwt.client.widgets.grid.ListGridRecord;
-import com.smartgwt.client.widgets.grid.events.CellDoubleClickEvent;
-import com.smartgwt.client.widgets.grid.events.CellDoubleClickHandler;
-import com.smartgwt.client.widgets.grid.events.SelectionUpdatedEvent;
-import com.smartgwt.client.widgets.grid.events.SelectionUpdatedHandler;
 import com.smartgwt.client.widgets.layout.VLayout;
 import org.geomajas.plugin.wms.client.capabilities.WmsLayerInfo;
 import org.geomajas.widget.layer.client.i18n.LayerMessages;
 import org.geomajas.widget.layer.client.presenter.CreateClientWmsPresenter;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -40,7 +33,6 @@ public class SelectLayerViewImpl implements CreateClientWmsPresenter.SelectLayer
 
 	/* grid fields */
 	private static final String FLD_NAME = "name";
-	private static final String FLD_CRS = "crs";
 	private static final String FLD_DESC = "description";
 	private static final String FLD_LAYER = "layer";
 
@@ -59,39 +51,19 @@ public class SelectLayerViewImpl implements CreateClientWmsPresenter.SelectLayer
 		grid.setHeight("*");
 		grid.setSelectionType(SelectionStyle.SINGLE);
 		grid.setShowAllRecords(true);
-		grid.addSelectionUpdatedHandler(new SelectionUpdatedHandler() {
-
-			public void onSelectionUpdated(SelectionUpdatedEvent event) {
-				if (validate()) {
-					sendDataToHandler();
-				}
-			}
-		});
-		/*grid.addCellDoubleClickHandler(new CellDoubleClickHandler() {
-
-			public void onCellDoubleClick(CellDoubleClickEvent event) {
-				parent.fireNextStepEvent();
-			}
-		}); */
 
 		ListGridField nameFld = new ListGridField(FLD_NAME,
 				MESSAGES.layerListClientWmsWizardStepSelectLayerGridName());
 		nameFld.setType(ListGridFieldType.TEXT);
 		nameFld.setWidth("*");
 
-		ListGridField crsFld = new ListGridField(FLD_CRS,
-				MESSAGES.layerListClientWmsWizardStepSelectLayerGridCrs());
-		crsFld.setType(ListGridFieldType.TEXT);
-		crsFld.setWidth(75);
-
 		ListGridField descFld = new ListGridField(FLD_DESC,
 				MESSAGES.layerListClientWmsWizardStepSelectLayerGridDescription());
 		descFld.setType(ListGridFieldType.TEXT);
 		descFld.setWidth("*");
 
-		grid.setFields(nameFld, crsFld, descFld);
+		grid.setFields(nameFld, descFld);
 		grid.setCanResizeFields(true);
-
 
 		layout = new VLayout();
 		layout.setWidth100();
@@ -110,16 +82,18 @@ public class SelectLayerViewImpl implements CreateClientWmsPresenter.SelectLayer
 	}
 
 	@Override
-	public boolean validate() {
-		if (grid.getSelectedRecords().length == 1) {
-			return true;
-		}
-		return false;
+	public boolean isValid() {
+		return grid.getSelectedRecords().length == 1;
+	}
+
+	@Override
+	public String getInvalidMessage() {
+		return MESSAGES.layerListClientWmsWizardStepSelectLayerInvalidMessage();
 	}
 
 	@Override
 	public void sendDataToHandler() {
-		 handler.onSelectLayer((WmsLayerInfo) grid.getSelectedRecord().getAttributeAsObject(FLD_LAYER));
+		 handler.onFinishStepSelectLayer((WmsLayerInfo) grid.getSelectedRecord().getAttributeAsObject(FLD_LAYER));
 	}
 
 	@Override
@@ -135,22 +109,9 @@ public class SelectLayerViewImpl implements CreateClientWmsPresenter.SelectLayer
 		for (WmsLayerInfo layerInfo : wmsLayersData) {
 			ListGridRecord lgr = new ListGridRecord();
 			lgr.setAttribute(FLD_NAME, layerInfo.getName());
-			lgr.setAttribute(FLD_CRS, listToCommaSeparatedString(layerInfo.getCrs()));
 			lgr.setAttribute(FLD_DESC, layerInfo.getTitle());
 			lgr.setAttribute(FLD_LAYER, layerInfo);
 			grid.addData(lgr);
 		}
-	}
-
-	private String listToCommaSeparatedString(List<String> list) {
-		StringBuilder sb = new StringBuilder();
-
-		for(String s: list) {
-			sb.append(s).append(',');
-		}
-
-		sb.deleteCharAt(sb.length()-1); //delete last comma
-
-		return sb.toString();
 	}
 }

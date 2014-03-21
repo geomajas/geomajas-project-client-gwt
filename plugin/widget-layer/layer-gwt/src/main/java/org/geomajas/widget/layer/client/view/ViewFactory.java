@@ -31,4 +31,6 @@ public interface ViewFactory {
 	CreateClientWmsPresenter.GetCapabilitiesView createGetCapabilitiesView();
 
 	CreateClientWmsPresenter.SelectLayerView createSelectLayerView();
+
+	CreateClientWmsPresenter.EditLayerSettingsView createEditLayerSettingsView();
 }

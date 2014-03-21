@@ -38,7 +38,7 @@ public class KeyValueForm extends DynamicForm {
 
 	public KeyValueForm() {
 		setWidth100();
-		setColWidths("125", "*");
+		setColWidths("250", "*");
 	}
 
 	public void updateFields(List<FormElement> items) {

@@ -11,7 +11,9 @@
 package org.geomajas.widget.layer.client.presenter;
 
 import com.google.gwt.core.client.Callback;
+import org.geomajas.geometry.Bbox;
 import org.geomajas.geometry.Coordinate;
+import org.geomajas.gwt.client.Geomajas;
 import org.geomajas.gwt.client.map.layer.ClientWmsLayer;
 import org.geomajas.gwt.client.map.layer.configuration.ClientWmsLayerInfo;
 import org.geomajas.gwt.client.widget.MapWidget;
@@ -33,7 +35,8 @@ import java.util.List;
  *
  */
 public class CreateClientWmsPresenterImpl implements CreateClientWmsPresenter,
-		CreateClientWmsPresenter.ControllersButtonHandler, CreateClientWmsPresenter.GetCapabilitiesHandler, CreateClientWmsPresenter.SelectLayerHandler {
+		CreateClientWmsPresenter.ControllersButtonHandler, CreateClientWmsPresenter.GetCapabilitiesHandler,
+		CreateClientWmsPresenter.SelectLayerHandler, CreateClientWmsPresenter.EditLayerSettingsHandler {
 
 	private ControllerButtonsView controllerButtonsWindow;
 
@@ -48,18 +51,17 @@ public class CreateClientWmsPresenterImpl implements CreateClientWmsPresenter,
 
 	private SelectLayerView selectLayerView;
 
-	private List<WmsLayerInfo> wmsLayerInfos;
-
-	private SelectedLayerInfo selectedLayerInfo;
+	private EditLayerSettingsView editLayerSettingsView;
 
 	private WizardStepView currentStep;
+
+	/* selected layer info */
+	private SelectedLayerInfo selectedLayerInfo;
+	private List<WmsLayerInfo> wmsLayerInfos = new ArrayList<WmsLayerInfo>();
 
 	public CreateClientWmsPresenterImpl(MapWidget mapWidget) {
 		this.mapWidget = mapWidget;
 		this.selectedLayerInfo = new SelectedLayerInfo();
-		// dummy
-		selectedLayerInfo.setName("new Layer");
-		selectedLayerInfo.setWmsVersion(WmsService.WmsVersion.V1_3_0);
 
 		controllerButtonsWindow = Layer.getViewFactory().createControllerButtonsView();
 		controllerButtonsWindow.setControllersButtonHandler(this);
@@ -84,6 +86,10 @@ public class CreateClientWmsPresenterImpl implements CreateClientWmsPresenter,
 		selectLayerView = Layer.getViewFactory().createSelectLayerView();
 		selectLayerView.setSelectLayerFromCapabilitiesHandler(this);
 		wizardSteps.add(selectLayerView);
+
+		editLayerSettingsView = Layer.getViewFactory().createEditLayerSettingsView();
+		editLayerSettingsView.setEditLayerSettingsHandler(this);
+		wizardSteps.add(editLayerSettingsView);
 
 		loadWizardStepsInWindow();
 
@@ -116,58 +122,16 @@ public class CreateClientWmsPresenterImpl implements CreateClientWmsPresenter,
 		controllerButtonsWindow.show();
 	}
 
-	private void showStep(int index) {
-		if (index >= 0 && index < wizardSteps.size()) {
-			currentStep = wizardSteps.get(index);
-			// only show current step
-			for (WizardStepView view : wizardSteps) {
-				view.getWidget().setVisible(currentStep == view);
+	public void setWmsLayerInfos(List<WmsLayerInfo> wmsLayerInfoList) {
+		// filter out wms layers with crs of map
+		this.wmsLayerInfos = new ArrayList<WmsLayerInfo>();
+		String crs = mapWidget.getMapModel().getCrs();
+		for (WmsLayerInfo wmsLayerInfo : wmsLayerInfoList) {
+			if (wmsLayerInfo.getCrs().contains(crs)) {
+				wmsLayerInfos.add(wmsLayerInfo);
 			}
-			controllerButtonsWindow.setSubTitle(currentStep.getTitle());
-			controllerButtonsWindow.getPanelContainer().clear();
-			controllerButtonsWindow.setPreviousButtonEnabled(index > 0);
-			controllerButtonsWindow.setNextButtonEnabled(index +1 < wizardSteps.size());
-
-			//only allow save on last step
-			controllerButtonsWindow.setSaveButtonEnabled(index + 1 == wizardSteps.size());
-			controllerButtonsWindow.show();
-		} else {
-			controllerButtonsWindow.hide();
 		}
-	}
-
-	private void goToNextStep() {
-		showStep(wizardSteps.indexOf(currentStep) + 1);
-	}
-
-	private void goToPreviousStep() {
-		showStep(wizardSteps.indexOf(currentStep) - 1);
-	}
-
-	private void destroyViews() {
-		for (WizardStepView step : wizardSteps) {
-
-		}
-	}
-
-	private ClientWmsLayerInfo createWmsLayerInfo() {
-		WmsLayerConfiguration wmsConfig = new WmsLayerConfiguration();
-		wmsConfig.setFormat("image/png");
-		wmsConfig.setLayers(selectedLayerInfo.getName());
-		wmsConfig.setVersion(selectedLayerInfo.getWmsVersion());
-		wmsConfig.setBaseUrl(selectedLayerInfo.getBaseWmsUrl());
-		wmsConfig.setTransparent(true);
-		wmsConfig.setMaximumResolution(0);
-		wmsConfig.setMinimumResolution(1 / mapWidget.getMapModel().getMapInfo().getMaximumScale());
-
-		WmsTileConfiguration tileConfig = new WmsTileConfiguration(256, 256,
-				new Coordinate(-20026376.393709917, -20026376.393709917));
-
-		ClientWmsLayer wmsLayer = new ClientWmsLayer(selectedLayerInfo.getName(), wmsConfig, tileConfig,
-				selectedLayerInfo.getWmsLayerInfo());
-
-		ClientWmsLayerInfo wmsLayerInfo = new ClientWmsLayerInfo(wmsLayer);
-		return wmsLayerInfo;
+		selectLayerView.setWmsLayersData(wmsLayerInfos);
 	}
 
 	/* Handler methods */
@@ -176,27 +140,21 @@ public class CreateClientWmsPresenterImpl implements CreateClientWmsPresenter,
 
 	@Override
 	public void onSave() {
-		if (currentStep.validate()) {
-			currentStep.sendDataToHandler();
-			callback.onSuccess(createWmsLayerInfo());
-			onCancel();
-		}
+		onNext();
 	}
 
 	@Override
 	public void onCancel() {
-		currentStep = null;
+		callback.onFailure("Has been canceled");
 		controllerButtonsWindow.hide();
 	}
 
 	@Override
 	public void onNext() {
-		if (currentStep.validate()) {
+		if (currentStep.isValid()) {
 			currentStep.sendDataToHandler();
-			// check if there is next
-			if (currentStep != null && wizardSteps.indexOf(currentStep) + 1 < wizardSteps.size()) {
-				// finish();
-			}
+		} else {
+			setWarningLabelText(currentStep.getInvalidMessage(), true);
 		}
 	}
 
@@ -208,13 +166,9 @@ public class CreateClientWmsPresenterImpl implements CreateClientWmsPresenter,
 	/* CreateClientWmsPresenter.GetCapabilitiesHandler */
 
 	@Override
-	public void onGetCapabilities(String url, String version, String userName, String password) {
-		if (url.contains("?")) {
-			selectedLayerInfo.setBaseWmsUrl(url.substring(0, url.indexOf("?")));
-		} else {
-			selectedLayerInfo.setBaseWmsUrl(url);
-		}
-		WmsClient.getInstance().getWmsService().getCapabilities(selectedLayerInfo.getBaseWmsUrl(),
+	public void onFinisStepGetCapabilities(String url, String userName, String password) {
+		if (checkFullWmsUrl(url)) {
+			WmsClient.getInstance().getWmsService().getCapabilities(selectedLayerInfo.getBaseWmsUrl(),
 				selectedLayerInfo.getWmsVersion(),
 				new Callback<WmsGetCapabilitiesInfo, String>() {
 
@@ -225,28 +179,124 @@ public class CreateClientWmsPresenterImpl implements CreateClientWmsPresenter,
 
 					@Override
 					public void onSuccess(WmsGetCapabilitiesInfo wmsGetCapabilitiesInfo) {
+						controllerButtonsWindow.setWarningLabelText(null, false);
 						if (currentStep instanceof GetCapabilitiesView) {
 							setWmsLayerInfos(wmsGetCapabilitiesInfo.getLayers());
 							goToNextStep();
 						}
 					}
 				});
+		} else {
+			setWarningLabelText(currentStep.getInvalidMessage(), true);
+		}
 	}
 
 	/* CreateClientWmsPresenter.SelectLayerHandler */
 
 	@Override
-	public void onSelectLayer(WmsLayerInfo layerInfo) {
+	public void onFinishStepSelectLayer(WmsLayerInfo layerInfo) {
 		selectedLayerInfo.setWmsLayerInfo(layerInfo);
+		goToNextStep();
 	}
 
-	public void setWmsLayerInfos(List<WmsLayerInfo> wmsLayerInfos) {
-		this.wmsLayerInfos = wmsLayerInfos;
-		selectLayerView.setWmsLayersData(wmsLayerInfos);
+	/* CreateClientWmsPresenter.EditLayerSettingsHandler */
+
+	@Override
+	public void onFinishStepSetLayerName(String layerName) {
+	   	selectedLayerInfo.setName(layerName);
+		goToNextStep();
+	}
+
+	/* private methods */
+	private void showStep(int index) {
+		if (index >= 0 && index < wizardSteps.size()) {
+			currentStep = wizardSteps.get(index);
+			// only show current step
+			for (WizardStepView view : wizardSteps) {
+				view.getWidget().setVisible(currentStep == view);
+			}
+			controllerButtonsWindow.setSubTitle(currentStep.getTitle());
+			controllerButtonsWindow.setPreviousButtonEnabled(index > 0);
+			controllerButtonsWindow.setNextButtonEnabled(index +1 < wizardSteps.size());
+			controllerButtonsWindow.setWarningLabelText(null, false);
+
+			//only allow save on last step
+			controllerButtonsWindow.setSaveButtonEnabled(index + 1 == wizardSteps.size());
+		} else {
+			controllerButtonsWindow.hide();
+		}
+	}
+
+	private void goToNextStep() {
+		int index = wizardSteps.indexOf(currentStep) + 1;
+		if (index == wizardSteps.size()) {
+			finishWizard();
+		} else {
+			showStep(index);
+		}
+	}
+
+	private void goToPreviousStep() {
+		showStep(wizardSteps.indexOf(currentStep) - 1);
+	}
+
+	private void finishWizard() {
+		callback.onSuccess(createWmsLayerInfo());
+		currentStep = null;
+		controllerButtonsWindow.hide();
+	}
+
+	private boolean checkFullWmsUrl(String url) {
+		if (url!=null && url.contains("?")) {
+			String baseUrl = url.substring(0, url.indexOf("?"));
+			String parameterPart = url.substring(url.indexOf("?") + 1).toLowerCase();
+			if (!baseUrl.isEmpty() && parameterPart.contains("service=wms")
+					&& parameterPart.contains("request=getcapabilities")
+					&& parameterPart.contains("version=")) {
+				WmsService.WmsVersion version = null;
+				if (parameterPart.contains("version=1.1.1")) {
+					version = WmsService.WmsVersion.V1_1_1;
+				} else if (parameterPart.contains("version=1.3.0")) {
+					version = WmsService.WmsVersion.V1_3_0;
+				}
+				if (version != null) {
+					selectedLayerInfo.setBaseWmsUrl(baseUrl);
+					selectedLayerInfo.setWmsVersion(version);
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+
+	private ClientWmsLayerInfo createWmsLayerInfo() {
+		WmsLayerConfiguration wmsConfig = new WmsLayerConfiguration();
+		wmsConfig.setFormat("image/png");
+		wmsConfig.setLayers(selectedLayerInfo.getWmsLayerInfo().getName());
+		wmsConfig.setVersion(selectedLayerInfo.getWmsVersion());
+		wmsConfig.setBaseUrl(selectedLayerInfo.getBaseWmsUrl());
+		wmsConfig.setTransparent(true);
+		wmsConfig.setMaximumResolution(0);
+		wmsConfig.setMinimumResolution(1 / mapWidget.getMapModel().getMapInfo().getMaximumScale());
+
+		Bbox bounds = mapWidget.getMapModel().getMapInfo().getMaxBounds();
+		WmsTileConfiguration tileConfig = new WmsTileConfiguration(256, 256,
+				new Coordinate(bounds.getX(), bounds.getY()));
+
+		ClientWmsLayer wmsLayer = new ClientWmsLayer(selectedLayerInfo.getName(), wmsConfig, tileConfig,
+				selectedLayerInfo.getWmsLayerInfo());
+
+		ClientWmsLayerInfo wmsLayerInfo = new ClientWmsLayerInfo(wmsLayer);
+		return wmsLayerInfo;
+	}
+
+	@Override
+	public void setWarningLabelText(String text, boolean error) {
+		controllerButtonsWindow.setWarningLabelText(text, error);
 	}
 
 	/**
-	 * Contains all info of the selected layer throughout the wizard process;
+	 * Contains all info of the selected layer throughout the wizard process.
 	 */
 	private class SelectedLayerInfo {
 

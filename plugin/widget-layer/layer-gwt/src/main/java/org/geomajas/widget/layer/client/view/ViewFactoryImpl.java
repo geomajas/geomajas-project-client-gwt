@@ -13,6 +13,7 @@ package org.geomajas.widget.layer.client.view;
 import org.geomajas.widget.layer.client.presenter.CreateClientWmsPresenter;
 import org.geomajas.widget.layer.client.presenter.LayerListClientWmsPresenter;
 import org.geomajas.widget.layer.client.presenter.LayerListPresenter;
+import org.geomajas.widget.layer.client.view.wizard.EditLayerSettingsViewImpl;
 import org.geomajas.widget.layer.client.view.wizard.GetCapabilitiesViewImpl;
 import org.geomajas.widget.layer.client.view.wizard.SelectLayerViewImpl;
 
@@ -26,17 +27,17 @@ public class ViewFactoryImpl implements ViewFactory {
 
 	@Override
 	public LayerListPresenter.View createLayerListView() {
-		return new LayerListView();
+		return new LayerListGrid();
 	}
 
 	@Override
 	public LayerListClientWmsPresenter.View createLayerListClientWmsView() {
-		return new LayerListClientWmsView();
+		return new LayerListDeletableClientWmsGrid();
 	}
 
 	@Override
 	public CreateClientWmsPresenter.ControllerButtonsView createControllerButtonsView() {
-		return new ControllerButtonsView();
+		return new ControllerButtonsViewImpl();
 	}
 
 	@Override
@@ -47,5 +48,10 @@ public class ViewFactoryImpl implements ViewFactory {
 	@Override
 	public CreateClientWmsPresenter.SelectLayerView createSelectLayerView() {
 		return new SelectLayerViewImpl();
+	}
+
+	@Override
+	public CreateClientWmsPresenter.EditLayerSettingsView createEditLayerSettingsView() {
+		return new EditLayerSettingsViewImpl();
 	}
 }

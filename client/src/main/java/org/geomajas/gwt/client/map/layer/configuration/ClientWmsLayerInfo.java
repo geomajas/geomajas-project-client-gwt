@@ -60,12 +60,16 @@ public class ClientWmsLayerInfo extends ClientRasterLayerInfo {
 
 	@Override
 	public ScaleInfo getMinimumScale() {
-		throw new UnsupportedOperationException();
+		//throw new UnsupportedOperationException();
+		// still return scale value for the moment
+		return super.getMinimumScale();
 	}
 
 	@Override
 	public ScaleInfo getMaximumScale() {
-		throw new UnsupportedOperationException();
+		//throw new UnsupportedOperationException();
+		// still return scale value for the moment
+		return super.getMaximumScale();
 	}
 
 	@Override

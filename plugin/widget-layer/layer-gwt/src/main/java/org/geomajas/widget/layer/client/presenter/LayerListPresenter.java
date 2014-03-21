@@ -24,7 +24,7 @@ import java.util.List;
 public interface LayerListPresenter {
 
 	/**
-	 * ControllerButtonsView of the presenter.
+	 * ControllerButtonsViewImpl of the presenter.
 	 */
 	public interface View {
 		void setDragDropEnabled(boolean dragDropEnabled);
