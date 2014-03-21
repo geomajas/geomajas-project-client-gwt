@@ -24,7 +24,6 @@ import org.geomajas.gwt.client.util.WidgetLayout;
 import org.geomajas.gwt.client.widget.MapWidget;
 import org.geomajas.gwt.example.base.SamplePanel;
 import org.geomajas.gwt.example.base.SamplePanelFactory;
-import org.geomajas.widget.layer.client.presenter.LayerListClientWmsPresenter;
 import org.geomajas.widget.layer.client.presenter.LayerListClientWmsPresenterImpl;
 import org.geomajas.widget.layer.gwt.example.client.i18n.WidgetLayerExampleMessages;
 
@@ -63,11 +62,12 @@ public class LayerListClientWmsSample extends SamplePanel {
 
 		// Build the LayerList:
 		VLayout layout = new VLayout();
-		layout.setWidth100();
-		layout.setHeight(300);
+		layout.setWidth(350);
+		layout.setHeight(200);
 
 		final LayerListClientWmsPresenterImpl layersManagementPresenter = new LayerListClientWmsPresenterImpl(map);
 		layersManagementPresenter.setDragDropEnabled(true);
+		layersManagementPresenter.setShowDeleteButtons(false);
 
 		Layout addImgContainer = new Layout();
 		addImgContainer.setWidth(64 + 16); //16 from scroller in grid
@@ -84,7 +84,7 @@ public class LayerListClientWmsSample extends SamplePanel {
 		addImg.setWidth(16);
 		addImg.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
-				layersManagementPresenter.onAddClientWmsLayer();
+				layersManagementPresenter.addClientWmsLayer();
 			}
 		});
 		addImgContainer.addMember(addImg);

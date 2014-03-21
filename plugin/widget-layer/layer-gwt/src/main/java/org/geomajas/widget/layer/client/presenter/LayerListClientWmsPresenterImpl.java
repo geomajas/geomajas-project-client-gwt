@@ -27,6 +27,8 @@ public class LayerListClientWmsPresenterImpl extends LayerListPresenterImpl
 
 	private CreateClientWmsPresenter createClientWmsPresenter;
 
+	private boolean showDeleteButtons = true;
+
 	public LayerListClientWmsPresenterImpl(MapWidget mapwidget) {
 		super(mapwidget);
 	}
@@ -39,8 +41,21 @@ public class LayerListClientWmsPresenterImpl extends LayerListPresenterImpl
 		return view;
 	}
 
+	public boolean isShowDeleteButtons() {
+		return showDeleteButtons;
+	}
+
 	@Override
-	public void onAddClientWmsLayer() {
+	public void setShowDeleteButtons(boolean showDeleteButtons) {
+		if (this.showDeleteButtons != showDeleteButtons) {
+			this.showDeleteButtons = showDeleteButtons;
+			//change view
+			setView(showDeleteButtons ? createViewInConstructor() : super.createViewInConstructor());
+		}
+	}
+
+	@Override
+	public void addClientWmsLayer() {
 		createClientWmsPresenter = new CreateClientWmsPresenterImpl(getMapWidget());
 		createClientWmsPresenter.createClientWmsLayer(new Callback<ClientWmsLayerInfo, String>() {
 			@Override
@@ -51,20 +66,29 @@ public class LayerListClientWmsPresenterImpl extends LayerListPresenterImpl
 			@Override
 			public void onSuccess(ClientWmsLayerInfo clientWmsLayerInfo) {
 				getMapWidget().getMapModel().addLayer(clientWmsLayerInfo);
-				for (Layer<?> layer : getMapWidget().getMapModel().getLayers()) {
-					if (layer.getLayerInfo() instanceof ClientWmsLayerInfo) {
-						getMapWidget().refreshLayer(layer);
-					}
-				}
-
-				updateView();
+				updateMapForClientLayers();
 			}
 		});
 	}
 
 	@Override
 	public void onRemoveClientWmsLayer(InternalClientWmsLayer layer) {
-		getMapWidget().getMapModel().removeLayer(layer);
+		layer.setVisible(false);
+		updateMapForClientLayers();
+	}
+
+	@Override
+	public void onToggleVisibility(Layer layer) {
+		super.onToggleVisibility(layer);
+		updateMapForClientLayers();
+	}
+
+	private void updateMapForClientLayers() {
+		for (Layer<?> layer : getMapWidget().getMapModel().getLayers()) {
+			if (layer.getLayerInfo() instanceof ClientWmsLayerInfo) {
+				getMapWidget().refreshLayer(layer);
+			}
+		}
 		updateView();
 	}
 }

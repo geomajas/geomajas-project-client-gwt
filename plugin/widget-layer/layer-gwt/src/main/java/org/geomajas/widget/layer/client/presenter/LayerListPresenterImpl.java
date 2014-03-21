@@ -17,7 +17,6 @@ import org.geomajas.gwt.client.map.event.LayerLabeledEvent;
 import org.geomajas.gwt.client.map.event.LayerShownEvent;
 import org.geomajas.gwt.client.map.event.MapModelChangedEvent;
 import org.geomajas.gwt.client.map.event.MapModelChangedHandler;
-import org.geomajas.gwt.client.map.layer.AbstractLayer;
 import org.geomajas.gwt.client.map.layer.Layer;
 import org.geomajas.gwt.client.map.layer.RasterLayer;
 import org.geomajas.gwt.client.map.layer.VectorLayer;
@@ -34,7 +33,7 @@ import java.util.List;
  * 
  */
 public class LayerListPresenterImpl implements LayerListPresenter, LayerListPresenter.Handler, MapModelChangedHandler,
-		LayerChangedHandler{
+		LayerChangedHandler {
 
 	private MapWidget mapWidget;
 
@@ -103,6 +102,10 @@ public class LayerListPresenterImpl implements LayerListPresenter, LayerListPres
 	@Override
 	public View getView() {
 		return view;
+	}
+
+	protected void setView(View view) {
+	   this.view = view;
 	}
 
 	@Override

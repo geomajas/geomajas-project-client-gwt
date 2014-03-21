@@ -11,19 +11,8 @@
 package org.geomajas.widget.layer.client.presenter;
 
 import junit.framework.Assert;
-import org.geomajas.gwt.client.map.MapModel;
-import org.geomajas.gwt.client.map.layer.Layer;
-import org.geomajas.gwt.client.map.layer.RasterLayer;
-import org.geomajas.gwt.client.map.layer.VectorLayer;
-import org.geomajas.gwt.client.widget.MapWidget;
-import org.geomajas.widget.layer.client.BasicGwtMockTest;
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.MockitoAnnotations;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 import static org.mockito.Mockito.stub;
 import static org.mockito.Mockito.verify;
@@ -53,7 +42,7 @@ public class LayerListClientWmsPresenterImplTest extends BasicForPresenterMock {
 
 	@Test
 	public void onAddLayerTest() {
-		presenter.onAddClientWmsLayer();
+		presenter.addClientWmsLayer();
 		//
 	}
 
