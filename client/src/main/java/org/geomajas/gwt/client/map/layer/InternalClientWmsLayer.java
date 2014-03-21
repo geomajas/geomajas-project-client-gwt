@@ -12,6 +12,7 @@ package org.geomajas.gwt.client.map.layer;
 
 import org.geomajas.annotation.Api;
 import org.geomajas.gwt.client.map.MapModel;
+import org.geomajas.gwt.client.map.event.LayerShownEvent;
 import org.geomajas.gwt.client.map.layer.configuration.ClientWmsLayerInfo;
 import org.geomajas.gwt.client.map.store.ClientWmsRasterLayerStore;
 import org.geomajas.gwt.client.spatial.Bbox;
@@ -51,7 +52,7 @@ public class InternalClientWmsLayer extends RasterLayer {
 	}
 
 	public List<RasterTile> getTiles(Bbox worldBounds, double scale) {
-		List<Tile> tiles = wmsLayer.getTiles(scale, worldBounds.toDtoBbox());
+		List<Tile> tiles = wmsLayer.getTiles(1 / scale, worldBounds.toDtoBbox());
 
 		List<RasterTile> rasterTiles = new ArrayList<RasterTile>(tiles.size());
 		for (Tile tile : tiles) {
@@ -73,5 +74,14 @@ public class InternalClientWmsLayer extends RasterLayer {
 		return wmsLayer;
 	}
 
+	/**
+	 * Update showing state.
+	 *
+	 * @param fireEvents Should events be fired if state changes?
+	 */
+	/*protected void updateShowing(boolean fireEvents) {
+		//setShowing(isVisible());
+		// don't do anything?
+	} */
 
 }

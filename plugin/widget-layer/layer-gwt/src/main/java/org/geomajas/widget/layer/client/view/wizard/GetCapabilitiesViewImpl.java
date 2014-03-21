@@ -12,11 +12,9 @@ package org.geomajas.widget.layer.client.view.wizard;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.ui.Widget;
-import com.smartgwt.client.widgets.form.DynamicForm;
 import com.smartgwt.client.widgets.layout.VLayout;
 import org.geomajas.widget.layer.client.i18n.LayerMessages;
 import org.geomajas.widget.layer.client.presenter.CreateClientWmsPresenter;
-import org.geomajas.widget.layer.client.view.ControllerButtonsView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,15 +38,19 @@ public class GetCapabilitiesViewImpl implements CreateClientWmsPresenter.GetCapa
 	private VLayout layout;
 	private KeyValueForm form;
 
+	private FormElement capabilitiesTextField;
+
 	public GetCapabilitiesViewImpl() {
 		buildGui();
 	}
 
 	private void buildGui() {
 		List<FormElement> fields = new ArrayList<FormElement>();
-		fields.add(new FormElement(GET_CAPABILITIES_URL,
+		capabilitiesTextField = new FormElement(GET_CAPABILITIES_URL,
 				MESSAGES.layerListClientWmsWizardStepGetCapabilitiesUrlLabel(),
-				KeyValueForm.ITEMTYPE_TEXT, true, 300, null, null));
+				KeyValueForm.ITEMTYPE_TEXT, true, 300,
+				MESSAGES.layerListClientWmsWizardStepGetCapabilitiesUrlTooltip(), null);
+		fields.add(capabilitiesTextField);
 		fields.add(new FormElement(WMS_USERNAME,
 				MESSAGES.layerListClientWmsWizardStepGetCapabilitiesUserNameLabel(), 150));
 		fields.add(new FormElement(WMS_PASSWORD,
@@ -57,11 +59,16 @@ public class GetCapabilitiesViewImpl implements CreateClientWmsPresenter.GetCapa
 
 		form = new KeyValueForm();
 		form.setWidth100();
-		form.setColWidths("200", "*");
+		//form.setColWidths("200", "*");
+		form.setColWidths("300");
 		form.updateFields(fields);
 
 		layout = new VLayout();
 		layout.addMember(form);
+	}
+
+	public void setCapabilitiesTextFieldTooltip(String tooltipText) {
+		capabilitiesTextField.setTooltip(tooltipText);
 	}
 
 	@Override
@@ -80,14 +87,20 @@ public class GetCapabilitiesViewImpl implements CreateClientWmsPresenter.GetCapa
 	}
 
 	@Override
-	public boolean validate() {
+	public boolean isValid() {
 		return form.validate();
+	}
+
+	@Override
+	public String getInvalidMessage() {
+		return MESSAGES.layerListClientWmsWizardStepGetCapabilitiesInvalidMessage();
 	}
 
 	@Override
 	public void sendDataToHandler() {
 		Map<String, String> data = form.getData();
-		handler.onGetCapabilities(data.get(GET_CAPABILITIES_URL),
-				data.get(GET_CAPABILITIES_VERSION), data.get(WMS_USERNAME),data.get(WMS_PASSWORD));
+		handler.setWarningLabelText(MESSAGES.layerListClientWmsWizardStepGetCapabilitiesStartSearch(), false);
+		handler.onFinisStepGetCapabilities(data.get(GET_CAPABILITIES_URL),
+				data.get(WMS_USERNAME), data.get(WMS_PASSWORD));
 	}
 }

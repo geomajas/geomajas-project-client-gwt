@@ -12,9 +12,15 @@
 package org.geomajas.widget.layer.gwt.example.client;
 
 import com.google.gwt.core.client.GWT;
+import com.smartgwt.client.types.Alignment;
 import com.smartgwt.client.widgets.Canvas;
+import com.smartgwt.client.widgets.ImgButton;
+import com.smartgwt.client.widgets.events.ClickEvent;
+import com.smartgwt.client.widgets.events.ClickHandler;
+import com.smartgwt.client.widgets.layout.Layout;
 import com.smartgwt.client.widgets.layout.VLayout;
 import org.geomajas.gwt.client.controller.PanController;
+import org.geomajas.gwt.client.util.WidgetLayout;
 import org.geomajas.gwt.client.widget.MapWidget;
 import org.geomajas.gwt.example.base.SamplePanel;
 import org.geomajas.gwt.example.base.SamplePanelFactory;
@@ -56,14 +62,39 @@ public class LayerListClientWmsSample extends SamplePanel {
 		mapLayout.addMember(map);
 
 		// Build the LayerList:
-		final LayerListClientWmsPresenter layersManagementPresenter = new LayerListClientWmsPresenterImpl(map);
+		VLayout layout = new VLayout();
+		layout.setWidth100();
+		layout.setHeight(300);
+
+		final LayerListClientWmsPresenterImpl layersManagementPresenter = new LayerListClientWmsPresenterImpl(map);
 		layersManagementPresenter.setDragDropEnabled(true);
-		Canvas canvas = (Canvas) layersManagementPresenter.getWidget();
-		canvas.setHeight(100);
-		canvas.setWidth100();
+
+		Layout addImgContainer = new Layout();
+		addImgContainer.setWidth(64 + 16); //16 from scroller in grid
+		addImgContainer.setAlign(Alignment.CENTER);
+		addImgContainer.setHeight(16);
+		addImgContainer.setLayoutAlign(Alignment.RIGHT);
+
+		ImgButton addImg = new ImgButton();
+		addImg.setSrc(WidgetLayout.iconAdd);
+		addImg.setShowDown(false);
+		addImg.setShowRollOver(false);
+		addImg.setPrompt("Add a layer");
+		addImg.setHeight(16);
+		addImg.setWidth(16);
+		addImg.addClickHandler(new ClickHandler() {
+			public void onClick(ClickEvent event) {
+				layersManagementPresenter.onAddClientWmsLayer();
+			}
+		});
+		addImgContainer.addMember(addImg);
+
+		layout.addMember(addImgContainer);
+		layout.addMember(layersManagementPresenter.getWidget());
+		layout.setBorder("1px solid");
 
 		// Add both to the main layout:
-		mainLayout.addMember(layersManagementPresenter.getWidget());
+		mainLayout.addMember(layout);
 		mainLayout.addMember(mapLayout);
 
 		return mainLayout;

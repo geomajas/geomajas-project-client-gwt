@@ -14,7 +14,6 @@ import com.google.gwt.user.client.ui.Widget;
 import com.smartgwt.client.widgets.Canvas;
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import static org.mockito.Mockito.stub;
@@ -51,8 +50,8 @@ public class CreateClientWmsPresenterImplTest extends BasicForPresenterMock {
 
 	@Test
 	public void onGetCapabilitiesTest() {
-		presenter.onGetCapabilities(
+		presenter.onFinisStepGetCapabilities(
 				"http://apps.geomajas.org/geoserver/ows?service=wms&version=1.3.0&request=GetCapabilities",
-				null, null, null);
+				null, null);
 	}
 }

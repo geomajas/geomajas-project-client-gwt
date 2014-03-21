@@ -15,9 +15,9 @@ import junit.framework.Assert;
 import org.geomajas.widget.layer.client.presenter.CreateClientWmsPresenter;
 import org.geomajas.widget.layer.client.presenter.LayerListClientWmsPresenter;
 import org.geomajas.widget.layer.client.presenter.LayerListPresenter;
-import org.geomajas.widget.layer.client.view.ControllerButtonsView;
-import org.geomajas.widget.layer.client.view.LayerListClientWmsView;
-import org.geomajas.widget.layer.client.view.LayerListView;
+import org.geomajas.widget.layer.client.view.ControllerButtonsViewImpl;
+import org.geomajas.widget.layer.client.view.LayerListDeletableClientWmsGrid;
+import org.geomajas.widget.layer.client.view.LayerListGrid;
 import org.geomajas.widget.layer.client.view.ViewFactory;
 import org.junit.Before;
 import org.junit.Test;
@@ -35,19 +35,22 @@ import org.mockito.MockitoAnnotations;
 public class BasicGwtMockTest {
 
 	@MockitoAnnotations.Mock
-	protected LayerListView layerListView;
+	protected LayerListGrid layerListView;
 
 	@MockitoAnnotations.Mock
-	protected LayerListClientWmsView layerListClientWmsView;
+	protected LayerListDeletableClientWmsGrid layerListClientWmsView;
 
 	@MockitoAnnotations.Mock
-	protected ControllerButtonsView controllerButtonsView;
+	protected ControllerButtonsViewImpl controllerButtonsView;
 
 	@MockitoAnnotations.Mock
 	protected CreateClientWmsPresenter.GetCapabilitiesView getCapabilitiesView;
 
 	@MockitoAnnotations.Mock
 	protected CreateClientWmsPresenter.SelectLayerView selectLayerView;
+
+	@MockitoAnnotations.Mock
+	protected CreateClientWmsPresenter.EditLayerSettingsView editLayerSettingsView;
 
 	@Before
 	public void setUp() {
@@ -77,6 +80,11 @@ public class BasicGwtMockTest {
 			public CreateClientWmsPresenter.SelectLayerView createSelectLayerView() {
 				return selectLayerView;
 			}
+
+			@Override
+			public CreateClientWmsPresenter.EditLayerSettingsView createEditLayerSettingsView() {
+				return editLayerSettingsView;
+			}
 		});
 	}
 
@@ -88,11 +96,13 @@ public class BasicGwtMockTest {
 		Assert.assertNotNull(controllerButtonsView);
 		Assert.assertNotNull(getCapabilitiesView);
 		Assert.assertNotNull(selectLayerView);
+		Assert.assertNotNull(editLayerSettingsView);
 
 		Assert.assertEquals(layerListView, Layer.getViewFactory().createLayerListView());
 		Assert.assertEquals(layerListClientWmsView, Layer.getViewFactory().createLayerListClientWmsView());
 		Assert.assertEquals(controllerButtonsView, Layer.getViewFactory().createControllerButtonsView());
 		Assert.assertEquals(getCapabilitiesView, Layer.getViewFactory().createGetCapabilitiesView());
 		Assert.assertEquals(selectLayerView, Layer.getViewFactory().createSelectLayerView());
+		Assert.assertEquals(editLayerSettingsView, Layer.getViewFactory().createEditLayerSettingsView());
 	}
 }

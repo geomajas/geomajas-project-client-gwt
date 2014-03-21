@@ -29,7 +29,6 @@ public class LayerListClientWmsPresenterImpl extends LayerListPresenterImpl
 
 	public LayerListClientWmsPresenterImpl(MapWidget mapwidget) {
 		super(mapwidget);
-		createClientWmsPresenter = new CreateClientWmsPresenterImpl(mapwidget);
 	}
 
 	@Override
@@ -42,6 +41,7 @@ public class LayerListClientWmsPresenterImpl extends LayerListPresenterImpl
 
 	@Override
 	public void onAddClientWmsLayer() {
+		createClientWmsPresenter = new CreateClientWmsPresenterImpl(getMapWidget());
 		createClientWmsPresenter.createClientWmsLayer(new Callback<ClientWmsLayerInfo, String>() {
 			@Override
 			public void onFailure(String s) {
@@ -51,6 +51,12 @@ public class LayerListClientWmsPresenterImpl extends LayerListPresenterImpl
 			@Override
 			public void onSuccess(ClientWmsLayerInfo clientWmsLayerInfo) {
 				getMapWidget().getMapModel().addLayer(clientWmsLayerInfo);
+				for (Layer<?> layer : getMapWidget().getMapModel().getLayers()) {
+					if (layer.getLayerInfo() instanceof ClientWmsLayerInfo) {
+						getMapWidget().refreshLayer(layer);
+					}
+				}
+
 				updateView();
 			}
 		});
