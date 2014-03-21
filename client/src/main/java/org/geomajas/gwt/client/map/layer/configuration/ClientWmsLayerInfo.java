@@ -84,7 +84,9 @@ public class ClientWmsLayerInfo extends ClientRasterLayerInfo {
 
 	@Override
 	public String getCrs() {
-		throw new UnsupportedOperationException();
+		//throw new UnsupportedOperationException();
+		// still return scale value for the moment
+		return super.getCrs();
 	}
 
 	@Override

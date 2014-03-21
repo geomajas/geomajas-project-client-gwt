@@ -17,7 +17,6 @@ import com.smartgwt.client.types.DragDataAction;
 import com.smartgwt.client.types.ListGridEditEvent;
 import com.smartgwt.client.types.ListGridFieldType;
 import com.smartgwt.client.types.SelectionStyle;
-import com.smartgwt.client.widgets.Canvas;
 import com.smartgwt.client.widgets.events.DropCompleteEvent;
 import com.smartgwt.client.widgets.events.DropCompleteHandler;
 import com.smartgwt.client.widgets.grid.ListGrid;
@@ -126,7 +125,8 @@ public class LayerListGrid  extends ListGrid implements LayerListPresenter.View 
 	}
 
 	/**
-	 * Extensible method to fill a {@link com.smartgwt.client.widgets.grid.ListGridRecord} based on the Layer information.
+	 * Extensible method to fill a {@link com.smartgwt.client.widgets.grid.ListGridRecord}
+	 * based on the Layer information.
 	 *
 	 * @param layer
 	 * @return

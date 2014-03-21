@@ -13,7 +13,6 @@ package org.geomajas.widget.layer.client.presenter;
 import com.google.gwt.core.client.Callback;
 import org.geomajas.geometry.Bbox;
 import org.geomajas.geometry.Coordinate;
-import org.geomajas.gwt.client.Geomajas;
 import org.geomajas.gwt.client.map.layer.ClientWmsLayer;
 import org.geomajas.gwt.client.map.layer.configuration.ClientWmsLayerInfo;
 import org.geomajas.gwt.client.widget.MapWidget;
@@ -123,13 +122,10 @@ public class CreateClientWmsPresenterImpl implements CreateClientWmsPresenter,
 	}
 
 	public void setWmsLayerInfos(List<WmsLayerInfo> wmsLayerInfoList) {
-		// filter out wms layers with crs of map
+		// do filter out wms layers with crs of map => info of layers is not complete on GetCapabilities
 		this.wmsLayerInfos = new ArrayList<WmsLayerInfo>();
-		String crs = mapWidget.getMapModel().getCrs();
 		for (WmsLayerInfo wmsLayerInfo : wmsLayerInfoList) {
-			if (wmsLayerInfo.getCrs().contains(crs)) {
-				wmsLayerInfos.add(wmsLayerInfo);
-			}
+			wmsLayerInfos.add(wmsLayerInfo);
 		}
 		selectLayerView.setWmsLayersData(wmsLayerInfos);
 	}
@@ -217,7 +213,7 @@ public class CreateClientWmsPresenterImpl implements CreateClientWmsPresenter,
 			}
 			controllerButtonsWindow.setSubTitle(currentStep.getTitle());
 			controllerButtonsWindow.setPreviousButtonEnabled(index > 0);
-			controllerButtonsWindow.setNextButtonEnabled(index +1 < wizardSteps.size());
+			controllerButtonsWindow.setNextButtonEnabled(index + 1 < wizardSteps.size());
 			controllerButtonsWindow.setWarningLabelText(null, false);
 
 			//only allow save on last step
@@ -247,7 +243,7 @@ public class CreateClientWmsPresenterImpl implements CreateClientWmsPresenter,
 	}
 
 	private boolean checkFullWmsUrl(String url) {
-		if (url!=null && url.contains("?")) {
+		if (url != null && url.contains("?")) {
 			String baseUrl = url.substring(0, url.indexOf("?"));
 			String parameterPart = url.substring(url.indexOf("?") + 1).toLowerCase();
 			if (!baseUrl.isEmpty() && parameterPart.contains("service=wms")
@@ -276,10 +272,13 @@ public class CreateClientWmsPresenterImpl implements CreateClientWmsPresenter,
 		wmsConfig.setVersion(selectedLayerInfo.getWmsVersion());
 		wmsConfig.setBaseUrl(selectedLayerInfo.getBaseWmsUrl());
 		wmsConfig.setTransparent(true);
-		wmsConfig.setMaximumResolution(0);
+		wmsConfig.setMaximumResolution(Double.MAX_VALUE);
 		wmsConfig.setMinimumResolution(1 / mapWidget.getMapModel().getMapInfo().getMaximumScale());
 
-		Bbox bounds = mapWidget.getMapModel().getMapInfo().getMaxBounds();
+		Bbox bounds = selectedLayerInfo.getWmsLayerInfo().getBoundingBox(mapWidget.getMapModel().getCrs());
+		if (bounds == null) {
+			bounds = mapWidget.getMapModel().getMapInfo().getInitialBounds();
+		}
 		WmsTileConfiguration tileConfig = new WmsTileConfiguration(256, 256,
 				new Coordinate(bounds.getX(), bounds.getY()));
 

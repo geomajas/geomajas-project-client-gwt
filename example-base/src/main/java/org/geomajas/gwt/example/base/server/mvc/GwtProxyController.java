@@ -33,11 +33,12 @@ import java.util.Enumeration;
 
 /**
  * Controller that proxies Ajax requests to a specified URL.
+ * Copied from Gwt2 client.
  * 
  * @author Pieter De Graef
  */
 @Controller("/proxy/**")
-public class StProxyController {
+public class GwtProxyController {
 
 	@RequestMapping(value = "/")
 	public final void proxyAjaxCall(@RequestParam(required = true, value = "url") String url,

@@ -11,10 +11,10 @@
 package org.geomajas.widget.layer.client.presenter;
 
 import org.geomajas.gwt.client.map.layer.InternalClientWmsLayer;
-import org.geomajas.gwt.client.map.layer.Layer;
 
 /**
- * Extension of {@link org.geomajas.widget.layer.client.presenter.LayerListPresenter} for adding/deleting ClientWms layers.
+ * Extension of {@link org.geomajas.widget.layer.client.presenter.LayerListPresenter}
+ * for adding/deleting ClientWms layers.
  * 
  * @author Jan Venstermans
  * 
@@ -33,9 +33,10 @@ public interface LayerListClientWmsPresenter extends LayerListPresenter {
 	 */
 	public interface Handler extends LayerListPresenter.Handler {
 
-		void onAddClientWmsLayer();
-
 		void onRemoveClientWmsLayer(InternalClientWmsLayer layer);
 	}
 
+	void setShowDeleteButtons(boolean showDeleteButtons);
+
+	void addClientWmsLayer();
 }

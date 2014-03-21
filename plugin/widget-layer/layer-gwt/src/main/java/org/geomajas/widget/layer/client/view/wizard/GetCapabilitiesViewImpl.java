@@ -48,7 +48,7 @@ public class GetCapabilitiesViewImpl implements CreateClientWmsPresenter.GetCapa
 		List<FormElement> fields = new ArrayList<FormElement>();
 		capabilitiesTextField = new FormElement(GET_CAPABILITIES_URL,
 				MESSAGES.layerListClientWmsWizardStepGetCapabilitiesUrlLabel(),
-				KeyValueForm.ITEMTYPE_TEXT, true, 300,
+				KeyValueForm.ITEMTYPE_TEXT, true, 500,
 				MESSAGES.layerListClientWmsWizardStepGetCapabilitiesUrlTooltip(), null);
 		fields.add(capabilitiesTextField);
 		fields.add(new FormElement(WMS_USERNAME,
@@ -60,7 +60,7 @@ public class GetCapabilitiesViewImpl implements CreateClientWmsPresenter.GetCapa
 		form = new KeyValueForm();
 		form.setWidth100();
 		//form.setColWidths("200", "*");
-		form.setColWidths("300");
+		//form.setColWidths("300");
 		form.updateFields(fields);
 
 		layout = new VLayout();

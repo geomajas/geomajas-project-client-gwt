@@ -26,7 +26,7 @@ import org.geomajas.widget.layer.client.i18n.LayerMessages;
 import org.geomajas.widget.layer.client.presenter.CreateClientWmsPresenter;
 
 /**
- * Inspired by {@link org.geomajas.plugin.deskmanager.client.gwt.manager.datalayer.NewLayerModelWizardWindow}
+ * Inspired by {@link org.geomajas.plugin.deskmanager.client.gwt.manager.datalayer.NewLayerModelWizardWindow}.
  * @author Kristof Heirwegh
  * @author Jan Venstermans
  */
@@ -173,8 +173,8 @@ public class ControllerButtonsViewImpl extends Window implements CreateClientWms
 	}
 
 	@Override
-	public void setControllersButtonHandler(CreateClientWmsPresenter.ControllersButtonHandler controllersButtonHandler) {
-		 this.controllersButtonHandler = controllersButtonHandler;
+	public void setControllersButtonHandler(CreateClientWmsPresenter.ControllersButtonHandler handler) {
+		 this.controllersButtonHandler = handler;
 	}
 
 	@Override
@@ -223,7 +223,7 @@ public class ControllerButtonsViewImpl extends Window implements CreateClientWms
 	}
 
 	@Override
-	public void setWarningLabelText(String text, boolean error){
+	public void setWarningLabelText(String text, boolean error) {
 	   if (text == null || text.isEmpty()) {
 		  warningLabel.clear();
 		  warningLabel.setVisible(false);

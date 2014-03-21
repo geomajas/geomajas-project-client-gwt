@@ -110,7 +110,6 @@ public interface LayerMessages extends Messages {
 
 	String layerListClientWmsWizardStepSelectLayerWindowTitle();
 	String layerListClientWmsWizardStepSelectLayerGridName();
-	String layerListClientWmsWizardStepSelectLayerGridCrs();
 	String layerListClientWmsWizardStepSelectLayerGridDescription();
 
 	String layerListGridClientWmsColumnDeleteName();
