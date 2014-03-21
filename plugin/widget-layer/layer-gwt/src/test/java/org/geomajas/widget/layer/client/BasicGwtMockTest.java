@@ -35,10 +35,10 @@ import org.mockito.MockitoAnnotations;
 public class BasicGwtMockTest {
 
 	@MockitoAnnotations.Mock
-	protected LayerListGrid layerListView;
+	protected LayerListPresenter.View layerListView;
 
 	@MockitoAnnotations.Mock
-	protected LayerListDeletableClientWmsGrid layerListClientWmsView;
+	protected LayerListClientWmsPresenter.View layerListClientWmsView;
 
 	@MockitoAnnotations.Mock
 	protected ControllerButtonsViewImpl controllerButtonsView;
