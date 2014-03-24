@@ -29,7 +29,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Default implementation of {@link LayerListClientWmsPresenter}.
+ * Default implementation of {@link DeletableLayerListPresenter}.
  *
  * @author Jan Venstermans
  *
@@ -41,8 +41,6 @@ public class CreateClientWmsPresenterImpl implements CreateClientWmsPresenter,
 	private ControllerButtonsView controllerButtonsWindow;
 
 	private MapWidget mapWidget;
-
-	private Callback<ClientWmsLayerInfo, String> callback;
 
 	/* wizard panels */
 	private List<WizardStepView> wizardSteps = new ArrayList<WizardStepView>();
@@ -116,8 +114,7 @@ public class CreateClientWmsPresenterImpl implements CreateClientWmsPresenter,
 	}
 
 	@Override
-	public void createClientWmsLayer(Callback<ClientWmsLayerInfo, String> callback) {
-		this.callback = callback;
+	public void createClientWmsLayer() {
 		showStep(0);
 		controllerButtonsWindow.show();
 	}
@@ -144,7 +141,6 @@ public class CreateClientWmsPresenterImpl implements CreateClientWmsPresenter,
 	public void onCancel() {
 		Log.logServer(Log.LEVEL_INFO, "Client WMS wizard finished " +
 				"without creating a ClientWmsLayerInfo object.");
-		callback.onFailure("Has been canceled");
 		controllerButtonsWindow.hide();
 	}
 
@@ -245,9 +241,16 @@ public class CreateClientWmsPresenterImpl implements CreateClientWmsPresenter,
 		ClientWmsLayerInfo wmsLayerInfo = createWmsLayerInfo();
 		Log.logServer(Log.LEVEL_INFO, "Client WMS wizard finished successfully, " +
 				"created ClientWmsLayerInfo: " + wmsLayerInfo.toString());
-		callback.onSuccess(wmsLayerInfo);
+
 		currentStep = null;
 		controllerButtonsWindow.hide();
+		mapWidget.getMapModel().addLayer(wmsLayerInfo);
+		for (org.geomajas.gwt.client.map.layer.Layer<?> layer : mapWidget.getMapModel().getLayers()) {
+			if (layer.getLayerInfo() instanceof ClientWmsLayerInfo) {
+				mapWidget.refreshLayer(layer);
+			}
+		}
+		Log.logServer(Log.LEVEL_INFO, "added layer to MapModel: " + wmsLayerInfo.toString());
 	}
 
 	private boolean checkFullWmsUrl(String url) {

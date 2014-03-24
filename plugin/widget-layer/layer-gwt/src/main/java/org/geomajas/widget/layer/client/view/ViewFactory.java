@@ -11,7 +11,7 @@
 package org.geomajas.widget.layer.client.view;
 
 import org.geomajas.widget.layer.client.presenter.CreateClientWmsPresenter;
-import org.geomajas.widget.layer.client.presenter.LayerListClientWmsPresenter;
+import org.geomajas.widget.layer.client.presenter.DeletableLayerListPresenter;
 import org.geomajas.widget.layer.client.presenter.LayerListPresenter;
 
 /**
@@ -24,7 +24,7 @@ public interface ViewFactory {
 
 	LayerListPresenter.View createLayerListView();
 
-	LayerListClientWmsPresenter.View createLayerListClientWmsView();
+	DeletableLayerListPresenter.View createLayerListClientWmsView();
 
 	CreateClientWmsPresenter.ControllerButtonsView createControllerButtonsView();
 

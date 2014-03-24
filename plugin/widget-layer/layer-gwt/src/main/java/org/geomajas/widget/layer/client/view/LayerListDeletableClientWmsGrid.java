@@ -19,7 +19,7 @@ import com.smartgwt.client.widgets.grid.events.CellClickHandler;
 import org.geomajas.gwt.client.map.layer.InternalClientWmsLayer;
 import org.geomajas.gwt.client.map.layer.Layer;
 import org.geomajas.gwt.client.util.WidgetLayout;
-import org.geomajas.widget.layer.client.presenter.LayerListClientWmsPresenter;
+import org.geomajas.widget.layer.client.presenter.DeletableLayerListPresenter;
 
 import java.util.List;
 
@@ -29,15 +29,15 @@ import java.util.List;
  * @author Jan Venstermans
  * 
  */
-public class LayerListDeletableClientWmsGrid extends LayerListGrid implements LayerListClientWmsPresenter.View {
+public class LayerListDeletableClientWmsGrid extends LayerListGrid implements DeletableLayerListPresenter.View {
 
 	public static final String FLD_DELETE = "fldDelete";
 	private static final int FLD_DELETE_WIDTH = 50;
 
-	private LayerListClientWmsPresenter.Handler handler;
+	private DeletableLayerListPresenter.Handler handler;
 
 	@Override
-	public void setHandler(LayerListClientWmsPresenter.Handler handler) {
+	public void setHandler(DeletableLayerListPresenter.Handler handler) {
 		super.setHandler(handler);
 		this.handler = handler;
 	}

@@ -17,6 +17,7 @@ import com.smartgwt.client.widgets.Canvas;
 import com.smartgwt.client.widgets.ImgButton;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
+import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.Layout;
 import com.smartgwt.client.widgets.layout.VLayout;
 import org.geomajas.gwt.client.controller.PanController;
@@ -24,17 +25,20 @@ import org.geomajas.gwt.client.util.WidgetLayout;
 import org.geomajas.gwt.client.widget.MapWidget;
 import org.geomajas.gwt.example.base.SamplePanel;
 import org.geomajas.gwt.example.base.SamplePanelFactory;
-import org.geomajas.widget.layer.client.presenter.LayerListClientWmsPresenterImpl;
+import org.geomajas.widget.layer.client.presenter.ClientLayerListPresenterImpl;
+import org.geomajas.widget.layer.client.presenter.CreateClientWmsPresenter;
+import org.geomajas.widget.layer.client.presenter.CreateClientWmsPresenterImpl;
+import org.geomajas.widget.layer.client.presenter.DeletableLayerListPresenterImpl;
 import org.geomajas.widget.layer.gwt.example.client.i18n.WidgetLayerExampleMessages;
 
 /**
  * <p>
- * Sample that shows the usage of the {@link org.geomajas.widget.layer.client.presenter.LayerListClientWmsPresenter}.
+ * Sample that shows the usage of the {@link org.geomajas.widget.layer.client.presenter.DeletableLayerListPresenter}.
  * </p>
  * 
  * @author Jan Venstermans
  */
-public class LayerListClientWmsSample extends SamplePanel {
+public class ClientWmsLayerListSample extends SamplePanel {
 
 	private static final WidgetLayerExampleMessages MESSAGES = GWT.create(WidgetLayerExampleMessages.class);
 
@@ -43,7 +47,7 @@ public class LayerListClientWmsSample extends SamplePanel {
 	public static final SamplePanelFactory FACTORY = new SamplePanelFactory() {
 
 		public SamplePanel createPanel() {
-			return new LayerListClientWmsSample();
+			return new ClientWmsLayerListSample();
 		}
 	};
 
@@ -65,9 +69,22 @@ public class LayerListClientWmsSample extends SamplePanel {
 		layout.setWidth(350);
 		layout.setHeight(200);
 
-		final LayerListClientWmsPresenterImpl layersManagementPresenter = new LayerListClientWmsPresenterImpl(map);
+		HLayout gridsLayout = new HLayout();
+		gridsLayout.setWidth100();
+		gridsLayout.setHeight100();
+
+		DeletableLayerListPresenterImpl layersManagementPresenter = new DeletableLayerListPresenterImpl(map);
 		layersManagementPresenter.setDragDropEnabled(true);
 		layersManagementPresenter.setShowDeleteButtons(false);
+
+		ClientLayerListPresenterImpl clientLayerListPresenter = new ClientLayerListPresenterImpl(map);
+		layersManagementPresenter.setDragDropEnabled(false);
+		layersManagementPresenter.setShowDeleteButtons(true);
+
+		final CreateClientWmsPresenter createClientWmsPresenter = new CreateClientWmsPresenterImpl(map);
+
+		gridsLayout.addMember(layersManagementPresenter.getWidget());
+		gridsLayout.addMember(clientLayerListPresenter.getWidget());
 
 		Layout addImgContainer = new Layout();
 		addImgContainer.setWidth(64 + 16); //16 from scroller in grid
@@ -84,13 +101,13 @@ public class LayerListClientWmsSample extends SamplePanel {
 		addImg.setWidth(16);
 		addImg.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
-				layersManagementPresenter.addClientWmsLayer();
+				createClientWmsPresenter.createClientWmsLayer();
 			}
 		});
 		addImgContainer.addMember(addImg);
 
 		layout.addMember(addImgContainer);
-		layout.addMember(layersManagementPresenter.getWidget());
+		layout.addMember(gridsLayout);
 		layout.setBorder("1px solid");
 
 		// Add both to the main layout:

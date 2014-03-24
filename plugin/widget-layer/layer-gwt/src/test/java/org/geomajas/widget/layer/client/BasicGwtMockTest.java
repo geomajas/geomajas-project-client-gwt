@@ -13,11 +13,9 @@ package org.geomajas.widget.layer.client;
 import com.google.gwtmockito.GwtMockitoTestRunner;
 import junit.framework.Assert;
 import org.geomajas.widget.layer.client.presenter.CreateClientWmsPresenter;
-import org.geomajas.widget.layer.client.presenter.LayerListClientWmsPresenter;
+import org.geomajas.widget.layer.client.presenter.DeletableLayerListPresenter;
 import org.geomajas.widget.layer.client.presenter.LayerListPresenter;
 import org.geomajas.widget.layer.client.view.ControllerButtonsViewImpl;
-import org.geomajas.widget.layer.client.view.LayerListDeletableClientWmsGrid;
-import org.geomajas.widget.layer.client.view.LayerListGrid;
 import org.geomajas.widget.layer.client.view.ViewFactory;
 import org.junit.Before;
 import org.junit.Test;
@@ -38,7 +36,7 @@ public class BasicGwtMockTest {
 	protected LayerListPresenter.View layerListView;
 
 	@MockitoAnnotations.Mock
-	protected LayerListClientWmsPresenter.View layerListClientWmsView;
+	protected DeletableLayerListPresenter.View layerListClientWmsView;
 
 	@MockitoAnnotations.Mock
 	protected ControllerButtonsViewImpl controllerButtonsView;
@@ -62,7 +60,7 @@ public class BasicGwtMockTest {
 			}
 
 			@Override
-			public LayerListClientWmsPresenter.View createLayerListClientWmsView() {
+			public DeletableLayerListPresenter.View createLayerListClientWmsView() {
 				return layerListClientWmsView;
 			}
 

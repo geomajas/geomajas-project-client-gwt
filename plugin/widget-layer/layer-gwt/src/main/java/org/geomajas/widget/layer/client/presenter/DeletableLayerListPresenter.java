@@ -19,7 +19,7 @@ import org.geomajas.gwt.client.map.layer.InternalClientWmsLayer;
  * @author Jan Venstermans
  * 
  */
-public interface LayerListClientWmsPresenter extends LayerListPresenter {
+public interface DeletableLayerListPresenter extends LayerListPresenter {
 
 	/**
 	 * ControllerButtonsViewImpl of the presenter.
@@ -37,6 +37,4 @@ public interface LayerListClientWmsPresenter extends LayerListPresenter {
 	}
 
 	void setShowDeleteButtons(boolean showDeleteButtons);
-
-	void addClientWmsLayer();
 }

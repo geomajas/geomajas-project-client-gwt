@@ -40,8 +40,8 @@ public class WidgetLayerExample implements EntryPoint {
 				"[ISOMORPHIC]/geomajas/osgeo/mapset.png", LayerListSample.TITLE, "Layertree",
 				LayerListSample.FACTORY));
 		SampleTreeNodeRegistry.addSampleTreeNode(new SampleTreeNode(messages.layerListClientWmsShowcaseTreeTitle(),
-				"[ISOMORPHIC]/geomajas/osgeo/mapset.png", LayerListClientWmsSample.TITLE, "Layertree",
-				LayerListClientWmsSample.FACTORY));
+				"[ISOMORPHIC]/geomajas/osgeo/mapset.png", ClientWmsLayerListSample.TITLE, "Layertree",
+				ClientWmsLayerListSample.FACTORY));
 	}
 
 	private void initialize() {

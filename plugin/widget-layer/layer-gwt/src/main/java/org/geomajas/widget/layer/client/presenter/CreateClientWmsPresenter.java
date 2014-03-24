@@ -123,5 +123,5 @@ public interface CreateClientWmsPresenter {
 		void onFinishStepSetLayerName(String layerName);
 	}
 
-	void createClientWmsLayer(Callback<ClientWmsLayerInfo, String> callback);
+	void createClientWmsLayer();
 }

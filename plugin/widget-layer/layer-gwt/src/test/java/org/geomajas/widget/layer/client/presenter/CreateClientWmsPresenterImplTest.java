@@ -12,21 +12,17 @@ package org.geomajas.widget.layer.client.presenter;
 
 import com.google.gwt.user.client.ui.Widget;
 import com.smartgwt.client.widgets.Canvas;
-import org.geomajas.plugin.wms.client.WmsClient;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
-import static org.mockito.Matchers.anyBoolean;
-import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.any;
 import static org.mockito.Mockito.stub;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.times;
 
 /**
- * Default implementation of {@link org.geomajas.widget.layer.client.presenter.LayerListClientWmsPresenter}.
+ * Default implementation of {@link DeletableLayerListPresenter}.
  *
  * @author Jan Venstermans
  *
@@ -73,7 +69,7 @@ public class CreateClientWmsPresenterImplTest extends BasicForPresenterMock {
 
 	@Test
 	public void onGetCapabilitiesUrlIncorrectTest() {
-		presenter.createClientWmsLayer(null);
+		presenter.createClientWmsLayer();
 		// no params
 		Mockito.reset(controllerButtonsView);
 		presenter.onFinisStepGetCapabilities(

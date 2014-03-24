@@ -18,25 +18,25 @@ import org.geomajas.gwt.client.util.Log;
 import org.geomajas.gwt.client.widget.MapWidget;
 
 /**
- * Default implementation of {@link org.geomajas.widget.layer.client.presenter.LayerListClientWmsPresenter}.
+ * Default implementation of {@link DeletableLayerListPresenter}.
  *
  * @author Jan Venstermans
  *
  */
-public class LayerListClientWmsPresenterImpl extends LayerListPresenterImpl
-		implements LayerListClientWmsPresenter, LayerListClientWmsPresenter.Handler {
+public class DeletableLayerListPresenterImpl extends LayerListPresenterImpl
+		implements DeletableLayerListPresenter, DeletableLayerListPresenter.Handler {
 
 	private CreateClientWmsPresenter createClientWmsPresenter;
 
 	private boolean showDeleteButtons = true;
 
-	public LayerListClientWmsPresenterImpl(MapWidget mapwidget) {
+	public DeletableLayerListPresenterImpl(MapWidget mapwidget) {
 		super(mapwidget);
 	}
 
 	@Override
 	protected LayerListPresenter.View createViewInConstructor() {
-		LayerListClientWmsPresenter.View view = org.geomajas.widget.layer.client.Layer.getViewFactory().
+		DeletableLayerListPresenter.View view = org.geomajas.widget.layer.client.Layer.getViewFactory().
 				createLayerListClientWmsView();
 		view.setHandler(this);
 		return view;
@@ -53,24 +53,6 @@ public class LayerListClientWmsPresenterImpl extends LayerListPresenterImpl
 			//change view
 			setView(showDeleteButtons ? createViewInConstructor() : super.createViewInConstructor());
 		}
-	}
-
-	@Override
-	public void addClientWmsLayer() {
-		createClientWmsPresenter = new CreateClientWmsPresenterImpl(getMapWidget());
-		createClientWmsPresenter.createClientWmsLayer(new Callback<ClientWmsLayerInfo, String>() {
-			@Override
-			public void onFailure(String s) {
-				// notify
-			}
-
-			@Override
-			public void onSuccess(ClientWmsLayerInfo clientWmsLayerInfo) {
-				getMapWidget().getMapModel().addLayer(clientWmsLayerInfo);
-				Log.logServer(Log.LEVEL_INFO, "added layer to MapModel: " + clientWmsLayerInfo.toString());
-				updateMapForClientLayers();
-			}
-		});
 	}
 
 	@Override
