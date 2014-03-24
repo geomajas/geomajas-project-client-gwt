@@ -368,52 +368,55 @@ public class GeometryRendererImpl implements GeometryRenderer, GeometryEditStart
 	// ------------------------------------------------------------------------
 
 	public void onTentativeMove(GeometryEditTentativeMoveEvent event) {
-		try {
-			Coordinate[] vertices = editingService.getIndexService().getSiblingVertices(editingService.getGeometry(),
-					editingService.getInsertIndex());
-			String geometryType = editingService.getIndexService().getGeometryType(editingService.getGeometry(),
-					editingService.getInsertIndex());
+		if (editingService.getInsertIndex() != null) {
+			try {
+				Coordinate[] vertices = editingService.getIndexService().getSiblingVertices(
+						editingService.getGeometry(), editingService.getInsertIndex());
+				String geometryType = editingService.getIndexService().getGeometryType(editingService.getGeometry(),
+						editingService.getInsertIndex());
 
-			if (vertices != null && Geometry.LINE_STRING.equals(geometryType)) {
-				String identifier = baseName + "."
-						+ editingService.getIndexService().format(editingService.getInsertIndex());
-				Object parentGroup = groups.get(identifier.substring(0, identifier.lastIndexOf('.')) + ".edges");
+				if (vertices != null && Geometry.LINE_STRING.equals(geometryType)) {
+					String identifier = baseName + "."
+							+ editingService.getIndexService().format(editingService.getInsertIndex());
+					Object parentGroup = groups.get(identifier.substring(0, identifier.lastIndexOf('.')) + ".edges");
 
-				Coordinate temp1 = event.getOrigin();
-				Coordinate temp2 = event.getCurrentPosition();
-				Coordinate c1 = mapWidget.getMapModel().getMapView().getWorldViewTransformer().worldToPan(temp1);
-				Coordinate c2 = mapWidget.getMapModel().getMapView().getWorldViewTransformer().worldToPan(temp2);
+					Coordinate temp1 = event.getOrigin();
+					Coordinate temp2 = event.getCurrentPosition();
+					Coordinate c1 = mapWidget.getMapModel().getMapView().getWorldViewTransformer().worldToPan(temp1);
+					Coordinate c2 = mapWidget.getMapModel().getMapView().getWorldViewTransformer().worldToPan(temp2);
 
-				LineString edge = mapWidget.getMapModel().getGeometryFactory()
-						.createLineString(new Coordinate[] { c1, c2 });
-				mapWidget.getVectorContext().drawLine(parentGroup, insertMoveEdgeId1, edge,
-						styleService.getEdgeTentativeMoveStyle());
-			} else if (vertices != null && Geometry.LINEAR_RING.equals(geometryType)) {
-				String identifier = baseName + "."
-						+ editingService.getIndexService().format(editingService.getInsertIndex());
-				Object parentGroup = groups.get(identifier.substring(0, identifier.lastIndexOf('.')) + ".edges");
-
-				// Line 1
-				Coordinate temp1 = event.getOrigin();
-				Coordinate temp2 = event.getCurrentPosition();
-				Coordinate c1 = mapWidget.getMapModel().getMapView().getWorldViewTransformer().worldToPan(temp1);
-				Coordinate c2 = mapWidget.getMapModel().getMapView().getWorldViewTransformer().worldToPan(temp2);
-				LineString edge = mapWidget.getMapModel().getGeometryFactory()
-						.createLineString(new Coordinate[] { c1, c2 });
-				mapWidget.getVectorContext().drawLine(parentGroup, insertMoveEdgeId1, edge,
-						styleService.getEdgeTentativeMoveStyle());
-
-				// Line 2
-				if (styleService.isCloseRingWhileInserting()) {
-					temp1 = vertices[vertices.length - 1];
-					c1 = mapWidget.getMapModel().getMapView().getWorldViewTransformer().worldToPan(temp1);
-					edge = mapWidget.getMapModel().getGeometryFactory().createLineString(new Coordinate[] { c1, c2 });
-					mapWidget.getVectorContext().drawLine(parentGroup, insertMoveEdgeId2, edge,
+					LineString edge = mapWidget.getMapModel().getGeometryFactory()
+							.createLineString(new Coordinate[] { c1, c2 });
+					mapWidget.getVectorContext().drawLine(parentGroup, insertMoveEdgeId1, edge,
 							styleService.getEdgeTentativeMoveStyle());
+				} else if (vertices != null && Geometry.LINEAR_RING.equals(geometryType)) {
+					String identifier = baseName + "."
+							+ editingService.getIndexService().format(editingService.getInsertIndex());
+					Object parentGroup = groups.get(identifier.substring(0, identifier.lastIndexOf('.')) + ".edges");
+
+					// Line 1
+					Coordinate temp1 = event.getOrigin();
+					Coordinate temp2 = event.getCurrentPosition();
+					Coordinate c1 = mapWidget.getMapModel().getMapView().getWorldViewTransformer().worldToPan(temp1);
+					Coordinate c2 = mapWidget.getMapModel().getMapView().getWorldViewTransformer().worldToPan(temp2);
+					LineString edge = mapWidget.getMapModel().getGeometryFactory()
+							.createLineString(new Coordinate[] { c1, c2 });
+					mapWidget.getVectorContext().drawLine(parentGroup, insertMoveEdgeId1, edge,
+							styleService.getEdgeTentativeMoveStyle());
+
+					// Line 2
+					if (styleService.isCloseRingWhileInserting()) {
+						temp1 = vertices[vertices.length - 1];
+						c1 = mapWidget.getMapModel().getMapView().getWorldViewTransformer().worldToPan(temp1);
+						edge = mapWidget.getMapModel().getGeometryFactory()
+								.createLineString(new Coordinate[] { c1, c2 });
+						mapWidget.getVectorContext().drawLine(parentGroup, insertMoveEdgeId2, edge,
+								styleService.getEdgeTentativeMoveStyle());
+					}
 				}
+			} catch (GeometryIndexNotFoundException e) {
+				throw new IllegalStateException(e);
 			}
-		} catch (GeometryIndexNotFoundException e) {
-			throw new IllegalStateException(e);
 		}
 	}
 
@@ -657,6 +660,7 @@ public class GeometryRendererImpl implements GeometryRenderer, GeometryEditStart
 			int max = coordinates.length;
 			if (!styleService.isCloseRingWhileInserting()
 					&& editingService.getEditingState() == GeometryEditState.INSERTING
+					&& editingService.getInsertIndex() != null
 					&& editingService.getIndexService().isChildOf(parentIndex, editingService.getInsertIndex())) {
 				max--;
 			}

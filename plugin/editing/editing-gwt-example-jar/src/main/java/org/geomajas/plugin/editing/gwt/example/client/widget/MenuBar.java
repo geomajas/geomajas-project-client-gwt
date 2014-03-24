@@ -192,8 +192,28 @@ public class MenuBar extends ToolStrip implements GeometryEditValidationHandler 
 				}
 			}
 		});
+		
+		MenuItem multiPolyItem = new MenuItem("Draw MultiPolygon", "[ISOMORPHIC]/geomajas/osgeo/polygon-create.png");
+		multiPolyItem.addClickHandler(new ClickHandler() {
 
-		menu.setItems(pointItem, lineItem, polyItem);
+			public void onClick(MenuItemClickEvent event) {
+				stopEditingServiceIfStarted();
+				Geometry polygon = new Geometry(Geometry.MULTI_POLYGON, 0, 0);
+				editor.getEditService().start(polygon);
+//				try {
+//					GeometryIndex index = editor.getEditService().addEmptyChild();
+//					editor.getEditService().setInsertIndex(
+//							editor.getEditService().getIndexService()
+//									.addChildren(index, GeometryIndexType.TYPE_VERTEX, 0));
+					editor.getEditService().setEditingState(GeometryEditState.INSERTING);
+//				} catch (GeometryOperationFailedException e) {
+//					editor.getEditService().stop();
+//					Window.alert("Exception during editing: " + e.getMessage());
+//				}
+			}
+		});
+
+		menu.setItems(pointItem, lineItem, polyItem, multiPolyItem);
 
 		ToolStripMenuButton menuButton = new ToolStripMenuButton("Free drawing", menu);
 		menuButton.setWidth(100);
