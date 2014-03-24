@@ -67,7 +67,7 @@ public class LayerListClientWmsPresenterImpl extends LayerListPresenterImpl
 			@Override
 			public void onSuccess(ClientWmsLayerInfo clientWmsLayerInfo) {
 				getMapWidget().getMapModel().addLayer(clientWmsLayerInfo);
-				Log.logInfo("added layer to MapModel: " + clientWmsLayerInfo.toString());
+				Log.logServer(Log.LEVEL_INFO, "added layer to MapModel: " + clientWmsLayerInfo.toString());
 				updateMapForClientLayers();
 			}
 		});

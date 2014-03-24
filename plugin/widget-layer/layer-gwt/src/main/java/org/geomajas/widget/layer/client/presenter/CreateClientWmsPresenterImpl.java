@@ -142,7 +142,8 @@ public class CreateClientWmsPresenterImpl implements CreateClientWmsPresenter,
 
 	@Override
 	public void onCancel() {
-		Log.logInfo("Client WMS wizard finished without creating a ClientWmsLayerInfo object.");
+		Log.logServer(Log.LEVEL_INFO, "Client WMS wizard finished " +
+				"without creating a ClientWmsLayerInfo object.");
 		callback.onFailure("Has been canceled");
 		controllerButtonsWindow.hide();
 	}
@@ -220,6 +221,8 @@ public class CreateClientWmsPresenterImpl implements CreateClientWmsPresenter,
 
 			//only allow save on last step
 			controllerButtonsWindow.setSaveButtonEnabled(index + 1 == wizardSteps.size());
+			Log.logServer(Log.LEVEL_INFO, "Client WMS layer wizard, current step "
+					+ (currentStep != null ? currentStep.getClass().toString() : "none"));
 		} else {
 			controllerButtonsWindow.hide();
 		}
@@ -240,7 +243,8 @@ public class CreateClientWmsPresenterImpl implements CreateClientWmsPresenter,
 
 	private void finishWizard() {
 		ClientWmsLayerInfo wmsLayerInfo = createWmsLayerInfo();
-		Log.logInfo("Client WMS wizard finished successfully, created ClientWmsLayerInfo: " + wmsLayerInfo.toString());
+		Log.logServer(Log.LEVEL_INFO, "Client WMS wizard finished successfully, " +
+				"created ClientWmsLayerInfo: " + wmsLayerInfo.toString());
 		callback.onSuccess(wmsLayerInfo);
 		currentStep = null;
 		controllerButtonsWindow.hide();
