@@ -128,4 +128,19 @@ public class ClientWmsLayerInfo extends ClientRasterLayerInfo {
 	public void setMaxExtent(Bbox maxExtent) {
 		throw new UnsupportedOperationException();
 	}
+
+	@Override
+	public String toString() {
+		return "ClientWmsLayerInfo{" +
+				"id=" + getId() + ", " +
+				"crs=" + getCrs() + ", " +
+				"layerType=" + getLayerType() + ", " +
+				"label=" + getLabel() + ", " +
+				"minScale=" + getMinimumScale().getPixelPerUnit() + ", " +
+				"maxScale=" + getMaximumScale().getPixelPerUnit() + ", " +
+				"serverLayerId=" + getServerLayerId() + ", " +
+				"style=" + getStyle() + ", " +
+				"ClientWmsLayer=" + wmsLayer.toString() +
+				'}';
+	}
 }
