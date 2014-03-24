@@ -56,7 +56,7 @@ public class LayerListClientWmsSample extends SamplePanel {
 		VLayout mapLayout = new VLayout();
 		mapLayout.setShowEdges(true);
 		//final MapWidget map = new MapWidget("mapLegend", "gwtExample");
-		final MapWidget map = new MapWidget("mapWmsClientWithResolutions", "appWmsClient");
+		final MapWidget map = new MapWidget("mapWmsClientWithResolutions", "appWidgetLayer");
 		map.setController(new PanController(map));
 		mapLayout.addMember(map);
 
@@ -104,12 +104,18 @@ public class LayerListClientWmsSample extends SamplePanel {
 		return MESSAGES.layerListClientWmsDescription();
 	}
 
-	public String[] getConfigurationFiles() {
+	/*public String[] getConfigurationFiles() {
 		return new String[] { "classpath:org/geomajas/gwt/example/context/mapLegend.xml",
 				"classpath:org/geomajas/gwt/example/base/layerLakes110m.xml",
 				"classpath:org/geomajas/gwt/example/base/layerRivers50m.xml",
 				"classpath:org/geomajas/gwt/example/base/layerPopulatedPlaces110m.xml",
-				"classpath:org/geomajas/gwt/example/base/layerWmsBluemarble.xml" };
+				"classpath:org/geomajas/gwt/example/base/layerWmsBluemarble.xml" };*/
+		public String[] getConfigurationFiles() {
+			return new String[] {
+					"classpath:org/geomajas/widget/layer/gwt/example/context/appWidgetLayer.xml",
+					"classpath:org/geomajas/widget/layer/gwt/example/context/mapLayerList.xml",
+					"classpath:org/geomajas/widget/layer/gwt/example/context/mapWmsClientWithResolutions.xml",
+					"classpath:org/geomajas/widget/layer/gwt/example/context/layerPopulatedPlaces110m.xml"};
 	}
 
 	public String ensureUserLoggedIn() {

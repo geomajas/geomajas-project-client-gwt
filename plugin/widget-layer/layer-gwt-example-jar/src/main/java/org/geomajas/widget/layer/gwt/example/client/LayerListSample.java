@@ -50,7 +50,7 @@ public class LayerListSample extends SamplePanel {
 		// Build a map, and set a PanController:
 		VLayout mapLayout = new VLayout();
 		mapLayout.setShowEdges(true);
-		final MapWidget map = new MapWidget("mapLegend", "gwtExample");
+		final MapWidget map = new MapWidget("mapLayerList", "appWidgetLayer");
 		map.setController(new PanController(map));
 		mapLayout.addMember(map);
 
@@ -73,11 +73,11 @@ public class LayerListSample extends SamplePanel {
 	}
 
 	public String[] getConfigurationFiles() {
-		return new String[] { "classpath:org/geomajas/gwt/example/context/mapLegend.xml",
-				"classpath:org/geomajas/gwt/example/base/layerLakes110m.xml",
-				"classpath:org/geomajas/gwt/example/base/layerRivers50m.xml",
-				"classpath:org/geomajas/gwt/example/base/layerPopulatedPlaces110m.xml",
-				"classpath:org/geomajas/gwt/example/base/layerWmsBluemarble.xml" };
+		return new String[] {
+				"classpath:org/geomajas/widget/layer/gwt/example/context/appWidgetLayer.xml",
+				"classpath:org/geomajas/widget/layer/gwt/example/context/mapLayerList.xml",
+				"classpath:org/geomajas/widget/layer/gwt/example/context/mapWmsClientWithResolutions.xml",
+				"classpath:org/geomajas/widget/layer/gwt/example/context/layerPopulatedPlaces110m.xml"};
 	}
 
 	public String ensureUserLoggedIn() {

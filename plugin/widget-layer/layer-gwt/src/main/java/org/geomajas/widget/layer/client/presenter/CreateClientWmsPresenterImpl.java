@@ -15,6 +15,7 @@ import org.geomajas.geometry.Bbox;
 import org.geomajas.geometry.Coordinate;
 import org.geomajas.gwt.client.map.layer.ClientWmsLayer;
 import org.geomajas.gwt.client.map.layer.configuration.ClientWmsLayerInfo;
+import org.geomajas.gwt.client.util.Log;
 import org.geomajas.gwt.client.widget.MapWidget;
 import org.geomajas.plugin.wms.client.WmsClient;
 import org.geomajas.plugin.wms.client.capabilities.WmsGetCapabilitiesInfo;
@@ -141,6 +142,7 @@ public class CreateClientWmsPresenterImpl implements CreateClientWmsPresenter,
 
 	@Override
 	public void onCancel() {
+		Log.logInfo("Client WMS wizard finished without creating a ClientWmsLayerInfo object.");
 		callback.onFailure("Has been canceled");
 		controllerButtonsWindow.hide();
 	}
@@ -237,7 +239,9 @@ public class CreateClientWmsPresenterImpl implements CreateClientWmsPresenter,
 	}
 
 	private void finishWizard() {
-		callback.onSuccess(createWmsLayerInfo());
+		ClientWmsLayerInfo wmsLayerInfo = createWmsLayerInfo();
+		Log.logInfo("Client WMS wizard finished successfully, created ClientWmsLayerInfo: " + wmsLayerInfo.toString());
+		callback.onSuccess(wmsLayerInfo);
 		currentStep = null;
 		controllerButtonsWindow.hide();
 	}

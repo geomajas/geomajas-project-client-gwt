@@ -14,6 +14,7 @@ import com.google.gwt.core.client.Callback;
 import org.geomajas.gwt.client.map.layer.InternalClientWmsLayer;
 import org.geomajas.gwt.client.map.layer.Layer;
 import org.geomajas.gwt.client.map.layer.configuration.ClientWmsLayerInfo;
+import org.geomajas.gwt.client.util.Log;
 import org.geomajas.gwt.client.widget.MapWidget;
 
 /**
@@ -66,6 +67,7 @@ public class LayerListClientWmsPresenterImpl extends LayerListPresenterImpl
 			@Override
 			public void onSuccess(ClientWmsLayerInfo clientWmsLayerInfo) {
 				getMapWidget().getMapModel().addLayer(clientWmsLayerInfo);
+				Log.logInfo("added layer to MapModel: " + clientWmsLayerInfo.toString());
 				updateMapForClientLayers();
 			}
 		});

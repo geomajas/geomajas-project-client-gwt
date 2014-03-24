@@ -24,9 +24,10 @@ http://www.springframework.org/schema/tx http://www.springframework.org/schema/t
 	<context:component-scan base-package="org.geomajas.layer.google.gwt.example"
 							name-generator="org.geomajas.spring.GeomajasBeanNameGenerator"/>
 
-	<bean name="appWmsClient" class="org.geomajas.configuration.client.ClientApplicationInfo">
+	<bean name="appWidgetLayer" class="org.geomajas.configuration.client.ClientApplicationInfo">
 		<property name="maps">
 			<list>
+				<ref bean="mapLayerList"/>
 				<ref bean="mapWmsClientWithResolutions"/>
 			</list>
 		</property>
