@@ -49,6 +49,7 @@
 			</activation>
 			<modules>
                 <module>layer-gwt-example</module>
+                <module>layer-gwt-example-jar</module>
 				<module>layer-documentation</module>
 			</modules>
 		</profile>

@@ -11,7 +11,7 @@
 package org.geomajas.widget.layer.editor.client;
 
 import org.geomajas.gwt.client.util.Notify;
-import org.geomajas.widget.layer.client.LayerMessages;
+import org.geomajas.widget.layer.client.i18n.LayerMessages;
 import org.geomajas.widget.layer.configuration.client.ClientBranchNodeInfo;
 
 import com.google.gwt.core.client.GWT;
