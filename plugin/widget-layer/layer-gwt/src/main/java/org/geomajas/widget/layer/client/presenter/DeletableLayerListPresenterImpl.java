@@ -57,22 +57,11 @@ public class DeletableLayerListPresenterImpl extends LayerListPresenterImpl
 
 	@Override
 	public void onRemoveClientWmsLayer(InternalClientWmsLayer layer) {
-		layer.setVisible(false);
-		updateMapForClientLayers();
+		getMapWidget().getMapModel().removeLayer(layer);
 	}
 
 	@Override
 	public void onToggleVisibility(Layer layer) {
 		super.onToggleVisibility(layer);
-		updateMapForClientLayers();
-	}
-
-	private void updateMapForClientLayers() {
-		for (Layer<?> layer : getMapWidget().getMapModel().getLayers()) {
-			if (layer.getLayerInfo() instanceof ClientWmsLayerInfo) {
-				getMapWidget().refreshLayer(layer);
-			}
-		}
-		updateView();
 	}
 }

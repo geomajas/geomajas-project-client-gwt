@@ -245,11 +245,6 @@ public class CreateClientWmsPresenterImpl implements CreateClientWmsPresenter,
 		currentStep = null;
 		controllerButtonsWindow.hide();
 		mapWidget.getMapModel().addLayer(wmsLayerInfo);
-		for (org.geomajas.gwt.client.map.layer.Layer<?> layer : mapWidget.getMapModel().getLayers()) {
-			if (layer.getLayerInfo() instanceof ClientWmsLayerInfo) {
-				mapWidget.refreshLayer(layer);
-			}
-		}
 		Log.logServer(Log.LEVEL_INFO, "added layer to MapModel: " + wmsLayerInfo.toString());
 	}
 

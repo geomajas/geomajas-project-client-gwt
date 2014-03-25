@@ -93,11 +93,6 @@ public class WmsSample extends SamplePanel {
 
 				mapWidget.getMapModel().addLayer(createSampleWmsLayerInfo(txtLayer.getValueAsString(),
 						txtURL.getValueAsString()));
-				for (Layer<?> layer : mapWidget.getMapModel().getLayers()) {
-					if (layer.getLayerInfo() instanceof ClientWmsLayerInfo) {
-						mapWidget.refreshLayer(layer);
-					}
-				}
 
 			}
 		});

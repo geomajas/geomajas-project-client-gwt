@@ -507,7 +507,7 @@ public class MapModel implements Paintable, MapViewChangedHandler, HasFeatureSel
 		// replace layers by new layers
 		removeAllLayers();
 		for (ClientLayerInfo layerInfo : mapInfo.getLayers()) {
-			addLayer(layerInfo);
+			addLayerWithoutFireEvent(layerInfo);
 		}
 
 		Bbox maxBounds = new Bbox(mapInfo.getMaxBounds());
@@ -1051,11 +1051,21 @@ public class MapModel implements Paintable, MapViewChangedHandler, HasFeatureSel
 	}
 
 	/**
-	 * Add a layer to the map.
+	 * Add a layer to the map and fire an event for update.
 	 *
 	 * @param layerInfo the client layer info
 	 */
 	public void addLayer(ClientLayerInfo layerInfo) {
+		addLayerWithoutFireEvent(layerInfo);
+		handlerManager.fireEvent(new MapModelChangedEvent(this));
+	}
+
+	/**
+	 * Add a layer to the map, but do not fire an event for update.
+	 *
+	 * @param layerInfo the client layer info
+	 */
+	private void addLayerWithoutFireEvent(ClientLayerInfo layerInfo) {
 		switch (layerInfo.getLayerType()) {
 			case RASTER:
 				if (layerInfo instanceof ClientWmsLayerInfo) {
@@ -1072,6 +1082,19 @@ public class MapModel implements Paintable, MapViewChangedHandler, HasFeatureSel
 				layers.add(vectorLayer);
 				vectorLayer.addFeatureSelectionHandler(selectionPropagator);
 				break;
+		}
+		handlerManager.fireEvent(new MapModelChangedEvent(this));
+	}
+
+	/**
+	 * Remove a layer from the map.
+	 *
+	 * @param layer the layer to remove
+	 */
+	public void removeLayer(Layer layer) {
+		if (layers.contains(layer)) {
+			layers.remove(layer);
+			handlerManager.fireEvent(new MapModelChangedEvent(this));
 		}
 	}
 
