@@ -15,17 +15,5 @@
 http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
 http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd
 http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.0.xsd">
-	<import resource="classpath:org/geomajas/gwt/example/base/layer*.xml"/>
-	<import resource="classpath:org/geomajas/gwt/example/base/tools.xml"/>
-	<bean name="XxxYyyZzz" class="org.geomajas.configuration.AttributeInfo">
-		<property name="name" value="xyz" />
-		<property name="label" value="xyz" />
-	</bean>
-	<import resource="classpath:org/geomajas/gwt/example/context/layer*.xml"/>
-	<import resource="classpath:org/geomajas/gwt/example/context/map*.xml"/>
-	<import resource="classpath:org/geomajas/gwt/example/context/app*.xml"/>
 
-	<import resource="classpath:org/geomajas/widget/layer/gwt/example/context/appWidgetLayer.xml"/>
-	<import resource="classpath:org/geomajas/widget/layer/gwt/example/context/mapWmsClientWithResolutions.xml"/>
-	<import resource="classpath:org/geomajas/widget/layer/gwt/example/context/layerWmsBluemarble.xml"/>
 </beans>
