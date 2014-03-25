@@ -10,35 +10,41 @@
  */
 package org.geomajas.widget.layer.client.presenter;
 
-import com.google.gwt.core.client.Callback;
 import org.geomajas.gwt.client.map.layer.InternalClientWmsLayer;
 import org.geomajas.gwt.client.map.layer.Layer;
-import org.geomajas.gwt.client.map.layer.configuration.ClientWmsLayerInfo;
-import org.geomajas.gwt.client.util.Log;
 import org.geomajas.gwt.client.widget.MapWidget;
 
 /**
- * Default implementation of {@link DeletableLayerListPresenter}.
+ * Default implementation of {@link RemovableLayerListPresenter}.
  *
  * @author Jan Venstermans
  *
  */
-public class DeletableLayerListPresenterImpl extends LayerListPresenterImpl
-		implements DeletableLayerListPresenter, DeletableLayerListPresenter.Handler {
+public class RemovableLayerListPresenterImpl extends LayerListPresenterImpl
+		implements RemovableLayerListPresenter, RemovableLayerListPresenter.Handler {
 
-	private CreateClientWmsPresenter createClientWmsPresenter;
+	private boolean showDeleteButtons;
 
-	private boolean showDeleteButtons = true;
+	private String removeIconUrl;
 
-	public DeletableLayerListPresenterImpl(MapWidget mapwidget) {
+	public RemovableLayerListPresenterImpl(MapWidget mapwidget) {
 		super(mapwidget);
+		showDeleteButtons = true;
 	}
 
 	@Override
 	protected LayerListPresenter.View createViewInConstructor() {
-		DeletableLayerListPresenter.View view = org.geomajas.widget.layer.client.Layer.getViewFactory().
-				createLayerListClientWmsView();
+		return createLayerListWithRemoveButtonView();
+	}
+
+	protected RemovableLayerListPresenter.View createLayerListWithRemoveButtonView() {
+		RemovableLayerListPresenter.View view = org.geomajas.widget.layer.client.Layer.getViewFactory().
+				createLayerListWithRemoveButtonView();
 		view.setHandler(this);
+		view.setDragDropEnabled(isDragDropEnabled());
+		if (removeIconUrl != null) {
+			view.setRemoveIconUrl(removeIconUrl);
+		}
 		return view;
 	}
 
@@ -51,7 +57,15 @@ public class DeletableLayerListPresenterImpl extends LayerListPresenterImpl
 		if (this.showDeleteButtons != showDeleteButtons) {
 			this.showDeleteButtons = showDeleteButtons;
 			//change view
-			setView(showDeleteButtons ? createViewInConstructor() : super.createViewInConstructor());
+			setView(showDeleteButtons ? createLayerListWithRemoveButtonView() : createLayerListView());
+		}
+	}
+
+	@Override
+	public void setRemoveIconUrl(String removeIconUrl) {
+		this.removeIconUrl = removeIconUrl;
+		if (getView() instanceof RemovableLayerListPresenter.View) {
+			((RemovableLayerListPresenter.View) getView()).setRemoveIconUrl(removeIconUrl);
 		}
 	}
 

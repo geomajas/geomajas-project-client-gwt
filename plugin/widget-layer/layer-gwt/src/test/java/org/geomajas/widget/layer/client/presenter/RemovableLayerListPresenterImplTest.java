@@ -25,13 +25,13 @@ import static org.mockito.Mockito.verify;
  * @author Jan Venstermans
  *
  */
-public class DeletableLayerListPresenterImplTest extends BasicForPresenterMock {
+public class RemovableLayerListPresenterImplTest extends BasicForPresenterMock {
 
-	private DeletableLayerListPresenterImpl presenter;
+	private RemovableLayerListPresenterImpl presenter;
 
 	@Before
 	public void before() {
-		presenter = new DeletableLayerListPresenterImpl(mapwidget);
+		presenter = new RemovableLayerListPresenterImpl(mapwidget);
 	}
 
 	@Test

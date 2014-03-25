@@ -22,7 +22,7 @@ import static org.mockito.Mockito.stub;
 import static org.mockito.Mockito.verify;
 
 /**
- * Default implementation of {@link DeletableLayerListPresenter}.
+ * Default implementation of {@link RemovableLayerListPresenter}.
  *
  * @author Jan Venstermans
  *

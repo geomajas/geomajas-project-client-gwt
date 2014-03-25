@@ -29,7 +29,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Default implementation of {@link DeletableLayerListPresenter}.
+ * Default implementation of {@link RemovableLayerListPresenter}.
  *
  * @author Jan Venstermans
  *
@@ -141,7 +141,7 @@ public class CreateClientWmsPresenterImpl implements CreateClientWmsPresenter,
 	public void onCancel() {
 		Log.logServer(Log.LEVEL_INFO, "Client WMS wizard finished " +
 				"without creating a ClientWmsLayerInfo object.");
-		controllerButtonsWindow.hide();
+		hideAndCleanWindow();
 	}
 
 	@Override
@@ -220,7 +220,7 @@ public class CreateClientWmsPresenterImpl implements CreateClientWmsPresenter,
 			Log.logServer(Log.LEVEL_INFO, "Client WMS layer wizard, current step "
 					+ (currentStep != null ? currentStep.getClass().toString() : "none"));
 		} else {
-			controllerButtonsWindow.hide();
+			hideAndCleanWindow();
 		}
 	}
 
@@ -243,9 +243,16 @@ public class CreateClientWmsPresenterImpl implements CreateClientWmsPresenter,
 				"created ClientWmsLayerInfo: " + wmsLayerInfo.toString());
 
 		currentStep = null;
-		controllerButtonsWindow.hide();
+		hideAndCleanWindow();
 		mapWidget.getMapModel().addLayer(wmsLayerInfo);
 		Log.logServer(Log.LEVEL_INFO, "added layer to MapModel: " + wmsLayerInfo.toString());
+	}
+
+	private void hideAndCleanWindow() {
+		for (WizardStepView stepView : wizardSteps) {
+		  	stepView.clear();
+		}
+		controllerButtonsWindow.hide();
 	}
 
 	private boolean checkFullWmsUrl(String url) {

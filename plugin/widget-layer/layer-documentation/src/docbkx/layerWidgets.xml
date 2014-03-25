@@ -35,7 +35,7 @@
 		  The addition of the delete button row can be prevented by setting a boolean value to the presenter via <code>setShowDeleteButtons(false)</code>.
 	  Currently, it is not possible to delete added client side WMS layers.</para>
 	  <para>Views of <code>LayerListClientWmsPresenterImpl</code> can be configured:</para>
-	  <programlisting language="java"><![CDATA[((ViewManagerImpl) org.geomajas.widget.layer.client.Layer.getViewFactory()).createLayerListClientWmsView(myCustumLayerListClientWmsView);
+	  <programlisting language="java"><![CDATA[((ViewManagerImpl) org.geomajas.widget.layer.client.Layer.getViewFactory()).createLayerListWithRemoveButtonView(myCustumLayerListClientWmsView);
 
 //for the general wizard window
 ((ViewManagerImpl) org.geomajas.widget.layer.client.Layer.getViewFactory()).createControllerButtonsView(myCustumControllerButtonsView);

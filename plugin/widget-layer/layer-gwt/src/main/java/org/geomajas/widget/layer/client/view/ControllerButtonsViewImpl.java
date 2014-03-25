@@ -35,36 +35,10 @@ public class ControllerButtonsViewImpl extends Window implements CreateClientWms
 	private static final LayerMessages MESSAGES = GWT.create(LayerMessages.class);
 
 	private CreateClientWmsPresenter.ControllersButtonHandler controllersButtonHandler;
-	
-	public static final String STEP_CHOOSE_TYPE = "choose_type";
-
-	public static final String STEP_WMS_PROPS = "wms_props";
-
-	public static final String STEP_WFS_PROPS = "wfs_props";
-
-	public static final String STEP_SHAPEFILE_UPLOAD = "shapefile_upload";
-
-	public static final String STEP_DATABASE_PROPS = "database_props";
-
-	public static final String STEP_VECTOR_CHOOSE_LAYER = "vector_choose_layer";
-
-	public static final String STEP_VECTOR_EDIT_LAYER_ATTRIBUTES = "vector_edit_layer_attributes_layer";
-
-	public static final String STEP_VECTOR_EDIT_LAYER_STYLE = "vector_edit_style";
-
-	public static final String STEP_WMS_CHOOSE_LAYER = "raster_choose_layer";
-
-	public static final String STEP_WMS_PREVIEW_LAYER = "raster_preview_layer";
-
-	public static final String STEP_EDIT_LAYER_SETTINGS = "edit_layer_settings";
 
 	private static final int WIDTH = 650;
 
 	private static final int HEIGHT = 400;
-
-
-	public static final String PARAM_SOURCE_TYPE = "_source_type_";
-	public static final String SOURCE_TYPE_WMS = "WMS";
 
 	private Canvas panelContainer;
 

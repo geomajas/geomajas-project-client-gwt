@@ -97,6 +97,11 @@ public class GetCapabilitiesViewImpl implements CreateClientWmsPresenter.GetCapa
 	}
 
 	@Override
+	public void clear() {
+		form.clearValues();
+	}
+
+	@Override
 	public void sendDataToHandler() {
 		Map<String, String> data = form.getData();
 		handler.setWarningLabelText(MESSAGES.layerListClientWmsWizardStepGetCapabilitiesStartSearch(), false);

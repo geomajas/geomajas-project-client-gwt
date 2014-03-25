@@ -15,25 +15,25 @@ import com.google.gwt.core.client.GWT;
 import com.smartgwt.client.types.Alignment;
 import com.smartgwt.client.widgets.Canvas;
 import com.smartgwt.client.widgets.ImgButton;
+import com.smartgwt.client.widgets.Label;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.layout.HLayout;
-import com.smartgwt.client.widgets.layout.Layout;
 import com.smartgwt.client.widgets.layout.VLayout;
 import org.geomajas.gwt.client.controller.PanController;
 import org.geomajas.gwt.client.util.WidgetLayout;
 import org.geomajas.gwt.client.widget.MapWidget;
 import org.geomajas.gwt.example.base.SamplePanel;
 import org.geomajas.gwt.example.base.SamplePanelFactory;
-import org.geomajas.widget.layer.client.presenter.ClientLayerListPresenterImpl;
+import org.geomajas.widget.layer.client.presenter.ClientWmsLayerListPresenterImpl;
 import org.geomajas.widget.layer.client.presenter.CreateClientWmsPresenter;
 import org.geomajas.widget.layer.client.presenter.CreateClientWmsPresenterImpl;
-import org.geomajas.widget.layer.client.presenter.DeletableLayerListPresenterImpl;
+import org.geomajas.widget.layer.client.presenter.RemovableLayerListPresenterImpl;
 import org.geomajas.widget.layer.gwt.example.client.i18n.WidgetLayerExampleMessages;
 
 /**
  * <p>
- * Sample that shows the usage of the {@link org.geomajas.widget.layer.client.presenter.DeletableLayerListPresenter}.
+ * Sample that shows the usage of the {@link org.geomajas.widget.layer.client.presenter.RemovableLayerListPresenter}.
  * </p>
  * 
  * @author Jan Venstermans
@@ -66,37 +66,50 @@ public class ClientWmsLayerListSample extends SamplePanel {
 
 		// Build the LayerList:
 		VLayout layout = new VLayout();
-		layout.setWidth(350);
+		layout.setWidth(700);
 		layout.setHeight(200);
 
 		HLayout gridsLayout = new HLayout();
 		gridsLayout.setWidth100();
 		gridsLayout.setHeight100();
 
-		DeletableLayerListPresenterImpl layersManagementPresenter = new DeletableLayerListPresenterImpl(map);
+		RemovableLayerListPresenterImpl layersManagementPresenter = new RemovableLayerListPresenterImpl(map);
 		layersManagementPresenter.setDragDropEnabled(true);
 		layersManagementPresenter.setShowDeleteButtons(false);
 
-		ClientLayerListPresenterImpl clientLayerListPresenter = new ClientLayerListPresenterImpl(map);
-		layersManagementPresenter.setDragDropEnabled(false);
-		layersManagementPresenter.setShowDeleteButtons(true);
+		ClientWmsLayerListPresenterImpl clientLayerListPresenter = new ClientWmsLayerListPresenterImpl(map);
+		clientLayerListPresenter.setDragDropEnabled(false);
+		clientLayerListPresenter.setShowDeleteButtons(true);
+		clientLayerListPresenter.setRemoveIconUrl(WidgetLayout.iconRemove);
 
 		final CreateClientWmsPresenter createClientWmsPresenter = new CreateClientWmsPresenterImpl(map);
 
-		gridsLayout.addMember(layersManagementPresenter.getWidget());
-		gridsLayout.addMember(clientLayerListPresenter.getWidget());
+		VLayout layoutWidget1 = new VLayout();
+		layoutWidget1.setIsGroup(true);
+		layoutWidget1.setGroupTitle(MESSAGES.layerListClientWmsAllLayersGroupTitle());
+		layoutWidget1.addMember(layersManagementPresenter.getWidget());
+		gridsLayout.addMember(layoutWidget1);
 
-		Layout addImgContainer = new Layout();
-		addImgContainer.setWidth(64 + 16); //16 from scroller in grid
+		VLayout layoutWidget2 = new VLayout();
+		layoutWidget2.setIsGroup(true);
+		layoutWidget2.setGroupTitle(MESSAGES.layerListClientWmsClientLayersGroupTitle());
+		layoutWidget2.addMember(clientLayerListPresenter.getWidget());
+		gridsLayout.addMember(layoutWidget2);
+
+		HLayout addImgContainer = new HLayout(10);
 		addImgContainer.setAlign(Alignment.CENTER);
-		addImgContainer.setHeight(16);
-		addImgContainer.setLayoutAlign(Alignment.RIGHT);
+		addImgContainer.setHeight(25);
+		addImgContainer.setLayoutAlign(Alignment.CENTER);
+
+		Label label = new Label(MESSAGES.layerListClientWmsAddClientLayerButtonLabel());
+		label.setWrap(false);
+		addImgContainer.addMember(label);
 
 		ImgButton addImg = new ImgButton();
 		addImg.setSrc(WidgetLayout.iconAdd);
 		addImg.setShowDown(false);
 		addImg.setShowRollOver(false);
-		addImg.setPrompt("Add a layer");
+		addImg.setPrompt(MESSAGES.layerListClientWmsAddClientLayerButtonTooltip());
 		addImg.setHeight(16);
 		addImg.setWidth(16);
 		addImg.addClickHandler(new ClickHandler() {

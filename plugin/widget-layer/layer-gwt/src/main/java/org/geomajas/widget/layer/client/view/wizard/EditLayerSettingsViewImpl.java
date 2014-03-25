@@ -75,6 +75,11 @@ public class EditLayerSettingsViewImpl implements CreateClientWmsPresenter.EditL
 	}
 
 	@Override
+	public void clear() {
+		form.clearValues();
+	}
+
+	@Override
 	public void sendDataToHandler() {
 		Map<String, String> data = form.getData();
 		handler.onFinishStepSetLayerName(data.get(LAYER_NAME));

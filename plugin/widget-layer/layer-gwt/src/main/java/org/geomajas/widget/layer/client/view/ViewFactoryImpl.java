@@ -11,7 +11,7 @@
 package org.geomajas.widget.layer.client.view;
 
 import org.geomajas.widget.layer.client.presenter.CreateClientWmsPresenter;
-import org.geomajas.widget.layer.client.presenter.DeletableLayerListPresenter;
+import org.geomajas.widget.layer.client.presenter.RemovableLayerListPresenter;
 import org.geomajas.widget.layer.client.presenter.LayerListPresenter;
 import org.geomajas.widget.layer.client.view.wizard.EditLayerSettingsViewImpl;
 import org.geomajas.widget.layer.client.view.wizard.GetCapabilitiesViewImpl;
@@ -31,8 +31,8 @@ public class ViewFactoryImpl implements ViewFactory {
 	}
 
 	@Override
-	public DeletableLayerListPresenter.View createLayerListClientWmsView() {
-		return new LayerListDeletableClientWmsGrid();
+	public RemovableLayerListPresenter.View createLayerListWithRemoveButtonView() {
+		return new LayerListWithRemoveButtonGrid();
 	}
 
 	@Override

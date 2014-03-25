@@ -19,27 +19,34 @@ import com.smartgwt.client.widgets.grid.events.CellClickHandler;
 import org.geomajas.gwt.client.map.layer.InternalClientWmsLayer;
 import org.geomajas.gwt.client.map.layer.Layer;
 import org.geomajas.gwt.client.util.WidgetLayout;
-import org.geomajas.widget.layer.client.presenter.DeletableLayerListPresenter;
+import org.geomajas.widget.layer.client.presenter.RemovableLayerListPresenter;
 
 import java.util.List;
 
 /**
- * Extension of {@link LayerListGrid} to enable removing client wms layers.
+ * Extension of {@link LayerListGrid} with remove buttons.
  * 
  * @author Jan Venstermans
  * 
  */
-public class LayerListDeletableClientWmsGrid extends LayerListGrid implements DeletableLayerListPresenter.View {
+public class LayerListWithRemoveButtonGrid extends LayerListGrid implements RemovableLayerListPresenter.View {
 
 	public static final String FLD_DELETE = "fldDelete";
 	private static final int FLD_DELETE_WIDTH = 50;
 
-	private DeletableLayerListPresenter.Handler handler;
+	private RemovableLayerListPresenter.Handler handler;
+
+	private String removeIconUrl = WidgetLayout.iconRemove;
 
 	@Override
-	public void setHandler(DeletableLayerListPresenter.Handler handler) {
+	public void setHandler(RemovableLayerListPresenter.Handler handler) {
 		super.setHandler(handler);
 		this.handler = handler;
+	}
+
+	@Override
+	public void setRemoveIconUrl(String removeIconUrl) {
+		this.removeIconUrl = removeIconUrl;
 	}
 
 	@Override
@@ -69,7 +76,7 @@ public class LayerListDeletableClientWmsGrid extends LayerListGrid implements De
 	protected ListGridRecord createAndFillListGridRecord(Layer layer) {
 		ListGridRecord record = super.createAndFillListGridRecord(layer);
 		if (layer instanceof InternalClientWmsLayer) {
-			record.setAttribute(FLD_DELETE, WidgetLayout.iconRemove);
+			record.setAttribute(FLD_DELETE, removeIconUrl);
 		}
 		return record;
 	}

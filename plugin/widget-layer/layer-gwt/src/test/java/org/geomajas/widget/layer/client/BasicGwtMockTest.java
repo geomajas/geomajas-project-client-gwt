@@ -13,7 +13,7 @@ package org.geomajas.widget.layer.client;
 import com.google.gwtmockito.GwtMockitoTestRunner;
 import junit.framework.Assert;
 import org.geomajas.widget.layer.client.presenter.CreateClientWmsPresenter;
-import org.geomajas.widget.layer.client.presenter.DeletableLayerListPresenter;
+import org.geomajas.widget.layer.client.presenter.RemovableLayerListPresenter;
 import org.geomajas.widget.layer.client.presenter.LayerListPresenter;
 import org.geomajas.widget.layer.client.view.ControllerButtonsViewImpl;
 import org.geomajas.widget.layer.client.view.ViewFactory;
@@ -36,7 +36,7 @@ public class BasicGwtMockTest {
 	protected LayerListPresenter.View layerListView;
 
 	@MockitoAnnotations.Mock
-	protected DeletableLayerListPresenter.View layerListClientWmsView;
+	protected RemovableLayerListPresenter.View layerListClientWmsView;
 
 	@MockitoAnnotations.Mock
 	protected ControllerButtonsViewImpl controllerButtonsView;
@@ -60,7 +60,7 @@ public class BasicGwtMockTest {
 			}
 
 			@Override
-			public DeletableLayerListPresenter.View createLayerListClientWmsView() {
+			public RemovableLayerListPresenter.View createLayerListWithRemoveButtonView() {
 				return layerListClientWmsView;
 			}
 
@@ -97,7 +97,7 @@ public class BasicGwtMockTest {
 		Assert.assertNotNull(editLayerSettingsView);
 
 		Assert.assertEquals(layerListView, Layer.getViewFactory().createLayerListView());
-		Assert.assertEquals(layerListClientWmsView, Layer.getViewFactory().createLayerListClientWmsView());
+		Assert.assertEquals(layerListClientWmsView, Layer.getViewFactory().createLayerListWithRemoveButtonView());
 		Assert.assertEquals(controllerButtonsView, Layer.getViewFactory().createControllerButtonsView());
 		Assert.assertEquals(getCapabilitiesView, Layer.getViewFactory().createGetCapabilitiesView());
 		Assert.assertEquals(selectLayerView, Layer.getViewFactory().createSelectLayerView());

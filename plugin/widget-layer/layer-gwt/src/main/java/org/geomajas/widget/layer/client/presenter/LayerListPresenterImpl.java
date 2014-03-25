@@ -39,6 +39,8 @@ public class LayerListPresenterImpl implements LayerListPresenter, LayerListPres
 
 	private int amountOfRasterLayers; // necessary for drag drop in gwt2 !
 
+	private boolean dragDropEnabled;
+
 	private List<HandlerRegistration> layerRegistrations = new ArrayList<HandlerRegistration>();
 
 	private View view;
@@ -53,8 +55,13 @@ public class LayerListPresenterImpl implements LayerListPresenter, LayerListPres
 	}
 
 	protected View createViewInConstructor() {
-		View view = org.geomajas.widget.layer.client.Layer.getViewFactory().createLayerListView();
+		return createLayerListView();
+	}
+
+	protected LayerListPresenter.View createLayerListView() {
+		LayerListPresenter.View view = org.geomajas.widget.layer.client.Layer.getViewFactory().createLayerListView();
 		view.setHandler(this);
+		view.setDragDropEnabled(dragDropEnabled);
 		return view;
 	}
 
@@ -68,6 +75,7 @@ public class LayerListPresenterImpl implements LayerListPresenter, LayerListPres
 
 	@Override
 	public void onMoveLayer(Layer layer, int index) {
+		updateView(); // view should only be changed by MapModelChanged
 		boolean success = false;
 		if (layer instanceof VectorLayer) {
 			// in gwt client, the index must be transformed to the 'vector' index, i.e. the nth vector layer
@@ -91,6 +99,7 @@ public class LayerListPresenterImpl implements LayerListPresenter, LayerListPres
 
 	@Override
 	public void setDragDropEnabled(boolean dragDropEnabled) {
+		this.dragDropEnabled = dragDropEnabled;
 		view.setDragDropEnabled(dragDropEnabled);
 	}
 
@@ -146,5 +155,9 @@ public class LayerListPresenterImpl implements LayerListPresenter, LayerListPres
 	@Override
 	public void onLabelChange(LayerLabeledEvent event) {
 		updateView();
+	}
+
+	protected boolean isDragDropEnabled() {
+		return dragDropEnabled;
 	}
 }

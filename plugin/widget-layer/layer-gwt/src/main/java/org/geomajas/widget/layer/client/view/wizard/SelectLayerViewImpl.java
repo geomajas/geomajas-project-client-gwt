@@ -92,6 +92,11 @@ public class SelectLayerViewImpl implements CreateClientWmsPresenter.SelectLayer
 	}
 
 	@Override
+	public void clear() {
+		grid.clear();
+	}
+
+	@Override
 	public void sendDataToHandler() {
 		 handler.onFinishStepSelectLayer((WmsLayerInfo) grid.getSelectedRecord().getAttributeAsObject(FLD_LAYER));
 	}

@@ -36,6 +36,11 @@ public interface CreateClientWmsPresenter {
 		boolean isValid();
 
 		String getInvalidMessage();
+
+		/**
+		 * Clear all data.
+		 */
+		void clear();
 	}
 
 	/**

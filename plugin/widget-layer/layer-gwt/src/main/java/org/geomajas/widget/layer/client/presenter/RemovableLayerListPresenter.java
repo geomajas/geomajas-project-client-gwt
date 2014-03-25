@@ -19,13 +19,15 @@ import org.geomajas.gwt.client.map.layer.InternalClientWmsLayer;
  * @author Jan Venstermans
  * 
  */
-public interface DeletableLayerListPresenter extends LayerListPresenter {
+public interface RemovableLayerListPresenter extends LayerListPresenter {
 
 	/**
 	 * ControllerButtonsViewImpl of the presenter.
 	 */
 	public interface View extends LayerListPresenter.View {
 		void setHandler(Handler handler);
+
+		void setRemoveIconUrl(String removeIconUrl);
 	}
 
 	/**
@@ -37,4 +39,6 @@ public interface DeletableLayerListPresenter extends LayerListPresenter {
 	}
 
 	void setShowDeleteButtons(boolean showDeleteButtons);
+
+	void setRemoveIconUrl(String removeIconUrl);
 }

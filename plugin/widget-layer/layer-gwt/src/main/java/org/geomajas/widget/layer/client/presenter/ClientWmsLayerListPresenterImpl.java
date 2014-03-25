@@ -12,23 +12,22 @@ package org.geomajas.widget.layer.client.presenter;
 
 import org.geomajas.gwt.client.map.layer.InternalClientWmsLayer;
 import org.geomajas.gwt.client.map.layer.Layer;
-import org.geomajas.gwt.client.map.layer.configuration.ClientWmsLayerInfo;
 import org.geomajas.gwt.client.widget.MapWidget;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Extension of {@link org.geomajas.widget.layer.client.presenter.DeletableLayerListPresenterImpl}
+ * Extension of {@link RemovableLayerListPresenterImpl}
  * for client side layers.
  *
  * @author Jan Venstermans
  *
  */
-public class ClientLayerListPresenterImpl extends DeletableLayerListPresenterImpl {
+public class ClientWmsLayerListPresenterImpl extends RemovableLayerListPresenterImpl {
 
 
-	public ClientLayerListPresenterImpl(MapWidget mapwidget) {
+	public ClientWmsLayerListPresenterImpl(MapWidget mapwidget) {
 		super(mapwidget);
 	}
 
