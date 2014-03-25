@@ -150,11 +150,13 @@ public class LayerListGrid  extends ListGrid implements LayerListPresenter.View 
 			public void onDropComplete(DropCompleteEvent dropCompleteEvent) {
 				if (dropCompleteEvent.getTransferredRecords().length == 1) {
 					ListGridRecord record = (ListGridRecord) dropCompleteEvent.getTransferredRecords()[0];
-					Layer layer = (Layer) record.getAttributeAsObject(FLD_OBJECT);
 					int index = getRecordIndex(record);
-					int recordsAmount = getTotalRows();
-					// return the index of the rendered list, not the inverse list as presented in the view
-					handler.onMoveLayer(layer, recordsAmount - 1 - index);
+					if (index > 0) { // for some reason dropComplete is done twice, second time index = -1
+						Layer layer = (Layer) record.getAttributeAsObject(FLD_OBJECT);
+						int recordsAmount = getTotalRows();
+						// return the index of the rendered list, not the inverse list as presented in the view
+						handler.onMoveLayer(layer, recordsAmount - 1 - index);
+					}
 				}
 			}
 		});

@@ -75,7 +75,6 @@ public class LayerListPresenterImpl implements LayerListPresenter, LayerListPres
 
 	@Override
 	public void onMoveLayer(Layer layer, int index) {
-		updateView(); // view should only be changed by MapModelChanged
 		boolean success = false;
 		if (layer instanceof VectorLayer) {
 			// in gwt client, the index must be transformed to the 'vector' index, i.e. the nth vector layer
@@ -88,7 +87,8 @@ public class LayerListPresenterImpl implements LayerListPresenter, LayerListPres
 			success = mapWidget.getMapModel().moveRasterLayer((RasterLayer) layer, index);
 		}
 		if (!success) {
-			// notify user ?
+			// drag/drop has not resulted in change of order in MapModel
+			updateView(); // this will revert changed of drag/drop
 		}
 	}
 

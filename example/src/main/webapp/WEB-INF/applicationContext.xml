@@ -28,6 +28,4 @@ http://www.springframework.org/schema/util http://www.springframework.org/schema
 	<import resource="classpath:org/geomajas/widget/layer/gwt/example/context/appWidgetLayer.xml"/>
 	<import resource="classpath:org/geomajas/widget/layer/gwt/example/context/mapWmsClientWithResolutions.xml"/>
 	<import resource="classpath:org/geomajas/widget/layer/gwt/example/context/layerWmsBluemarble.xml"/>
-	<import resource="classpath:org/geomajas/widget/layer/gwt/example/context/mapLayerList.xml"/>
-	<import resource="classpath:org/geomajas/widget/layer/gwt/example/context/layerPopulatedPlaces110m.xml"/>
 </beans>

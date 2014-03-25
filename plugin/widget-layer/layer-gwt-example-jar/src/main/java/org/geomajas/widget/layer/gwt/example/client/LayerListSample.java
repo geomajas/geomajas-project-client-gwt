@@ -50,7 +50,7 @@ public class LayerListSample extends SamplePanel {
 		// Build a map, and set a PanController:
 		VLayout mapLayout = new VLayout();
 		mapLayout.setShowEdges(true);
-		final MapWidget map = new MapWidget("mapLayerList", "appWidgetLayer");
+		final MapWidget map = new MapWidget("mapLegend", "gwtExample");
 		map.setController(new PanController(map));
 		mapLayout.addMember(map);
 
@@ -73,11 +73,7 @@ public class LayerListSample extends SamplePanel {
 	}
 
 	public String[] getConfigurationFiles() {
-		return new String[] {
-				"classpath:org/geomajas/widget/layer/gwt/example/context/appWidgetLayer.xml",
-				"classpath:org/geomajas/widget/layer/gwt/example/context/mapLayerList.xml",
-				"classpath:org/geomajas/widget/layer/gwt/example/context/mapWmsClientWithResolutions.xml",
-				"classpath:org/geomajas/widget/layer/gwt/example/context/layerPopulatedPlaces110m.xml"};
+		return new String[] { }; // use configuration files of gwt-face-example-jar
 	}
 
 	public String ensureUserLoggedIn() {

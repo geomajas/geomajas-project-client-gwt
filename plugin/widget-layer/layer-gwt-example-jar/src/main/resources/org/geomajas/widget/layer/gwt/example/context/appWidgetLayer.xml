@@ -36,7 +36,6 @@ http://www.springframework.org/schema/tx http://www.springframework.org/schema/t
 	<bean name="appWidgetLayer" class="org.geomajas.configuration.client.ClientApplicationInfo">
 		<property name="maps">
 			<list>
-				<ref bean="mapLayerList"/>
 				<ref bean="mapWmsClientWithResolutions"/>
 			</list>
 		</property>

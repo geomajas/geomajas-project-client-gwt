@@ -143,9 +143,7 @@ public class ClientWmsLayerListSample extends SamplePanel {
 		public String[] getConfigurationFiles() {
 			return new String[] {
 					"classpath:org/geomajas/widget/layer/gwt/example/context/appWidgetLayer.xml",
-					"classpath:org/geomajas/widget/layer/gwt/example/context/mapLayerList.xml",
-					"classpath:org/geomajas/widget/layer/gwt/example/context/mapWmsClientWithResolutions.xml",
-					"classpath:org/geomajas/widget/layer/gwt/example/context/layerPopulatedPlaces110m.xml"};
+					"classpath:org/geomajas/widget/layer/gwt/example/context/mapWmsClientWithResolutions.xml"};
 	}
 
 	public String ensureUserLoggedIn() {
