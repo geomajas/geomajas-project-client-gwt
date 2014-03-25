@@ -1071,19 +1071,21 @@ public class MapModel implements Paintable, MapViewChangedHandler, HasFeatureSel
 				if (layerInfo instanceof ClientWmsLayerInfo) {
 					InternalClientWmsLayer
 							internalClientWmsLayer = new InternalClientWmsLayer(this, (ClientWmsLayerInfo) layerInfo);
+					mapInfo.getLayers().add(layerInfo);
 					layers.add(internalClientWmsLayer);
 				} else {
 					RasterLayer rasterLayer = new RasterLayer(this, (ClientRasterLayerInfo) layerInfo);
+					mapInfo.getLayers().add(layerInfo);
 					layers.add(rasterLayer);
 				}
 				break;
 			default:
 				VectorLayer vectorLayer = new VectorLayer(this, (ClientVectorLayerInfo) layerInfo);
+				mapInfo.getLayers().add(layerInfo);
 				layers.add(vectorLayer);
 				vectorLayer.addFeatureSelectionHandler(selectionPropagator);
 				break;
 		}
-		handlerManager.fireEvent(new MapModelChangedEvent(this));
 	}
 
 	/**
@@ -1094,6 +1096,7 @@ public class MapModel implements Paintable, MapViewChangedHandler, HasFeatureSel
 	public void removeLayer(Layer layer) {
 		if (layers.contains(layer)) {
 			layers.remove(layer);
+			mapInfo.getLayers().remove(layer.getLayerInfo());
 			handlerManager.fireEvent(new MapModelChangedEvent(this));
 		}
 	}
