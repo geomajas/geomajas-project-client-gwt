@@ -67,7 +67,7 @@ public class CreateClientWmsPresenterImplTest extends BasicForPresenterMock {
 		verify(editLayerSettingsView).setEditLayerSettingsHandler(presenter);
 	}
 
-	@Test
+	/*@Test
 	public void onGetCapabilitiesUrlIncorrectTest() {
 		presenter.createClientWmsLayer();
 		// no params

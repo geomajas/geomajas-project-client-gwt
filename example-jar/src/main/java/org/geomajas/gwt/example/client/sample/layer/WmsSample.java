@@ -24,7 +24,6 @@ import com.smartgwt.client.widgets.layout.VLayout;
 import org.geomajas.geometry.Coordinate;
 import org.geomajas.gwt.client.controller.PanController;
 import org.geomajas.gwt.client.map.layer.ClientWmsLayer;
-import org.geomajas.gwt.client.map.layer.Layer;
 import org.geomajas.gwt.client.map.layer.configuration.ClientWmsLayerInfo;
 import org.geomajas.gwt.client.widget.MapWidget;
 import org.geomajas.gwt.example.base.SamplePanel;

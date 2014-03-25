@@ -10,10 +10,8 @@
  */
 package org.geomajas.widget.layer.client.presenter;
 
-import com.google.gwt.core.client.Callback;
 import com.google.gwt.user.client.ui.Widget;
 import com.smartgwt.client.widgets.Canvas;
-import org.geomajas.gwt.client.map.layer.configuration.ClientWmsLayerInfo;
 import org.geomajas.plugin.wms.client.capabilities.WmsLayerInfo;
 
 import java.util.List;

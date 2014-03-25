@@ -73,7 +73,11 @@ public class LayerListSample extends SamplePanel {
 	}
 
 	public String[] getConfigurationFiles() {
-		return new String[] { }; // use configuration files of gwt-face-example-jar
+		return new String[] { "classpath:org/geomajas/gwt/example/context/mapLegend.xml",
+				"classpath:org/geomajas/gwt/example/base/layerLakes110m.xml",
+				"classpath:org/geomajas/gwt/example/base/layerRivers50m.xml",
+				"classpath:org/geomajas/gwt/example/base/layerPopulatedPlaces110m.xml",
+				"classpath:org/geomajas/gwt/example/base/layerWmsBluemarble.xml" };
 	}
 
 	public String ensureUserLoggedIn() {
