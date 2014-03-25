@@ -26,7 +26,7 @@ http://www.springframework.org/schema/context http://www.springframework.org/sch
 	<import resource="classpath:org/geomajas/widget/featureinfo/gwt/example/context/clientLayerCountriesWms.xml"/>
 	<import resource="classpath:org/geomajas/widget/featureinfo/gwt/example/context/clientLayerCountriesWmsHtml.xml"/>
 	<import resource="classpath:org/geomajas/widget/featureinfo/gwt/example/context/clientLayerOsm.xml"/>
-	<import resource="classpath:org/geomajas/widget/featureinfo/gwt/example/context/clientLayerPopulatedPlaces110m.xml"/>
+	<import resource="classpath:org/geomajas/widget/featureinfo/gwt/example/context/clientLayerPopulatedPlaces110mWidgetFeatureInfo.xml"/>
 	<import resource="classpath:org/geomajas/widget/featureinfo/gwt/example/context/layerCountries.xml"/>
 	<import resource="classpath:org/geomajas/widget/featureinfo/gwt/example/context/layerCountriesWms.xml"/>
 	<import resource="classpath:org/geomajas/widget/featureinfo/gwt/example/context/layerCountriesWmsHtml.xml"/>
