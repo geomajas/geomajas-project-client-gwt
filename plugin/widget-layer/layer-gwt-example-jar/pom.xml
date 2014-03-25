@@ -37,6 +37,11 @@
 			<artifactId>geomajas-widget-layer-gwt</artifactId>
 		</dependency>
 
+		<dependency>
+			<groupId>org.geomajas.widget</groupId>
+			<artifactId>geomajas-widget-featureinfo</artifactId>
+		</dependency>
+
 		<!-- Google dependencies -->
 		<dependency>
 			<groupId>com.google.gwt</groupId>

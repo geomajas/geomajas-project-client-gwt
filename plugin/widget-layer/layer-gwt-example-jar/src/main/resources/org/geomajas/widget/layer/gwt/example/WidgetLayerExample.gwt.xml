@@ -13,6 +13,7 @@
 <module>
 	<inherits name="org.geomajas.gwt.example.ExampleBase"/>
 	<inherits name="org.geomajas.widget.layer.Layer" />
+	<inherits name="org.geomajas.widget.featureinfo.configuration.FeatureinfoConfiguration"/>
 
 	<!-- add required languages -->
 	<extend-property name="locale" values="nl"/>
