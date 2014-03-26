@@ -10,13 +10,6 @@
  */
 package org.geomajas.plugin.deskmanager.client.gwt.manager.datalayer.panels;
 
-import org.geomajas.configuration.AttributeInfo;
-import org.geomajas.configuration.FeatureInfo;
-import org.geomajas.configuration.PrimitiveAttributeInfo;
-import org.geomajas.gwt.client.Geomajas;
-import org.geomajas.plugin.deskmanager.client.gwt.manager.i18n.ManagerMessages;
-import org.geomajas.plugin.deskmanager.command.manager.dto.DynamicVectorLayerConfiguration;
-
 import com.google.gwt.core.client.GWT;
 import com.smartgwt.client.data.Record;
 import com.smartgwt.client.types.ListGridEditEvent;
@@ -25,6 +18,7 @@ import com.smartgwt.client.types.Overflow;
 import com.smartgwt.client.types.SelectionAppearance;
 import com.smartgwt.client.types.SelectionStyle;
 import com.smartgwt.client.widgets.Label;
+import com.smartgwt.client.widgets.form.fields.SelectItem;
 import com.smartgwt.client.widgets.grid.ListGrid;
 import com.smartgwt.client.widgets.grid.ListGridField;
 import com.smartgwt.client.widgets.grid.ListGridRecord;
@@ -33,6 +27,15 @@ import com.smartgwt.client.widgets.grid.events.ChangeHandler;
 import com.smartgwt.client.widgets.grid.events.SelectionChangedHandler;
 import com.smartgwt.client.widgets.grid.events.SelectionEvent;
 import com.smartgwt.client.widgets.layout.VLayout;
+import org.geomajas.configuration.AttributeInfo;
+import org.geomajas.configuration.FeatureInfo;
+import org.geomajas.configuration.PrimitiveAttributeInfo;
+import org.geomajas.configuration.PrimitiveType;
+import org.geomajas.gwt.client.Geomajas;
+import org.geomajas.plugin.deskmanager.client.gwt.manager.i18n.ManagerMessages;
+import org.geomajas.plugin.deskmanager.command.manager.dto.DynamicVectorLayerConfiguration;
+
+import java.util.LinkedHashMap;
 
 /**
  * @author Kristof Heirwegh
@@ -79,7 +82,7 @@ public class LayerAttributesGrid extends VLayout {
 		grid.setEditEvent(ListGridEditEvent.CLICK);
 		grid.setEditByCell(true);
 		grid.setShowEmptyMessage(true);
-		grid.setEmptyMessage("<i>" + MESSAGES.layerAttributesGridLoadingText() + 
+		grid.setEmptyMessage("<i>" + MESSAGES.layerAttributesGridLoadingText() +
 				" <img src='" + Geomajas.getIsomorphicDir()
 				+ "/images/circle.gif' style='height: 1em' /></i>");
 
@@ -90,11 +93,11 @@ public class LayerAttributesGrid extends VLayout {
 
 		ListGridField typeFld = new ListGridField(FLD_TYPE, MESSAGES.layerAttributesGridColumnType());
 		typeFld.setType(ListGridFieldType.TEXT);
-		typeFld.setCanEdit(false);
+		typeFld.setCanEdit(true);
 		typeFld.setWidth(55);
-		// SelectItem editor = new SelectItem();
-		// editor.setValueMap(getTypes());
-		// typeFld.setEditorType(editor);
+		SelectItem editor = new SelectItem();
+		editor.setValueMap(getTypes());
+		typeFld.setEditorType(editor);
 
 		ListGridField identifyingFld = new ListGridField(FLD_IDENTIFYING, MESSAGES.layerAttributesGridColumnCoreInfo());
 		identifyingFld.setType(ListGridFieldType.BOOLEAN);
@@ -185,7 +188,7 @@ public class LayerAttributesGrid extends VLayout {
 				ListGridRecord lgr = new ListGridRecord();
 				PrimitiveAttributeInfo pai = (PrimitiveAttributeInfo) ai;
 				lgr.setAttribute(FLD_NAME, pai.getName());
-				lgr.setAttribute(FLD_TYPE, pai.getType().name());
+				lgr.setAttribute(FLD_TYPE, pai.getType().toString());
 				lgr.setAttribute(FLD_IDENTIFYING, pai.isIdentifying());
 				lgr.setAttribute(FLD_IDFIELD, (pai.equals(idField)));
 				lgr.setAttribute(FLD_LABELFIELD, pai.getName().equals(labelFieldName));
@@ -219,13 +222,14 @@ public class LayerAttributesGrid extends VLayout {
 			pai.setLabel(r.getAttributeAsString(FLD_LABEL));
 			pai.setIdentifying(r.getAttributeAsBoolean(FLD_IDENTIFYING));
 			pai.setHidden(!grid.isSelected(r));
+			pai.setType(PrimitiveType.fromValue(r.getAttributeAsString(FLD_TYPE)));
 		}
 		return layerConfig;
 	}
 
 	public void reset() {
 		grid.deselectAllRecords();
-		grid.setData(new Record[] {});
+		grid.setData(new Record[]{});
 		warnings.setVisible(false);
 		warnings.setContents("");
 	}
@@ -246,20 +250,11 @@ public class LayerAttributesGrid extends VLayout {
 
 	// -------------------------------------------------
 
-	// private LinkedHashMap<String, String> getTypes() {
-	// LinkedHashMap<String, String> values = new LinkedHashMap<String, String>();
-	// values.put(PrimitiveType.BOOLEAN.name(), "Boolean");
-	// values.put(PrimitiveType.CURRENCY.name(), "Boolean");
-	// values.put(PrimitiveType.DATE.name(), "Boolean");
-	// values.put(PrimitiveType.DOUBLE.name(), "Boolean");
-	// values.put(PrimitiveType.FLOAT.name(), "Boolean");
-	// values.put(PrimitiveType.IMGURL.name(), "Boolean");
-	// values.put(PrimitiveType.INTEGER.name(), "Boolean");
-	// values.put(PrimitiveType.LONG.name(), "Boolean");
-	// values.put(PrimitiveType.SHORT.name(), "Boolean");
-	// values.put(PrimitiveType.STRING.name(), "Boolean");
-	// values.put(PrimitiveType.URL.name(), "Boolean");
-	// return values;
-	// }
-
+	private LinkedHashMap<String, String> getTypes() {
+		LinkedHashMap<String, String> values = new LinkedHashMap<String, String>();
+		for (PrimitiveType type : PrimitiveType.values()) {
+			values.put(type.toString(), type.toString());
+		}
+		return values;
+	}
 }
