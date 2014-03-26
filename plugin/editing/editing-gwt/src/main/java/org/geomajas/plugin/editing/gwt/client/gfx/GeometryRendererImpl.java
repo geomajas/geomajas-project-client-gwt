@@ -439,7 +439,7 @@ public class GeometryRendererImpl implements GeometryRenderer, GeometryEditStart
 	// ------------------------------------------------------------------------
 
 	public void onCoordinateSnapAttempt(CoordinateSnapEvent event) {
-		if (editingService.getEditingState() == GeometryEditState.INSERTING) {
+		if (editingService.getEditingState() == GeometryEditState.INSERTING && editingService.getInsertIndex() != null) {
 			String identifier = baseName + "."
 					+ editingService.getIndexService().format(editingService.getInsertIndex());
 			Object parentGroup = groups.get(identifier.substring(0, identifier.lastIndexOf('.')) + ".vertices");
