@@ -92,24 +92,26 @@ public abstract class BaseDragLineHandler implements GeometryEditMoveHandler, Ge
 	@Override
 	public void onTentativeMove(GeometryEditTentativeMoveEvent event) {
 		try {
-			Coordinate[] vertices = editService.getIndexService().getSiblingVertices(editService.getGeometry(),
-					editService.getInsertIndex());
-			String geometryType = editService.getIndexService().getGeometryType(editService.getGeometry(),
-					editService.getInsertIndex());
-			if (vertices != null && Geometry.LINE_STRING.equals(geometryType)) {
-				// line string has single drag line
-				Coordinate dragPoint = event.getCurrentPosition();
-				Coordinate startA = event.getOrigin();
-				onDrag(dragPoint, startA, null);
-			} else if (vertices != null && Geometry.LINEAR_RING.equals(geometryType)) {
-				// linear ring has one or two drag lines
-				Coordinate dragPoint = event.getCurrentPosition();
-				Coordinate startA = event.getOrigin();
-				if (vertices.length > 2) {
-					Coordinate startB = vertices[vertices.length - 1];
-					onDrag(dragPoint, startA, startB);
-				} else {
+			if (editService.getInsertIndex() != null) {
+				Coordinate[] vertices = editService.getIndexService().getSiblingVertices(editService.getGeometry(),
+						editService.getInsertIndex());
+				String geometryType = editService.getIndexService().getGeometryType(editService.getGeometry(),
+						editService.getInsertIndex());
+				if (vertices != null && Geometry.LINE_STRING.equals(geometryType)) {
+					// line string has single drag line
+					Coordinate dragPoint = event.getCurrentPosition();
+					Coordinate startA = event.getOrigin();
 					onDrag(dragPoint, startA, null);
+				} else if (vertices != null && Geometry.LINEAR_RING.equals(geometryType)) {
+					// linear ring has one or two drag lines
+					Coordinate dragPoint = event.getCurrentPosition();
+					Coordinate startA = event.getOrigin();
+					if (vertices.length > 2) {
+						Coordinate startB = vertices[vertices.length - 1];
+						onDrag(dragPoint, startA, startB);
+					} else {
+						onDrag(dragPoint, startA, null);
+					}
 				}
 			}
 		} catch (GeometryIndexNotFoundException e) {
