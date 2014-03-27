@@ -119,7 +119,7 @@ public class ConfiguredSearchView implements ConfiguredSearchPresenter.View {
 		uploadItem.setRequired(false);
 		uploadItem.setWrapTitle(false);
 
-		form.setFields(titleFld, descriptionFld, titleInWindowFld, uploadItem);
+		form.setFields(titleFld, descriptionFld, uploadItem, titleInWindowFld);
 
 		// attribute table //
 
