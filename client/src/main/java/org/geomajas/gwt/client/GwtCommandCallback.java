@@ -34,7 +34,7 @@ public class GwtCommandCallback implements CommandExceptionCallback, Communicati
 	public void onCommunicationException(Throwable error) {
 		String msg = I18nProvider.getGlobal().commandCommunicationError() + ":\n" + error.getMessage();
 		Log.logWarn(msg, error);
-		SC.warn(msg);
+		SC.warn(msg, (String) null);
 	}
 
 	/**
@@ -49,7 +49,7 @@ public class GwtCommandCallback implements CommandExceptionCallback, Communicati
 		}
 		Log.logWarn(message);
 		if (response.getExceptions() == null || response.getExceptions().size() == 0) {
-			SC.warn(message);
+			SC.warn(message, (String) null);
 		} else {
 			// The error messaging window only supports 1 exception to display:
 			ExceptionWindow window = new ExceptionWindow(response.getExceptions().get(0));
