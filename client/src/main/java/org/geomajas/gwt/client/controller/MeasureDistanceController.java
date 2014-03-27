@@ -96,6 +96,17 @@ public class MeasureDistanceController extends AbstractSnappingController {
 	public MeasureDistanceController(MapWidget mapWidget) {
 		this(mapWidget, false, false, null);
 	}
+	
+	/**
+	 * Construct a measureDistanceController. Default is to display the total distance and last line distance.
+	 *
+	 * @param mapWidget the mapwidget where the distance is measured on.
+	 * @param showArea true if the area should be displayed
+	 * @param displayCoordinates the if the coordinates should be displayed.
+	 */
+	public MeasureDistanceController(MapWidget mapWidget, boolean showArea, boolean displayCoordinates) {
+		this(mapWidget, showArea, displayCoordinates, null);
+	}
 
 	/**
 	 * Construct a measureDistanceController.
@@ -103,6 +114,7 @@ public class MeasureDistanceController extends AbstractSnappingController {
 	 * @param mapWidget the mapwidget where the distance is measured on.
 	 * @param showArea true if the area should be displayed
 	 * @param displayCoordinates the if the coordinates should be displayed.
+	 * @param handler a custom info handler or null to use the default
 	 */
 	public MeasureDistanceController(MapWidget mapWidget, boolean showArea, boolean displayCoordinates, MeasureDistanceInfoHandler handler) {
 		super(mapWidget);

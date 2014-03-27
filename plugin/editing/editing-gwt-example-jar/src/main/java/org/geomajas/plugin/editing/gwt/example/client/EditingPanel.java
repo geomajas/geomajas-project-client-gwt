@@ -11,15 +11,13 @@
 
 package org.geomajas.plugin.editing.gwt.example.client;
 
-import com.google.gwt.core.client.GWT;
-import com.smartgwt.client.widgets.Canvas;
-import com.smartgwt.client.widgets.layout.VLayout;
 import org.geomajas.gwt.client.map.event.MapModelChangedEvent;
 import org.geomajas.gwt.client.map.event.MapModelChangedHandler;
 import org.geomajas.gwt.client.widget.MapWidget;
 import org.geomajas.gwt.example.base.SamplePanel;
 import org.geomajas.gwt.example.base.SamplePanelFactory;
 import org.geomajas.plugin.editing.client.snap.SnapSourceProvider;
+import org.geomajas.plugin.editing.client.snap.SnappingRule;
 import org.geomajas.plugin.editing.client.snap.algorithm.NearestEdgeSnapAlgorithm;
 import org.geomajas.plugin.editing.client.snap.algorithm.NearestVertexSnapAlgorithm;
 import org.geomajas.plugin.editing.gwt.client.GeometryEditor;
@@ -29,6 +27,10 @@ import org.geomajas.plugin.editing.gwt.client.gfx.PointSymbolizerShapeAndSize;
 import org.geomajas.plugin.editing.gwt.client.snap.VectorLayerSourceProvider;
 import org.geomajas.plugin.editing.gwt.example.client.i18n.EditingMessages;
 import org.geomajas.plugin.editing.gwt.example.client.widget.MenuBar;
+
+import com.google.gwt.core.client.GWT;
+import com.smartgwt.client.widgets.Canvas;
+import com.smartgwt.client.widgets.layout.VLayout;
 
 /**
  * Entry point and main class for GWT application. This class defines the layout and functionality of this application.
@@ -115,7 +117,7 @@ public class EditingPanel extends SamplePanel implements MapModelChangedHandler 
 				.getVectorLayer("clientLayerGepCountries"));
 //		editor.setSnapOnInsert(true);
 //		editor.setSnapOnDrag(true);
-		editor.getSnappingService().addSnappingRule(new NearestVertexSnapAlgorithm(), snapSourceProvider, 200000, true);
-		editor.getSnappingService().addSnappingRule(new NearestEdgeSnapAlgorithm(), snapSourceProvider, 100000, false);
+		editor.getSnappingService().addSnappingRule(new SnappingRule(new NearestVertexSnapAlgorithm(), snapSourceProvider, 200000));
+		editor.getSnappingService().addSnappingRule(new SnappingRule(new NearestEdgeSnapAlgorithm(), snapSourceProvider, 100000));
 	}
 }

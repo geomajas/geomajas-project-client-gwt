@@ -40,16 +40,12 @@ import org.geomajas.plugin.editing.client.event.GeometryEditChangeStateEvent;
 import org.geomajas.plugin.editing.client.event.GeometryEditChangeStateHandler;
 import org.geomajas.plugin.editing.client.event.GeometryEditMoveEvent;
 import org.geomajas.plugin.editing.client.event.GeometryEditMoveHandler;
-import org.geomajas.plugin.editing.client.event.GeometryEditResumeEvent;
-import org.geomajas.plugin.editing.client.event.GeometryEditResumeHandler;
 import org.geomajas.plugin.editing.client.event.GeometryEditShapeChangedEvent;
 import org.geomajas.plugin.editing.client.event.GeometryEditShapeChangedHandler;
 import org.geomajas.plugin.editing.client.event.GeometryEditStartEvent;
 import org.geomajas.plugin.editing.client.event.GeometryEditStartHandler;
 import org.geomajas.plugin.editing.client.event.GeometryEditStopEvent;
 import org.geomajas.plugin.editing.client.event.GeometryEditStopHandler;
-import org.geomajas.plugin.editing.client.event.GeometryEditSuspendEvent;
-import org.geomajas.plugin.editing.client.event.GeometryEditSuspendHandler;
 import org.geomajas.plugin.editing.client.event.GeometryEditTentativeMoveEvent;
 import org.geomajas.plugin.editing.client.event.GeometryEditTentativeMoveHandler;
 import org.geomajas.plugin.editing.client.event.state.GeometryIndexDeselectedEvent;
@@ -95,12 +91,12 @@ import com.smartgwt.client.types.Cursor;
  * @author Pieter De Graef
  */
 public class GeometryRendererImpl implements GeometryRenderer, GeometryEditStartHandler, GeometryEditStopHandler,
-		GeometryEditSuspendHandler, GeometryEditResumeHandler, GeometryIndexHighlightBeginHandler,
-		GeometryIndexHighlightEndHandler, GeometryEditMoveHandler, GeometryEditShapeChangedHandler,
-		GeometryEditChangeStateHandler, GeometryIndexSelectedHandler, GeometryIndexDeselectedHandler,
-		GeometryIndexDisabledHandler, GeometryIndexEnabledHandler, GeometryIndexMarkForDeletionBeginHandler,
-		GeometryIndexMarkForDeletionEndHandler, GeometryIndexSnappingBeginHandler, GeometryIndexSnappingEndHandler,
-		GeometryEditTentativeMoveHandler, MapViewChangedHandler, CoordinateSnapHandler {
+		GeometryIndexHighlightBeginHandler, GeometryIndexHighlightEndHandler, GeometryEditMoveHandler,
+		GeometryEditShapeChangedHandler, GeometryEditChangeStateHandler, GeometryIndexSelectedHandler,
+		GeometryIndexDeselectedHandler, GeometryIndexDisabledHandler, GeometryIndexEnabledHandler,
+		GeometryIndexMarkForDeletionBeginHandler, GeometryIndexMarkForDeletionEndHandler,
+		GeometryIndexSnappingBeginHandler, GeometryIndexSnappingEndHandler, GeometryEditTentativeMoveHandler,
+		MapViewChangedHandler, CoordinateSnapHandler {
 
 	private final MapWidget mapWidget;
 
@@ -169,16 +165,6 @@ public class GeometryRendererImpl implements GeometryRenderer, GeometryEditStart
 		// Cleanup the geometry from the map:
 		groups.clear();
 		mapWidget.getVectorContext().deleteGroup(event.getGeometry());
-	}
-	
-	@Override
-	public void onGeometryEditSuspend(GeometryEditSuspendEvent event) {
-		redraw();
-	}
-
-	@Override
-	public void onGeometryEditResume(GeometryEditResumeEvent event) {
-		redraw();
 	}
 
 	// ------------------------------------------------------------------------
@@ -667,9 +653,7 @@ public class GeometryRendererImpl implements GeometryRenderer, GeometryEditStart
 			if (controller != null) {
 				Polygon polygon = mapWidget.getMapModel().getGeometryFactory().createPolygon(linearRing, null);
 				graphics.drawPolygon(parentGroup, groupName + ".background", polygon, new ShapeStyle());
-				if (!editingService.isSuspended()) {
-					graphics.setController(parentGroup, groupName + ".background", controller);
-				}
+				graphics.setController(parentGroup, groupName + ".background", controller);
 			}
 
 			// Draw individual edges:
@@ -687,9 +671,7 @@ public class GeometryRendererImpl implements GeometryRenderer, GeometryEditStart
 				LineString edge = linearRing.getGeometryFactory().createLineString(
 						new Coordinate[] { coordinates[i - 1], coordinates[i] });
 				graphics.drawLine(edgeGroup, identifier, edge, findEdgeStyle(edgeIndex));
-				if (!editingService.isSuspended()) {
-					graphics.setController(edgeGroup, identifier, createEdgeController(edgeIndex));
-				}
+				graphics.setController(edgeGroup, identifier, createEdgeController(edgeIndex));
 			}
 
 			addInivisibleShapeToGraphicsContext(graphics, vertexGroup);
@@ -699,9 +681,7 @@ public class GeometryRendererImpl implements GeometryRenderer, GeometryEditStart
 				String identifier = baseName + "." + editingService.getIndexService().format(vertexIndex);
 				addShapeToGraphicsContext(graphics, vertexGroup, identifier, coordinates[i],
 						findVertexStyle(vertexIndex));
-				if (!editingService.isSuspended()) {
-					graphics.setController(vertexGroup, identifier, createVertexController(vertexIndex));
-				}
+				graphics.setController(vertexGroup, identifier, createVertexController(vertexIndex));
 			}
 		}
 	}
@@ -725,9 +705,7 @@ public class GeometryRendererImpl implements GeometryRenderer, GeometryEditStart
 				LineString edge = lineString.getGeometryFactory().createLineString(
 						new Coordinate[] { coordinates[i - 1], coordinates[i] });
 				graphics.drawLine(edgeGroup, identifier, edge, findEdgeStyle(edgeIndex));
-				if (!editingService.isSuspended()) {
-					graphics.setController(edgeGroup, identifier, createEdgeController(edgeIndex));
-				}
+				graphics.setController(edgeGroup, identifier, createEdgeController(edgeIndex));
 			}
 
 			addInivisibleShapeToGraphicsContext(graphics, vertexGroup);
@@ -738,9 +716,7 @@ public class GeometryRendererImpl implements GeometryRenderer, GeometryEditStart
 
 				addShapeToGraphicsContext(graphics, vertexGroup, identifier, coordinates[i],
 						findVertexStyle(vertexIndex));
-				if (!editingService.isSuspended()) {
-					graphics.setController(vertexGroup, identifier, createVertexController(vertexIndex));
-				}
+				graphics.setController(vertexGroup, identifier, createVertexController(vertexIndex));
 			}
 		}
 	}
@@ -766,9 +742,7 @@ public class GeometryRendererImpl implements GeometryRenderer, GeometryEditStart
 
 			addShapeToGraphicsContext(graphics, vertexGroup, identifier, point.getCoordinate(),
 					findVertexStyle(vertexIndex));
-			if (!editingService.isSuspended()) {
-				graphics.setController(vertexGroup, identifier, createVertexController(vertexIndex));
-			}
+			graphics.setController(vertexGroup, identifier, createVertexController(vertexIndex));
 		}
 	}
 
