@@ -60,12 +60,16 @@ public class ClientWmsLayerInfo extends ClientRasterLayerInfo {
 
 	@Override
 	public ScaleInfo getMinimumScale() {
-		throw new UnsupportedOperationException();
+		//throw new UnsupportedOperationException();
+		// still return scale value for the moment
+		return super.getMinimumScale();
 	}
 
 	@Override
 	public ScaleInfo getMaximumScale() {
-		throw new UnsupportedOperationException();
+		//throw new UnsupportedOperationException();
+		// still return scale value for the moment
+		return super.getMaximumScale();
 	}
 
 	@Override
@@ -80,7 +84,9 @@ public class ClientWmsLayerInfo extends ClientRasterLayerInfo {
 
 	@Override
 	public String getCrs() {
-		throw new UnsupportedOperationException();
+		//throw new UnsupportedOperationException();
+		// still return scale value for the moment
+		return super.getCrs();
 	}
 
 	@Override
@@ -121,5 +127,18 @@ public class ClientWmsLayerInfo extends ClientRasterLayerInfo {
 	@Override
 	public void setMaxExtent(Bbox maxExtent) {
 		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public String toString() {
+		return "ClientWmsLayerInfo{" +
+				"id=" + getId() + ", " +
+				"layerType=" + getLayerType() + ", " +
+				"label=" + getLabel() + ", " +
+				"minScale=" + getMinimumScale().getPixelPerUnit() + ", " +
+				"maxScale=" + getMaximumScale().getPixelPerUnit() + ", " +
+				"style=" + getStyle() + ", " +
+				"ClientWmsLayer=" + wmsLayer.toString() +
+				'}';
 	}
 }

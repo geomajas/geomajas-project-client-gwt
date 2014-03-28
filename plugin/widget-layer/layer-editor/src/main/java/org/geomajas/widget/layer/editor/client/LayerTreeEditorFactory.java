@@ -12,7 +12,7 @@ package org.geomajas.widget.layer.editor.client;
 
 import org.geomajas.plugin.deskmanager.client.gwt.manager.editor.WidgetEditor;
 import org.geomajas.plugin.deskmanager.client.gwt.manager.editor.WidgetEditorFactory;
-import org.geomajas.widget.layer.client.LayerMessages;
+import org.geomajas.widget.layer.client.i18n.LayerMessages;
 import org.geomajas.widget.layer.configuration.client.ClientLayerTreeInfo;
 
 import com.google.gwt.core.client.GWT;

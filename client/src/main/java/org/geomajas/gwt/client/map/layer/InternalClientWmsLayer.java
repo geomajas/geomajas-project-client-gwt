@@ -50,8 +50,8 @@ public class InternalClientWmsLayer extends RasterLayer {
 		store = new ClientWmsRasterLayerStore(this);
 	}
 
-	public List<RasterTile> getTiles(Bbox worldBounds, double scale) {
-		List<Tile> tiles = wmsLayer.getTiles(scale, worldBounds.toDtoBbox());
+	public List<RasterTile> getTiles(Bbox worldBounds, double resolution) {
+		List<Tile> tiles = wmsLayer.getTiles(resolution, worldBounds.toDtoBbox());
 
 		List<RasterTile> rasterTiles = new ArrayList<RasterTile>(tiles.size());
 		for (Tile tile : tiles) {
@@ -73,5 +73,14 @@ public class InternalClientWmsLayer extends RasterLayer {
 		return wmsLayer;
 	}
 
+	/**
+	 * Update showing state.
+	 *
+	 * @param fireEvents Should events be fired if state changes?
+	 */
+	/*protected void updateShowing(boolean fireEvents) {
+		//setShowing(isVisible());
+		// don't do anything?
+	} */
 
 }

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ This is part of Geomajas, a GIS framework, http://www.geomajas.org/.
+  ~
+  ~ Copyright 2008-2014 Geosparc nv, http://www.geosparc.com/, Belgium.
+  ~
+  ~ The program is available in open source according to the GNU Affero
+  ~ General Public License. All contributions in this program are covered
+  ~ by the Geomajas Contributors License Agreement. For full licensing
+  ~ details, see LICENSE.txt in the project root.
+  -->
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.4//EN"
+"http://www.oasis-open.org/docbook/xml/4.4/docbookx.dtd">
+<chapter id="chapter-widgets-layer">
+  <title>SMARTGWT widgets for layers</title>
+
+  <section id="LayerList">
+    <title>Widget LayerList</title>
+
+    <para>This section is coded in MVP. Use an instance of the the presenter <code>LayerListPresenterImpl</code>
+	 with the appropriate <code>MapWidget</code> instance. The view is automaticcaly injected into the presenter
+	via the <code>ViewManager</code>. By default, <code>LayerListView</code> is used as the view class. To make use
+	of a custom view, create a view class from the <code>LayerListPresenter.View</code>, e.g. <emphasis>myCustumView</emphasis> interface and register
+	this view to the <code>ViewManager</code> via the entry point class of this plugin:</para>
+
+	  <programlisting language="java"><![CDATA[((ViewManagerImpl) org.geomajas.widget.layer.client.Layer.getViewFactory()).createLayerListView(myCustumView);
+]]></programlisting>
+
+	  <para>To enable drag/drop functionality, call the method of the presenter: <code>setDragDropEnabled(boolean dragDropEnabled)</code>.</para>
+
+	  <para><code>LayerListClientWmsPresenterImpl</code> is an extension of <code>LayerListPresenterImpl</code>
+		  that can be used for adding client side WMS layers to the map. On this presenter, one can call method <code>addClientWmsLayer()</code>.
+	  This will show a wizard for adding a WMS layer based on the GetCapabilities URL of the WMS server. The layerList widget of this presenter
+	  is by default provided with an extra column that will show a delete button for an added client side WMS layer.
+		  The addition of the delete button row can be prevented by setting a boolean value to the presenter via <code>setShowDeleteButtons(false)</code>.
+	  Currently, it is not possible to delete added client side WMS layers.</para>
+	  <para>Views of <code>LayerListClientWmsPresenterImpl</code> can be configured:</para>
+	  <programlisting language="java"><![CDATA[((ViewManagerImpl) org.geomajas.widget.layer.client.Layer.getViewFactory()).createLayerListWithRemoveButtonView(myCustumLayerListClientWmsView);
+
+//for the general wizard window
+((ViewManagerImpl) org.geomajas.widget.layer.client.Layer.getViewFactory()).createControllerButtonsView(myCustumControllerButtonsView);
+// for wizard panels:
+((ViewManagerImpl) org.geomajas.widget.layer.client.Layer.getViewFactory()).createGetCapabilitiesView(myCustumGetCapabilitiesView);
+// ...]]></programlisting>
+
+  </section>
+</chapter>

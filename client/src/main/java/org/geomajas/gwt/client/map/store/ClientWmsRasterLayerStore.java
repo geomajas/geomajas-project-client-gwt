@@ -90,7 +90,9 @@ public class ClientWmsRasterLayerStore implements RasterLayerStore {
 		tileBounds = bounds.scale(3);
 		//Calculate tiles
 
-		addTiles(rasterLayer.getTiles(tileBounds, lastViewState.getScale()));
+		//double scale = lastViewState.getScale();
+		//addTiles(rasterLayer.getTiles(tileBounds, scale > 1 ? scale : 1 / scale));
+		addTiles(rasterLayer.getTiles(tileBounds, 1 / lastViewState.getScale()));
 		Bbox panBounds = worldToPan(bounds);
 		// for each tile:
 		for (RasterTile tile : tiles.values()) {

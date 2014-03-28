@@ -72,6 +72,18 @@ public class ClientWmsLayer extends WmsLayerImpl {
 		setViewPort(new SmartGwtViewport(mapModel));
 	}
 
+	@Override
+	public String toString() {
+		return "ClientWmsLayer{" +
+				"id=" + getId() + ", " +
+				"title=" + getTitle() + ", " +
+				"capabilities=" + getCapabilities() + ", " +
+				"config=" + getConfig() + ", " +
+				"legendImageUrl=" + getLegendImageUrl() + ", " +
+				"opacity=" + getOpacity() +
+				'}';
+	}
+
 	/**
 	 * SmartGwt implementation of the GWT2 viewport. This is intended for internal use in the client WMS layer, as it
 	 * does not implement all ViewPort methods. It can however be extended to fully support everything.

@@ -12,9 +12,9 @@
 <module>
 	<inherits name="org.geomajas.gwt.GeomajasClient" />
 	<inherits name="org.geomajas.layer.wms.GeomajasWms"/>
-	
+	<inherits name="org.geomajas.widget.featureinfo.configuration.FeatureinfoConfiguration"/>
+
 	<source path="client" />
-	<source path="configuration/client" />
 
   	<entry-point class='org.geomajas.widget.featureinfo.client.FeatureInfoEntryPoint'/>
 </module>
