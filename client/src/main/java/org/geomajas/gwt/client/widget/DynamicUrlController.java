@@ -69,7 +69,7 @@ public final class DynamicUrlController implements MapViewChangedHandler {
 		History.newItem(newHash);
 	}
 
-	public void zoomTo() {
+	private void zoomTo() {
 
 		if (urlParser.isValid() && !zoomedTo) {
 
