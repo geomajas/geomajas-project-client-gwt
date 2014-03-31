@@ -26,7 +26,7 @@ import com.smartgwt.client.widgets.Window;
 @Api(allMethods = true)
 public final class WidgetLayout {
 
-	// CHECKSTYLE VISIBILITY MODIFIER: OFF
+	//CHECKSTYLE VISIBILITY MODIFIER: OFF
 
 	/** Small margin width. */
 	public static int marginSmall = 5;
@@ -50,7 +50,12 @@ public final class WidgetLayout {
 	public static String iconAddImage = "[ISOMORPHIC]/geomajas/silk/image-add.png";
 	/** AJAX loading icon. */
 	public static String iconAjaxLoading = "[ISOMORPHIC]/geomajas/ajax-loader.gif";
-	/** AJAX loading 16x16px animated icon. */
+	/**
+	 *
+	 * AJAX loading 16x16px animated icon.
+	 *  @since 1.15.0
+	 *
+	 * */
 	public static String iconAjaxLoading16 = "[ISOMORPHIC]/geomajas/ajax_loader_16.gif";
 	/** Display attributes icon. */
 	public static String iconAttributesDisplay = "[ISOMORPHIC]/geomajas/osgeo/attributes-display.png";
@@ -92,7 +97,10 @@ public final class WidgetLayout {
 	public static String iconHide = "[ISOMORPHIC]/geomajas/osgeo/hide.png";
 	/** Info icon. */
 	public static String iconInfo = "[ISOMORPHIC]/geomajas/osgeo/info.png";
-	/** Info icon ribbonbar . */
+	/** Info icon ribbonbar .
+	 *
+	 * @since 1.15.0
+	 * */
 	public static String iconInfoRibbon = "[ISOMORPHIC]/geomajas/osgeo/info.png";
 	/** Disabled labels icon. */
 	public static String iconLabelsDisabled = "[ISOMORPHIC]/geomajas/widget/layertree/labels-disabled.png";
@@ -357,13 +365,26 @@ public final class WidgetLayout {
 	/*============================================================
 		Style names
 	============================================================*/
+
+	/**
+	 *  Measure distancce panel.
+	 * @since 1.15.0
+	 */
 	public static final String STYLE_MEASURE_DISTANCE_PANEL = "measureDistancePanel";
 
+	/**
+	 *  Measure distancce panel content.
+	 * @since 1.15.0
+	 */
 	public static final String MEASURE_DISTANCE_PANEL_CONTENT = "measureDistancePanelContent";
 
+	/**
+	 *  Measure distancce panel header.
+	 * @since 1.15.0
+	 */
 	public static final String MEASURE_DISTANCE_PANEL_HEADER = "measureDistancePanelHeader";
 
-	// CHECKSTYLE VISIBILITY MODIFIER: ON
+	//CHECKSTYLE VISIBILITY MODIFIER: ON
 
 	private WidgetLayout() {
 		// do not allow instantiation.

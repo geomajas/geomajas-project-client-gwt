@@ -10,8 +10,6 @@
  */
 package org.geomajas.gwt.client.css;
 
-import com.google.gwt.core.client.GWT;
-
 /**
  * @author Dosi Bingov
  *         <p/>

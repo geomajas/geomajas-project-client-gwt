@@ -46,35 +46,38 @@ public final class CssLoaderUtil {
 	}
 
 	public static native Boolean isCssLinkLoaded(String cssFileName) /*-{
-        var link = $doc.getElementById(cssFileName);
-        try {
-            if (link.sheet && link.sheet.cssRules.length > 0) {
-                return true;
-            } else if (link.styleSheet && link.styleSheet.cssText.length > 0) {
-                return true;
-            } else if (link.innerHTML && link.innerHTML.length > 0) {
-                return true;
-            }
-        } catch (ex) {
-        }
-        return false;
+		var link = $doc.getElementById(cssFileName);
+		try {
+			if (link.sheet && link.sheet.cssRules.length > 0) {
+				return true;
+			} else if (link.styleSheet && link.styleSheet.cssText.length > 0) {
+				return true;
+			} else if (link.innerHTML && link.innerHTML.length > 0) {
+				return true;
+			}
+
+		} catch (ex) {
+
+		}
+		return false;
 	}-*/;
 
-	private static native void loadCss(String url) /*-{
-        url = url + "?v=1"; // Make sure this request is not cached
+	private static native void loadCss(String url)  /*-{
+		url = url + "?v=1"; // Make sure this request is not cached
 
-        if ($doc.createStyleSheet) {
-            //add stylesheet in IE
-            $doc.createStyleSheet(url);
-        } else {
-            var l = $doc.createElement("link");
-            l.setAttribute("id", url);
-            l.setAttribute("rel", "stylesheet");
-            l.setAttribute("type", "text/css");
-            l.setAttribute("href", url);
-            $doc.getElementsByTagName("head")[0].appendChild(l);
+		if ($doc.createStyleSheet) {
+			//add stylesheet in IE
+			$doc.createStyleSheet(url);
+		} else {
+			var l = $doc.createElement("link");
+			l.setAttribute("id", url);
+			l.setAttribute("rel", "stylesheet");
+			l.setAttribute("type", "text/css");
+			l.setAttribute("href", url);
+			$doc.getElementsByTagName("head")[0].appendChild(l);
 		}
 
 	}-*/;
+
 
 }
