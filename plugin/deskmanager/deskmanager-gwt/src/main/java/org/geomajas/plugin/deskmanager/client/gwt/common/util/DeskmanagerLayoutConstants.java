@@ -11,8 +11,6 @@
 package org.geomajas.plugin.deskmanager.client.gwt.common.util;
 
 
-import com.google.gwt.core.client.GWT;
-
 /**
  * Common css styles, icons and margins.
  *
@@ -21,14 +19,16 @@ import com.google.gwt.core.client.GWT;
  */
 public final class DeskmanagerLayoutConstants {
 
-	private DeskmanagerLayoutConstants() {}
+	private DeskmanagerLayoutConstants() {
+	}
 
 	// CHECKSTYLE VISIBILITY MODIFIER: OFF
 
 	/*============================================================
 		Margins
 	============================================================*/
-	/** Manager content center width. */
+
+	/*Manager content center width. */
 	public static String centerContentWidth = "100%";
 
 	public static int loadingScreenHeight = 300;
@@ -41,19 +41,19 @@ public final class DeskmanagerLayoutConstants {
 	/*============================================================
 		Style names
 	============================================================*/
-	/** desk manager bottom style tabpane style. */
+	/* desk manager bottom style tabpane style. */
 	public static final String STYLE_DESKMANAGER_TABPANE_DETAIL = "gm-deskmanager-tabpane-detail";
 
-	/** center content style. */
+	/* center content style. */
 	public static final String STYLE_CENTER_CONTENT = "gm-deskmanager-center-content";
 
-	/** loading screen */
+	/* loading screen */
 	public static final String STYLE_LOADING_SCREEN = "gm-deskmanger-loadingscreen";
 
-	/** loading bar layout */
+	/* loading bar layout */
 	public static final String STYLE_PROGRESSBAR_LAYOUT = "gm-deskmanger-progressbar-layout";
 
-	/** loading bar */
+	/* loading bar */
 	public static final String STYLE_PROGRESSBAR = "gm-deskmanger-progressbar";
 
 
