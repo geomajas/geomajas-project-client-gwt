@@ -21,9 +21,14 @@ import org.geomajas.gwt.client.map.MapView;
 import org.geomajas.gwt.client.map.event.MapViewChangedEvent;
 import org.geomajas.gwt.client.map.event.MapViewChangedHandler;
 /**
- * A URL controller that updates the current map x, y and r in the hash part of the URL.
+ * <p>
+ * Includes x, y, r in the URL so that it can be used to bookmark the current map position and zoom level.
+ * The map will navigate to x, y, r in case it is included in the bookmarked URL.
+ * </p>
  *
  * @author Dosi Bingov
+ *
+ * @since 1.15.0
  */
 @Api
 public final class DynamicUrlController implements MapViewChangedHandler {
@@ -35,11 +40,24 @@ public final class DynamicUrlController implements MapViewChangedHandler {
 
 	private DynamicUrlParser urlParser;
 
+	// ------------------------------------------------------------------------
+	// Constructors:
+	// ------------------------------------------------------------------------
+
+	/**
+	 * Create a new DynamicUrlController instance. Private because register method is responsible for the creation.
+	 *
+	 * @since 1.15.0
+	 */
+	@Api
 	private DynamicUrlController() {
 		urlParser = new DynamicUrlParser();
 	}
 
-	public void extractHash() {
+	// ------------------------------------------------------------------------
+	// Private methods:
+	// ------------------------------------------------------------------------
+	private void extractHash() {
 		String hash = Window.Location.getHash();
 
 		GWT.log("DynamicUrlController hash => " + hash);
@@ -49,11 +67,19 @@ public final class DynamicUrlController implements MapViewChangedHandler {
 		}
 	}
 
-	public void setMap(MapWidget mapWidget) {
+	/**
+	 * Sets the map.
+	 *
+	 * @param mapWidget
+	 */
+	private void setMap(MapWidget mapWidget) {
 		this.mapWidget = mapWidget;
 		initHandlers();
 	}
 
+	/**
+	 * Initialise all handlers used in {@link DynamicUrlController}.
+	 */
 	private void initHandlers() {
 		mapWidget.getMapModel().getMapView().addMapViewChangedHandler(this);
 
@@ -65,10 +91,18 @@ public final class DynamicUrlController implements MapViewChangedHandler {
 		});
 	}
 
+	/**
+	 * Changes hash part of the URL.
+	 *
+	 * @param newHash x, y, r hash string
+	 */
 	private void changeHash(String newHash) {
 		History.newItem(newHash);
 	}
 
+	/**
+	 * Zooms to x, y, r coordinates on the map taken from the {@link DynamicUrlParser}.
+	 */
 	private void zoomTo() {
 
 		if (urlParser.isValid() && !zoomedTo) {
@@ -99,8 +133,13 @@ public final class DynamicUrlController implements MapViewChangedHandler {
 		changeHash(parser.getHash());
 	}
 
+	// ------------------------------------------------------------------------
+	// Private classes:
+	// ------------------------------------------------------------------------
 
 	/**
+	 * Help class that will parse hash part of the URL.
+	 *
 	 * x, y, r parser.
 	 */
 	private class DynamicUrlParser {
@@ -181,6 +220,13 @@ public final class DynamicUrlController implements MapViewChangedHandler {
 		}
 	}
 
+	/**
+	 * Creates instance of {@link DynamicUrlController}.
+	 *
+	 * Register should be called after {@link MapWidget} is created.
+	 *
+	 * @param mapWidget main map widget of the application.
+	 */
 	public static void register(MapWidget mapWidget) {
 		if (null == instance) {
 			instance = new DynamicUrlController();
