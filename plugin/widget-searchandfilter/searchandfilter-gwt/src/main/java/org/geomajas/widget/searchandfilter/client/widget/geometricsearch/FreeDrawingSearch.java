@@ -78,7 +78,9 @@ public class FreeDrawingSearch extends AbstractGeometricSearchMethod implements 
 		frmBuffer.reset();
 		btnUndo.setDisabled(true);
 		btnRedo.setDisabled(true);
-		removeFreeDrawingController();
+		if (isDrawing()) {
+			removeFreeDrawingController();
+		}
 	}
 
 	public Canvas getSearchCanvas() {
@@ -301,6 +303,13 @@ public class FreeDrawingSearch extends AbstractGeometricSearchMethod implements 
 			updateGeometry(mergedGeom, null);
 			mergedGeom = null;
 		}
+	}
+
+	private boolean isDrawing() {
+		if (mapWidget.getController() instanceof  AbstractFreeDrawingController) {
+			return true;
+		}
+		return false;
 	}
 
 	public void onDraw(Geometry geometry) {
