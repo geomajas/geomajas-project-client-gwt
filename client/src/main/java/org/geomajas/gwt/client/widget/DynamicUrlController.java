@@ -49,7 +49,6 @@ public final class DynamicUrlController implements MapViewChangedHandler {
 	 *
 	 * @since 1.15.0
 	 */
-	@Api
 	private DynamicUrlController() {
 		urlParser = new DynamicUrlParser();
 	}
@@ -221,12 +220,14 @@ public final class DynamicUrlController implements MapViewChangedHandler {
 	}
 
 	/**
-	 * Creates instance of {@link DynamicUrlController}.
+	 * Creates instance of {@link DynamicUrlController} that will listen to map changes and apply current x,y,r in the
+	 * hash part of the URL.
 	 *
-	 * Register should be called after {@link MapWidget} is created.
+	 * This method should be called after {@link MapWidget} is created.
 	 *
 	 * @param mapWidget main map widget of the application.
 	 */
+	@Api
 	public static void register(MapWidget mapWidget) {
 		if (null == instance) {
 			instance = new DynamicUrlController();
