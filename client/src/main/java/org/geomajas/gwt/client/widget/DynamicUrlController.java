@@ -96,10 +96,7 @@ public final class DynamicUrlController implements MapViewChangedHandler {
 		double x = mapWidget.getMapModel().getMapView().getViewState().getX();
 		double y = mapWidget.getMapModel().getMapView().getViewState().getY();
 		DynamicUrlParser parser = new DynamicUrlParser(x, y, resolution);
-
-		if (zoomedTo) {
-			changeHash(parser.getHash());
-		}
+		changeHash(parser.getHash());
 	}
 
 
