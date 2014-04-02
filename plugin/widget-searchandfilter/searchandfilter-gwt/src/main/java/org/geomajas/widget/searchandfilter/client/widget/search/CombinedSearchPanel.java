@@ -138,7 +138,6 @@ public class CombinedSearchPanel extends AbstractSearchPanel {
 			}
 		});
 		searchItems.setFields(nameField, removeField);
-		updateDisplay();
 
 		HLayout addBar = new HLayout(0);
 		addBar.setAlign(Alignment.LEFT);
@@ -194,6 +193,8 @@ public class CombinedSearchPanel extends AbstractSearchPanel {
 		layout.addMember(addBar);
 
 		addChild(layout);
+
+		updateDisplay();
 	}
 
 	/**
@@ -228,6 +229,7 @@ public class CombinedSearchPanel extends AbstractSearchPanel {
 	}
 
 	public void updateDisplay() {
+
 		int recordCount = searchItems.getRecords().length;
 		if (alwaysShowElements || recordCount >= 1) {
 			searchItems.show();
