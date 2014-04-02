@@ -94,7 +94,6 @@ public class RibbonButton extends StatefulCanvas implements RibbonColumn {
 		this.buttonAction = buttonAction;
 		this.iconSize = iconSize;
 		this.titleAlignment = titleAlignment;
-		setTop(0);
 
 		setCanHover(true);
 		setShowHover(true);
