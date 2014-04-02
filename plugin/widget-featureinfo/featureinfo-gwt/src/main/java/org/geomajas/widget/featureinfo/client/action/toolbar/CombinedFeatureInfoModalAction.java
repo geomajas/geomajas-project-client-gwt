@@ -11,6 +11,7 @@
 package org.geomajas.widget.featureinfo.client.action.toolbar;
 
 import org.geomajas.gwt.client.action.ToolbarModalAction;
+import org.geomajas.gwt.client.util.WidgetLayout;
 import org.geomajas.gwt.client.widget.MapWidget;
 import org.geomajas.widget.featureinfo.client.FeatureInfoMessages;
 import org.geomajas.widget.featureinfo.client.controller.CombinedFeatureInfoController;
@@ -34,7 +35,7 @@ public class CombinedFeatureInfoModalAction extends ToolbarModalAction {
 	// Constructor:
 
 	public CombinedFeatureInfoModalAction(MapWidget mapWidget) {
-		super("[ISOMORPHIC]/geomajas/osgeo/pan_info.png", null);
+		super(WidgetLayout.iconPanInfo, null);
 		setTitle(MESSAGES.combinedFeatureInfoActionTitle());
 		setTooltip(MESSAGES.combinedFeatureInfoActionTooltip());
 		this.mapWidget = mapWidget;

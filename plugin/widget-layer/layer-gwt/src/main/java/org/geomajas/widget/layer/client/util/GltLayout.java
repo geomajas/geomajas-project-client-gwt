@@ -47,6 +47,12 @@ public final class GltLayout {
 	public static String layerVectorPolygonIconLargeUrl = "[ISOMORPHIC]/geomajas/layerIcons/"
 			+ "vector_polygon_icon_large.png";
 
+	public static String iconShowLegend = "[ISOMORPHIC]/geomajas/silk/information.png";
+
+	public static String iconRemoveFilter = "[SKIN]/actions/remove.png";
+
+
+
 	// CHECKSTYLE VISIBILITY MODIFIER: ON
 	
 }

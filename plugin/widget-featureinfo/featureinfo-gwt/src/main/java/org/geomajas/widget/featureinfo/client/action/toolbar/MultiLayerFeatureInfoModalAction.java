@@ -15,6 +15,7 @@ import java.util.Map;
 
 import org.geomajas.gwt.client.action.ConfigurableAction;
 import org.geomajas.gwt.client.action.ToolbarModalAction;
+import org.geomajas.gwt.client.util.WidgetLayout;
 import org.geomajas.gwt.client.widget.MapWidget;
 import org.geomajas.widget.featureinfo.client.FeatureInfoMessages;
 import org.geomajas.widget.featureinfo.client.controller.MultiLayerFeatureInfoController;
@@ -50,7 +51,7 @@ public class MultiLayerFeatureInfoModalAction extends ToolbarModalAction impleme
 	 * @param mapWidget the mapwidget where this action should work on
 	 */
 	public MultiLayerFeatureInfoModalAction(MapWidget mapWidget) {
-		super("[ISOMORPHIC]/geomajas/osgeo/info.png", null);
+		super(WidgetLayout.iconInfoRibbon, null);
 		setTitle(MESSAGES.nearbyFeaturesModalActionTitle());
 		setTooltip(MESSAGES.nearbyFeaturesModalActionTooltip());
 		this.mapWidget = mapWidget;
