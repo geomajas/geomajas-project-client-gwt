@@ -11,7 +11,6 @@
 package org.geomajas.plugin.deskmanager.client.gwt.geodesk.impl;
 
 import com.google.gwt.core.client.EntryPoint;
-import com.google.gwt.core.client.GWT;
 import org.geomajas.plugin.deskmanager.client.gwt.geodesk.css.CssLoaderGeodeskImpl;
 
 

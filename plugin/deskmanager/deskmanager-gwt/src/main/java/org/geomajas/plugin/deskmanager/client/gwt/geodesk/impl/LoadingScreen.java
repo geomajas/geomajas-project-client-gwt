@@ -1,4 +1,3 @@
-
 /*
  * This is part of Geomajas, a GIS framework, http://www.geomajas.org/.
  *

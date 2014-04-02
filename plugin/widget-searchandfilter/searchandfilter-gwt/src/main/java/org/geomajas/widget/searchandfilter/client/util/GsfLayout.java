@@ -58,7 +58,7 @@ public final class GsfLayout {
 	public static String iconSearchFree = "[ISOMORPHIC]/geomajas/searchIcons/free.png";
 	/** Icon for the combined search action. */
 	public static String iconSearchCombined = "[ISOMORPHIC]/geomajas/searchIcons/combined.png";
-	/** Icon add */
+	/** Icon add. */
 	public static String iconAdd = "[ISOMORPHIC]/geomajas/silk/add.png";
 
 	public static String iconShowDetail = "[ISOMORPHIC]/geomajas/widget/multifeaturelistgrid/info.gif";
