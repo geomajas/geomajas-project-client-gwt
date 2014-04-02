@@ -33,7 +33,7 @@ import com.smartgwt.client.widgets.layout.Layout;
 import com.smartgwt.client.widgets.layout.VLayout;
 import org.geomajas.gwt.client.util.WidgetLayout;
 import org.geomajas.plugin.deskmanager.client.gwt.common.FileUploadForm;
-import org.geomajas.plugin.deskmanager.client.gwt.common.impl.DeskmanagerIcon;
+import org.geomajas.plugin.deskmanager.client.gwt.common.util.DeskmanagerLayoutConstants;
 import org.geomajas.widget.searchandfilter.client.util.AttributeCriterionUtil;
 import org.geomajas.widget.searchandfilter.editor.client.presenter.ConfiguredSearchPresenter;
 import org.geomajas.widget.searchandfilter.search.dto.ConfiguredSearchAttribute;
@@ -350,7 +350,7 @@ public class ConfiguredSearchView implements ConfiguredSearchPresenter.View {
 				editProps.setShowDown(false);
 				editProps.setShowRollOver(false);
 				editProps.setLayoutAlign(Alignment.CENTER);
-				editProps.setSrc(DeskmanagerIcon.IMG_SRC_COG);
+				editProps.setSrc(DeskmanagerLayoutConstants.iconCog);
 				editProps.setPrompt(messages.searchDetailsWindowGridColumnActionsTooltip());
 				editProps.setShowDisabledIcon(false);
 				editProps.setHeight(16);
