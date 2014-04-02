@@ -157,7 +157,7 @@
 			<dependency>
 				<groupId>com.smartgwt</groupId>
 				<artifactId>smartgwt-skins</artifactId>
-				<version>${gwt-client-smartgwt-skins-version}</version>
+				<version>${gwt-client-smartgwt-version}</version>
 			</dependency>
 			<dependency>
 				<groupId>commons-codec</groupId>
@@ -169,7 +169,6 @@
 				<artifactId>httpclient</artifactId>
 				<version>4.2.2</version>
 			</dependency>
-
 
 			<!-- geomajas-client-gwt-layer-geotools -->
 			<dependency>
@@ -561,7 +560,6 @@
 		<gwt-client-gwt-maven-version>2.5.1</gwt-client-gwt-maven-version>
 		<gwt-client-common-gwt-version>2.0.0-SNAPSHOT</gwt-client-common-gwt-version>
 		<gwt-client-smartgwt-version>4.1p-2014-03-31</gwt-client-smartgwt-version>
-        <gwt-client-smartgwt-skins-version>4.1p-2014-03-31</gwt-client-smartgwt-skins-version>
 		<gwt-exporter-version>2.4.0</gwt-exporter-version>
 	</properties>
 	
