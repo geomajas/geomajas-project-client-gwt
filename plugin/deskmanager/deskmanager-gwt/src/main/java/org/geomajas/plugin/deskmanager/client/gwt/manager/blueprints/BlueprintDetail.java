@@ -82,8 +82,7 @@ public class BlueprintDetail extends HLayout implements SelectionChangedHandler,
 	private TabSet widgetTabset;
 
 	public BlueprintDetail() {
-		super();
-		setMargin(10);
+		super(10);
 
 		setStyleName(DeskmanagerLayoutConstants.DESKMANAGER_TABPANE_DETAIL_STYLE);
 		tabset = new TabSet();

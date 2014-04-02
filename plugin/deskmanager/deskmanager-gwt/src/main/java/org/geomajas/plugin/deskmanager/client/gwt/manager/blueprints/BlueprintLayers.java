@@ -57,8 +57,6 @@ public class BlueprintLayers extends AbstractConfigurationLayout implements Blue
 
 		VLayout group = new VLayout();
 		group.setPadding(10);
-		group.setIsGroup(true);
-		group.setGroupTitle(MESSAGES.datalagenGroup());
 		group.addMember(layerSelect);
 		group.setOverflow(Overflow.AUTO);
 
