@@ -28,7 +28,6 @@ import org.geomajas.plugin.editing.client.service.GeometryEditService;
 import org.geomajas.plugin.editing.client.service.GeometryEditServiceImpl;
 import org.geomajas.plugin.editing.client.snap.SnapService;
 import org.geomajas.plugin.editing.gwt.client.controller.EditGeometryBaseController;
-import org.geomajas.plugin.editing.gwt.client.event.GeometryIndexMouseOverOutEvent;
 import org.geomajas.plugin.editing.gwt.client.gfx.GeometryRendererImpl;
 import org.geomajas.plugin.editing.gwt.client.gfx.StyleService;
 import org.geomajas.plugin.editing.gwt.client.handler.GeometryIndexMouseInMouseOutFactory;
