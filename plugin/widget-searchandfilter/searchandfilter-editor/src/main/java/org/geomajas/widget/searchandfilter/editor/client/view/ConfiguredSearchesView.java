@@ -26,7 +26,7 @@ import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.Layout;
 import com.smartgwt.client.widgets.layout.VLayout;
 import org.geomajas.gwt.client.util.WidgetLayout;
-import org.geomajas.plugin.deskmanager.client.gwt.common.util.DeskmanagerLayoutConstants;
+import org.geomajas.widget.searchandfilter.client.util.GsfLayout;
 import org.geomajas.widget.searchandfilter.editor.client.presenter.ConfiguredSearchesPresenter;
 import org.geomajas.widget.searchandfilter.search.dto.ConfiguredSearch;
 import org.geomajas.widget.searchandfilter.editor.client.i18n.SearchAndFilterEditorMessages;
@@ -174,7 +174,7 @@ public class ConfiguredSearchesView implements ConfiguredSearchesPresenter.View 
 				editSearchButton.setShowDown(false);
 				editSearchButton.setShowRollOver(false);
 				editSearchButton.setLayoutAlign(Alignment.CENTER);
-				editSearchButton.setSrc(DeskmanagerLayoutConstants.iconCog);
+				editSearchButton.setSrc(GsfLayout.iconCog);
 				editSearchButton.setPrompt(messages.searchesGridEditSearchTooltip());
 				editSearchButton.setShowDisabledIcon(false);
 				editSearchButton.setHeight(16);
