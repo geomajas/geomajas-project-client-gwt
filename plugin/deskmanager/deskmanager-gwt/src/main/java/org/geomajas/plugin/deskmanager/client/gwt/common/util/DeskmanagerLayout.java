@@ -17,9 +17,9 @@ package org.geomajas.plugin.deskmanager.client.gwt.common.util;
  * @author Dosi Bingov
  *
  */
-public final class DeskmanagerLayoutConstants {
+public final class DeskmanagerLayout {
 
-	private DeskmanagerLayoutConstants() {
+	private DeskmanagerLayout() {
 	}
 
 	// CHECKSTYLE VISIBILITY MODIFIER: OFF

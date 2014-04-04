@@ -10,7 +10,7 @@
  */
 package org.geomajas.plugin.deskmanager.client.gwt.manager.common;
 
-import org.geomajas.plugin.deskmanager.client.gwt.common.util.DeskmanagerLayoutConstants;
+import org.geomajas.plugin.deskmanager.client.gwt.common.util.DeskmanagerLayout;
 import org.geomajas.plugin.deskmanager.client.gwt.manager.i18n.ManagerMessages;
 import org.geomajas.plugin.deskmanager.domain.dto.LayerDto;
 
@@ -114,7 +114,7 @@ public class LayerListGrid extends ListGrid {
 			editProps.setShowDown(false);
 			editProps.setShowRollOver(false);
 			editProps.setLayoutAlign(Alignment.CENTER);
-			editProps.setSrc(DeskmanagerLayoutConstants.iconCog);
+			editProps.setSrc(DeskmanagerLayout.iconCog);
 			editProps.setPrompt(MESSAGES.layerListGridConfigurate());
 			editProps.setShowDisabledIcon(false);
 			editProps.setHeight(16);

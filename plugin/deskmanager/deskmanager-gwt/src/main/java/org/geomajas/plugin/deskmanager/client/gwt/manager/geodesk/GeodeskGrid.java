@@ -16,7 +16,7 @@ import java.util.Map;
 
 import org.geomajas.gwt.client.Geomajas;
 import org.geomajas.gwt.client.util.WidgetLayout;
-import org.geomajas.plugin.deskmanager.client.gwt.common.util.DeskmanagerLayoutConstants;
+import org.geomajas.plugin.deskmanager.client.gwt.common.util.DeskmanagerLayout;
 import org.geomajas.plugin.deskmanager.client.gwt.common.util.GeodeskUrlUtil;
 import org.geomajas.plugin.deskmanager.client.gwt.manager.events.BlueprintEvent;
 import org.geomajas.plugin.deskmanager.client.gwt.manager.events.BlueprintHandler;
@@ -167,7 +167,7 @@ public class GeodeskGrid extends ListGrid implements GeodeskHandler, BlueprintHa
 			previewImg.setShowDown(false);
 			previewImg.setShowRollOver(false);
 			previewImg.setLayoutAlign(Alignment.CENTER);
-			previewImg.setSrc(DeskmanagerLayoutConstants.iconOpensampleloket);
+			previewImg.setSrc(DeskmanagerLayout.iconOpensampleloket);
 			previewImg.setPrompt(MESSAGES.geodeskGridActionsColumnPreviewTooltip());
 
 			previewImg.setHeight(16);
