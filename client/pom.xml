@@ -111,8 +111,7 @@
 				<executions>
 					<execution>
 						<id>remove-gwt-test</id>
-
-								<phase>clean</phase>
+						<phase>clean</phase>
 						<configuration>
 							<tasks>
 								<delete dir=".gwt-tmp" />
