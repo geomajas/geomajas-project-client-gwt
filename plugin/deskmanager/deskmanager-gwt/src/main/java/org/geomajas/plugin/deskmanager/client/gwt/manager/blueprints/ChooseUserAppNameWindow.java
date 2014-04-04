@@ -67,7 +67,7 @@ public class ChooseUserAppNameWindow extends Window {
 		setKeepInParentRect(true);
 		setOverflow(Overflow.HIDDEN);
 		setAutoCenter(true);
-		setTitle(MESSAGES.chooseAppTitle());
+		setTitle(MESSAGES.newBlueprintWindowTitle());
 		setShowCloseButton(false);
 		setShowMinimizeButton(false);
 		setShowMaximizeButton(false);

@@ -19,7 +19,7 @@ import com.google.gwt.i18n.client.Messages;
  *
  */
 public interface ManagerMessages extends Messages {
-	
+
 	String editButtonText();
 	String cancelButtonText();
 	String saveButtonText();
@@ -27,22 +27,22 @@ public interface ManagerMessages extends Messages {
 	String resetButtonTooltip();
 	String configAddDelete(); //TODO: needed?
 
-	
+
 	String removeTitle();
-	
+
 	String wizardPreviousButtonText();
 	String wizardNextButtonText();
-	
+
 	String formWarnNotvalid();
 	String loadingConfig();
 	String titlePleaseWait();
-	
+
 	String gridColumnActions();
 
 	String settingsLatestChangeBy();
 	String settingsLatestChangeWhen();
 
-	
+
 	// Main section tabs
 	String mainTabGeodesks();
 	String mainTabDataLayers();
@@ -50,7 +50,7 @@ public interface ManagerMessages extends Messages {
 
 	//Geodesks main Tab
 	String newGeodeskButtonText();
-	
+
 	String geodeskGridColumnName();
 	String geodeskGridColumnNameBlueprint();
 	String geodeskGridColumnDeskId();
@@ -84,7 +84,7 @@ public interface ManagerMessages extends Messages {
 	String settingGeodeskWarnGeodeskIdNotUnique();
 
 	String validatorWarnGeodeskIdNotUnique();
-		
+
 	String geodeskSettingsIdTooltip();
 
 	String geodeskSettingsAdmin();
@@ -94,12 +94,12 @@ public interface ManagerMessages extends Messages {
 	String geodeskSettingsPublic();
 	String geodeskSettingsWarnCannotBePublic();
 	String geodeskSettingsWarnGeodeskInactivedByBlueprint();
-	
+
 	String settingsLimitToTerritoryAdministrator();
 	String settingsLimitToTerritoryAdministratorTooltip();
 	String settingsLimitToTerritoryUser();
 	String settingsLimitToTerritoryUserTooltip();
-	
+
 	String settingsFormGroupSettings();
 	String geodeskSettingsWarnNoBlueprints();
 	String datalagenGroup();
@@ -117,7 +117,7 @@ public interface ManagerMessages extends Messages {
 
 	String geodeskDetailTabThemes();
 
-	
+
 	String chooseBlueprintTitle();
 	String chooseBlueprintRequired();
 	String chooseBlueprintLoading();
@@ -126,6 +126,7 @@ public interface ManagerMessages extends Messages {
 	String chooseBlueprinWarnNoBlueprints();
 
 	String newBlueprintButtonText();
+	String newBlueprintWindowTitle();
 	String chooseAppTitle();
 
 	String datalayerConnectionParametersGroup();
@@ -163,7 +164,7 @@ public interface ManagerMessages extends Messages {
 	String blueprintSettingsActivTooltip();
 	String blueprintSettingsPublic();
 	String blueprintSettingsWarnCannotBePublic();
-	
+
 	String chooseAppRequired();
 	String chooseAppTooltip();
 	String chooseAppCreate();
@@ -183,14 +184,14 @@ public interface ManagerMessages extends Messages {
 	String datalayerGridColumnActions();
 	String datalayerGridColumnUserLayer();
 	String datalayerGridColumnUserLayerTooltip();
-	
+
 	String datalayerGridActionsColumnRemoveTooltip();
 	String datalayerGridWarnPublicCannotBeRemoved();
 	String datalayerGridControlOnLayerUseBeforeRemove();
 	String datalayerGridCannotRemoveLayerInUse();
 	String datalayerGridRemoveConfirmQuestion(String name);
 	String datalayerGridLoading();
-	
+
 	String datalayersNewDatalayerButtonText();
 	String datalayersNewLayerIsBeingSaved();
 	String datalayerShapeUploadFormGroup();
@@ -198,8 +199,8 @@ public interface ManagerMessages extends Messages {
 	String datalayerShapeUploadOverwriteConfirmQuestion();
 	String datalayerShapeUploadNoFileSelected();
 	String datalayerStyleFormGroup();
-	
-	
+
+
 	String newLayerModelWindowTitle();
 	String newLayerModelWizardCreateButtonText();
 
@@ -229,10 +230,10 @@ public interface ManagerMessages extends Messages {
 	String layerConfigConfirmRestoreTitle();
 	String layerConfigExpertEditorBtn();
 	String layerConfigExpertEditorMalformedSldException();
-	
+
 	String layerListGridColumnPublicTooltip();
 	String layerListGridConfigurate();
-	
+
 	String layerGroupConfigWindowTitle();
 	String layerGroupConfigGroupTitleProperties();
 	String layerGroupConfigName();
@@ -244,7 +245,7 @@ public interface ManagerMessages extends Messages {
 	String layerSelectUserLayers();
 	String layerSelectSelectedLayers();
 	String layerSelectSelectedLayersTooltip();
-	
+
 	String layerAttributesGridLoadingText();
 	String layerAttributesGridColumnAttribute();
 	String layerAttributesGridColumnType();
@@ -260,7 +261,7 @@ public interface ManagerMessages extends Messages {
 	String layerAttributesGriDeselectLabelAttribute();
 
 	//----------------------------------------------
-	
+
 	String layerSettingsLayerName();
 	String layerSettingsPublic();
 	String layerSettingsPublicTooltip();
@@ -272,7 +273,7 @@ public interface ManagerMessages extends Messages {
 	String maxBoundsMinY();
 	String maxBoundsMaxX();
 	String maxBoundsMaxY();
-	
+
 	String chooseTypeStepNumbering();
 	String chooseTypeStepTitle();
 	String chooseTypeStepRadioGroupTitle();
@@ -280,7 +281,7 @@ public interface ManagerMessages extends Messages {
 	String chooseTypeStepShapeFile();
 	String chooseTypeStepWMS();
 	String chooseTypeStepDatabase();
-	
+
 	String databaseCapabilitiesStepNumbering();
 	String databaseCapabilitiesStepTitle();
 	String databaseCapabilitiesStepParametersHost();
@@ -290,21 +291,21 @@ public interface ManagerMessages extends Messages {
 	String databaseCapabilitiesStepParametersUserName();
 	String databaseCapabilitiesStepParametersPassword();
 	String databaseCapabilitiesStepChooseVectorLayerNotFound();
-	
+
 	String requestingInfoFromServer();
-	
+
 	String shapefileUploadStepNumbering();
 	String shapefileUploadStepTitle();
 	String shapefileUploadStepErrorDuringUpload();
 	String shapefileUploadStepNextStepNotFound();
-	
+
 	String wfsCapabilitiesStepNumbering();
 	String wfsCapabilitiesStepTitle();
 	String wfsCapabilitiesStepParametersCapabilitiesURL();
 	String wfsCapabilitiesStepParametersUserName();
 	String wfsCapabilitiesStepParametersPassword();
 	String wfsCapabilitiesStepNextStepNotFound();
-	
+
 	String vectorChooseLayerStepNumbering();
 	String vectorChooseLayerStepTitle();
 	String vectorChooseLayerStepParametersGroup();
@@ -312,34 +313,34 @@ public interface ManagerMessages extends Messages {
 	String vectorChooseLayerStepParametersType();
 	String vectorChooseLayerStepParametersDescription();
 	String vectorChooseLayerStepNextStepNotFound();
-	
+
 	String vectorEditLayerAttributesStepNumbering();
 	String vectorEditLayerAttributesStepTitle();
 	String vectorEditLayerAttributesStepNextStepNotFound();
-	
+
 	String editLayerSettingsStepNumbering();
 	String editLayerSettingsStepTitle();
 	String editLayerSettingsStepVisibleArea();
-	
+
 	String vectorEditLayerStyleStepNumbering();
 	String vectorEditLayerStyleStepTitle();
 	String vectorEditLayerStyleStepSelectColor();
 	String vectorEditLayerStyleStepStyleName();
 	String vectorEditLayerStyleStepNextStepNotFound();
-	
-	String wmsCapabilitiesStepNumbering();	
+
+	String wmsCapabilitiesStepNumbering();
 	String wmsCapabilitiesStepTitle();
 	String wmsCapabilitiesStepParametersCapabilitiesURL();
 	String wmsCapabilitiesStepParametersUserName();
 	String wmsCapabilitiesStepParametersPassword();
 	String wmsCapabilitiesStepNextStepNotFound();
-	
+
 	String wmsChooseLayerStepNumbering();
 	String wmsChooseLayerStepTitle();
 	String wmsChooseLayerStepName();
 	String wmsChooseLayerStepCRS();
 	String wmsChooseLayerStepDescription();
-	
+
 	String wmsPreviewLayerStepNumbering();
 	String wmsPreviewLayerStepTitle();
 	String wmsPreviewLayerStepNextStepNotFound();
