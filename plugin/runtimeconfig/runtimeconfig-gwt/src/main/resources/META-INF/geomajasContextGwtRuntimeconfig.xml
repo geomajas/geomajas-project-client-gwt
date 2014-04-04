@@ -1,4 +1,3 @@
-
 <!--
   ~ This is part of Geomajas, a GIS framework, http://www.geomajas.org/.
   ~
@@ -9,21 +8,17 @@
   ~ by the Geomajas Contributors License Agreement. For full licensing
   ~ details, see LICENSE.txt in the project root.
   -->
+
 <beans
-		xmlns="http://www.springframework.org/schema/beans"
-		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-		xmlns:context="http://www.springframework.org/schema/context"
-		xmlns:util="http://www.springframework.org/schema/util"
-		xsi:schemaLocation="
-http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
-http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd
-http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.0.xsd"
-		>
+        xmlns="http://www.springframework.org/schema/beans"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd"
+        >
 
 	<bean class="org.geomajas.global.PluginInfo">
 		<property name="version">
 			<bean class="org.geomajas.global.PluginVersionInfo">
-				<property name="name" value="geomajas-widget-utility-gwt" />
+				<property name="name" value="runtimeconfig-gwt" />
 				<property name="version" value="${project.version}" />
 			</bean>
 		</property>
@@ -32,11 +27,11 @@ http://www.springframework.org/schema/util http://www.springframework.org/schema
 			<list>
 				<bean class="org.geomajas.global.PluginVersionInfo">
 					<property name="name" value="GWT face" />
-					<property name="version" value="${project.version}" />
+					<property name="version" value="${project.version}"/>
 				</bean>
 				<bean class="org.geomajas.global.PluginVersionInfo">
-					<property name="name" value="geomajas-widget-utility-common-gwt" />
-					<property name="version" value="${project.version}" />
+					<property name="name" value="runtimeconfig" />
+					<property name="version" value="${gwt-client-server-version}" />
 				</bean>
 			</list>
 		</property>
@@ -53,3 +48,4 @@ http://www.springframework.org/schema/util http://www.springframework.org/schema
 	</bean>
 
 </beans>
+

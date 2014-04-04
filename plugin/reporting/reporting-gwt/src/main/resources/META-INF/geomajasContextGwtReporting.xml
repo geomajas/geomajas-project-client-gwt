@@ -1,3 +1,4 @@
+
 <!--
   ~ This is part of Geomajas, a GIS framework, http://www.geomajas.org/.
   ~
@@ -9,20 +10,15 @@
   ~ details, see LICENSE.txt in the project root.
   -->
 <beans
-		xmlns="http://www.springframework.org/schema/beans"
-		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-		xmlns:context="http://www.springframework.org/schema/context"
-		xmlns:util="http://www.springframework.org/schema/util"
-		xsi:schemaLocation="
-http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
-http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd
-http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.0.xsd"
-		>
+        xmlns="http://www.springframework.org/schema/beans"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd"
+        >
 
 	<bean class="org.geomajas.global.PluginInfo">
 		<property name="version">
 			<bean class="org.geomajas.global.PluginVersionInfo">
-				<property name="name" value="geomajas-widget-searchandfilter" />
+				<property name="name" value="geomajas-plugin-reporting-gwt" />
 				<property name="version" value="${project.version}" />
 			</bean>
 		</property>
@@ -30,8 +26,12 @@ http://www.springframework.org/schema/util http://www.springframework.org/schema
 		<property name="dependencies">
 			<list>
 				<bean class="org.geomajas.global.PluginVersionInfo">
-					<property name="name" value="geomajas-widget-featureinfo" />
+					<property name="name" value="GWT face" />
 					<property name="version" value="${project.version}" />
+				</bean>
+				<bean class="org.geomajas.global.PluginVersionInfo">
+					<property name="name" value="geomajas-plugin-reporting" />
+					<property name="version" value="${gwt-client-server-version}" />
 				</bean>
 			</list>
 		</property>
