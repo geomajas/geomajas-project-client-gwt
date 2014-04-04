@@ -57,7 +57,7 @@
 			<param-name>contextConfigLocation</param-name>
 			<param-value>
 				<!-- generic and plugin context -->
-				classpath*:META-INF/geomajasWebContext.xml
+				classpath:org/geomajas/spring/geomajasWebContext.xml
 				<!-- local context (workaround for SPRINT-39)-->
 				WEB-INF/webContext.xml
 			</param-value>
