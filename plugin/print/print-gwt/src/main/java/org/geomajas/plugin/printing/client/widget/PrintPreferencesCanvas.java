@@ -12,6 +12,7 @@ package org.geomajas.plugin.printing.client.widget;
 
 import java.util.LinkedHashMap;
 
+import com.google.gwt.i18n.client.LocaleInfo;
 import org.geomajas.gwt.client.command.AbstractCommandCallback;
 import org.geomajas.gwt.client.command.GwtCommand;
 import org.geomajas.gwt.client.command.GwtCommandDispatcher;
@@ -220,6 +221,7 @@ public class PrintPreferencesCanvas extends Canvas {
 		builder.setWithScaleBar((Boolean) scaleBarCheckbox.getValue());
 		builder.setRasterDpi((Integer) rasterDpiSlider.getValue());
 		PrintTemplateInfo template = builder.buildTemplate();
+		template.getPage().setLocale(LocaleInfo.getCurrentLocale().getLocaleName());
 		request.setTemplate(template);
 		final GwtCommand command = new GwtCommand(PrintGetTemplateRequest.COMMAND);
 		command.setCommandRequest(request);

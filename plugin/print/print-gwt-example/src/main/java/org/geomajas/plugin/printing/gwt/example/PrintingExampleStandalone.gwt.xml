@@ -18,10 +18,9 @@
 	
 	<inherits name="org.geomajas.plugin.printing.gwt.example.PrintingExample"/>
 
-
-	<!-- add required languages
+	<!-- add required languages -->
 	<extend-property name="locale" values="nl"/>
-	-->
+
 
 	<!-- set target browser to compile for, use this to limit to the browser used for testing -->
 	<!-- where value = "ie6/opera/gecko1_8/safari/gecko" , "gecko1_8" is FireFox 3 -->

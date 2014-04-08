@@ -54,4 +54,6 @@ public interface PrintingMessages extends Messages {
 
 	String printPrefsFileName();
 
+	String legendTitle();
+
 }

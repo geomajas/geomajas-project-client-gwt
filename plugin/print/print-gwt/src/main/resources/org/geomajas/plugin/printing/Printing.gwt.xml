@@ -15,8 +15,11 @@
 	<inherits name="org.geomajas.plugin.rasterizing.Rasterizing" />
 
 	<source path="client" />
+
+	<!-- source code from geomajas-plugin-print (=back-end) -->
 	<source path="component/dto" />
 	<source path="command/dto" />
+
   	<entry-point class='org.geomajas.plugin.printing.client.Printing'/>
 
 </module>
