@@ -42,6 +42,7 @@ import org.geomajas.gwt.example.client.sample.layertree.LayerOrderSample;
 import org.geomajas.gwt.example.client.sample.layertree.LayertreeSample;
 import org.geomajas.gwt.example.client.sample.layertree.LegendSample;
 import org.geomajas.gwt.example.client.sample.mapwidget.CrsSample;
+import org.geomajas.gwt.example.client.sample.mapwidget.DynamicUrlSample;
 import org.geomajas.gwt.example.client.sample.mapwidget.GroupAndSingleAddonSample;
 import org.geomajas.gwt.example.client.sample.mapwidget.LayerOpacitySample;
 import org.geomajas.gwt.example.client.sample.mapwidget.MaxBoundsToggleSample;
@@ -107,6 +108,9 @@ public class GwtFaceExample implements EntryPoint {
 		SampleTreeNodeRegistry.addSampleTreeNode(new SampleTreeNode(MESSAGES.panAndSliderTitle(),
 				"[ISOMORPHIC]/geomajas/example/image/silk/world.png", PanAndZoomSliderSample.TITLE, "MapWidget",
 				PanAndZoomSliderSample.FACTORY));
+		SampleTreeNodeRegistry.addSampleTreeNode(new SampleTreeNode(MESSAGES.dynamicUrlTitle(),
+				"[ISOMORPHIC]/geomajas/example/image/silk/world.png", DynamicUrlSample.TITLE, "MapWidget",
+				DynamicUrlSample.FACTORY));
 		SampleTreeNodeRegistry.addSampleTreeNode(new SampleTreeNode(MESSAGES.renderingTitle(),
 				"[ISOMORPHIC]/geomajas/osgeo/edit.png", RenderingSample.TITLE, "MapWidget",
 				RenderingSample.FACTORY));
@@ -119,6 +123,8 @@ public class GwtFaceExample implements EntryPoint {
 		SampleTreeNodeRegistry.addSampleTreeNode(new SampleTreeNode(MESSAGES.layerOpacityTitle(),
 				"[ISOMORPHIC]/geomajas/osgeo/layer-raster.png", LayerOpacitySample.TITLE, "MapWidget",
 				LayerOpacitySample.FACTORY));
+
+
 
 		// Editing:
 		SampleTreeNodeRegistry.addSampleTreeNode(new SampleTreeNode(MESSAGES.treeGroupEditing(),
