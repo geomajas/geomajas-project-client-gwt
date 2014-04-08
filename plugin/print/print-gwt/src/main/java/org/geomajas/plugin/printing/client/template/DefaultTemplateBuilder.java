@@ -13,6 +13,8 @@ package org.geomajas.plugin.printing.client.template;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.google.gwt.core.client.GWT;
+import com.google.gwt.i18n.client.LocaleInfo;
 import org.geomajas.configuration.FontStyleInfo;
 import org.geomajas.configuration.client.ClientLayerInfo;
 import org.geomajas.configuration.client.ClientRasterLayerInfo;
@@ -23,6 +25,7 @@ import org.geomajas.gwt.client.map.MapView;
 import org.geomajas.gwt.client.map.layer.Layer;
 import org.geomajas.gwt.client.map.layer.RasterLayer;
 import org.geomajas.gwt.client.map.layer.VectorLayer;
+import org.geomajas.plugin.printing.client.PrintingMessages;
 import org.geomajas.plugin.printing.client.util.PrintingLayout;
 import org.geomajas.plugin.printing.command.dto.PrintTemplateInfo;
 import org.geomajas.plugin.printing.component.dto.ImageComponentInfo;
@@ -46,8 +49,11 @@ import org.geomajas.sld.RuleInfo;
  * Default print template builder, parameters include title, size, raster DPI, orientation, etc...
  * 
  * @author Jan De Moerloose
+ * @author Jan Venstermans
  */
 public class DefaultTemplateBuilder extends AbstractTemplateBuilder {
+
+	private static final PrintingMessages MESSAGES = GWT.create(PrintingMessages.class);
 
 	protected double pageWidth;
 
@@ -154,6 +160,9 @@ public class DefaultTemplateBuilder extends AbstractTemplateBuilder {
 		legend.setFont(style);
 		legend.setMapId(mapModel.getMapInfo().getId());
 		legend.setTag("legend");
+		// previous line should be enough, but it isn't
+		legend.setLocale(LocaleInfo.getCurrentLocale().getLocaleName());
+		legend.setTitle(MESSAGES.legendTitle());
 		for (Layer layer : mapModel.getLayers()) {
 			if (layer instanceof VectorLayer && layer.isShowing()) {
 				VectorLayer vectorLayer = (VectorLayer) layer;

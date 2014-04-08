@@ -10,7 +10,10 @@
  */
 package org.geomajas.plugin.printing.client.template;
 
+import com.google.gwt.core.client.GWT;
+import com.google.gwt.i18n.client.LocaleInfo;
 import org.geomajas.configuration.FontStyleInfo;
+import org.geomajas.plugin.printing.client.PrintingMessages;
 import org.geomajas.plugin.printing.client.util.PrintingLayout;
 import org.geomajas.plugin.printing.command.dto.PrintTemplateInfo;
 import org.geomajas.plugin.printing.component.dto.ImageComponentInfo;
@@ -27,7 +30,9 @@ import org.geomajas.plugin.printing.component.dto.ScaleBarComponentInfo;
  * @author Jan De Moerloose
  */
 public abstract class AbstractTemplateBuilder {
-	
+
+	private static final PrintingMessages MESSAGES = GWT.create(PrintingMessages.class);
+
 	protected PrintTemplateInfo buildTemplate() {
 		PrintTemplateInfo template = new PrintTemplateInfo();
 		template.setPage(buildPage());
@@ -61,7 +66,11 @@ public abstract class AbstractTemplateBuilder {
 	}
 
 	protected LegendComponentInfo buildLegend() {
-		return new LegendComponentInfo();
+		LegendComponentInfo legend = new LegendComponentInfo();
+		legend.setLocale(LocaleInfo.getCurrentLocale().getLocaleName());
+		// previous line should be enough, but it isn't
+		legend.setTitle(MESSAGES.legendTitle());
+		return legend;
 	}
 
 	protected ScaleBarComponentInfo buildScaleBar() {

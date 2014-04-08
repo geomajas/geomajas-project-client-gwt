@@ -35,7 +35,7 @@ http://www.springframework.org/schema/context/spring-context-2.5.xsd"
                 <property name="height" value="181"/>
 			</bean>
 		</property>
-		<property name="featureInfo" ref="layerCountries110mFeatureInfo" />
+		<property name="featureInfo" ref="layerCountriesPrintingFeatureInfo" />
 		<property name="namedStyleInfos">
 			<list>
 				<ref bean="layerCountriesPrintingStyleInfo" />
