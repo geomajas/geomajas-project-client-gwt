@@ -65,7 +65,7 @@
 			<description>Spring Web-MVC specific (additional) context files.</description>
 			<param-name>contextConfigLocation</param-name>
 			<param-value>
-				classpath*:META-INF/geomajasWebContext.xml
+				classpath:org/geomajas/spring/geomajasWebContext.xml
 				classpath:org/geomajas/testdata/commandCountWebContext.xml
 			</param-value>
 		</init-param>
