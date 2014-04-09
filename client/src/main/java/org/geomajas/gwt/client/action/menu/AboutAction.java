@@ -12,6 +12,12 @@
 package org.geomajas.gwt.client.action.menu;
 
 import com.google.gwt.core.client.GWT;
+import com.smartgwt.client.Version;
+import com.smartgwt.client.widgets.HTMLFlow;
+import com.smartgwt.client.widgets.Img;
+import com.smartgwt.client.widgets.Window;
+import com.smartgwt.client.widgets.layout.VLayout;
+import com.smartgwt.client.widgets.menu.events.MenuItemClickEvent;
 import org.geomajas.command.EmptyCommandRequest;
 import org.geomajas.command.dto.CopyrightRequest;
 import org.geomajas.command.dto.CopyrightResponse;
@@ -22,12 +28,6 @@ import org.geomajas.gwt.client.command.AbstractCommandCallback;
 import org.geomajas.gwt.client.command.GwtCommand;
 import org.geomajas.gwt.client.command.GwtCommandDispatcher;
 import org.geomajas.gwt.client.i18n.GlobalMessages;
-
-import com.smartgwt.client.widgets.HTMLFlow;
-import com.smartgwt.client.widgets.Img;
-import com.smartgwt.client.widgets.Window;
-import com.smartgwt.client.widgets.layout.VLayout;
-import com.smartgwt.client.widgets.menu.events.MenuItemClickEvent;
 import org.geomajas.gwt.client.util.WidgetLayout;
 
 import java.util.Collection;
@@ -50,12 +50,19 @@ public class AboutAction extends MenuAction {
 		layout.setPadding(WidgetLayout.marginLarge);
 		Img logo = new Img(WidgetLayout.aboutGeomajasLogo);
 		layout.addMember(logo);
-		HTMLFlow flow = new HTMLFlow("<h2>Geomajas " + Geomajas.getVersion() + "</h2>" + "<p>"
-				+ MESSAGES.aboutCopyRight() + "</p>" + "<p>" + MESSAGES.aboutVisit()
+		HTMLFlow flow = new HTMLFlow("<h2>Geomajas " + Geomajas.getVersion() + "</h2>" +
+				"<p>" + MESSAGES.aboutCopyRight() + "</p>" + "<p>" + MESSAGES.aboutVisit()
 				+ ": <a href='http://www.geomajas.org/'>http://www.geomajas.org/</a><br />"
 				+ MESSAGES.sourceUrl() + ": <a href='http://ci.geomajas.org/svn/'>http://ci.geomajas.org/svn/</a> "
 				+ "&amp; <a href='https://svn.geomajas.org/majas/'>https://svn.geomajas.org/majas/</a> </p>");
+
+
+
+		HTMLFlow flowSmartgwt = new HTMLFlow("<h2>SmartGWT " + Version.getVersion()  +
+				" " + Version.getSCVersionNumber() + "</h2>");
+
 		layout.addMember(flow);
+		layout.addMember(flowSmartgwt);
 
 		final HTMLFlow copyrightWidget = new HTMLFlow("Copyright info");
 		layout.addMember(copyrightWidget);
