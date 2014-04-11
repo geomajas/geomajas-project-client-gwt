@@ -59,7 +59,7 @@ public class AboutAction extends MenuAction {
 
 
 		HTMLFlow flowSmartgwt = new HTMLFlow("<h2>SmartGWT " + Version.getVersion()  +
-				" " + Version.getSCVersionNumber() + "</h2>");
+				" " + Version.getBuildDate() + "</h2>");
 
 		layout.addMember(flow);
 		layout.addMember(flowSmartgwt);

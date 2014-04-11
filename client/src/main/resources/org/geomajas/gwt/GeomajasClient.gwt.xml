@@ -18,9 +18,7 @@
 	<inherits name="org.geomajas.gwt.GeomajasCommonSmartGwt" />
 	<inherits name="org.geomajas.plugin.wms.GeomajasClientPluginWms" />
 
-
-	<!-- Inherited modules: SmartGWT -->
-	<!--inherits name='com.smartgwt.SmartGwt'/-->
+	<!-- Inherited modules: SmartGWT without theme -->
 	<inherits name='com.smartgwt.SmartGwtNoTheme'/>
 
 	<!-- make sure the default is there -->
@@ -81,7 +79,6 @@
         <when-property-is name="gwtclient.loadStyle" value="false"/>
     </replace-with>
     <!-- end main style sheet for smart gwt client -->
-
 
 	<entry-point class="org.geomajas.gwt.client.GeomajasEntryPoint"/>
 
