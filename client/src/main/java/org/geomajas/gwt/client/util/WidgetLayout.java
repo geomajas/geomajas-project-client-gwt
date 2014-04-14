@@ -45,7 +45,10 @@ public final class WidgetLayout {
 
 	/** Add icon. */
 	public static String iconAdd = "[ISOMORPHIC]/geomajas/silk/add.png";
-	/** Add record icon typically used in smartgwt list grids. */
+	/**
+	 *  Add record icon typically used in smartgwt list grids.
+	 * @since 1.15.0
+	 * */
 	public static String iconRecordAdd = "[ISOMORPHIC]/geomajas/silk/add.png";
 	/** Add image icon. */
 	public static String iconAddImage = "[ISOMORPHIC]/geomajas/silk/image-add.png";
