@@ -11,9 +11,8 @@
 
 package org.geomajas.gwt.client.util;
 
-import org.geomajas.annotation.Api;
-
 import com.smartgwt.client.widgets.Window;
+import org.geomajas.annotation.Api;
 
 /**
  * Class which helps to provide consistent sizes and names for layout purposes.
@@ -46,6 +45,8 @@ public final class WidgetLayout {
 
 	/** Add icon. */
 	public static String iconAdd = "[ISOMORPHIC]/geomajas/silk/add.png";
+	/** Add record icon typically used in smartgwt list grids. */
+	public static String iconRecordAdd = "[ISOMORPHIC]/geomajas/silk/add.png";
 	/** Add image icon. */
 	public static String iconAddImage = "[ISOMORPHIC]/geomajas/silk/image-add.png";
 	/** AJAX loading icon. */
