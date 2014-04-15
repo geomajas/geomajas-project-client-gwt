@@ -130,19 +130,29 @@
 
         <resources>
             <resource>
-                <directory>src/main/resources/org/geomajas/gwt/client/i18n</directory>
-                <filtering>true</filtering>
+                <directory>src/main/java/</directory>
+                <filtering>false</filtering>
                 <includes>
-                    <include>**/*.properties</include>
+                    <include>**/*.java</include>
                 </includes>
             </resource>
+
             <resource>
-                <directory>src/main/resources/org/geomajas/gwt/client/i18n</directory>
+                <directory>src/main/resources/</directory>
                 <filtering>false</filtering>
                 <excludes>
-                    <exclude>**/*.properties</exclude>
+                    <exclude>org/geomajas/gwt/client/i18n/*Version*.properties</exclude>
                 </excludes>
             </resource>
+
+            <resource>
+                <directory>src/main/resources/</directory>
+                <filtering>true</filtering>
+                <includes>
+                    <include>org/geomajas/gwt/client/i18n/*Version*.properties</include>
+                </includes>
+            </resource>
+
         </resources>
 	</build>
 
