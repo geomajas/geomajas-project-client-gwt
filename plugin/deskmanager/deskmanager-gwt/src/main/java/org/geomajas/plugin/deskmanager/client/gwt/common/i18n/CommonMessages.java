@@ -28,7 +28,7 @@ public interface CommonMessages extends Messages {
 	String rolesWindowInsufficientRightsForDesk();
 	String rolesWindowStillInsufficientRightsForDesk();
 	
-	String roleUnsignedDescription();
+	String roleUnassignedDescription();
 	String roleGuestDescription();
 	String roleAdministratorDescription();
 	String roleDeskmanagerDescription();
