@@ -48,6 +48,10 @@ public interface SampleMessages extends Messages {
 
 	String pipelineConfigDescription();
 
+	String dynamicUrlTitle();
+
+	String dynamicUrlDescription();
+
 	// OpenStreetMap sample:
 
 	String osmTitle();
