@@ -52,8 +52,6 @@ public class DatalayerShapeUpload extends AbstractConfigurationLayout {
 
 		VLayout group = new VLayout();
 		group.setPadding(10);
-		group.setIsGroup(true);
-		group.setGroupTitle(MESSAGES.datalayerShapeUploadFormGroup());
 		group.addMember(form);
 		group.setOverflow(Overflow.AUTO);
 

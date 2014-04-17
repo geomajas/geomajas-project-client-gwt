@@ -33,6 +33,7 @@ import org.geomajas.gwt.client.map.event.MapModelChangedHandler;
 import org.geomajas.gwt.client.widget.MapWidget;
 import org.geomajas.plugin.deskmanager.client.gwt.common.GdmLayout;
 import org.geomajas.plugin.deskmanager.client.gwt.common.UserApplication;
+import org.geomajas.plugin.deskmanager.client.gwt.common.util.DeskmanagerLayout;
 import org.geomajas.plugin.deskmanager.client.gwt.geodesk.GeodeskInitializationHandler;
 import org.geomajas.plugin.deskmanager.client.gwt.geodesk.event.UserApplicationEvent;
 import org.geomajas.plugin.deskmanager.client.gwt.geodesk.event.UserApplicationHandler;
@@ -105,7 +106,6 @@ public class LoadingScreen extends VLayout implements GeodeskInitializationHandl
 		VLayout banner = new VLayout();
 		banner.setLayoutAlign(Alignment.CENTER);
 		banner.setLayoutAlign(VerticalAlignment.CENTER);
-		banner.setStyleName("loadingScreenLabel");
 
 		logoImg = new Img(GdmLayout.loadingLogo);
 		// logoImg.setWidth(logoWidth);
@@ -116,8 +116,7 @@ public class LoadingScreen extends VLayout implements GeodeskInitializationHandl
 		banner.addMember(logoImg);
 
 		VLayout progressLayout = new VLayout();
-		progressLayout.setBackgroundColor("#000000");
-		progressLayout.setOpacity(30);
+		progressLayout.setStyleName(DeskmanagerLayout.STYLE_PROGRESSBAR_LAYOUT);
 		progressLayout.setHeight(80);
 		progressLayout.setPadding(15);
 
@@ -125,40 +124,30 @@ public class LoadingScreen extends VLayout implements GeodeskInitializationHandl
 		label.setLayoutAlign(Alignment.CENTER);
 		label.setWidth100();
 		label.setHeight(15);
-		label.setStyleName("loadingScreenLabel");
 		label.setOpacity(100);
 		progressLayout.addMember(label);
 
 		progressBar = new Progressbar();
-		progressBar.setHeight(30);
+		progressBar.setStyleName(DeskmanagerLayout.STYLE_PROGRESSBAR);
+		progressBar.setHeight(DeskmanagerLayout.progressBarHeight);
 		progressBar.setWidth100();
 		progressBar.setVertical(false);
 		progressBar.setLayoutAlign(Alignment.CENTER);
 		progressBar.setLayoutAlign(VerticalAlignment.CENTER);
-		progressBar.setOpacity(100);
 		progressLayout.addMember(progressBar);
 		banner.addMember(progressLayout);
 
 		HLayout inner = new HLayout();
-		inner.setBackgroundColor("#FFFFFF");
-		// inner.setShowEdges(true);
-		// inner.setShowShadow(true);
-		// inner.setShadowDepth(10);
-		// inner.setBackgroundImage(logo_background);
-		// inner.setEdgeOpacity(70);
-		inner.setStyleName("loadingScreen");
+		inner.setStyleName(DeskmanagerLayout.STYLE_LOADING_SCREEN);
 		inner.setLayoutAlign(Alignment.CENTER);
 		inner.setLayoutAlign(VerticalAlignment.CENTER);
-		inner.setWidth(500);
-		inner.setHeight(300);
+		inner.setWidth(DeskmanagerLayout.loadingScreenWidth);
+		inner.setHeight(DeskmanagerLayout.loadingScreenHeight);
 
 		inner.setAlign(Alignment.CENTER);
 		inner.addMember(banner);
-
-		setBackgroundColor("#FFFFFF");
 		setHeight100();
 		setWidth100();
-		// setOpacity(50);
 		setAlign(VerticalAlignment.CENTER);
 		setAlign(Alignment.CENTER);
 		addMember(inner);

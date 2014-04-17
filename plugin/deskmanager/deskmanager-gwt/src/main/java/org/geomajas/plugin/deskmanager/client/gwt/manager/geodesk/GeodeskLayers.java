@@ -57,8 +57,6 @@ public class GeodeskLayers extends AbstractConfigurationLayout implements Geodes
 
 		VLayout group = new VLayout();
 		group.setPadding(10);
-		group.setIsGroup(true);
-		group.setGroupTitle(MESSAGES.datalagenGroup());
 		group.addMember(layerSelect);
 		group.setOverflow(Overflow.AUTO);
 

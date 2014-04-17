@@ -25,6 +25,7 @@ import com.smartgwt.client.widgets.tab.Tab;
 import com.smartgwt.client.widgets.tab.TabSet;
 import org.geomajas.configuration.client.ClientWidgetInfo;
 import org.geomajas.gwt.client.Geomajas;
+import org.geomajas.plugin.deskmanager.client.gwt.common.util.DeskmanagerLayout;
 import org.geomajas.plugin.deskmanager.client.gwt.manager.common.AbstractWoaHandler;
 import org.geomajas.plugin.deskmanager.client.gwt.manager.common.SaveButtonBar;
 import org.geomajas.plugin.deskmanager.client.gwt.manager.editor.LayerWidgetEditor;
@@ -87,6 +88,7 @@ public class DatalayerDetail extends VLayout implements SelectionChangedHandler,
 	public DatalayerDetail() {
 		super(10);
 
+		setStyleName(DeskmanagerLayout.STYLE_DESKMANAGER_TABPANE_DETAIL);
 		settings = new DatalayerSettings();
 		connPar = new DatalayerConnectionParameters();
 		upload = new DatalayerShapeUpload();

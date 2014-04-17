@@ -23,6 +23,7 @@ import org.geomajas.gwt.client.widget.FeatureListGrid;
 import org.geomajas.gwt.client.widget.MapWidget;
 import org.geomajas.gwt.client.util.Notify;
 import org.geomajas.widget.searchandfilter.client.SearchAndFilterMessages;
+import org.geomajas.widget.searchandfilter.client.util.GsfLayout;
 import org.geomajas.widget.searchandfilter.client.util.SearchCommService;
 import org.geomajas.widget.searchandfilter.search.dto.Criterion;
 
@@ -49,9 +50,6 @@ import com.smartgwt.client.widgets.toolbar.ToolStripButton;
  * @author Kristof Heirwegh
  */
 class FeatureListGridTab extends Tab implements SelectionChangedHandler {
-
-	private static final String BTN_SHOW_DETAIL = "[ISOMORPHIC]/geomajas/widget/multifeaturelistgrid/info.gif";
-	private static final String BTN_EXPORT = "[ISOMORPHIC]/geomajas/widget/multifeaturelistgrid/table_save.png";
 
 	private FeatureListGrid featureListGrid;
 	private Criterion criterion;
@@ -111,7 +109,7 @@ class FeatureListGridTab extends Tab implements SelectionChangedHandler {
 		toolStrip.addButton(focusButton);
 
 		showButton = new ToolStripButton(messages.multiFeatureListGridButtonShowDetail());
-		showButton.setIcon(BTN_SHOW_DETAIL);
+		showButton.setIcon(GsfLayout.iconShowDetail);
 		showButton.setTooltip(messages.multiFeatureListGridButtonShowDetailTooltip());
 		showButton.setDisabled(true);
 		showButton.setShowDisabledIcon(false);
@@ -126,7 +124,7 @@ class FeatureListGridTab extends Tab implements SelectionChangedHandler {
 		if (showCsvExportAction) {
 			exportCsvHandler = new ExportFeatureListToCsvHandler(mapWidget.getMapModel(), layer);
 			exportButton = new ToolStripButton(messages.multiFeatureListGridButtonExportToCSV());
-			exportButton.setIcon(BTN_EXPORT);
+			exportButton.setIcon(GsfLayout.iconExport);
 			exportButton.setTooltip(messages.multiFeatureListGridButtonExportToCSVTooltip());
 			exportButton.setShowDisabledIcon(false);
 			exportButton.addClickHandler(new ClickHandler() {
@@ -138,7 +136,7 @@ class FeatureListGridTab extends Tab implements SelectionChangedHandler {
 
 						public void run() {
 							exportButton.setDisabled(false);
-							exportButton.setIcon(BTN_EXPORT);
+							exportButton.setIcon(GsfLayout.iconExport);
 						}
 					});
 				}

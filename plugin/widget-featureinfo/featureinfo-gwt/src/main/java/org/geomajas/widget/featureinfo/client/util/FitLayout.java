@@ -26,10 +26,30 @@ public final class FitLayout {
 
 	// CHECKSTYLE VISIBILITY MODIFIER: OFF
 
-	/** Offset from current pointer position for displaying tooltip. */
+	/**
+	 * Offset from current pointer position for displaying tooltip.
+	 */
 	public static int tooltipOffsetX = 12;
-	/** Offset from current pointer position for displaying tooltip. */
+
+	/**
+	 * Offset from current pointer position for displaying tooltip.
+	 */
 	public static int tooltipOffsetY = 12;
+
+	/**
+	 * iconMouseTooltipRibbon.
+	 */
+	public static String iconMouseTooltipRibbon = "[ISOMORPHIC]/geomajas/osgeo/mouse_tooltip_ribbon_24.png";
+
+	/**
+	 * iconLayerRaster.
+	 */
+	public static String iconLayerRaster = "[ISOMORPHIC]/geomajas/osgeo/layer-raster.png";
+
+	/**
+	 * iconDesktopSmall.
+	 */
+	public static String iconDesktopSmall = "[ISOMORPHIC]/geomajas/geomajas_desktopicon_small.png";
 
 	// CHECKSTYLE VISIBILITY MODIFIER: ON
 

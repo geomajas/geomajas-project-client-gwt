@@ -35,6 +35,7 @@ import org.geomajas.gwt.client.spatial.Mathlib;
 import org.geomajas.gwt.client.spatial.WorldViewTransformer;
 import org.geomajas.gwt.client.spatial.geometry.Point;
 import org.geomajas.gwt.client.util.GeometryConverter;
+import org.geomajas.gwt.client.util.WidgetLayout;
 import org.geomajas.gwt.client.widget.MapWidget;
 import org.geomajas.layer.feature.Attribute;
 import org.geomajas.layer.feature.Feature;
@@ -430,7 +431,7 @@ public class TooltipOnMouseoverListener extends AbstractListener {
 		c.setMargin(4);
 		c.setWidth(26);
 		c.setHeight(26);
-		c.addChild(new Img("[ISOMORPHIC]/geomajas/loading_small.gif", 16, 16));
+		c.addChild(new Img(WidgetLayout.iconAjaxLoading16, 16, 16));
 		return c;
 	}
 

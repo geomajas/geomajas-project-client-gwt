@@ -220,8 +220,6 @@ public class GeodeskSettings extends AbstractConfigurationLayout implements Geod
 
 		VLayout group = new VLayout();
 		group.setPadding(10);
-		group.setIsGroup(true);
-		group.setGroupTitle(MESSAGES.settingsFormGroupSettings());
 		group.addMember(form);
 		group.setOverflow(Overflow.AUTO);
 

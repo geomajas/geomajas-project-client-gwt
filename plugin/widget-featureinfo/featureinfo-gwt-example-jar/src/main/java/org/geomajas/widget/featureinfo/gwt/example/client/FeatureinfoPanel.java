@@ -31,6 +31,7 @@ import org.geomajas.gwt.client.widget.OverviewMap;
 import org.geomajas.gwt.client.widget.Toolbar;
 import org.geomajas.gwt.example.base.SamplePanel;
 import org.geomajas.gwt.example.base.SamplePanelFactory;
+import org.geomajas.widget.featureinfo.client.util.FitLayout;
 import org.geomajas.widget.featureinfo.client.widget.factory.WidgetFactory;
 import org.geomajas.widget.featureinfo.gwt.example.client.
 		customfeatureinfowidgets.CustomCountriesFeatureInfoCanvasBuilder;
@@ -74,7 +75,7 @@ public class FeatureinfoPanel extends SamplePanel {
 		topBar.setWidth100();
 		topBar.addSpacer(6);
 
-		Img icon = new Img("[ISOMORPHIC]/geomajas/geomajas_desktopicon_small.png");
+		Img icon = new Img(FitLayout.iconDesktopSmall);
 		icon.setSize(24);
 		topBar.addMember(icon);
 		topBar.addSpacer(6);

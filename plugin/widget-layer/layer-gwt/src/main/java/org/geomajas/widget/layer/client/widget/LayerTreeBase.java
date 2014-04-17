@@ -11,24 +11,7 @@
 
 package org.geomajas.widget.layer.client.widget;
 
-import org.geomajas.gwt.client.i18n.I18nProvider;
-import org.geomajas.gwt.client.map.MapModel;
-import org.geomajas.gwt.client.map.event.LayerDeselectedEvent;
-import org.geomajas.gwt.client.map.event.LayerSelectedEvent;
-import org.geomajas.gwt.client.map.event.LayerSelectionHandler;
-import org.geomajas.gwt.client.map.event.MapModelChangedEvent;
-import org.geomajas.gwt.client.map.event.MapModelChangedHandler;
-import org.geomajas.gwt.client.map.layer.AbstractLayer;
-import org.geomajas.gwt.client.map.layer.Layer;
-import org.geomajas.gwt.client.map.layer.VectorLayer;
-import org.geomajas.gwt.client.util.Log;
-import org.geomajas.gwt.client.widget.MapWidget;
-import org.geomajas.widget.layer.client.widget.CombinedLayertree.LayerTreeLegendNode;
-import org.geomajas.widget.layer.configuration.client.ClientAbstractNodeInfo;
-import org.geomajas.widget.layer.configuration.client.ClientLayerTreeInfo;
-
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.user.client.Element;
 import com.smartgwt.client.types.Alignment;
 import com.smartgwt.client.types.Overflow;
 import com.smartgwt.client.types.SelectionStyle;
@@ -42,15 +25,33 @@ import com.smartgwt.client.widgets.tree.TreeGrid;
 import com.smartgwt.client.widgets.tree.TreeNode;
 import com.smartgwt.client.widgets.tree.events.FolderClickEvent;
 import com.smartgwt.client.widgets.tree.events.FolderClickHandler;
+import com.smartgwt.client.widgets.tree.events.FolderOpenedEvent;
+import com.smartgwt.client.widgets.tree.events.FolderOpenedHandler;
 import com.smartgwt.client.widgets.tree.events.LeafClickEvent;
 import com.smartgwt.client.widgets.tree.events.LeafClickHandler;
+import org.geomajas.gwt.client.i18n.I18nProvider;
+import org.geomajas.gwt.client.map.MapModel;
+import org.geomajas.gwt.client.map.event.LayerDeselectedEvent;
+import org.geomajas.gwt.client.map.event.LayerSelectedEvent;
+import org.geomajas.gwt.client.map.event.LayerSelectionHandler;
+import org.geomajas.gwt.client.map.event.MapModelChangedEvent;
+import org.geomajas.gwt.client.map.event.MapModelChangedHandler;
+import org.geomajas.gwt.client.map.layer.AbstractLayer;
+import org.geomajas.gwt.client.map.layer.Layer;
+import org.geomajas.gwt.client.map.layer.VectorLayer;
+import org.geomajas.gwt.client.util.Log;
+import org.geomajas.gwt.client.widget.MapWidget;
+import org.geomajas.widget.layer.client.util.GltLayout;
+import org.geomajas.widget.layer.client.widget.CombinedLayertree.LayerTreeLegendNode;
+import org.geomajas.widget.layer.configuration.client.ClientAbstractNodeInfo;
+import org.geomajas.widget.layer.configuration.client.ClientLayerTreeInfo;
 
 /**
  * The LayerTree shows a tree resembling the available layers for the map. Several actions can be executed on the layers
  * (make them invisible, ...).
- * 
+ *
  * TODO This is a copy from LayerTree, should make original properties protected, of add get/setters
- * 
+ *
  * @author Kristof Heirwegh
  * @author Frank Wynants
  * @author Pieter De Graef
@@ -58,11 +59,9 @@ import com.smartgwt.client.widgets.tree.events.LeafClickHandler;
 public abstract class LayerTreeBase extends Canvas implements LeafClickHandler, FolderClickHandler,
 		LayerSelectionHandler {
 
-	protected static final String ICON_BASE = "[ISOMORPHIC]/geomajas/widget/layertree/";
+	protected static final String ICON_HIDE = GltLayout.layerTreeIconsPath + "layer-hide";
 
-	protected static final String ICON_HIDE = ICON_BASE + "layer-hide.png";
-
-	protected static final String ICON_SHOW = ICON_BASE + "layer-show";
+	protected static final String ICON_SHOW = GltLayout.layerTreeIconsPath + "layer-show";
 
 	protected static final String ICON_SHOW_OUT_OF_RANGE = "-outofrange";
 
@@ -70,13 +69,8 @@ public abstract class LayerTreeBase extends Canvas implements LeafClickHandler, 
 
 	protected static final String ICON_SHOW_FILTERED = "-filtered";
 
-	protected static final String ICON_SHOW_END = ".png";
+	protected static final String ICON_EXTENSION = ".png";
 
-	protected static final String IMG_TAGNAME = "IMG";
-
-	protected static final int LAYERTREEBUTTON_SIZE = 22;
-
-	protected static final int DEFAULT_ICONSIZE = 18;
 
 	protected final HTMLFlow htmlSelectedLayer = new HTMLFlow(I18nProvider.getLayerTree().activeLayer(
 			I18nProvider.getLayerTree().none()));
@@ -98,7 +92,7 @@ public abstract class LayerTreeBase extends Canvas implements LeafClickHandler, 
 	/**
 	 * Initialize the LayerTree, using a MapWidget as base reference. It will display the map's layers, as configured in
 	 * the XML configuration, and select/deselect the layer as the user clicks on them in the tree.
-	 * 
+	 *
 	 * @param mapWidget
 	 *            map widget this layer tree is connected to
 	 * @since 1.0.0
@@ -132,7 +126,7 @@ public abstract class LayerTreeBase extends Canvas implements LeafClickHandler, 
 	/**
 	 * When a layer deselection event comes in, the LayerTree must also deselect the correct node in the tree, update
 	 * the selected layer text, and update all buttons icons.
-	 * 
+	 *
 	 * @param event
 	 *            event
 	 */
@@ -148,7 +142,7 @@ public abstract class LayerTreeBase extends Canvas implements LeafClickHandler, 
 	/**
 	 * When a layer selection event comes in, the LayerTree must also select the correct node in the tree, update the
 	 * selected layer text, and update all buttons icons.
-	 * 
+	 *
 	 * @param event
 	 *            event
 	 */
@@ -172,14 +166,14 @@ public abstract class LayerTreeBase extends Canvas implements LeafClickHandler, 
 
 	/**
 	 * When the user clicks on a folder nothing gets selected.
-	 * 
+	 *
 	 * @param event
 	 *            event
 	 */
 	public void onFolderClick(FolderClickEvent event) {
 		try {
-			Element e = EventHandler.getNativeMouseTarget();
-			if (IMG_TAGNAME.equals(e.getTagName())) {
+
+			if (isIconTargetClicked()) {
 				onIconClick(event.getFolder());
 			} else {
 				if (event.getFolder() instanceof LayerTreeTreeNode) {
@@ -197,14 +191,13 @@ public abstract class LayerTreeBase extends Canvas implements LeafClickHandler, 
 	/**
 	 * When the user clicks on a leaf the headertext of the treetable is changed to the selected leaf and the toolbar
 	 * buttons are updated to represent the correct state of the buttons.
-	 * 
+	 *
 	 * @param event
 	 *            event
 	 */
 	public void onLeafClick(LeafClickEvent event) {
 		try {
-			Element e = EventHandler.getNativeMouseTarget();
-			if (IMG_TAGNAME.equals(e.getTagName())) {
+			if (isIconTargetClicked()) {
 				onIconClick(event.getLeaf());
 			} else {
 				LayerTreeTreeNode layerTreeNode = (LayerTreeTreeNode) event.getLeaf();
@@ -230,7 +223,7 @@ public abstract class LayerTreeBase extends Canvas implements LeafClickHandler, 
 
 	/**
 	 * Get the currently selected tree node.
-	 * 
+	 *
 	 * @return selected node
 	 */
 	public LayerTreeTreeNode getSelectedLayerTreeNode() {
@@ -240,6 +233,23 @@ public abstract class LayerTreeBase extends Canvas implements LeafClickHandler, 
 	// -------------------------------------------------------------------------
 	// Private methods:
 	// -------------------------------------------------------------------------
+
+	/**
+	 * Method that checks if the target html tag of mouse event contains given icon extension.
+	 * Should be backwards compatible with smartgwt 3.1 where the source html tag is IMG.
+	 * !Will probably not work on touch devices.
+	 *
+	 * @return if treenode icon is clicked.
+	 */
+	private boolean isIconTargetClicked() {
+		String targetHtml = EventHandler.getNativeMouseTarget().getString();
+
+		if (targetHtml.indexOf(ICON_EXTENSION) != -1) {
+			return true;
+		}
+
+		return false;
+	}
 
 	protected void initialize() {
 		buildTree();
@@ -278,13 +288,29 @@ public abstract class LayerTreeBase extends Canvas implements LeafClickHandler, 
 		treeGrid.setData(tree);
 		treeGrid.addLeafClickHandler(this);
 		treeGrid.addFolderClickHandler(this);
+
+		treeGrid.addFolderClickHandler(new FolderClickHandler() {
+			@Override
+			public void onFolderClick(FolderClickEvent folderClickEvent) {
+				folderClickEvent.getSource();
+			}
+		});
+
+
+		treeGrid.addFolderOpenedHandler(new FolderOpenedHandler() {
+			@Override
+			public void onFolderOpened(FolderOpenedEvent folderOpenedEvent) {
+				folderOpenedEvent.getSource();
+			}
+		});
+
 		tree.openFolder(nodeRoot);
 		syncNodeState(false);
 	}
 
 	/**
 	 * Processes a treeNode (add it to the TreeGrid).
-	 * 
+	 *
 	 * @param treeNode
 	 *            The treeNode to process
 	 * @param nodeRoot
@@ -300,7 +326,7 @@ public abstract class LayerTreeBase extends Canvas implements LeafClickHandler, 
 	/**
 	 * Creation of tree grid is decoupled to allow you to make a custom tree grid. (SmartGWT uses some design patterns
 	 * which only give you the ability to customize certain aspects in a subclass)
-	 * 
+	 *
 	 * @return tree grid
 	 */
 	protected TreeGrid createTreeGrid() {
@@ -309,7 +335,7 @@ public abstract class LayerTreeBase extends Canvas implements LeafClickHandler, 
 
 	/**
 	 * A SmartGWT Tree with one extra method 'refresh'. This is needed to update icons on the fly in a tree
-	 * 
+	 *
 	 * @author Frank Wynants
 	 */
 	protected class RefreshableTree extends Tree {
@@ -338,7 +364,7 @@ public abstract class LayerTreeBase extends Canvas implements LeafClickHandler, 
 
 	/**
 	 * A node inside the LayerTree.
-	 * 
+	 *
 	 * @author Frank Wynants
 	 * @author Pieter De Graef
 	 */
@@ -350,7 +376,7 @@ public abstract class LayerTreeBase extends Canvas implements LeafClickHandler, 
 
 		/**
 		 * Constructor creates a TreeNode with layer.getLabel as label.
-		 * 
+		 *
 		 * @param tree
 		 *            tree for node
 		 * @param layer
@@ -370,13 +396,16 @@ public abstract class LayerTreeBase extends Canvas implements LeafClickHandler, 
 		/**
 		 * Causes the node to check its status (visible, showing labels, ...) and to update its icon to match its
 		 * status.
-		 * 
+		 *
 		 * @param refresh
 		 *            should tree be refreshed
 		 */
 		public void updateIcon(boolean refresh) {
+			StringBuffer icon = new StringBuffer();
+
 			if (layer.isVisible()) {
-				StringBuffer icon = new StringBuffer(ICON_SHOW);
+				icon.append(ICON_SHOW);
+
 				if (!layer.isShowing()) {
 					icon.append(ICON_SHOW_OUT_OF_RANGE);
 				}
@@ -389,11 +418,14 @@ public abstract class LayerTreeBase extends Canvas implements LeafClickHandler, 
 						icon.append(ICON_SHOW_FILTERED);
 					}
 				}
-				icon.append(ICON_SHOW_END);
-				setIcon(icon.toString());
+
 			} else {
-				setIcon(ICON_HIDE);
+				icon.append(ICON_HIDE);
 			}
+
+			icon.append(ICON_EXTENSION);
+			setIcon(icon.toString());
+
 			if (refresh) {
 				tree.refreshIcons();
 			}

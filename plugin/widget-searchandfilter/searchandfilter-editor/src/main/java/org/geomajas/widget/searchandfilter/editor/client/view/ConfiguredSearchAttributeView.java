@@ -15,6 +15,7 @@ import com.smartgwt.client.types.Alignment;
 import com.smartgwt.client.types.ListGridEditEvent;
 import com.smartgwt.client.types.SelectionStyle;
 import com.smartgwt.client.widgets.Canvas;
+import com.smartgwt.client.widgets.IButton;
 import com.smartgwt.client.widgets.ImgButton;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
@@ -73,7 +74,7 @@ public class ConfiguredSearchAttributeView implements ConfiguredSearchAttributeP
 
 	private DropdownValueListGrid grid;
 
-	private ImgButton addImg;
+	private IButton addImg;
 
 	private VLayout gridLayout;
 
@@ -153,16 +154,19 @@ public class ConfiguredSearchAttributeView implements ConfiguredSearchAttributeP
 		Layout addImgContainer = new Layout();
 		addImgContainer.setWidth(64 + 16); //16 from scroller in grid
 		addImgContainer.setAlign(Alignment.CENTER);
-		addImgContainer.setHeight(16);
+		addImgContainer.setHeight(25);
 		addImgContainer.setLayoutAlign(Alignment.RIGHT);
+		addImg = new IButton();
 
-		addImg = new ImgButton();
-		addImg.setSrc(WidgetLayout.iconAdd);
+		addImg.setIcon(WidgetLayout.iconAdd);
+		addImg.setTitle("");
+		addImg.setHeight(22);
+		addImg.setWidth(28);
+		addImg.setIconAlign("center");
+
 		addImg.setShowDown(false);
 		addImg.setShowRollOver(false);
 		addImg.setPrompt(messages.searchesAddSearchConfigButtonTooltip());
-		addImg.setHeight(16);
-		addImg.setWidth(16);
 		addImg.addClickHandler(new ClickHandler() {
 
 			public void onClick(ClickEvent event) {

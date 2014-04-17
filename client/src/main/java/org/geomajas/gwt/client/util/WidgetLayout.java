@@ -11,9 +11,8 @@
 
 package org.geomajas.gwt.client.util;
 
-import org.geomajas.annotation.Api;
-
 import com.smartgwt.client.widgets.Window;
+import org.geomajas.annotation.Api;
 
 /**
  * Class which helps to provide consistent sizes and names for layout purposes.
@@ -26,7 +25,7 @@ import com.smartgwt.client.widgets.Window;
 @Api(allMethods = true)
 public final class WidgetLayout {
 
-	// CHECKSTYLE VISIBILITY MODIFIER: OFF
+	//CHECKSTYLE VISIBILITY MODIFIER: OFF
 
 	/** Small margin width. */
 	public static int marginSmall = 5;
@@ -46,10 +45,22 @@ public final class WidgetLayout {
 
 	/** Add icon. */
 	public static String iconAdd = "[ISOMORPHIC]/geomajas/silk/add.png";
+	/**
+	 *  Add record icon typically used in smartgwt list grids.
+	 * @since 1.15.0
+	 * */
+	public static String iconRecordAdd = "[ISOMORPHIC]/geomajas/silk/add.png";
 	/** Add image icon. */
 	public static String iconAddImage = "[ISOMORPHIC]/geomajas/silk/image-add.png";
 	/** AJAX loading icon. */
 	public static String iconAjaxLoading = "[ISOMORPHIC]/geomajas/ajax-loader.gif";
+	/**
+	 *
+	 * AJAX loading 16x16px animated icon.
+	 *  @since 1.15.0
+	 *
+	 * */
+	public static String iconAjaxLoading16 = "[ISOMORPHIC]/geomajas/ajax_loader_16.gif";
 	/** Display attributes icon. */
 	public static String iconAttributesDisplay = "[ISOMORPHIC]/geomajas/osgeo/attributes-display.png";
 	/** Show attributes icon. */
@@ -90,6 +101,11 @@ public final class WidgetLayout {
 	public static String iconHide = "[ISOMORPHIC]/geomajas/osgeo/hide.png";
 	/** Info icon. */
 	public static String iconInfo = "[ISOMORPHIC]/geomajas/osgeo/info.png";
+	/** Info icon ribbonbar .
+	 *
+	 * @since 1.15.0
+	 * */
+	public static String iconInfoRibbon = "[ISOMORPHIC]/geomajas/osgeo/info.png";
 	/** Disabled labels icon. */
 	public static String iconLabelsDisabled = "[ISOMORPHIC]/geomajas/widget/layertree/labels-disabled.png";
 	/** Hide labels icon. */
@@ -135,7 +151,7 @@ public final class WidgetLayout {
 	/** Pan icon. */
 	public static String iconPan = "[ISOMORPHIC]/geomajas/osgeo/pan.png";
 	/** Pan info icon. */
-	public static String iconPanInfo = "[ISOMORPHIC]/geomajas/osgeo/pan-info.png";
+	public static String iconPanInfo = "[ISOMORPHIC]/geomajas/osgeo/pan_info.png";
 	/** Pan to selection icon. */
 	public static String iconPanToSelection = "[ISOMORPHIC]/geomajas/osgeo/pan_to_selection.png";
 	/** Clear picker icon. */
@@ -350,7 +366,29 @@ public final class WidgetLayout {
 	 */
 	public static int crocEyePositionTop = 110;
 
-	// CHECKSTYLE VISIBILITY MODIFIER: ON
+	/*============================================================
+		Style names
+	============================================================*/
+
+	/**
+	 *  Measure distancce panel.
+	 * @since 1.15.0
+	 */
+	public static final String STYLE_MEASURE_DISTANCE_PANEL = "measureDistancePanel";
+
+	/**
+	 *  Measure distancce panel content.
+	 * @since 1.15.0
+	 */
+	public static final String MEASURE_DISTANCE_PANEL_CONTENT = "measureDistancePanelContent";
+
+	/**
+	 *  Measure distancce panel header.
+	 * @since 1.15.0
+	 */
+	public static final String MEASURE_DISTANCE_PANEL_HEADER = "measureDistancePanelHeader";
+
+	//CHECKSTYLE VISIBILITY MODIFIER: ON
 
 	private WidgetLayout() {
 		// do not allow instantiation.

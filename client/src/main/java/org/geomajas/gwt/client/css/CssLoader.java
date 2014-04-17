@@ -8,20 +8,17 @@
  * by the Geomajas Contributors License Agreement. For full licensing
  * details, see LICENSE.txt in the project root.
  */
-package org.geomajas.plugin.deskmanager.client.gwt.common.impl;
+package org.geomajas.gwt.client.css;
 
 /**
- * @author Oliver May
- * 
+ * @author Dosi Bingov
+ *
+ * CssLoader interface.
  */
-public final class DeskmanagerIcon {
-
-	private DeskmanagerIcon() { }
-
-	public static final String HELP_ICON = "[ISOMORPHIC]/images/osgeo/help.png";
-	
-	public static final String SAVE_ICON = "[ISOMORPHIC]/images/silk/accept.png";
-	
-	public static final String IMG_SRC_COG = "[ISOMORPHIC]/images/icons/cog.png";
-	
+public interface CssLoader  {
+	/**
+	 * Convenient method that will load stylesheet dynamically.
+	 *
+	 */
+	void loadStyleSheet();
 }
