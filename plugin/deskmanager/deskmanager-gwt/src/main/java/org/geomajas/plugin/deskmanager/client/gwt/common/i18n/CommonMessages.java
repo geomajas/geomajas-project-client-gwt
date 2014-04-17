@@ -17,6 +17,8 @@ import com.google.gwt.i18n.client.Messages;
  * 
  * @author An Buyle
  *
+ * @author Dosi Bingov
+ *
  */
 public interface CommonMessages extends Messages {
 
@@ -37,5 +39,22 @@ public interface CommonMessages extends Messages {
 
 	String fileIsUploading();
 	String errorWhileUploadingFile();
+
+
+	// Editors
+
+	// configuration of image configuration editor
+	String imageConfigurationEditorName();
+	String imageConfigLinkTitle();
+	String imageConfigAltTitle();
+	String imageConfigAltTooltip();
+	String imageConfigFileTitle();
+	String imageConfigGroupTitle();
+	String imageConfigIdealSize(int width, int height);
+
+
+	// configuration of loading screen configuration editor
+	String loadingScreenEditorName();
+	String loadingScreenGroupTitle();
 
 }
