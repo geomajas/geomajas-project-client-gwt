@@ -22,18 +22,18 @@ import org.geomajas.plugin.deskmanager.client.gwt.manager.editor.WidgetEditorFac
  * @author Jan De Moerloose
  *
  */
-public class LoadingScreenEditorFactory implements WidgetEditorFactory {
+public class LoadingScreenImageEditorFactory implements WidgetEditorFactory {
 
 	private static final CommonMessages MESSAGES = GWT.create(CommonMessages.class);
 
 	@Override
 	public WidgetEditor createEditor() {
-		return new LoadingScreenEditor();
+		return new LoadingScreenImageEditor();
 	}
 
 	@Override
 	public String getKey() {
-		return LoadingScreenInfo.IDENTIFIER;
+		return LoadingScreenImageInfo.IDENTIFIER;
 	}
 
 	@Override

@@ -60,7 +60,7 @@ import java.util.List;
  * Convenience class with helper methods for commands.
  * 
  * @author Kristof Heirwegh
- * @author Oliver May
+ * @author	 Oliver May
  */
 public final class ManagerCommandService {
 
