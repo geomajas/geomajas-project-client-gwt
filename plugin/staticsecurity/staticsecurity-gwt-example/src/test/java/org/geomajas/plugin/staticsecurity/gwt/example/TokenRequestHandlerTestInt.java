@@ -87,8 +87,8 @@ public class TokenRequestHandlerTestInt {
 		// login in using faulty user name/login combination
 		WebElement userName = driver.findElement(By.name("userName"));
 		WebElement password = driver.findElement(By.name("password"));
-		WebElement login = driver.findElement(By.xpath("//td[text()='Log in']"));
-		WebElement reset = driver.findElement(By.xpath("//td[text()='Reset']"));
+		WebElement login = driver.findElement(By.xpath("//td[contains(.,'Log in')]"));
+		WebElement reset = driver.findElement(By.xpath("//td[contains(.,'Reset')]"));
 		String name = reset.getTagName();
 		userName.sendKeys("blablabla");
 		password.sendKeys("blablabla");
