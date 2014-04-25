@@ -125,7 +125,7 @@ public class FileUploadForm extends HLayout {
 					setUrl(builder.toString());
 					fireChangedEvent(new ChangedEvent(this, oldResult, getUrl()));
 				} else {
-					SC.say(MESSAGES.errorWhileUploadingFile() + "<br />(" + event.getResults() + ")");
+					SC.say(MESSAGES.errorWhileUploadingFile() + "<br />" + event.getResults());
 				}
 			}
 		});
@@ -293,4 +293,6 @@ public class FileUploadForm extends HLayout {
 			return oldValue;
 		}
 	}
+
+
 }

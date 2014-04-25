@@ -76,7 +76,7 @@ public class RibbonButton extends StatefulCanvas implements RibbonColumn {
 	 *            The {@link ButtonAction} to use as template.
 	 */
 	public RibbonButton(final ButtonAction buttonAction) {
-		this(buttonAction, 24, TitleAlignment.BOTTOM);
+		this(buttonAction, GuwLayout.ribbonColumnButtonIconSize, TitleAlignment.BOTTOM);
 	}
 
 	/**

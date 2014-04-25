@@ -61,8 +61,6 @@ import org.geomajas.plugin.deskmanager.command.geodesk.dto.InitializeGeodeskResp
  */
 public class LoadingScreen extends VLayout implements GeodeskInitializationHandler {
 
-	private int logoHeight = 226;
-
 	private Label label;
 
 	private Progressbar progressBar;
@@ -103,26 +101,24 @@ public class LoadingScreen extends VLayout implements GeodeskInitializationHandl
 
 		setCursor(Cursor.WAIT);
 
-		VLayout banner = new VLayout();
-		banner.setLayoutAlign(Alignment.CENTER);
-		banner.setLayoutAlign(VerticalAlignment.CENTER);
+		VLayout inner = new VLayout();
+		inner.setAlign(Alignment.CENTER);
+		inner.setWidth(DeskmanagerLayout.loadingScreenWidth);
+		inner.setStyleName(DeskmanagerLayout.STYLE_LOADING_SCREEN);
+		inner.setHeight100();
 
 		logoImg = new Img(GdmLayout.loadingLogo);
-		// logoImg.setWidth(logoWidth);
-		logoImg.setHeight(logoHeight);
-		logoImg.setLayoutAlign(Alignment.CENTER);
-		logoImg.setLayoutAlign(VerticalAlignment.CENTER);
-		// logoImg.setBorder("1px solid black");
-		banner.addMember(logoImg);
+		logoImg.setAlign(Alignment.CENTER);
+		inner.addMember(logoImg);
 
 		VLayout progressLayout = new VLayout();
 		progressLayout.setStyleName(DeskmanagerLayout.STYLE_PROGRESSBAR_LAYOUT);
 		progressLayout.setHeight(80);
 		progressLayout.setPadding(15);
+		progressLayout.setAlign(Alignment.CENTER);
 
 		label = new Label(I18nProvider.getGlobal().loadScreenDownLoadText());
 		label.setLayoutAlign(Alignment.CENTER);
-		label.setWidth100();
 		label.setHeight(15);
 		label.setOpacity(100);
 		progressLayout.addMember(label);
@@ -135,22 +131,18 @@ public class LoadingScreen extends VLayout implements GeodeskInitializationHandl
 		progressBar.setLayoutAlign(Alignment.CENTER);
 		progressBar.setLayoutAlign(VerticalAlignment.CENTER);
 		progressLayout.addMember(progressBar);
-		banner.addMember(progressLayout);
+		inner.addMember(progressLayout);
 
-		HLayout inner = new HLayout();
-		inner.setStyleName(DeskmanagerLayout.STYLE_LOADING_SCREEN);
-		inner.setLayoutAlign(Alignment.CENTER);
-		inner.setLayoutAlign(VerticalAlignment.CENTER);
-		inner.setWidth(DeskmanagerLayout.loadingScreenWidth);
-		inner.setHeight(DeskmanagerLayout.loadingScreenHeight);
+		HLayout hCenter = new HLayout();
+		hCenter.setAlign(Alignment.CENTER);
+		hCenter.setWidth100();
+		hCenter.setHeight(DeskmanagerLayout.loadingScreenHeight);
+		hCenter.addMember(inner);
 
-		inner.setAlign(Alignment.CENTER);
-		inner.addMember(banner);
 		setHeight100();
 		setWidth100();
-		setAlign(VerticalAlignment.CENTER);
 		setAlign(Alignment.CENTER);
-		addMember(inner);
+		addMember(hCenter);
 	}
 
 	public void registerGeodesk(final UserApplication geoDesk) {
