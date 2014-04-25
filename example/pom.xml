@@ -264,9 +264,23 @@
 		</executions>
                 
             </plugin>
-
-
-        </plugins>
+	    </plugins>
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>false</filtering>
+				<excludes>
+					<exclude>org/geomajas/gwt/example/client/i18n/ShowcaseMessages*.properties</exclude>
+				</excludes>
+			</resource>
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>true</filtering>
+				<includes>
+					<include>org/geomajas/gwt/example/client/i18n/ShowcaseMessages*.properties</include>
+				</includes>
+			</resource>
+		</resources>
 	</build>
 
 	<profiles>
