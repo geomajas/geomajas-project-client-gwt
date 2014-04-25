@@ -33,6 +33,7 @@ import org.geomajas.gwt.client.map.event.MapModelChangedHandler;
 import org.geomajas.gwt.client.widget.MapWidget;
 import org.geomajas.plugin.deskmanager.client.gwt.common.GdmLayout;
 import org.geomajas.plugin.deskmanager.client.gwt.common.UserApplication;
+import org.geomajas.plugin.deskmanager.client.gwt.common.util.DeskmanagerLayout;
 import org.geomajas.plugin.deskmanager.client.gwt.geodesk.GeodeskInitializationHandler;
 import org.geomajas.plugin.deskmanager.client.gwt.geodesk.event.UserApplicationEvent;
 import org.geomajas.plugin.deskmanager.client.gwt.geodesk.event.UserApplicationHandler;
@@ -59,8 +60,6 @@ import org.geomajas.plugin.deskmanager.command.geodesk.dto.InitializeGeodeskResp
  * @author Pieter De Graef
  */
 public class LoadingScreen extends VLayout implements GeodeskInitializationHandler {
-
-	private int logoHeight = 226;
 
 	private Label label;
 
@@ -102,66 +101,48 @@ public class LoadingScreen extends VLayout implements GeodeskInitializationHandl
 
 		setCursor(Cursor.WAIT);
 
-		VLayout banner = new VLayout();
-		banner.setLayoutAlign(Alignment.CENTER);
-		banner.setLayoutAlign(VerticalAlignment.CENTER);
-		banner.setStyleName("loadingScreenLabel");
+		VLayout inner = new VLayout();
+		inner.setAlign(Alignment.CENTER);
+		inner.setWidth(DeskmanagerLayout.loadingScreenWidth);
+		inner.setStyleName(DeskmanagerLayout.STYLE_LOADING_SCREEN);
+		inner.setHeight100();
 
 		logoImg = new Img(GdmLayout.loadingLogo);
-		// logoImg.setWidth(logoWidth);
-		logoImg.setHeight(logoHeight);
-		logoImg.setLayoutAlign(Alignment.CENTER);
-		logoImg.setLayoutAlign(VerticalAlignment.CENTER);
-		// logoImg.setBorder("1px solid black");
-		banner.addMember(logoImg);
+		logoImg.setAlign(Alignment.CENTER);
+		inner.addMember(logoImg);
 
 		VLayout progressLayout = new VLayout();
-		progressLayout.setBackgroundColor("#000000");
-		progressLayout.setOpacity(30);
+		progressLayout.setStyleName(DeskmanagerLayout.STYLE_PROGRESSBAR_LAYOUT);
 		progressLayout.setHeight(80);
 		progressLayout.setPadding(15);
+		progressLayout.setAlign(Alignment.CENTER);
 
 		label = new Label(I18nProvider.getGlobal().loadScreenDownLoadText());
 		label.setLayoutAlign(Alignment.CENTER);
-		label.setWidth100();
 		label.setHeight(15);
-		label.setStyleName("loadingScreenLabel");
 		label.setOpacity(100);
 		progressLayout.addMember(label);
 
 		progressBar = new Progressbar();
-		progressBar.setHeight(30);
+		progressBar.setStyleName(DeskmanagerLayout.STYLE_PROGRESSBAR);
+		progressBar.setHeight(DeskmanagerLayout.progressBarHeight);
 		progressBar.setWidth100();
 		progressBar.setVertical(false);
 		progressBar.setLayoutAlign(Alignment.CENTER);
 		progressBar.setLayoutAlign(VerticalAlignment.CENTER);
-		progressBar.setOpacity(100);
 		progressLayout.addMember(progressBar);
-		banner.addMember(progressLayout);
+		inner.addMember(progressLayout);
 
-		HLayout inner = new HLayout();
-		inner.setBackgroundColor("#FFFFFF");
-		// inner.setShowEdges(true);
-		// inner.setShowShadow(true);
-		// inner.setShadowDepth(10);
-		// inner.setBackgroundImage(logo_background);
-		// inner.setEdgeOpacity(70);
-		inner.setStyleName("loadingScreen");
-		inner.setLayoutAlign(Alignment.CENTER);
-		inner.setLayoutAlign(VerticalAlignment.CENTER);
-		inner.setWidth(500);
-		inner.setHeight(300);
+		HLayout hCenter = new HLayout();
+		hCenter.setAlign(Alignment.CENTER);
+		hCenter.setWidth100();
+		hCenter.setHeight(DeskmanagerLayout.loadingScreenHeight);
+		hCenter.addMember(inner);
 
-		inner.setAlign(Alignment.CENTER);
-		inner.addMember(banner);
-
-		setBackgroundColor("#FFFFFF");
 		setHeight100();
 		setWidth100();
-		// setOpacity(50);
-		setAlign(VerticalAlignment.CENTER);
 		setAlign(Alignment.CENTER);
-		addMember(inner);
+		addMember(hCenter);
 	}
 
 	public void registerGeodesk(final UserApplication geoDesk) {

@@ -38,7 +38,6 @@ import com.smartgwt.client.types.ListGridFieldType;
 import com.smartgwt.client.types.Overflow;
 import com.smartgwt.client.util.SC;
 import com.smartgwt.client.widgets.Canvas;
-import com.smartgwt.client.widgets.Img;
 import com.smartgwt.client.widgets.form.DynamicForm;
 import com.smartgwt.client.widgets.form.fields.RadioGroupItem;
 import com.smartgwt.client.widgets.form.fields.SelectItem;
@@ -138,16 +137,14 @@ public class CombinedSearchPanel extends AbstractSearchPanel {
 			}
 		});
 		searchItems.setFields(nameField, removeField);
-		updateDisplay();
 
 		HLayout addBar = new HLayout(0);
 		addBar.setAlign(Alignment.LEFT);
 		addBar.setHeight(20);
-		Img addImg = new Img(WidgetLayout.iconAdd, 16, 16);
-		addImg.setTooltip(messages.combinedSearchWidgetAdd());
+
 		DynamicForm searchForm = new DynamicForm();
 		selectSearch = new SelectItem();
-		selectSearch.setTitle(addImg.getInnerHTML());
+		selectSearch.setTitle("");
 		selectSearch.setWidth(200);
 		selectSearch.setTooltip(messages.combinedSearchWidgetSelectSearch());
 		selectSearch.addChangeHandler(new ChangeHandler() {
@@ -194,6 +191,8 @@ public class CombinedSearchPanel extends AbstractSearchPanel {
 		layout.addMember(addBar);
 
 		addChild(layout);
+
+		updateDisplay();
 	}
 
 	/**
@@ -228,6 +227,7 @@ public class CombinedSearchPanel extends AbstractSearchPanel {
 	}
 
 	public void updateDisplay() {
+
 		int recordCount = searchItems.getRecords().length;
 		if (alwaysShowElements || recordCount >= 1) {
 			searchItems.show();

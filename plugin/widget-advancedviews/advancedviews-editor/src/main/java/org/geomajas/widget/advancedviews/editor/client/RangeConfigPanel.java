@@ -10,18 +10,6 @@
  */
 package org.geomajas.widget.advancedviews.editor.client;
 
-import org.geomajas.configuration.client.ClientLayerInfo;
-import org.geomajas.configuration.client.ScaleInfo;
-import org.geomajas.gwt.client.util.WidgetLayout;
-import org.geomajas.plugin.deskmanager.client.gwt.common.FileUploadForm;
-import org.geomajas.plugin.deskmanager.client.gwt.manager.i18n.ManagerMessages;
-import org.geomajas.plugin.deskmanager.client.gwt.manager.util.ScaleInfoUtil;
-import org.geomajas.widget.advancedviews.client.AdvancedViewsMessages;
-import org.geomajas.widget.advancedviews.configuration.client.themes.LayerConfig;
-import org.geomajas.widget.advancedviews.configuration.client.themes.RangeConfig;
-import org.geomajas.widget.advancedviews.editor.client.LayerAddWindow.LayerAddCallback;
-import org.geomajas.widget.advancedviews.editor.client.ThemeConfigurationPanel.State;
-
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.i18n.client.NumberFormat;
 import com.smartgwt.client.types.Alignment;
@@ -31,6 +19,7 @@ import com.smartgwt.client.types.SelectionStyle;
 import com.smartgwt.client.util.BooleanCallback;
 import com.smartgwt.client.util.SC;
 import com.smartgwt.client.widgets.Canvas;
+import com.smartgwt.client.widgets.IButton;
 import com.smartgwt.client.widgets.ImgButton;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
@@ -47,6 +36,17 @@ import com.smartgwt.client.widgets.grid.events.RecordDoubleClickHandler;
 import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.Layout;
 import com.smartgwt.client.widgets.layout.VLayout;
+import org.geomajas.configuration.client.ClientLayerInfo;
+import org.geomajas.configuration.client.ScaleInfo;
+import org.geomajas.gwt.client.util.WidgetLayout;
+import org.geomajas.plugin.deskmanager.client.gwt.common.FileUploadForm;
+import org.geomajas.plugin.deskmanager.client.gwt.manager.i18n.ManagerMessages;
+import org.geomajas.plugin.deskmanager.client.gwt.manager.util.ScaleInfoUtil;
+import org.geomajas.widget.advancedviews.client.AdvancedViewsMessages;
+import org.geomajas.widget.advancedviews.configuration.client.themes.LayerConfig;
+import org.geomajas.widget.advancedviews.configuration.client.themes.RangeConfig;
+import org.geomajas.widget.advancedviews.editor.client.LayerAddWindow.LayerAddCallback;
+import org.geomajas.widget.advancedviews.editor.client.ThemeConfigurationPanel.State;
 
 /**
  * Panel to configura a theme range.
@@ -157,16 +157,21 @@ public class RangeConfigPanel extends Layout {
 		Layout addImgContainer = new Layout();
 		addImgContainer.setWidth(64 + 16); // 16 from scroller in grid
 		addImgContainer.setAlign(Alignment.CENTER);
-		addImgContainer.setHeight(16);
 		addImgContainer.setLayoutAlign(Alignment.RIGHT);
 
-		ImgButton addImg = new ImgButton();
-		addImg.setSrc(WidgetLayout.iconAdd);
+		addImgContainer.setHeight(25);
+		IButton addImg = new IButton();
+		addImg.setIcon(WidgetLayout.iconAdd);
+		addImg.setTitle("");
+		addImg.setHeight(22);
+		addImg.setWidth(28);
+		addImg.setIconAlign("center");
+
 		addImg.setShowDown(false);
 		addImg.setShowRollOver(false);
 		addImg.setPrompt(MESSAGES.themeConfigLayerAdd());
-		addImg.setHeight(16);
-		addImg.setWidth(16);
+		addImg.setHeight(22);
+		addImg.setWidth(22);
 		addImg.addClickHandler(new ClickHandler() {
 
 			public void onClick(ClickEvent event) {

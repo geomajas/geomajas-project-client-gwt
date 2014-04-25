@@ -11,33 +11,38 @@
 
 package org.geomajas.widget.searchandfilter.client.widget.geometricsearch;
 
+import com.google.gwt.event.dom.client.DoubleClickEvent;
+import com.google.gwt.event.dom.client.MouseEvent;
+import com.google.gwt.event.dom.client.MouseMoveEvent;
+import com.google.gwt.event.dom.client.MouseUpEvent;
+import com.google.gwt.user.client.Event;
 import org.geomajas.geometry.Coordinate;
 import org.geomajas.gwt.client.controller.editing.EditController.EditMode;
 import org.geomajas.gwt.client.gfx.paintable.GfxGeometry;
 import org.geomajas.gwt.client.gfx.style.ShapeStyle;
-import org.geomajas.gwt.client.spatial.geometry.Geometry;
 import org.geomajas.gwt.client.spatial.geometry.LineString;
 import org.geomajas.gwt.client.widget.MapWidget;
 import org.geomajas.gwt.client.widget.MapWidget.RenderGroup;
 import org.geomajas.gwt.client.widget.MapWidget.RenderStatus;
 
-import com.google.gwt.event.dom.client.DoubleClickEvent;
-import com.google.gwt.event.dom.client.MouseDownEvent;
-import com.google.gwt.event.dom.client.MouseEvent;
-import com.google.gwt.event.dom.client.MouseMoveEvent;
-import com.google.gwt.event.dom.client.MouseUpEvent;
-import com.google.gwt.user.client.Event;
-
 /**
  * Drawing controller for LineString geometries.
  * 
  * @author Bruce Palmkoeck
+ * @author Jan Venstermans
  */
 public class LineStringDrawController extends AbstractFreeDrawingController {
 
-	private GfxGeometry tempLine;
+	/**
+	 * Coordinates of current line string, after last click.
+	 * Separate field for redraw on update.
+	 */
+	private Coordinate[] currentLineStringCoordinates;
 
-	private GfxGeometry tempLineEnd;
+	/**
+	 * {@link GfxGeometry} object that is updated on mouse move.
+	 */
+	protected GfxGeometry tempLine;
 
 	private ShapeStyle drawStyle = new ShapeStyle("#FF7F00", 0f, "#FF7F00", 1, 2);
 
@@ -47,7 +52,7 @@ public class LineStringDrawController extends AbstractFreeDrawingController {
 
 	public LineStringDrawController(MapWidget mapWidget, AbstractFreeDrawingController parent,
 			GeometryDrawHandler handler) {
-	super(mapWidget, parent, handler);
+		super(mapWidget, parent, handler);
 		geometry = factory.createLineString(new Coordinate[0]);
 	}
 
@@ -55,10 +60,12 @@ public class LineStringDrawController extends AbstractFreeDrawingController {
 	// DrawController implementation:
 	// -------------------------------------------------------------------------
 
+	@Override
 	public void cleanup() {
 		removeTempLine();
 	}
 
+	@Override
 	public boolean isBusy() {
 		// busy when inserting or dragging has started
 		return getEditMode() == EditMode.INSERT_MODE || getEditMode() == EditMode.DRAG_MODE;
@@ -68,28 +75,15 @@ public class LineStringDrawController extends AbstractFreeDrawingController {
 	// MapController implementation:
 	// -------------------------------------------------------------------------
 
-	public void onMouseDown(MouseDownEvent event) {
-		if (event.getNativeButton() != Event.BUTTON_RIGHT) {
-			createTempLine(geometry);
-		}
-	}
-
+	@Override
 	public void onMouseMove(MouseMoveEvent event) {
-		updateTempLine(geometry, event);
+		updateTempLineAfterMove(event);
 	}
 
+	@Override
 	public void onMouseUp(MouseUpEvent event) {
 		if (event.getNativeButton() != Event.BUTTON_RIGHT) {
-			Coordinate[] newCoords;
-			int length;
-			length = geometry.getCoordinates().length;
-			Coordinate[] oldCoords = geometry.getCoordinates();
-			newCoords = new Coordinate[length + 1];
-			System.arraycopy(oldCoords, 0, newCoords, 0, length);
-
-			newCoords[length] = getWorldPosition(event);
-			geometry = factory.createLineString(newCoords);
-			createTempLine(geometry);
+			addCoordinateToGeometry(getWorldPosition(event));
 		}
 	}
 
@@ -102,6 +96,7 @@ public class LineStringDrawController extends AbstractFreeDrawingController {
 		}
 	}
 
+	@Override
 	public void setEditMode(EditMode editMode) {
 		super.setEditMode(editMode);
 		if (editMode == EditMode.DRAG_MODE) {
@@ -109,15 +104,30 @@ public class LineStringDrawController extends AbstractFreeDrawingController {
 		}
 	}
 
-	// Private methods:
+	// -------------------------------------------------------------------------
+	// Protected methods:
+	// -------------------------------------------------------------------------
 
-	private void createTempLine(Geometry geometry) {
+	protected void addCoordinateToGeometry(Coordinate newCoordinate) {
+		int length = geometry.getCoordinates().length;
+		Coordinate[] oldCoords = geometry.getCoordinates();
+		Coordinate[] newCoords = new Coordinate[length + 1];
+		System.arraycopy(oldCoords, 0, newCoords, 0, length);
+
+		// put new coordinate in right position
+		newCoords[length] = newCoordinate;
+
+		// create new geometry
+		geometry = factory.createLineString(newCoords);
+
+		// update drawing
+		updateTempLineAfterClick();
+	}
+
+	protected void updateTempLineAfterClick() {
 		if (tempLine == null) {
 			tempLine = new GfxGeometry("LineStringDrawController.updateLine");
 			tempLine.setStyle(drawStyle);
-
-			tempLineEnd = new GfxGeometry("LineStringDrawController.updateLine");
-			tempLineEnd.setStyle(drawStyle);
 		}
 
 		Coordinate[] srCoords = new Coordinate[geometry.getCoordinates().length];
@@ -126,35 +136,29 @@ public class LineStringDrawController extends AbstractFreeDrawingController {
 			srCoords[i] = getTransformer().worldToPan(worldCoords[i]);
 		}
 
-		LineString lineString = geometry.getGeometryFactory().createLineString(srCoords);
-		tempLine.setGeometry(lineString);
+		currentLineStringCoordinates = srCoords;
 	}
 
-	private void updateTempLine(Geometry geometry, MouseEvent<?> event) {
+	protected void updateTempLineAfterMove(MouseEvent<?> event) {
 		if (tempLine == null) {
-			createTempLine(geometry);
+			updateTempLineAfterClick();
 		}
 
-		Coordinate[] oldCoords = tempLine.getGeometry().getCoordinates();
-		if (oldCoords != null && oldCoords.length > 0) {
-			Coordinate[] newCoords = new Coordinate[oldCoords.length + 1];
-			System.arraycopy(oldCoords, 0, newCoords, 0, oldCoords.length);
-			newCoords[oldCoords.length] = getPanPosition(event);
+		if (currentLineStringCoordinates != null && currentLineStringCoordinates.length > 0) {
+			Coordinate[] newCoords = new Coordinate[currentLineStringCoordinates.length + 1];
+			System.arraycopy(currentLineStringCoordinates, 0, newCoords, 0, currentLineStringCoordinates.length);
+			newCoords[currentLineStringCoordinates.length] = getPanPosition(event);
 
 			LineString lineString = geometry.getGeometryFactory().createLineString(newCoords);
-			tempLineEnd.setGeometry(lineString);
-			mapWidget.render(tempLineEnd, RenderGroup.VECTOR, RenderStatus.UPDATE);
+			tempLine.setGeometry(lineString);
+			mapWidget.render(tempLine, RenderGroup.VECTOR, RenderStatus.UPDATE);
 		}
 	}
 
-	private void removeTempLine() {
+	protected void removeTempLine() {
 		if (tempLine != null) {
 			mapWidget.render(tempLine, RenderGroup.VECTOR, RenderStatus.DELETE);
 			tempLine = null;
-		}
-		if (tempLineEnd != null) {
-			mapWidget.render(tempLineEnd, RenderGroup.VECTOR, RenderStatus.DELETE);
-			tempLineEnd = null;
 		}
 	}
 }

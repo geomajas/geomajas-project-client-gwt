@@ -13,6 +13,7 @@ package org.geomajas.widget.featureinfo.client.action.toolbar;
 
 import org.geomajas.gwt.client.action.ConfigurableAction;
 import org.geomajas.gwt.client.action.ToolbarModalAction;
+import org.geomajas.gwt.client.util.WidgetLayout;
 import org.geomajas.gwt.client.widget.MapWidget;
 import org.geomajas.widget.featureinfo.client.FeatureInfoMessages;
 import org.geomajas.widget.featureinfo.client.controller.ShowCoordinatesController;
@@ -41,7 +42,7 @@ public class ShowCoordinatesModalAction extends ToolbarModalAction implements Co
 	 * @param mapWidget map widget
 	 */
 	public ShowCoordinatesModalAction(MapWidget mapWidget) {
-		super("[ISOMORPHIC]/geomajas/osgeo/mouse_info_tool.png", null);
+		super(WidgetLayout.iconMouseInfo, null);
 		this.mapWidget = mapWidget;
 		this.setTitle(MESSAGES.showCoordinatesActionTitle());
 		this.setTooltip(MESSAGES.showCoordinatesActionTooltip());

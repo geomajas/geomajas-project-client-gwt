@@ -38,7 +38,7 @@ import org.geomajas.gwt.client.widget.MapWidget;
 import org.geomajas.sld.FeatureTypeStyleInfo;
 import org.geomajas.sld.RuleInfo;
 import org.geomajas.sld.UserStyleInfo;
-import org.geomajas.widget.layer.client.i18n.LayerMessages;
+import org.geomajas.widget.layer.client.util.GltLayout;
 import org.geomajas.widget.layer.client.util.LayerIconUtil;
 import org.geomajas.widget.layer.configuration.client.ClientAbstractNodeInfo;
 import org.geomajas.widget.layer.configuration.client.ClientBranchNodeInfo;
@@ -60,6 +60,7 @@ import com.smartgwt.client.widgets.layout.LayoutSpacer;
 import com.smartgwt.client.widgets.tree.TreeGrid;
 import com.smartgwt.client.widgets.tree.TreeNode;
 import com.smartgwt.client.widgets.tree.events.LeafClickEvent;
+import org.geomajas.widget.layer.client.i18n.LayerMessages;
 
 /**
  * A layertree widget with combined legend per layer.
@@ -74,10 +75,8 @@ public class CombinedLayertree extends LayerTreeBase {
 
 	private static final String LEGEND_ICONS_TYPE = ".png";
 
-	private static final String SHOW_LAYERINFO_ICON = "[ISOMORPHIC]/geomajas/silk/cog.png";
-
 	private static final LayerMessages MESSAGES = GWT.create(LayerMessages.class);
-
+	
 	private static final String EXPANDED_ATTR = "isExpanded";
 
 	private final MapWidget mapWidget;
@@ -310,16 +309,16 @@ public class CombinedLayertree extends LayerTreeBase {
 					rollOverTools = new HLayout();
 					rollOverTools.setSnapTo("TR");
 					rollOverTools.setWidth(25);
-					rollOverTools.setHeight(LAYERTREEBUTTON_SIZE);
+					rollOverTools.setHeight(GltLayout.layerTreeButtonSize);
 					emptyRollOver = new HLayout();
 					emptyRollOver.setWidth(1);
-					emptyRollOver.setHeight(LAYERTREEBUTTON_SIZE);
+					emptyRollOver.setHeight(GltLayout.layerTreeButtonSize);
 
 					ImgButton showInfo = new ImgButton();
 					showInfo.setShowDown(false);
 					showInfo.setShowRollOver(false);
 					showInfo.setLayoutAlign(Alignment.CENTER);
-					showInfo.setSrc(SHOW_LAYERINFO_ICON);
+					showInfo.setSrc(GltLayout.iconLayerSettings);
 					showInfo.setPrompt(MESSAGES.layerTreeWithLegendLayerActionsToolTip());
 					showInfo.setHeight(16);
 					showInfo.setWidth(16);
@@ -365,10 +364,10 @@ public class CombinedLayertree extends LayerTreeBase {
 					rollOverTools = new HLayout();
 					rollOverTools.setSnapTo("TR");
 					rollOverTools.setWidth(50);
-					rollOverTools.setHeight(LAYERTREEBUTTON_SIZE);
+					rollOverTools.setHeight(GltLayout.layerTreeButtonSize);
 					emptyRollOver = new HLayout();
 					emptyRollOver.setWidth(1);
-					emptyRollOver.setHeight(LAYERTREEBUTTON_SIZE);
+					emptyRollOver.setHeight(GltLayout.layerTreeButtonSize);
 
 					ClientLayerTreeInfo layerTreeInfo = (ClientLayerTreeInfo) mapModel.getMapInfo().getWidgetInfo(
 							ClientLayerTreeInfo.IDENTIFIER);
@@ -412,9 +411,6 @@ public class CombinedLayertree extends LayerTreeBase {
 
 			/**
 			 * Updates the icons and the state of the buttons in the toolbar based upon the current layer
-			 * 
-			 * @param toolStripMembers
-			 *            data for the toolbar
 			 */
 			private void updateButtonIconsAndStates() {
 				for (Canvas toolButton : toolButtons) {
@@ -444,9 +440,9 @@ public class CombinedLayertree extends LayerTreeBase {
 			super();
 			this.tree = tree;
 			this.action = action;
-			setWidth(LAYERTREEBUTTON_SIZE);
-			setHeight(LAYERTREEBUTTON_SIZE);
-			setIconSize(LAYERTREEBUTTON_SIZE - 8);
+			setWidth(GltLayout.layerTreeButtonSize);
+			setHeight(GltLayout.layerTreeButtonSize);
+			setIconSize(GltLayout.layerTreeButtonSize - 8);
 			setIcon(action.getIcon());
 			setTooltip(action.getTooltip());
 			setActionType(SelectionType.BUTTON);
@@ -503,9 +499,9 @@ public class CombinedLayertree extends LayerTreeBase {
 			super();
 			this.tree = tree;
 			this.modalAction = modalAction;
-			setWidth(LAYERTREEBUTTON_SIZE);
-			setHeight(LAYERTREEBUTTON_SIZE);
-			setIconSize(LAYERTREEBUTTON_SIZE - 8);
+			setWidth(GltLayout.layerTreeButtonSize);
+			setHeight(GltLayout.layerTreeButtonSize);
+			setIconSize(GltLayout.layerTreeButtonSize - 8);
 			setIcon(modalAction.getDeselectedIcon());
 			setActionType(SelectionType.CHECKBOX);
 			setTooltip(modalAction.getDeselectedTooltip());
@@ -556,7 +552,7 @@ public class CombinedLayertree extends LayerTreeBase {
 		super.initialize();
 		ClientLayerTreeInfo ltwli = (ClientLayerTreeInfo) mapWidget.getMapModel().getMapInfo()
 				.getWidgetInfo(ClientLayerTreeInfo.IDENTIFIER);
-		setIconSize(ltwli == null ? DEFAULT_ICONSIZE : ltwli.getIconSize());
+		setIconSize(ltwli == null ? GltLayout.layerTreeIconSize : ltwli.getIconSize());
 
 		for (Layer<?> layer : mapModel.getLayers()) {
 			registrations.add(layer.addLayerChangedHandler(new LayerChangedHandler() {

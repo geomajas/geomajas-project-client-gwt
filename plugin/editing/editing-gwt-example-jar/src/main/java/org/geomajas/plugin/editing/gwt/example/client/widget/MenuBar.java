@@ -28,6 +28,7 @@ import com.smartgwt.client.widgets.toolbar.ToolStripMenuButton;
 import org.geomajas.geometry.Coordinate;
 import org.geomajas.geometry.Geometry;
 import org.geomajas.gwt.client.map.layer.VectorLayer;
+import org.geomajas.gwt.client.util.WidgetLayout;
 import org.geomajas.gwt.client.widget.MapWidget;
 import org.geomajas.plugin.editing.client.operation.GeometryOperationFailedException;
 import org.geomajas.plugin.editing.client.service.GeometryEditState;
@@ -283,7 +284,7 @@ public class MenuBar extends ToolStrip {
 		final LabelDragLineHandler labelHandler = new LabelDragLineHandler(editor.getMapWidget(),
 				editor.getEditService());
 
-		final MenuItem infoItem = new MenuItem("Show infopanel", "[ISOMORPHIC]/geomajas/osgeo/info.png");
+		final MenuItem infoItem = new MenuItem("Show infopanel", WidgetLayout.iconInfo);
 		infoItem.setDynamicTitleFunction(new MenuItemStringFunction() {
 
 			@Override

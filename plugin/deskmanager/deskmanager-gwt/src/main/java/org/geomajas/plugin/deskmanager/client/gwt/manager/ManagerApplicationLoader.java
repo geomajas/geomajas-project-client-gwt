@@ -10,6 +10,7 @@
  */
 package org.geomajas.plugin.deskmanager.client.gwt.manager;
 
+import com.smartgwt.client.widgets.layout.HLayout;
 import org.geomajas.annotation.Api;
 import org.geomajas.plugin.deskmanager.client.gwt.common.GdmLayout;
 import org.geomajas.plugin.deskmanager.client.gwt.common.impl.DeskmanagerTokenRequestHandler;
@@ -73,11 +74,22 @@ public final class ManagerApplicationLoader {
 	/**
 	 * Loads the manager application, asks for the correct role, and adds it to the given layout. Calls the
 	 * initialization handler when finished;
-	 * 
+	 *
 	 * @param parentLayout
 	 *            the layout.
 	 */
 	public void loadManager(final Layout parentLayout, ManagerInitializationHandler handler) {
+		loadManager(parentLayout, handler, null);
+	}
+
+	/**
+	 * Loads the manager application, asks for the correct role, and adds it to the given layout. Calls the
+	 * initialization handler when finished;
+	 * 
+	 * @param parentLayout
+	 *            the layout.
+	 */
+	public void loadManager(final Layout parentLayout, ManagerInitializationHandler handler, final HLayout header) {
 		loadScreen = new LoadingScreen();
 		loadScreen.setZIndex(GdmLayout.loadingZindex);
 		loadScreen.draw();
@@ -93,7 +105,13 @@ public final class ManagerApplicationLoader {
 
 			public void initialized(ProfileDto pr) {
 				profile = pr;
-				parentLayout.addMember(new ManagerLayout());
+
+				if (null == header) {
+					parentLayout.addMember(new ManagerLayout());
+				} else {
+					parentLayout.addMember(new ManagerLayout(header));
+				}
+
 				loadScreen.fadeOut();
 			}
 		});

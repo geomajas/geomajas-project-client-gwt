@@ -18,9 +18,7 @@
 	<inherits name="org.geomajas.gwt.GeomajasCommonSmartGwt" />
 	<inherits name="org.geomajas.plugin.wms.GeomajasClientPluginWms" />
 
-
-	<!-- Inherited modules: SmartGWT -->
-	<!--inherits name='com.smartgwt.SmartGwt'/-->
+	<!-- Inherited modules: SmartGWT without theme -->
 	<inherits name='com.smartgwt.SmartGwtNoTheme'/>
 
 	<!-- make sure the default is there -->
@@ -64,6 +62,23 @@
 	<source path="client/widget/wizard">
 		<exclude name="*Test*.java"/>
 	</source>
+
+    <!-- main style sheet for smart gwt client -->
+    <define-property name="gwtclient.loadStyle" values="true,false"/>
+
+    <!-- set this property to false in your project module in case you use custom css -->
+    <set-property name="gwtclient.loadStyle" value="true" />
+
+    <replace-with class="org.geomajas.gwt.client.css.CssLoaderGwtClientImpl">
+        <when-type-is class="org.geomajas.gwt.client.css.CssLoaderGwtClient"/>
+        <when-property-is name="gwtclient.loadStyle" value="true"/>
+    </replace-with>
+
+    <replace-with class="org.geomajas.gwt.client.css.CssLoaderNoCssImpl">
+        <when-type-is class="org.geomajas.gwt.client.css.CssLoaderGwtClient"/>
+        <when-property-is name="gwtclient.loadStyle" value="false"/>
+    </replace-with>
+    <!-- end main style sheet for smart gwt client -->
 
 	<entry-point class="org.geomajas.gwt.client.GeomajasEntryPoint"/>
 

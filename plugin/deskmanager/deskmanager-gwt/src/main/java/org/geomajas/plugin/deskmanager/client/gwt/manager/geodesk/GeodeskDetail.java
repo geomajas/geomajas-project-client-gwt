@@ -16,6 +16,7 @@ import org.geomajas.configuration.client.ClientWidgetInfo;
 import org.geomajas.gwt.client.Geomajas;
 import org.geomajas.plugin.deskmanager.client.gwt.common.UserApplication;
 import org.geomajas.plugin.deskmanager.client.gwt.common.UserApplicationRegistry;
+import org.geomajas.plugin.deskmanager.client.gwt.common.util.DeskmanagerLayout;
 import org.geomajas.plugin.deskmanager.client.gwt.manager.common.AbstractWoaHandler;
 import org.geomajas.plugin.deskmanager.client.gwt.manager.common.SaveButtonBar;
 import org.geomajas.plugin.deskmanager.client.gwt.manager.editor.BaseGeodeskWidgetEditor;
@@ -83,6 +84,7 @@ public class GeodeskDetail extends VLayout implements SelectionChangedHandler, E
 	public GeodeskDetail() {
 		super(10);
 
+		setStyleName(DeskmanagerLayout.STYLE_DESKMANAGER_TABPANE_DETAIL);
 		tabset = new TabSet();
 		tabset.setTabBarPosition(Side.TOP);
 		tabset.setWidth100();
@@ -270,9 +272,7 @@ public class GeodeskDetail extends VLayout implements SelectionChangedHandler, E
 	 * @param geodeskWidgetInfos
 	 *            the geodesk widget infos
 	 * @param widgetInfos
-	 *            all the widget infos (including inherited)
-	 * @param geodesk
-	 *            the geodesk
+	 *            all the widget infos (including inherited
 	 */
 	private void addWidgetTab(final WidgetEditorFactory editorFactory,
 			final Map<String, ClientWidgetInfo> geodeskWidgetInfos, final Map<String, ClientWidgetInfo> widgetInfos,

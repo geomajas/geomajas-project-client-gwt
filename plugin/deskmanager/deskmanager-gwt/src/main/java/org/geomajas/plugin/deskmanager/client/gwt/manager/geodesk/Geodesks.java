@@ -11,7 +11,6 @@
 package org.geomajas.plugin.deskmanager.client.gwt.manager.geodesk;
 
 import org.geomajas.gwt.client.util.WidgetLayout;
-import org.geomajas.plugin.deskmanager.client.gwt.common.GdmLayout;
 import org.geomajas.plugin.deskmanager.client.gwt.manager.common.ManagerTab;
 import org.geomajas.plugin.deskmanager.client.gwt.manager.events.EditSessionEvent;
 import org.geomajas.plugin.deskmanager.client.gwt.manager.events.EditSessionHandler;
@@ -56,7 +55,7 @@ public class Geodesks extends VLayout implements EditSessionHandler, ManagerTab 
 		topContainer.setLayoutBottomMargin(5);
 
 		buttonNew = new IButton(MESSAGES.newGeodeskButtonText());
-		buttonNew.setWidth(buttonNew.getTitle().length() * GdmLayout.buttonFontWidth + GdmLayout.buttonOffset);
+		// buttonNew.setWidth(buttonNew.getTitle().length() * GdmLayout.buttonFontWidth + GdmLayout.buttonOffset);
 		buttonNew.setIcon(WidgetLayout.iconAdd);
 		buttonNew.addClickHandler(new ClickHandler() {
 

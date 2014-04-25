@@ -11,14 +11,6 @@
 
 package org.geomajas.widget.layer.client.widget;
 
-import org.geomajas.configuration.client.ScaleInfo;
-import org.geomajas.gwt.client.map.layer.Layer;
-import org.geomajas.gwt.client.map.layer.RasterLayer;
-import org.geomajas.gwt.client.map.layer.VectorLayer;
-import org.geomajas.widget.layer.client.i18n.LayerMessages;
-import org.geomajas.widget.layer.client.util.LayerIconUtil;
-import org.geomajas.widget.layer.configuration.client.ClientExtraLayerInfo;
-
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.i18n.client.NumberFormat;
 import com.google.gwt.user.client.ui.Anchor;
@@ -45,6 +37,14 @@ import com.smartgwt.client.widgets.grid.ListGridField;
 import com.smartgwt.client.widgets.grid.ListGridRecord;
 import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.VLayout;
+import org.geomajas.configuration.client.ScaleInfo;
+import org.geomajas.gwt.client.map.layer.Layer;
+import org.geomajas.gwt.client.map.layer.RasterLayer;
+import org.geomajas.gwt.client.map.layer.VectorLayer;
+import org.geomajas.widget.layer.client.i18n.LayerMessages;
+import org.geomajas.widget.layer.client.util.GltLayout;
+import org.geomajas.widget.layer.client.util.LayerIconUtil;
+import org.geomajas.widget.layer.configuration.client.ClientExtraLayerInfo;
 
 /**
  * A simple layer actions window.
@@ -52,10 +52,6 @@ import com.smartgwt.client.widgets.layout.VLayout;
  * @author Kristof Heirwegh
  */
 public class LayerActions extends Window {
-
-	private static final String BTN_SHOWLEGEND_IMG = "[ISOMORPHIC]/geomajas/silk/information.png";
-
-	private static final String BTN_REMOVEFILTER_IMG = "[SKIN]/actions/remove.png";
 
 	private static final int WINDOW_WIDTH = 375;
 
@@ -145,7 +141,7 @@ public class LayerActions extends Window {
 			if (eli.getLegendImageUrl() != null || layer instanceof VectorLayer) {
 				IButton legendInfo = new IButton(vectorLayer != null ? MESSAGES.layerActionsShowLegendAndFields()
 						: MESSAGES.layerActionsShowLegend());
-				legendInfo.setIcon(BTN_SHOWLEGEND_IMG);
+				legendInfo.setIcon(GltLayout.iconShowLegend);
 				legendInfo.addClickHandler(new ClickHandler() {
 
 					public void onClick(ClickEvent event) {
@@ -157,7 +153,7 @@ public class LayerActions extends Window {
 		} else if (layer instanceof VectorLayer) {
 			IButton legendInfo = new IButton(vectorLayer != null ? MESSAGES.layerActionsShowLegendAndFields()
 					: MESSAGES.layerActionsShowLegend());
-			legendInfo.setIcon(BTN_SHOWLEGEND_IMG);
+			legendInfo.setIcon(GltLayout.iconShowLegend);
 			legendInfo.addClickHandler(new ClickHandler() {
 
 				public void onClick(ClickEvent event) {
@@ -208,7 +204,7 @@ public class LayerActions extends Window {
 
 		if (vectorLayer != null && vectorLayer.getFilter() != null && !"".equals(vectorLayer.getFilter())) {
 			final IButton removeFilter = new IButton(MESSAGES.layerActionsRemoveFilter());
-			removeFilter.setIcon(BTN_REMOVEFILTER_IMG);
+			removeFilter.setIcon(GltLayout.iconRemoveFilter);
 			String tooltip = vectorLayer.getFilter();
 			if (tooltip.length() > 1000) {
 				tooltip = tooltip.substring(0, 1000);

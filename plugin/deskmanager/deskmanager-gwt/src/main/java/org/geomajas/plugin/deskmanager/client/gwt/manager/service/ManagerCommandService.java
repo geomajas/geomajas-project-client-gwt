@@ -10,8 +10,6 @@
  */
 package org.geomajas.plugin.deskmanager.client.gwt.manager.service;
 
-import java.util.List;
-
 import org.geomajas.command.CommandResponse;
 import org.geomajas.gwt.client.command.AbstractCommandCallback;
 import org.geomajas.gwt.client.command.GwtCommand;
@@ -46,6 +44,7 @@ import org.geomajas.plugin.deskmanager.command.manager.dto.GetLayerModelsRespons
 import org.geomajas.plugin.deskmanager.command.manager.dto.GetTerritoriesRequest;
 import org.geomajas.plugin.deskmanager.command.manager.dto.GetTerritoriesResponse;
 import org.geomajas.plugin.deskmanager.command.manager.dto.LayerModelResponse;
+import org.geomajas.plugin.deskmanager.command.manager.dto.ReloadDynamicLayersRequest;
 import org.geomajas.plugin.deskmanager.command.manager.dto.SaveBlueprintRequest;
 import org.geomajas.plugin.deskmanager.command.manager.dto.SaveGeodeskRequest;
 import org.geomajas.plugin.deskmanager.command.manager.dto.SaveLayerModelRequest;
@@ -55,11 +54,13 @@ import org.geomajas.plugin.deskmanager.domain.dto.GeodeskDto;
 import org.geomajas.plugin.deskmanager.domain.dto.LayerModelDto;
 import org.geomajas.plugin.deskmanager.domain.security.dto.TerritoryDto;
 
+import java.util.List;
+
 /**
  * Convenience class with helper methods for commands.
  * 
  * @author Kristof Heirwegh
- * @author Oliver May
+ * @author	 Oliver May
  */
 public final class ManagerCommandService {
 
@@ -311,6 +312,7 @@ public final class ManagerCommandService {
 				new AbstractCommandCallback<LayerModelResponse>() {
 
 					public void execute(LayerModelResponse response) {
+						reloadDynamicLayers();
 						Whiteboard.fireEvent(new LayerModelEvent(response.getLayerModel(), false, true));
 					}
 				});
@@ -331,11 +333,21 @@ public final class ManagerCommandService {
 		command.setCommandRequest(request);
 		GwtCommandDispatcher.getInstance().execute(command,
 				new AbstractCommandCallback<LayerModelResponse>() {
-
 					public void execute(LayerModelResponse response) {
+						reloadDynamicLayers();
 						Whiteboard.fireEvent(new LayerModelEvent(response.getLayerModel()));
 					}
 				});
+	}
+
+	/**
+	 * Send a command to reload all dynamic layers.
+	 */
+	public static void reloadDynamicLayers() {
+		ReloadDynamicLayersRequest request = new ReloadDynamicLayersRequest();
+		GwtCommand command = new GwtCommand(ReloadDynamicLayersRequest.COMMAND);
+		command.setCommandRequest(request);
+		GwtCommandDispatcher.getInstance().execute(command);
 	}
 
 	/**

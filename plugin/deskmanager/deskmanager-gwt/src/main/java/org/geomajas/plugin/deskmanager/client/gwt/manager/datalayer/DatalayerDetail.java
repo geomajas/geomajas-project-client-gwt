@@ -10,10 +10,22 @@
  */
 package org.geomajas.plugin.deskmanager.client.gwt.manager.datalayer;
 
-import java.util.Map;
-
+import com.google.gwt.core.client.GWT;
+import com.smartgwt.client.types.Alignment;
+import com.smartgwt.client.types.AnimationEffect;
+import com.smartgwt.client.types.Overflow;
+import com.smartgwt.client.types.Side;
+import com.smartgwt.client.widgets.Label;
+import com.smartgwt.client.widgets.events.ClickEvent;
+import com.smartgwt.client.widgets.grid.ListGridRecord;
+import com.smartgwt.client.widgets.grid.events.SelectionChangedHandler;
+import com.smartgwt.client.widgets.grid.events.SelectionEvent;
+import com.smartgwt.client.widgets.layout.VLayout;
+import com.smartgwt.client.widgets.tab.Tab;
+import com.smartgwt.client.widgets.tab.TabSet;
 import org.geomajas.configuration.client.ClientWidgetInfo;
 import org.geomajas.gwt.client.Geomajas;
+import org.geomajas.plugin.deskmanager.client.gwt.common.util.DeskmanagerLayout;
 import org.geomajas.plugin.deskmanager.client.gwt.manager.common.AbstractWoaHandler;
 import org.geomajas.plugin.deskmanager.client.gwt.manager.common.SaveButtonBar;
 import org.geomajas.plugin.deskmanager.client.gwt.manager.editor.LayerWidgetEditor;
@@ -32,19 +44,7 @@ import org.geomajas.plugin.deskmanager.command.manager.dto.SaveLayerModelRequest
 import org.geomajas.plugin.deskmanager.domain.dto.DynamicLayerConfiguration;
 import org.geomajas.plugin.deskmanager.domain.dto.LayerModelDto;
 
-import com.google.gwt.core.client.GWT;
-import com.smartgwt.client.types.Alignment;
-import com.smartgwt.client.types.AnimationEffect;
-import com.smartgwt.client.types.Overflow;
-import com.smartgwt.client.types.Side;
-import com.smartgwt.client.widgets.Label;
-import com.smartgwt.client.widgets.events.ClickEvent;
-import com.smartgwt.client.widgets.grid.ListGridRecord;
-import com.smartgwt.client.widgets.grid.events.SelectionChangedHandler;
-import com.smartgwt.client.widgets.grid.events.SelectionEvent;
-import com.smartgwt.client.widgets.layout.VLayout;
-import com.smartgwt.client.widgets.tab.Tab;
-import com.smartgwt.client.widgets.tab.TabSet;
+import java.util.Map;
 
 /**
  * Detail panel for data layers.
@@ -56,7 +56,9 @@ public class DatalayerDetail extends VLayout implements SelectionChangedHandler,
 	private static final ManagerMessages MESSAGES = GWT.create(ManagerMessages.class);
 	
 	private static final String ID_ATTRIBUTE = "id";
-	
+
+	private final Tab extraTab;
+
 	private LayerModelDto layerModel;
 
 	private TabSet tabset;
@@ -86,6 +88,7 @@ public class DatalayerDetail extends VLayout implements SelectionChangedHandler,
 	public DatalayerDetail() {
 		super(10);
 
+		setStyleName(DeskmanagerLayout.STYLE_DESKMANAGER_TABPANE_DETAIL);
 		settings = new DatalayerSettings();
 		connPar = new DatalayerConnectionParameters();
 		upload = new DatalayerShapeUpload();
@@ -114,16 +117,16 @@ public class DatalayerDetail extends VLayout implements SelectionChangedHandler,
 		tabset.addTab(styleTab);
 
 		//Widget tabs
-		Tab tab = new Tab(MESSAGES.geodeskDetailTabWidgets());
+		extraTab = new Tab(MESSAGES.geodeskDetailTabWidgets());
 		widgetTabset = new TabSet();
 		widgetTabset.setTabBarPosition(Side.LEFT);
 		widgetTabset.setWidth100();
 		widgetTabset.setHeight100();
 		widgetTabset.setOverflow(Overflow.HIDDEN);
 		widgetTabset.setTabBarThickness(100);
-		tab.setPane(widgetTabset);
+		extraTab.setPane(widgetTabset);
 		
-		tabset.addTab(tab);
+		tabset.addTab(extraTab);
 		
 		// loading widget
 		loadingLayout = new VLayout();
@@ -211,6 +214,7 @@ public class DatalayerDetail extends VLayout implements SelectionChangedHandler,
 			uploadTab.setDisabled(true);
 			styleTab.setDisabled(true);
 			connParTab.setDisabled(true);
+			extraTab.setDisabled(false);
 
 		} else {
 			settingsTab.setDisabled(false);
@@ -237,6 +241,7 @@ public class DatalayerDetail extends VLayout implements SelectionChangedHandler,
 				styleTab.setDisabled(false);
 				style.setLayerModel(layerModel);
 			}
+			extraTab.setDisabled(false);
 		}
 	}
 

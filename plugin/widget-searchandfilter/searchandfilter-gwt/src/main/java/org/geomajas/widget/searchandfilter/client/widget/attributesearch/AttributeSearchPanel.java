@@ -28,6 +28,7 @@ import org.geomajas.gwt.client.util.WidgetLayout;
 import org.geomajas.gwt.client.widget.FeatureSearch.LogicalOperator;
 import org.geomajas.gwt.client.widget.MapWidget;
 import org.geomajas.widget.searchandfilter.client.SearchAndFilterMessages;
+import org.geomajas.widget.searchandfilter.client.util.GsfLayout;
 import org.geomajas.widget.searchandfilter.client.widget.search.AbstractSearchPanel;
 import org.geomajas.widget.searchandfilter.search.dto.AndCriterion;
 import org.geomajas.widget.searchandfilter.search.dto.AttributeCriterion;
@@ -267,7 +268,7 @@ public class AttributeSearchPanel extends AbstractSearchPanel {
 
 			IButton btnAddRow = new IButton();
 			btnAddRow.setWidth(26);
-			btnAddRow.setIcon("[ISOMORPHIC]/geomajas/silk/add.png");
+			btnAddRow.setIcon(GsfLayout.iconAdd);
 			HandlerRegistration addReg = btnAddRow.addClickHandler(new ClickHandler() {
 
 				public void onClick(ClickEvent event) {
@@ -635,7 +636,7 @@ public class AttributeSearchPanel extends AbstractSearchPanel {
 			btnHeader.setStyleName(STYLE_HEADER_BAR);
 			btnHeader.setWidth(70);
 			btnHeader.setHeight(26);
-			btnHeader.setBackgroundColor("#00FF00");
+			// btnHeader.setBackgroundColor("#00FF00");
 			buttonStack.addMember(btnHeader);
 
 			HLayout searchGrid = new HLayout();

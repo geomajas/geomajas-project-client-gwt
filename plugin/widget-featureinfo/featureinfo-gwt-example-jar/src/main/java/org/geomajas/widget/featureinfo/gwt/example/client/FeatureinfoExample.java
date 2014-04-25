@@ -17,6 +17,7 @@ import org.geomajas.gwt.example.base.SampleTreeNodeRegistry;
 
 import com.google.gwt.core.client.EntryPoint;
 
+import org.geomajas.widget.featureinfo.client.util.FitLayout;
 import org.geomajas.widget.featureinfo.client.util.FitSetting;
 import org.geomajas.widget.featureinfo.gwt.example.client.i18n.ApplicationMessages;
 
@@ -33,7 +34,7 @@ public class FeatureinfoExample implements EntryPoint {
 
 		FitSetting.featureinfoIncludeRasterLayer = true;
 		SampleTreeNodeRegistry.addSampleTreeNode(new SampleTreeNode(MESSAGES.applicationTitle("Feature info"),
-				"[ISOMORPHIC]/geomajas/osgeo/layer-raster.png", FeatureinfoPanel.TITLE, "Plugins",
+				FitLayout.iconLayerRaster, FeatureinfoPanel.TITLE, "Plugins",
 				FeatureinfoPanel.FACTORY));
 	}
 }

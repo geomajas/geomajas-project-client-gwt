@@ -170,21 +170,17 @@ public class MeasureDistanceController extends AbstractSnappingController {
 	private void showPanel() {
 		panel = new VLayout();
 		panel.setParentElement(mapWidget);
-//		panel.setValign(VerticalAlignment.TOP);
-		panel.setShowEdges(true);
 		panel.setWidth(120);
-		panel.setPadding(3);
 		panel.setLeft(mapWidget.getWidth() - 130);
 		panel.setTop(-80);
-		panel.setBackgroundColor("#FFFFFF");
+		panel.setStyleName(WidgetLayout.STYLE_MEASURE_DISTANCE_PANEL);
 		panel.setAnimateTime(500);
-
 
 		label = new DistanceLabel();
 		areaLabel = new DistanceLabel();
 		coordinateLabel = new DistanceLabel();
-
 		panel.addMember(label);
+
 		if (showArea) {
 			panel.addMember(areaLabel);
 		}
@@ -261,21 +257,21 @@ public class MeasureDistanceController extends AbstractSnappingController {
 
 		public DistanceLabel() {
 			super();
-			setPadding(3);
 			setAutoHeight();
+			setStyleName(WidgetLayout.MEASURE_DISTANCE_PANEL_CONTENT);
 		}
 
 		public void setDistance(float totalDistance, float radius) {
 			String total = DistanceFormat.asMapLength(mapWidget, totalDistance);
 			String r = DistanceFormat.asMapLength(mapWidget, radius);
 			String dist = I18nProvider.getMenu().getMeasureDistanceString(total, r);
-			setContents("<div><b>" + I18nProvider.getMenu().distance() + "</b>:</div><div style='margin-top:5px;'>"
-					+ dist + "</div>");
+			setContents("<div class=\"" + WidgetLayout.MEASURE_DISTANCE_PANEL_HEADER + "\" ><b>" +
+					I18nProvider.getMenu().distance() + "</b>:</div><div style='margin-top:5px;'>" + dist + "</div>");
 		}
 
 		public void setArea(String area) {
 			String areaString = I18nProvider.getMenu().getMeasureAreaString(area);
-			setContents("<div><b>" + I18nProvider.getMenu().area() + "</b>:</div><div style='margin-top:5px;'>"
+			setContents("<div>" + I18nProvider.getMenu().area() + ":</div><div style='margin-top:5px;'>"
 					+ areaString + "</div>");
 		}
 
@@ -284,7 +280,7 @@ public class MeasureDistanceController extends AbstractSnappingController {
 
 			String coordinate = I18nProvider.getMenu().getMeasureCoordinateString(NumberFormat.getFormat(".##").
 					format(x), NumberFormat.getFormat(".##").format(y));
-			setContents("<div><b>" + I18nProvider.getMenu().coordinate() + "</b>:</div><div style='margin-top:5px;'>"
+			setContents("<div>" + I18nProvider.getMenu().coordinate() + ":</div><div style='margin-top:5px;'>"
 					+ coordinate + "</div>");
 		}
 

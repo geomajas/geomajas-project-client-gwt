@@ -16,6 +16,7 @@ import java.util.Map;
 
 import org.geomajas.gwt.client.Geomajas;
 import org.geomajas.gwt.client.util.WidgetLayout;
+import org.geomajas.plugin.deskmanager.client.gwt.common.util.DeskmanagerLayout;
 import org.geomajas.plugin.deskmanager.client.gwt.common.util.GeodeskUrlUtil;
 import org.geomajas.plugin.deskmanager.client.gwt.manager.events.BlueprintEvent;
 import org.geomajas.plugin.deskmanager.client.gwt.manager.events.BlueprintHandler;
@@ -25,7 +26,6 @@ import org.geomajas.plugin.deskmanager.client.gwt.manager.events.Whiteboard;
 import org.geomajas.plugin.deskmanager.client.gwt.manager.i18n.ManagerMessages;
 import org.geomajas.plugin.deskmanager.client.gwt.manager.service.DataCallback;
 import org.geomajas.plugin.deskmanager.client.gwt.manager.service.ManagerCommandService;
-import org.geomajas.plugin.deskmanager.client.gwt.manager.util.ManagerConstants;
 import org.geomajas.plugin.deskmanager.domain.dto.GeodeskDto;
 
 import com.google.gwt.core.client.GWT;
@@ -50,13 +50,13 @@ import com.smartgwt.client.widgets.layout.HLayout;
 
 /**
  * TODO.
- * 
+ *
  * @author Jan De Moerloose
  *
  */
 public class GeodeskGrid extends ListGrid implements GeodeskHandler, BlueprintHandler {
 	private static final ManagerMessages MESSAGES = GWT.create(ManagerMessages.class);
-	
+
 	public static final String FLD_ID = "id";
 
 	private static final String FLD_NAME = "name";
@@ -98,7 +98,7 @@ public class GeodeskGrid extends ListGrid implements GeodeskHandler, BlueprintHa
 		name.setType(ListGridFieldType.TEXT);
 
 		ListGridField blueprint = new ListGridField(FLD_BLUEPRINT, MESSAGES.geodeskGridColumnNameBlueprint());
-				
+
 		blueprint.setType(ListGridFieldType.TEXT);
 		blueprint.setWidth("*");
 
@@ -115,7 +115,7 @@ public class GeodeskGrid extends ListGrid implements GeodeskHandler, BlueprintHa
 		publicUse.setType(ListGridFieldType.BOOLEAN);
 		publicUse.setWidth(70);
 		publicUse.setPrompt(MESSAGES.geodeskPublicTooltip());
-				
+
 		ListGridField active = new ListGridField(FLD_ACTIVE, MESSAGES.geodeskGridColumnActiv());
 		active.setType(ListGridFieldType.BOOLEAN);
 		active.setWidth(70);
@@ -167,9 +167,9 @@ public class GeodeskGrid extends ListGrid implements GeodeskHandler, BlueprintHa
 			previewImg.setShowDown(false);
 			previewImg.setShowRollOver(false);
 			previewImg.setLayoutAlign(Alignment.CENTER);
-			previewImg.setSrc(ManagerConstants.ICON_OPENSAMPLELOKET);
+			previewImg.setSrc(DeskmanagerLayout.iconOpensampleloket);
 			previewImg.setPrompt(MESSAGES.geodeskGridActionsColumnPreviewTooltip());
-					
+
 			previewImg.setHeight(16);
 			previewImg.setWidth(16);
 			previewImg.addClickHandler(new ClickHandler() {
@@ -177,7 +177,7 @@ public class GeodeskGrid extends ListGrid implements GeodeskHandler, BlueprintHa
 				public void onClick(ClickEvent event) {
 					Window window = new Window();
 					window.setTitle(MESSAGES.geodeskLabel() + ": " + rollOverRecord.getAttribute(FLD_NAME));
-					
+
 					window.setAutoCenter(true);
 					window.setWidth("90%");
 					window.setHeight("90%");
@@ -198,7 +198,7 @@ public class GeodeskGrid extends ListGrid implements GeodeskHandler, BlueprintHa
 			deleteImg.addClickHandler(new ClickHandler() {
 
 				public void onClick(ClickEvent event) {
-					
+
 					SC.ask(MESSAGES.geodeskRemoveTitle(), MESSAGES.geodeskRemoveConfirmQuestion(
 							rollOverRecord.getAttribute("name")), new BooleanCallback() {
 

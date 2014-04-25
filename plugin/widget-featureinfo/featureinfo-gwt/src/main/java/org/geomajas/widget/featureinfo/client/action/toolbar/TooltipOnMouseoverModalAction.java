@@ -18,6 +18,7 @@ import org.geomajas.widget.featureinfo.client.FeatureInfoMessages;
 
 import com.google.gwt.core.client.GWT;
 import com.smartgwt.client.widgets.events.ClickEvent;
+import org.geomajas.widget.featureinfo.client.util.FitLayout;
 
 /**
  * Show a tooltip with the labels of features under mousepointer.
@@ -33,7 +34,7 @@ public class TooltipOnMouseoverModalAction extends ToolbarModalAction implements
 	private final TooltipOnMouseoverListener listener;
 
 	public TooltipOnMouseoverModalAction(MapWidget mapWidget) {
-		super("[ISOMORPHIC]/geomajas/osgeo/mouse_tooltip.png", null);
+		super(FitLayout.iconMouseTooltipRibbon, null);
 		this.mapWidget = mapWidget;
 		this.setTitle(MESSAGES.tooltipOnMouseoverActionTitle());
 		this.setTooltip(MESSAGES.tooltipOnMouseoverActionTooltip());

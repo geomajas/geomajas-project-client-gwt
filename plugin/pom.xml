@@ -31,9 +31,7 @@
 		<module>layer-wms</module>
 		<module>geocoder</module>
 		<module>javascript-api</module>
-<!--
 		<module>editing</module>
--->
 		<module>print</module>
 		<module>rasterizing</module>
 		<module>reporting</module>

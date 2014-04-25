@@ -111,7 +111,8 @@
 				<executions>
 					<execution>
 						<id>remove-gwt-test</id>
-						<phase>clean</phase>
+
+								<phase>clean</phase>
 						<configuration>
 							<tasks>
 								<delete dir=".gwt-tmp" />
@@ -126,6 +127,33 @@
 			</plugin>
 
 		</plugins>
+
+        <resources>
+            <resource>
+                <directory>src/main/java/</directory>
+                <filtering>false</filtering>
+                <includes>
+                    <include>**/*.java</include>
+                </includes>
+            </resource>
+
+            <resource>
+                <directory>src/main/resources/</directory>
+                <filtering>false</filtering>
+                <excludes>
+                    <exclude>org/geomajas/gwt/client/i18n/*Version*.properties</exclude>
+                </excludes>
+            </resource>
+
+            <resource>
+                <directory>src/main/resources/</directory>
+                <filtering>true</filtering>
+                <includes>
+                    <include>org/geomajas/gwt/client/i18n/*Version*.properties</include>
+                </includes>
+            </resource>
+
+        </resources>
 	</build>
 
 	<profiles>

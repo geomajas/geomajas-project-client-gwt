@@ -201,7 +201,7 @@ public final class FeatureDetailWidgetFactory {
 
 		public SelectingZoomButton(Feature feature) {
 			super();
-			setIcon("[ISOMORPHIC]/geomajas/osgeo/zoom-selection.png");
+			setIcon(WidgetLayout.iconZoomSelection);
 			setShowDisabledIcon(false);
 			setTitle(I18nProvider.getAttribute().btnZoomFeature());
 			setTooltip(I18nProvider.getAttribute().btnZoomTooltip());

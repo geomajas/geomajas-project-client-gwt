@@ -17,6 +17,7 @@ import org.geomajas.gwt.client.Geomajas;
 import org.geomajas.gwt.client.util.Log;
 import org.geomajas.plugin.deskmanager.client.gwt.common.UserApplication;
 import org.geomajas.plugin.deskmanager.client.gwt.common.UserApplicationRegistry;
+import org.geomajas.plugin.deskmanager.client.gwt.common.util.DeskmanagerLayout;
 import org.geomajas.plugin.deskmanager.client.gwt.manager.common.AbstractWoaHandler;
 import org.geomajas.plugin.deskmanager.client.gwt.manager.common.SaveButtonBar;
 import org.geomajas.plugin.deskmanager.client.gwt.manager.editor.BaseGeodeskWidgetEditor;
@@ -81,9 +82,9 @@ public class BlueprintDetail extends HLayout implements SelectionChangedHandler,
 	private TabSet widgetTabset;
 
 	public BlueprintDetail() {
-		super();
-		setMargin(10);
+		super(10);
 
+		setStyleName(DeskmanagerLayout.STYLE_DESKMANAGER_TABPANE_DETAIL);
 		tabset = new TabSet();
 		tabset.setTabBarPosition(Side.TOP);
 		tabset.setWidth100();
