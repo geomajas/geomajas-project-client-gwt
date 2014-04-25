@@ -39,7 +39,7 @@ public final class FitLayout {
 	/**
 	 * iconMouseTooltipRibbon.
 	 */
-	public static String iconMouseTooltipRibbon = "[ISOMORPHIC]/geomajas/osgeo/mouse_tooltip_ribbon_24.png";
+	public static String iconMouseTooltipRibbon = "[ISOMORPHIC]/geomajas/osgeo/mouse_tooltip.png";
 
 	/**
 	 * iconLayerRaster.
