@@ -24,43 +24,60 @@
 	<name>Geomajas GWT client: Main - Documentation</name>
 	<description>Geomajas GWT client: Main - Documentation</description>
 	
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-dependency-plugin</artifactId>
-				<executions>
-					<execution>
-						<id>explode-resources</id>
-						<phase>generate-sources</phase>
-						<goals>
-							<goal>unpack</goal>
-						</goals>
-						<configuration>
-							<artifactItems>
-								<artifactItem>
-									<groupId>org.geomajas</groupId>
-									<artifactId>geomajas-gwt-simple</artifactId>
-									<version>1.7.1</version>
-									<classifier>sources</classifier>
-									<outputDirectory>${project.build.directory}/extract/simple</outputDirectory>
-								</artifactItem>
-								<artifactItem>
-									<groupId>org.geomajas</groupId>
-									<artifactId>geomajas-gwt-example</artifactId>
-									<version>1.7.1</version>
-									<classifier>sources</classifier>
-									<outputDirectory>${project.build.directory}/extract/example</outputDirectory>
-								</artifactItem>
-							</artifactItems>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
-		</plugins>
-	</build>
+	<profiles>
+		<profile>
+			<id>skipDocs</id>
+			<activation>
+				<property>
+					<name>skipDocs</name>
+				</property>
+			</activation>
+		</profile>
+		<profile>
+			<id>documentation</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-dependency-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>explode-resources</id>
+								<phase>generate-sources</phase>
+								<goals>
+									<goal>unpack</goal>
+								</goals>
+								<configuration>
+									<artifactItems>
+										<artifactItem>
+											<groupId>org.geomajas</groupId>
+											<artifactId>geomajas-gwt-simple</artifactId>
+											<version>1.7.1</version>
+											<classifier>sources</classifier>
+											<outputDirectory>${project.build.directory}/extract/simple</outputDirectory>
+										</artifactItem>
+										<artifactItem>
+											<groupId>org.geomajas</groupId>
+											<artifactId>geomajas-gwt-example</artifactId>
+											<version>1.7.1</version>
+											<classifier>sources</classifier>
+											<outputDirectory>${project.build.directory}/extract/example</outputDirectory>
+										</artifactItem>
+									</artifactItems>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
 
 	<properties>
 		<listing.sourceDirectory>${basedir}/..</listing.sourceDirectory>
 	</properties>
+
 </project>
