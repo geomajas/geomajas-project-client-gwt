@@ -41,7 +41,6 @@ import org.geomajas.configuration.client.ScaleInfo;
 import org.geomajas.gwt.client.util.WidgetLayout;
 import org.geomajas.plugin.deskmanager.client.gwt.common.FileUploadForm;
 import org.geomajas.plugin.deskmanager.client.gwt.manager.i18n.ManagerMessages;
-import org.geomajas.plugin.deskmanager.client.gwt.manager.util.ScaleInfoUtil;
 import org.geomajas.widget.advancedviews.client.AdvancedViewsMessages;
 import org.geomajas.widget.advancedviews.configuration.client.themes.LayerConfig;
 import org.geomajas.widget.advancedviews.configuration.client.themes.RangeConfig;
@@ -113,7 +112,7 @@ public class RangeConfigPanel extends Layout {
 					minScale.setValue(scale.getDenominator());
 					return;
 				}
-				ScaleInfoUtil.changeDenominator(scale, Double.parseDouble(minScale.getValueAsString()));
+				scale.setDenominator(Double.parseDouble(minScale.getValueAsString()));
 			}
 		});
 
@@ -131,7 +130,7 @@ public class RangeConfigPanel extends Layout {
 					maxScale.setValue(scale.getDenominator());
 					return;
 				}
-				ScaleInfoUtil.changeDenominator(scale, Double.parseDouble(maxScale.getValueAsString()));
+				scale.setDenominator(Double.parseDouble(maxScale.getValueAsString()));
 			}
 		});
 

@@ -43,7 +43,6 @@ import org.geomajas.configuration.client.ScaleInfo;
 import org.geomajas.gwt.client.util.WidgetLayout;
 import org.geomajas.plugin.deskmanager.client.gwt.common.FileUploadForm;
 import org.geomajas.plugin.deskmanager.client.gwt.manager.i18n.ManagerMessages;
-import org.geomajas.plugin.deskmanager.client.gwt.manager.util.ScaleInfoUtil;
 import org.geomajas.widget.advancedviews.client.AdvancedViewsMessages;
 import org.geomajas.widget.advancedviews.configuration.client.themes.RangeConfig;
 import org.geomajas.widget.advancedviews.configuration.client.themes.ViewConfig;
@@ -155,12 +154,10 @@ public class ViewConfigPanel extends Layout {
 		addImg.addClickHandler(new ClickHandler() {
 
 			public void onClick(ClickEvent event) {
-				double pixPerUnit = themeConfigurationPanel.getMainMap().getUnitLength() / 
-					themeConfigurationPanel.getMainMap().getPixelLength();
 				ViewConfig viewConfig = themeConfigurationPanel.getState().getViewConfig();
-				ScaleInfo maximumScale = ScaleInfoUtil.createScaleInfo(1, 1, pixPerUnit);
+				ScaleInfo maximumScale = new ScaleInfo(1, 1);
 
-				ScaleInfo minimumScale = ScaleInfoUtil.createScaleInfo(1, 1000000000, pixPerUnit);
+				ScaleInfo minimumScale = new ScaleInfo(1, 1000000000);
 				
 				for (RangeConfig config : viewConfig.getRangeConfigs()) {
 					if (config.getMaximumScale().getPixelPerUnit() >= minimumScale.getPixelPerUnit()
@@ -320,10 +317,7 @@ public class ViewConfigPanel extends Layout {
 						RangeConfig range = (RangeConfig) record.getAttributeAsObject(FLD_OBJECT);
 						ScaleInfo maximumScale = new ScaleInfo(range.getMinimumScale());
 
-						double pixPerUnit = themeConfigurationPanel.getMainMap().getUnitLength() / 
-							themeConfigurationPanel.getMainMap().getPixelLength();
-
-						ScaleInfo minimumScale = ScaleInfoUtil.createScaleInfo(1, 1000000000, pixPerUnit);
+						ScaleInfo minimumScale = new ScaleInfo(1, 1000000000);
 						
 						for (RangeConfig config : viewConfig.getRangeConfigs()) {
 							if (config.getMaximumScale().getPixelPerUnit() >= minimumScale.getPixelPerUnit()
