@@ -246,7 +246,7 @@
                                 <artifactId>geomajas-gwt-face-example</artifactId>
                                 <type>war</type>
                                 <properties>
-                                    <context>showcase-trunk</context>
+                                    <context>showcase-gwt-trunk</context>
                                 </properties>
                             </deployable>
                         </deployables>
