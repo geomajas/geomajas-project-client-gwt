@@ -109,6 +109,7 @@ public class LoadingScreen extends VLayout implements GeodeskInitializationHandl
 
 		logoImg = new Img(GdmLayout.loadingLogo);
 		logoImg.setAlign(Alignment.CENTER);
+		logoImg.setHeight100();
 		inner.addMember(logoImg);
 
 		VLayout progressLayout = new VLayout();
