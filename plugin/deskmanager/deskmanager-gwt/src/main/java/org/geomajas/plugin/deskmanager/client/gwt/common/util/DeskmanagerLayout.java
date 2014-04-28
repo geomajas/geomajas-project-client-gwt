@@ -56,6 +56,9 @@ public final class DeskmanagerLayout {
 	/* loading bar */
 	public static final String STYLE_PROGRESSBAR = "gm-deskmanger-progressbar";
 
+	/* loading bar label */
+	public static final String STYLE_PROGRESSBAR_LABEL = "gm-deskmanger-progressbar-label ";
+
 
 	/*============================================================
 		Icons

@@ -122,6 +122,7 @@ public class LoadingScreen extends VLayout implements GeodeskInitializationHandl
 		label.setLayoutAlign(Alignment.CENTER);
 		label.setHeight(15);
 		label.setOpacity(100);
+		label.setStyleName(DeskmanagerLayout.STYLE_PROGRESSBAR_LABEL);
 		progressLayout.addMember(label);
 
 		progressBar = new Progressbar();
