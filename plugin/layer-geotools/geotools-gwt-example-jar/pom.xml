@@ -12,7 +12,7 @@
 	<parent>
 		<groupId>org.geomajas.plugin</groupId>
 		<artifactId>geomajas-client-gwt-layer-geotools-parent</artifactId>
-		<version>1.15.0-M1</version>
+		<version>1.15.1-SNAPSHOT</version>
 	</parent>
 
 	<artifactId>geomajas-layer-geotools-gwt-example-jar</artifactId>
