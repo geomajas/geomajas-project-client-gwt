@@ -21,7 +21,7 @@
 
 	<groupId>org.geomajas.plugin</groupId>
 	<artifactId>geomajas-plugin-deskmanager-documentation</artifactId>
-	<version>1.15.0-SNAPSHOT</version>
+	<version>1.15.0-M1</version>
 	<packaging>jar</packaging>
 	<name>Geomajas GWT client: Plugin Deskmanager - Documentation</name>
 	<description>Geomajas GWT client: Plugin Deskmanager - Documentation</description>
