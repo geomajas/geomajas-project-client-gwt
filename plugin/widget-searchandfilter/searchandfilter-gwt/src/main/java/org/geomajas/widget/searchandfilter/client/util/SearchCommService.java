@@ -10,15 +10,7 @@
  */
 package org.geomajas.widget.searchandfilter.client.util;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.Set;
-
+import com.google.gwt.core.client.GWT;
 import org.geomajas.global.GeomajasConstant;
 import org.geomajas.gwt.client.command.AbstractCommandCallback;
 import org.geomajas.gwt.client.command.GwtCommand;
@@ -36,7 +28,14 @@ import org.geomajas.widget.searchandfilter.command.dto.GeometryUtilsResponse;
 import org.geomajas.widget.searchandfilter.search.dto.Criterion;
 import org.geomajas.widget.searchandfilter.search.dto.GeometryCriterion;
 
-import com.google.gwt.core.client.GWT;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
 
 /**
  * Convenience class with helper methods for commands.
@@ -55,7 +54,8 @@ public final class SearchCommService {
 	// CHECKSTYLE VISIBILITY MODIFIER: OFF
 	
 	/** Feature includes for searches. */
-	public static int featureIncludes = GeomajasConstant.FEATURE_INCLUDE_ATTRIBUTES;
+	public static int featureIncludes = GeomajasConstant.FEATURE_INCLUDE_ATTRIBUTES |
+			GeomajasConstant.FEATURE_INCLUDE_LABEL;
 
 	// CHECKSTYLE VISIBILITY MODIFIER: ON
 	/**
