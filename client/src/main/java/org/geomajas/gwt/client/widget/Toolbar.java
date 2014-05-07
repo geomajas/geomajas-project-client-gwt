@@ -51,7 +51,7 @@ import java.util.List;
  * <li>modal (radiobutton-like) buttons.</li>
  * <li>non-modal or action buttons.</li>
  * </ul>
- * 
+ *
  * @author Pieter De Graef
  * @author Joachim Van der Auwera
  * @since 1.6.0
@@ -80,7 +80,7 @@ public class Toolbar extends ToolStrip {
 	private MapWidget mapWidget;
 
 	private int buttonSize;
-	
+
 	/**
 	 * keep track of the currently selected ModalAction.
 	 */
@@ -124,7 +124,7 @@ public class Toolbar extends ToolStrip {
 
 	/**
 	 * Initialize this widget.
-	 * 
+	 *
 	 * @param mapInfo map info
 	 */
 	public void initialize(ClientMapInfo mapInfo) {
@@ -176,7 +176,7 @@ public class Toolbar extends ToolStrip {
 	/**
 	 * Add a new action button to the toolbar. An action button is the kind of button that executes immediately when
 	 * clicked upon. It can not be selected or deselected, it just executes every click.
-	 * 
+	 *
 	 * @param action
 	 *            The actual action to execute on click.
 	 */
@@ -215,12 +215,11 @@ public class Toolbar extends ToolStrip {
 	 * Add a new modal button (checkbox) to the toolbar. This kind of button is selected and deselected as the user
 	 * clicks upon it. By selecting and deselecting, a certain state will be activate or deactivated, determined by the
 	 * given <code>ModalAction</code>.
-	 * 
+	 *
 	 * @param modalAction
 	 *            The actual action that determines what should happen when the button is selected or deselected.
 	 */
 	public void addModalButton(final ToolbarModalAction modalAction) {
-		currentModalAction = modalAction;
 		final IButton button = new IButton();
 		button.setWidth(buttonSize);
 		button.setHeight(buttonSize);
@@ -232,10 +231,14 @@ public class Toolbar extends ToolStrip {
 
 			public void onClick(ClickEvent event) {
 				if (button.isSelected()) {
-					currentModalAction.onDeselect(event);
+					if (currentModalAction != null) {
+						currentModalAction.onDeselect(event);
+					}
 					modalAction.onSelect(event);
+					currentModalAction = modalAction;
 				} else {
 					modalAction.onDeselect(event);
+					currentModalAction = null;
 				}
 			}
 		});
@@ -286,7 +289,7 @@ public class Toolbar extends ToolStrip {
 	/**
 	 * Set the size of the buttons. Use this before the toolbar is drawn, because afterwards, it can't be changed
 	 * anymore.
-	 * 
+	 *
 	 * @param buttonSize
 	 *            The new button size.
 	 */
