@@ -37,38 +37,28 @@ http://www.springframework.org/schema/context/spring-context-2.5.xsd">
 		<property name="panButtonsEnabled" value="true" />
 		<property name="initialBounds">
 			<bean class="org.geomajas.geometry.Bbox">
-				<property name="x" value="18000.0" />
-				<property name="y" value="152999.75" />
-				<property name="width" value="241500.25" />
-				<property name="height" value="241500.25" />
+				<property name="x" value="19571" />
+				<property name="y" value="150729" />
+				<property name="width" value="241670" /> <!-- maxX - x -->
+				<property name="height" value="95096" /> <!-- maxY - y -->
 			</bean>
 		</property>
+		<property name="viewBoundsLimitOption" value="CENTER_WITHIN_MAX_BOUNDS" />
 		<property name="scaleConfiguration">
 			<bean class="org.geomajas.configuration.client.ScaleConfigurationInfo">
 				<property name="zoomLevels">
 					<list>
-						<value>0.703125</value>
-						<value>0.3515625</value>
-						<value>0.17578125</value>
-						<value>0.087890625</value>
-						<value>0.0439453125</value>
-						<value>0.02197265625</value>
-						<value>0.010986328125</value>
-						<value>0.0054931640625</value>
-						<value>0.00274658203125</value>
-						<value>0.001373291015625</value>
-						<value>6.866455078125E-4</value>
-						<value>3.4332275390625E-4</value>
-						<value>1.71661376953125E-4</value>
-						<value>8.58306884765625E-5</value>
-						<value>4.291534423828125E-5</value>
-						<value>2.1457672119140625E-5</value>
-						<value>1.0728836059570312E-5</value>
-						<value>5.364418029785156E-6</value>
-						<value>2.682209014892578E-6</value>
-						<value>1.341104507446289E-6</value>
-						<value>6.705522537231445E-7</value>
-						<value>3.3527612686157227E-7</value>
+						<value>5.625</value> <!-- 10 meters -->
+						<value>2.8125</value> <!-- 25 meters -->
+						<value>1.40625</value> <!-- 50 meters -->
+						<value>0.703125</value> <!-- 100 meters -->
+						<value>0.3515625</value> <!-- 250 meters -->
+						<value>0.17578125</value> <!-- 500 meters -->
+						<value>0.087890625</value> <!-- 1000 meters -->
+						<value>0.0439453125</value> <!-- 2000 meters -->
+						<value>0.02197265625</value> <!-- 5000 meters -->
+						<value>0.010986328125</value> <!-- 10 kilometers wider scale -->
+						<value>0.0054931640625</value> <!-- 10 kilometers -->
 					</list>
 				</property>
 			</bean>
