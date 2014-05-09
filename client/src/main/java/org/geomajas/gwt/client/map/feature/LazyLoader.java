@@ -53,9 +53,12 @@ public final class LazyLoader {
 		List<SearchCriterion> criteria = new ArrayList<SearchCriterion>();
 		final boolean incAttr = (featureIncludes & GeomajasConstant.FEATURE_INCLUDE_ATTRIBUTES) != 0;
 		final boolean incGeom = (featureIncludes & GeomajasConstant.FEATURE_INCLUDE_GEOMETRY) != 0;
+		final boolean incStyle = (featureIncludes & GeomajasConstant.FEATURE_INCLUDE_STYLE) != 0;
+		final boolean incLabel = (featureIncludes & GeomajasConstant.FEATURE_INCLUDE_LABEL) != 0;
 		if (null != features) {
 			for (Feature feature : features) {
-				if ((incAttr && !feature.isAttributesLoaded()) || (incGeom && !feature.isGeometryLoaded())) {
+				if ((incAttr && !feature.isAttributesLoaded()) || (incGeom && !feature.isGeometryLoaded()) ||
+						(incLabel && feature.getLabel() == null) || (incStyle && feature.getStyleId() == null)) {
 					criteria.add(new SearchCriterion(SearchFeatureRequest.ID_ATTRIBUTE, "=", feature.getId()));
 				}
 			}
@@ -92,6 +95,12 @@ public final class LazyLoader {
 							if (incGeom) {
 								Geometry geometry = GeometryConverter.toGwt(dto.getGeometry());
 								feature.setGeometry(geometry);
+							}
+							if (incStyle) {
+								feature.setStyleId(dto.getStyleId());
+							}
+							if (incLabel) {
+								feature.setLabel(dto.getLabel());
 							}
 						}
 					}

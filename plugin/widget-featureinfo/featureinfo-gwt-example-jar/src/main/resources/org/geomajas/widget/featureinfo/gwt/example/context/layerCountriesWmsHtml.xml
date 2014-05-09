@@ -8,7 +8,7 @@ http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
 http://www.springframework.org/schema/context
 http://www.springframework.org/schema/context/spring-context-2.5.xsd">
 
-    
+
 	<bean name="layerWmsCountries" class="org.geomajas.layer.wms.WmsLayer" >
 		<property name="layerInfo" ref="layerWmsCountriesInfo" />
 
@@ -57,7 +57,7 @@ http://www.springframework.org/schema/context/spring-context-2.5.xsd">
 			</list>
 		</property>
   -->
-		<property name="dataSourceName" value="geosparc:belt" />
+		<property name="dataSourceName" value="demo_world:simplified_country_borders" />
 		<property name="tileWidth" value="512"/>
 		<property name="tileHeight" value="512"/>
 	</bean>
