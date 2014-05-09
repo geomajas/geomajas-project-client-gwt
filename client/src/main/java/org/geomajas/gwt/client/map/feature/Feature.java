@@ -11,12 +11,6 @@
 
 package org.geomajas.gwt.client.map.feature;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Map.Entry;
-
 import org.geomajas.annotation.Api;
 import org.geomajas.configuration.AbstractAttributeInfo;
 import org.geomajas.geometry.Coordinate;
@@ -42,6 +36,12 @@ import org.geomajas.layer.feature.attribute.OneToManyAttribute;
 import org.geomajas.layer.feature.attribute.ShortAttribute;
 import org.geomajas.layer.feature.attribute.StringAttribute;
 import org.geomajas.layer.feature.attribute.UrlAttribute;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Map.Entry;
 
 /**
  * <p>
@@ -428,6 +428,16 @@ public class Feature implements Paintable, Cloneable {
 	 */
 	public String getLabel() {
 		return label;
+	}
+
+	/**
+	 * Set feature label.
+	 *
+	 * @param label
+	 * @since 1.15.0
+	 */
+	public void setLabel(String label) {
+		this.label = label;
 	}
 
 	// Getters and setters:
