@@ -22,8 +22,7 @@
 		<param-value>
 			<!-- generic Geomajas context -->
 			classpath:org/geomajas/spring/geomajasContext.xml
-			classpath:org/geomajas/plugin/rasterizing/DefaultRasterizedPipelines.xml
-
+ 			classpath:org/geomajas/plugin/rasterizing/DefaultRasterizedPipelines.xml
 			<!-- security -->
 			WEB-INF/security.xml
 
@@ -58,7 +57,7 @@
 		<init-param>
 			<description>Spring Web-MVC specific (additional) context files.</description>
 			<param-name>contextConfigLocation</param-name>
-			<param-value>classpath*:META-INF/geomajasWebContext.xml</param-value>
+			<param-value>classpath:org/geomajas/spring/geomajasWebContext.xml</param-value>
 		</init-param>
 		<load-on-startup>3</load-on-startup>
 	</servlet>
