@@ -12,7 +12,7 @@ package org.geomajas.plugin.deskmanager.client.gwt.common.util;
 
 
 /**
- * Common css styles, icons and margins.
+ * Common css styles, icons and margins for desk manger plugin.
  *
  * @author Dosi Bingov
  *
@@ -37,6 +37,8 @@ public final class DeskmanagerLayout {
 
 	public static int progressBarHeight = 30;
 
+	/** left positioned tab bar thickness. */
+	public static int tabBarLeftThickness = 100;
 
 	/*============================================================
 		Style names
