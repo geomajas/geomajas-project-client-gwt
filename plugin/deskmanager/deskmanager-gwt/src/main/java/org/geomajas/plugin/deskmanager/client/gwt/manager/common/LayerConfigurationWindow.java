@@ -34,6 +34,7 @@ import org.geomajas.configuration.client.ClientRasterLayerInfo;
 import org.geomajas.configuration.client.ClientVectorLayerInfo;
 import org.geomajas.configuration.client.ClientWidgetInfo;
 import org.geomajas.gwt.client.util.WidgetLayout;
+import org.geomajas.plugin.deskmanager.client.gwt.common.util.DeskmanagerLayout;
 import org.geomajas.plugin.deskmanager.client.gwt.manager.editor.LayerWidgetEditor;
 import org.geomajas.plugin.deskmanager.client.gwt.manager.editor.VectorLayerWidgetEditor;
 import org.geomajas.plugin.deskmanager.client.gwt.manager.editor.WidgetEditor;
@@ -135,7 +136,7 @@ public class LayerConfigurationWindow extends Window {
 		widgetTabset.setWidth100();
 		widgetTabset.setHeight100();
 		widgetTabset.setOverflow(Overflow.HIDDEN);
-		widgetTabset.setTabBarThickness(100);
+		widgetTabset.setTabBarThickness(DeskmanagerLayout.tabBarLeftThickness);
 		Tab tab = new Tab(MESSAGES.geodeskDetailTabWidgets());
 		tab.setPane(widgetTabset);
 		tabset.addTab(tab);
