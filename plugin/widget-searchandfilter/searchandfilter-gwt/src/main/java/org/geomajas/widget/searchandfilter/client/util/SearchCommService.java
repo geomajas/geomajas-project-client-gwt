@@ -55,7 +55,7 @@ public final class SearchCommService {
 	
 	/** Feature includes for searches. */
 	public static int featureIncludes = GeomajasConstant.FEATURE_INCLUDE_ATTRIBUTES |
-			GeomajasConstant.FEATURE_INCLUDE_LABEL;
+			GeomajasConstant.FEATURE_INCLUDE_LABEL | GeomajasConstant.FEATURE_INCLUDE_GEOMETRY;
 
 	// CHECKSTYLE VISIBILITY MODIFIER: ON
 	/**
