@@ -371,22 +371,28 @@ public final class WidgetLayout {
 	============================================================*/
 
 	/**
-	 *  Measure distancce panel.
+	 *  Measure distance panel.
 	 * @since 1.15.0
 	 */
 	public static final String STYLE_MEASURE_DISTANCE_PANEL = "measureDistancePanel";
 
 	/**
-	 *  Measure distancce panel content.
+	 *  Measure distance panel content.
 	 * @since 1.15.0
 	 */
 	public static final String MEASURE_DISTANCE_PANEL_CONTENT = "measureDistancePanelContent";
 
 	/**
-	 *  Measure distancce panel header.
+	 *  Measure distance panel header.
 	 * @since 1.15.0
 	 */
 	public static final String MEASURE_DISTANCE_PANEL_HEADER = "measureDistancePanelHeader";
+
+	/**
+	 *  Measure distance panel subtitle.
+	 * @since 1.15.0
+	 */
+	public static final String MEASURE_DISTANCE_PANEL_SUBTITLE = "measureDistancePanelSubtitle";
 
 	//CHECKSTYLE VISIBILITY MODIFIER: ON
 

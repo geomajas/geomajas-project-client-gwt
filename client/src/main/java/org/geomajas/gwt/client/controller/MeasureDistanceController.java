@@ -54,33 +54,33 @@ import org.geomajas.gwt.client.widget.MapWidget.RenderStatus;
  */
 public class MeasureDistanceController extends AbstractSnappingController {
 
-	private static final ShapeStyle LINE_STYLE_1 = new ShapeStyle("#FFFFFF", 0, "#FF9900", 1, 2);
+	protected static final ShapeStyle LINE_STYLE_1 = new ShapeStyle("#FFFFFF", 0, "#FF9900", 1, 2);
 
-	private static final ShapeStyle LINE_STYLE_2 = new ShapeStyle("#FFFFFF", 0, "#FF5500", 1, 2);
+	protected static final ShapeStyle LINE_STYLE_2 = new ShapeStyle("#FFFFFF", 0, "#FF5500", 1, 2);
 
-	private boolean showArea;
+	protected boolean showArea;
 
-	private boolean showCoordinate;
+	protected boolean showCoordinate;
 
-	private GfxGeometry distanceLine;
+	protected GfxGeometry distanceLine;
 
-	private GfxGeometry lineSegment;
+	protected GfxGeometry lineSegment;
 
-	private VLayout panel;
+	protected VLayout panel;
 
-	private DistanceLabel label;
+	protected DistanceLabel distanceLabel;
 
-	private DistanceLabel areaLabel;
+	protected AreaLabel areaLabel;
 
-	private DistanceLabel coordinateLabel;
+	protected CoordinateLabel coordinateLabel;
 
-	private GeometryFactory factory;
+	protected GeometryFactory factory;
 
-	private float tempLength;
+	protected float tempLength;
 
-	private Menu menu;
+	protected Menu menu;
 
-	private GeometryFactory geometryFactory;
+	protected GeometryFactory geometryFactory;
 
 	// -------------------------------------------------------------------------
 	// Constructor:
@@ -167,48 +167,61 @@ public class MeasureDistanceController extends AbstractSnappingController {
 		}
 	}
 
-	private void showPanel() {
+	protected void showPanel() {
 		panel = new VLayout();
-		panel.setParentElement(mapWidget);
+		panel.setParentCanvas(mapWidget);
 		panel.setWidth(120);
 		panel.setLeft(mapWidget.getWidth() - 130);
 		panel.setTop(-80);
 		panel.setStyleName(WidgetLayout.STYLE_MEASURE_DISTANCE_PANEL);
 		panel.setAnimateTime(500);
 
-		label = new DistanceLabel();
-		areaLabel = new DistanceLabel();
-		coordinateLabel = new DistanceLabel();
-		panel.addMember(label);
-
-		if (showArea) {
-			panel.addMember(areaLabel);
-		}
-		if (showCoordinate) {
-			panel.addMember(coordinateLabel);
-		}
+		addLabelsToPanel();
 
 		panel.animateMove(mapWidget.getWidth() - 130, 10);
 	}
 
-	private void updateMeasure(MouseEvent event, boolean complete) {
-		Geometry geometry = (Geometry) distanceLine.getOriginalLocation();
-		Coordinate coordinate1 = geometry.getCoordinates()[distanceLine.getGeometry().getNumPoints() - 1];
-		Coordinate coordinate2 = getWorldPosition(event);
-		lineSegment.setGeometry(getFactory().createLineString(new Coordinate[] { coordinate1, coordinate2 }));
+	protected void addLabelsToPanel() {
+		Label header = new Label("<div class=\"" + WidgetLayout.MEASURE_DISTANCE_PANEL_HEADER + "\" ><b>" +
+				I18nProvider.getMenu().measureDistancePanelHeader() + "</b></div>");
+		header.setHeight100();
+
+		panel.addMember(header);
+
+		distanceLabel = new DistanceLabel();
+		panel.addMember(distanceLabel);
+
+		if (showArea) {
+			areaLabel = new AreaLabel();
+			panel.addMember(areaLabel);
+		}
+		if (showCoordinate) {
+			coordinateLabel = new CoordinateLabel();
+			panel.addMember(coordinateLabel);
+		}
+	}
+
+	protected void updateMeasure(MouseEvent event, boolean complete) {
+		Geometry lastClickedLineGeometry = (Geometry) distanceLine.getOriginalLocation();
+		Coordinate lastClickedCoordinate = lastClickedLineGeometry.getCoordinates()[distanceLine.getGeometry().getNumPoints() - 1];
+		Coordinate mouseCoordinate = getWorldPosition(event);
+		lineSegment.setGeometry(getFactory().createLineString(new Coordinate[] { lastClickedCoordinate, mouseCoordinate }));
 		mapWidget.render(mapWidget.getMapModel(), RenderGroup.VECTOR, RenderStatus.UPDATE);
-		label.setDistance(tempLength, (float) ((Geometry) lineSegment.getOriginalLocation()).getLength());
-		
+
+		updatePanelLabels(complete, lastClickedLineGeometry, lastClickedCoordinate, mouseCoordinate);
+	}
+
+	protected void updatePanelLabels(boolean complete, Geometry lastClickedLineGeometry,
+									 Coordinate lastClickedCoordinate, Coordinate mouseCoordinate){
+		distanceLabel.setDistance(tempLength, (float) ((Geometry) lineSegment.getOriginalLocation()).getLength());
+
 		if (showArea && complete) {
-
-			double area = GeometryService.getArea(GeometryConverter.toDto(geometryFactory.
-							createLinearRing(geometry.getCoordinates())));
-
+			double area = getArea(lastClickedLineGeometry);
 			areaLabel.setArea(DistanceFormat.asMapArea(mapWidget, area));
 		}
 
 		if (showCoordinate && complete) {
-			coordinateLabel.setCoordinate(coordinate2.getX(), coordinate2.getY());
+			coordinateLabel.setCoordinate(lastClickedCoordinate, mouseCoordinate);
 		}
 	}
 
@@ -228,7 +241,7 @@ public class MeasureDistanceController extends AbstractSnappingController {
 	// Private methods:
 	// -------------------------------------------------------------------------
 
-	private boolean isMeasuring() {
+	protected boolean isMeasuring() {
 		return distanceLine.getGeometry() != null;
 	}
 
@@ -237,11 +250,21 @@ public class MeasureDistanceController extends AbstractSnappingController {
 	 *
 	 * @return geometry factory
 	 */
-	private GeometryFactory getFactory() {
+	protected GeometryFactory getFactory() {
 		if (factory == null) {
 			factory = mapWidget.getMapModel().getGeometryFactory();
 		}
 		return factory;
+	}
+
+	/**
+	 * Get the area of a geometry.
+	 * @param geometry
+	 * @return
+	 */
+	protected double getArea(Geometry geometry) {
+		return GeometryService.getArea(GeometryConverter.toDto(geometryFactory.
+				createLinearRing(geometry.getCoordinates())));
 	}
 
 	// -------------------------------------------------------------------------
@@ -252,46 +275,160 @@ public class MeasureDistanceController extends AbstractSnappingController {
 	 * The label that shows the distances.
 	 *
 	 * @author Pieter De Graef
+	 * @author Jan Venstermans
 	 */
-	private class DistanceLabel extends Label {
+	protected abstract class LabelForDistancePanel extends Label {
 
-		public DistanceLabel() {
+		private String subtitle;
+
+		private boolean showStaticLabel;
+
+		private boolean showDynamicLabel;
+
+		public LabelForDistancePanel(String subtitle) {
+			this(subtitle, true, false);
+		}
+
+		public LabelForDistancePanel(String subtitle, boolean showStaticLabel, boolean showDynamicLabel) {
 			super();
+			this.subtitle = subtitle;
+			this.showStaticLabel = showStaticLabel;
+			this.showDynamicLabel = showDynamicLabel;
 			setAutoHeight();
 			setStyleName(WidgetLayout.MEASURE_DISTANCE_PANEL_CONTENT);
 		}
 
+		public void setStringInDivContents(String ... stringContents) {
+			StringBuilder builder = new StringBuilder("<div class=\"" + WidgetLayout.MEASURE_DISTANCE_PANEL_SUBTITLE + "\" ><b>" +
+					subtitle + "</b>:</div>");
+			for (String content : stringContents) {
+				if (content != null && !content.isEmpty()) {
+					builder.append("<div>" + content + "</div>");
+				}
+			}
+			setContents(builder.toString());
+		}
+
+		public String createLabelSection(String label, String value) {
+			return I18nProvider.getMenu().measureDistancePaneStyleElement(label, value);
+		}
+
+		/* getters */
+
+		public String getSubtitle() {
+			return subtitle;
+		}
+
+		public boolean isShowStaticLabel() {
+			return showStaticLabel;
+		}
+
+		public boolean isShowDynamicLabel() {
+			return showDynamicLabel;
+		}
+
+		/* setters */
+
+		public void setShowStaticLabel(boolean showStaticLabel) {
+			this.showStaticLabel = showStaticLabel;
+		}
+
+		public void setShowDynamicLabel(boolean showDynamicLabel) {
+			this.showDynamicLabel = showDynamicLabel;
+		}
+	}
+
+	/**
+	 * The label that shows the distances.
+	 *
+	 * @author Jan Venstermans
+	 */
+	protected class DistanceLabel extends LabelForDistancePanel {
+
+		public DistanceLabel() {
+			super(I18nProvider.getMenu().measureDistancePanelDistanceSubtitle(), true, true);
+		}
+
 		public void setDistance(float totalDistance, float radius) {
-			String total = DistanceFormat.asMapLength(mapWidget, totalDistance);
-			String r = DistanceFormat.asMapLength(mapWidget, radius);
-			String dist = I18nProvider.getMenu().getMeasureDistanceString(total, r);
-			setContents("<div class=\"" + WidgetLayout.MEASURE_DISTANCE_PANEL_HEADER + "\" ><b>" +
-					I18nProvider.getMenu().distance() + "</b>:</div><div style='margin-top:5px;'>" + dist + "</div>");
+			String totalString = null;
+			String rString = null;
+			if (isShowStaticLabel()) {
+				String total = DistanceFormat.asMapLength(mapWidget, totalDistance);
+				totalString = createLabelSection(
+						I18nProvider.getMenu().measureDistancePanelDistanceLastClickLabel(),
+						total);
+			}
+			if (isShowDynamicLabel()) {
+				String r = DistanceFormat.asMapLength(mapWidget, radius);
+				rString = createLabelSection(
+						I18nProvider.getMenu().measureDistancePanelDistanceCurrentLabel(),
+						r);
+			}
+			setStringInDivContents(totalString, rString);
+		}
+	}
+
+	/**
+	 * The label that shows the distances.
+	 *
+	 * @author Jan Venstermans
+	 */
+	protected class AreaLabel extends LabelForDistancePanel {
+
+		public AreaLabel() {
+			super(I18nProvider.getMenu().measureDistancePanelAreaSubtitle());
 		}
 
 		public void setArea(String area) {
-			String areaString = I18nProvider.getMenu().getMeasureAreaString(area);
-			setContents("<div>" + I18nProvider.getMenu().area() + ":</div><div style='margin-top:5px;'>"
-					+ areaString + "</div>");
+			String areaString = null;
+			if (isShowStaticLabel()) {
+				areaString = createLabelSection(
+						I18nProvider.getMenu().measureDistancePanelAreaLastClickLabel(), area);
+			}
+			setStringInDivContents(areaString);
+		}
+	}
+
+	/**
+	 * The label that shows the distances.
+	 *
+	 * @author Jan Venstermans
+	 */
+	protected class CoordinateLabel extends LabelForDistancePanel {
+
+		public CoordinateLabel() {
+			super(I18nProvider.getMenu().measureDistancePanelCoordinateSubtitle());
 		}
 
-		public void setCoordinate(double x, double y) {
-
-
-			String coordinate = I18nProvider.getMenu().getMeasureCoordinateString(NumberFormat.getFormat(".##").
-					format(x), NumberFormat.getFormat(".##").format(y));
-			setContents("<div>" + I18nProvider.getMenu().coordinate() + ":</div><div style='margin-top:5px;'>"
-					+ coordinate + "</div>");
+		public void setCoordinate(Coordinate lastClickedCoordinate, Coordinate currentCoordinate) {
+			String lastClickedCoordinateString = null;
+			if (isShowStaticLabel()) {
+				lastClickedCoordinateString = createLabelSection(
+						I18nProvider.getMenu().measureDistancePanelCoordinateLastClickLabel(),
+						coordinateToString(lastClickedCoordinate));
+			}
+			String currentCoordinateString = null;
+			if (isShowDynamicLabel()) {
+				currentCoordinateString = createLabelSection(
+						I18nProvider.getMenu().measureDistancePanelCoordinateCurrentLabel(),
+						coordinateToString(currentCoordinate));
+			}
+			setStringInDivContents(lastClickedCoordinateString, currentCoordinateString);
 		}
 
+		public String coordinateToString(Coordinate coordinate) {
+			return I18nProvider.getMenu().getMeasureCoordinateString(
+					NumberFormat.getFormat(".##").format(coordinate.getX()),
+					NumberFormat.getFormat(".##").format(coordinate.getY()));
+		}
 	}
 
 	/**
 	 * Menu item that stop the measuring
-	 * 
+	 *
 	 * @author Pieter De Graef
 	 */
-	private class CancelMeasuringAction extends MenuAction {
+	protected class CancelMeasuringAction extends MenuAction {
 
 		private final MeasureDistanceController controller;
 
