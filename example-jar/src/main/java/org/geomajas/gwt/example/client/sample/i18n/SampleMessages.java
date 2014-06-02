@@ -302,6 +302,10 @@ public interface SampleMessages extends Messages {
 
 	String toolbarMeasureDescription();
 
+	String toolbarMeasureAreaLocationTitle();
+
+	String toolbarMeasureAreaLocationDescription();
+
 	// ToolbarFeatureInfo Sample:
 
 	String toolbarFeatureInfoTitle();

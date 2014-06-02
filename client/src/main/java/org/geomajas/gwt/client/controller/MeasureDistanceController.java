@@ -203,16 +203,18 @@ public class MeasureDistanceController extends AbstractSnappingController {
 
 	protected void updateMeasure(MouseEvent event, boolean complete) {
 		Geometry lastClickedLineGeometry = (Geometry) distanceLine.getOriginalLocation();
-		Coordinate lastClickedCoordinate = lastClickedLineGeometry.getCoordinates()[distanceLine.getGeometry().getNumPoints() - 1];
+		Coordinate lastClickedCoordinate =
+				lastClickedLineGeometry.getCoordinates()[distanceLine.getGeometry().getNumPoints() - 1];
 		Coordinate mouseCoordinate = getWorldPosition(event);
-		lineSegment.setGeometry(getFactory().createLineString(new Coordinate[] { lastClickedCoordinate, mouseCoordinate }));
+		lineSegment.setGeometry(getFactory().createLineString(
+				new Coordinate[] { lastClickedCoordinate, mouseCoordinate }));
 		mapWidget.render(mapWidget.getMapModel(), RenderGroup.VECTOR, RenderStatus.UPDATE);
 
 		updatePanelLabels(complete, lastClickedLineGeometry, lastClickedCoordinate, mouseCoordinate);
 	}
 
 	protected void updatePanelLabels(boolean complete, Geometry lastClickedLineGeometry,
-									 Coordinate lastClickedCoordinate, Coordinate mouseCoordinate){
+									 Coordinate lastClickedCoordinate, Coordinate mouseCoordinate) {
 		distanceLabel.setDistance(tempLength, (float) ((Geometry) lineSegment.getOriginalLocation()).getLength());
 
 		if (showArea && complete) {
@@ -277,7 +279,7 @@ public class MeasureDistanceController extends AbstractSnappingController {
 	 * @author Pieter De Graef
 	 * @author Jan Venstermans
 	 */
-	protected abstract class LabelForDistancePanel extends Label {
+	protected abstract class LabelForMeasurePanel extends Label {
 
 		private String subtitle;
 
@@ -285,11 +287,11 @@ public class MeasureDistanceController extends AbstractSnappingController {
 
 		private boolean showDynamicLabel;
 
-		public LabelForDistancePanel(String subtitle) {
+		public LabelForMeasurePanel(String subtitle) {
 			this(subtitle, true, false);
 		}
 
-		public LabelForDistancePanel(String subtitle, boolean showStaticLabel, boolean showDynamicLabel) {
+		public LabelForMeasurePanel(String subtitle, boolean showStaticLabel, boolean showDynamicLabel) {
 			super();
 			this.subtitle = subtitle;
 			this.showStaticLabel = showStaticLabel;
@@ -299,7 +301,8 @@ public class MeasureDistanceController extends AbstractSnappingController {
 		}
 
 		public void setStringInDivContents(String ... stringContents) {
-			StringBuilder builder = new StringBuilder("<div class=\"" + WidgetLayout.MEASURE_DISTANCE_PANEL_SUBTITLE + "\" ><b>" +
+			StringBuilder builder = new StringBuilder("<div class=\"" +
+					WidgetLayout.MEASURE_DISTANCE_PANEL_SUBTITLE + "\" ><b>" +
 					subtitle + "</b>:</div>");
 			for (String content : stringContents) {
 				if (content != null && !content.isEmpty()) {
@@ -343,7 +346,7 @@ public class MeasureDistanceController extends AbstractSnappingController {
 	 *
 	 * @author Jan Venstermans
 	 */
-	protected class DistanceLabel extends LabelForDistancePanel {
+	protected class DistanceLabel extends LabelForMeasurePanel {
 
 		public DistanceLabel() {
 			super(I18nProvider.getMenu().measureDistancePanelDistanceSubtitle(), true, true);
@@ -373,7 +376,7 @@ public class MeasureDistanceController extends AbstractSnappingController {
 	 *
 	 * @author Jan Venstermans
 	 */
-	protected class AreaLabel extends LabelForDistancePanel {
+	protected class AreaLabel extends LabelForMeasurePanel {
 
 		public AreaLabel() {
 			super(I18nProvider.getMenu().measureDistancePanelAreaSubtitle());
@@ -394,7 +397,7 @@ public class MeasureDistanceController extends AbstractSnappingController {
 	 *
 	 * @author Jan Venstermans
 	 */
-	protected class CoordinateLabel extends LabelForDistancePanel {
+	protected class CoordinateLabel extends LabelForMeasurePanel {
 
 		public CoordinateLabel() {
 			super(I18nProvider.getMenu().measureDistancePanelCoordinateSubtitle());
@@ -424,7 +427,7 @@ public class MeasureDistanceController extends AbstractSnappingController {
 	}
 
 	/**
-	 * Menu item that stop the measuring
+	 * Menu item that stop the measuring.
 	 *
 	 * @author Pieter De Graef
 	 */
