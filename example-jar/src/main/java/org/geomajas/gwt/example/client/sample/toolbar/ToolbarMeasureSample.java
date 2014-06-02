@@ -12,6 +12,11 @@
 package org.geomajas.gwt.example.client.sample.toolbar;
 
 import com.google.gwt.core.client.GWT;
+import org.geomajas.gwt.client.action.ToolCreator;
+import org.geomajas.gwt.client.action.ToolbarBaseAction;
+import org.geomajas.gwt.client.action.toolbar.MeasureModalAction;
+import org.geomajas.gwt.client.action.toolbar.ToolId;
+import org.geomajas.gwt.client.action.toolbar.ToolbarRegistry;
 import org.geomajas.gwt.client.util.WidgetLayout;
 import org.geomajas.gwt.example.base.SamplePanel;
 import org.geomajas.gwt.example.base.SamplePanelFactory;
@@ -42,6 +47,15 @@ public class ToolbarMeasureSample extends SamplePanel {
 			return new ToolbarMeasureSample();
 		}
 	};
+
+	public ToolbarMeasureSample() {
+		ToolbarRegistry.put(ToolId.TOOL_MEASURE_DISTANCE_MODE, new ToolCreator() {
+
+			public ToolbarBaseAction createTool(MapWidget mapWidget) {
+				return new MeasureModalAction(mapWidget);
+			}
+		});
+	}
 
 	/**
 	 * @return The viewPanel Canvas
