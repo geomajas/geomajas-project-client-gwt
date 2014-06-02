@@ -15,7 +15,7 @@
         <property name="properties">
             <value>
                <!-- note that ${project.artifactId}-${project.version}-${buildNumber} properties are parsed by maven-->
-                geomajasCacheLocation=/${java.io.tmpdir}/geomajas/${project.artifactId}-${project.version}-${buildNumber}
+                geomajasCacheLocation=/\${java.io.tmpdir}/geomajas/${project.artifactId}-${project.version}-${buildNumber}
             </value>
         </property>
         <property name="ignoreUnresolvablePlaceholders" value="true" />
