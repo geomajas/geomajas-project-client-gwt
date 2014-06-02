@@ -139,31 +139,6 @@
 
 	<build>
 		<plugins>
-            <plugin>
-                <groupId>com.keyboardsamurais.maven</groupId>
-                <artifactId>maven-timestamp-plugin</artifactId>
-                <version>1.0</version>
-                <configuration>
-                    <propertyName>buildNumber</propertyName>
-                    <timestampPattern>yyyyMMddHHmm</timestampPattern>
-                </configuration>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>create</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-resources-plugin</artifactId>
-                <version>2.6</version>
-                <configuration>
-                    <escapeString>\</escapeString>
-                </configuration>
-            </plugin>
 
 			<!-- Run the application using "mvn jetty:run" -->
 			<plugin>
@@ -281,15 +256,13 @@
                 </configuration>
             </plugin>
 	    </plugins>
+
 		<resources>
-
 			<resource>
-
 				<directory>${basedir}/src/main/resources</directory>
 				<filtering>false</filtering>
 				<excludes>
 					<exclude>org/geomajas/gwt/example/client/i18n/ShowcaseMessages*.properties</exclude>
-                    <exclude>org/geomajas/gwt/example/cacheLocation.xml</exclude>
 				</excludes>
 			</resource>
 			<resource>
@@ -297,11 +270,10 @@
 				<filtering>true</filtering>
 				<includes>
 					<include>org/geomajas/gwt/example/client/i18n/ShowcaseMessages*.properties</include>
-                    <include>org/geomajas/gwt/example/cacheLocation.xml</include>
-
 				</includes>
 			</resource>
 		</resources>
+
 	</build>
 
 	<profiles>
