@@ -59,6 +59,7 @@ import org.geomajas.gwt.example.client.sample.toolbar.CustomToolbarToolsSample;
 import org.geomajas.gwt.example.client.sample.toolbar.ScaleSelectCustomSample;
 import org.geomajas.gwt.example.client.sample.toolbar.ScaleSelectDefaultSample;
 import org.geomajas.gwt.example.client.sample.toolbar.ToolbarFeatureInfoSample;
+import org.geomajas.gwt.example.client.sample.toolbar.ToolbarMeasureAreaLocationSample;
 import org.geomajas.gwt.example.client.sample.toolbar.ToolbarMeasureSample;
 import org.geomajas.gwt.example.client.sample.toolbar.ToolbarNavigationSample;
 import org.geomajas.gwt.example.client.sample.toolbar.ToolbarSelectionSample;
@@ -237,6 +238,9 @@ public class GwtFaceExample implements EntryPoint {
 		SampleTreeNodeRegistry.addSampleTreeNode(new SampleTreeNode(MESSAGES.toolbarMeasureTitle(),
 				"[ISOMORPHIC]/geomajas/osgeo/length-measure.png", ToolbarMeasureSample.TITLE,
 				"ToolbarAndControllers", ToolbarMeasureSample.FACTORY));
+		SampleTreeNodeRegistry.addSampleTreeNode(new SampleTreeNode(MESSAGES.toolbarMeasureAreaLocationTitle(),
+				"[ISOMORPHIC]/geomajas/osgeo/length-measure.png", ToolbarMeasureAreaLocationSample.TITLE,
+				"ToolbarAndControllers", ToolbarMeasureAreaLocationSample.FACTORY));
 
 		SampleTreeNodeRegistry.addSampleTreeNode(new SampleTreeNode(MESSAGES.toolbarFeatureInfoTitle(),
 				WidgetLayout.iconInfo, ToolbarFeatureInfoSample.TITLE,
