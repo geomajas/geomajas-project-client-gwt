@@ -54,9 +54,6 @@ public interface MenuMessages extends Messages {
 
 	String toggleMeasureSnapping();
 
-	String getMeasureDistanceString(String distance, String radius);
-
-	String distance();
 
 	// Constants for menu actions regarding measuring distances:
 
@@ -74,11 +71,21 @@ public interface MenuMessages extends Messages {
 	
 	String editGeometricInfoLabelInfo(String area, String length, int points);
 
-	String getMeasureAreaString(String area);
+	/* Measure distance panel */
 
-	String area();
+	String measureDistancePanelHeader();
 
-	String coordinate();
+	String measureDistancePanelDistanceSubtitle();
+	String measureDistancePanelDistanceLastClickLabel();
+	String measureDistancePanelDistanceCurrentLabel();
 
+	String measureDistancePanelAreaSubtitle();
+	String measureDistancePanelAreaLastClickLabel();
+
+	String measureDistancePanelCoordinateSubtitle();
+	String measureDistancePanelCoordinateLastClickLabel();
+	String measureDistancePanelCoordinateCurrentLabel();
+
+	String measureDistancePaneStyleElement(String label, String value);
 	String getMeasureCoordinateString(String x, String y);
 }
