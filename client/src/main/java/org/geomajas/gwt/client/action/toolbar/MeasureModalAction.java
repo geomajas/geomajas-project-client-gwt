@@ -48,16 +48,29 @@ public class MeasureModalAction extends ToolbarModalAction implements Configurab
 
 	private MapWidget mapWidget;
 
+	private MeasureDistanceController controller;
+
 	public MeasureModalAction(MapWidget mapWidget) {
 		super(WidgetLayout.iconMeasureLength, I18nProvider.getToolbar().measureSelectTitle(),
 				I18nProvider.getToolbar().measureSelectTooltip());
 		this.mapWidget = mapWidget;
+		setController(new MeasureDistanceController(mapWidget, showArea, showCoordinate));
 	}
 
+	public void setController(MeasureDistanceController controller) {
+		this.controller = controller;
+	}
+
+	public MeasureDistanceController getController() {
+		return controller;
+	}
+
+	@Override
 	public void onSelect(ClickEvent event) {
-		mapWidget.setController(new MeasureDistanceController(mapWidget, showArea, showCoordinate));
+		mapWidget.setController(controller);
 	}
 
+	@Override
 	public void onDeselect(ClickEvent event) {
 		mapWidget.setController(null);
 	}

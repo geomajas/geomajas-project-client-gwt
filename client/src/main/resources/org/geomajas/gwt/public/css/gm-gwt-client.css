@@ -5,7 +5,11 @@
 }
 .measureDistancePanel div.measureDistancePanelHeader {
 }
+.measureDistancePanelContent {
+}
 .measureDistancePanel .measureDistancePanelContent div {
     padding-left: 3px;
+    margin-top: 2px;
+    margin-bottom: 3px;
 }
 
