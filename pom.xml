@@ -15,7 +15,7 @@
 	<parent>
 		<groupId>org.geomajas</groupId>
 		<artifactId>geomajas-parent</artifactId>
-		<version>2.0.0</version>
+		<version>2.0.1-SNAPSHOT</version>
 	</parent>
 
 	<groupId>org.geomajas.project</groupId>
@@ -639,7 +639,7 @@
 		<gwt-client-common-gwt-version>2.1.0-SNAPSHOT</gwt-client-common-gwt-version>
 		<gwt-client-smartgwt-version>4.1p-2014-04-10</gwt-client-smartgwt-version>
 		<gwt-exporter-version>2.4.0</gwt-exporter-version>
-		<gwt-client-build-tools-version>2.0.0</gwt-client-build-tools-version>
+		<gwt-client-build-tools-version>2.1.0</gwt-client-build-tools-version>
 	</properties>
 	
 </project>

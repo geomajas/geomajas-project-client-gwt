@@ -140,6 +140,17 @@
 	<build>
 		<plugins>
 
+            <!-- plugins needed for cache location path (configured in parent project) -->
+            <plugin>
+                <groupId>com.keyboardsamurais.maven</groupId>
+                <artifactId>maven-timestamp-plugin</artifactId>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+            </plugin>
+
 			<!-- Run the application using "mvn jetty:run" -->
 			<plugin>
 				<groupId>org.mortbay.jetty</groupId>
@@ -259,10 +270,12 @@
 
 		<resources>
 			<resource>
+
 				<directory>${basedir}/src/main/resources</directory>
 				<filtering>false</filtering>
 				<excludes>
 					<exclude>org/geomajas/gwt/example/client/i18n/ShowcaseMessages*.properties</exclude>
+                    <exclude>org/geomajas/gwt/example/cacheLocation.xml</exclude>
 				</excludes>
 			</resource>
 			<resource>
@@ -270,6 +283,8 @@
 				<filtering>true</filtering>
 				<includes>
 					<include>org/geomajas/gwt/example/client/i18n/ShowcaseMessages*.properties</include>
+                    <include>org/geomajas/gwt/example/cacheLocation.xml</include>
+
 				</includes>
 			</resource>
 		</resources>
