@@ -112,6 +112,7 @@ public class ImageUrlServiceImpl implements ImageUrlService {
 				vectorRasterizingInfo.setShowing(layer.isShowing());
 				ClientVectorLayerInfo layerInfo = vectorLayer.getLayerInfo();
 				vectorRasterizingInfo.setStyle(layerInfo.getNamedStyleInfo());
+				vectorRasterizingInfo.setFilter(vectorLayer.getFilter());
 				if (vectorLayer.getSelectedFeatures().size() > 0) {
 					Set<String> selectedFeatures = vectorLayer.getSelectedFeatures();
 					vectorRasterizingInfo.setSelectedFeatureIds(selectedFeatures.toArray(new String[selectedFeatures

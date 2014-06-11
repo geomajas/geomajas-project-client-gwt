@@ -41,7 +41,6 @@
 	</developers>
 
 	<modules>
-		<module>javascript-api</module>
 		<module>javascript-api-gwt</module>
 	</modules>
 

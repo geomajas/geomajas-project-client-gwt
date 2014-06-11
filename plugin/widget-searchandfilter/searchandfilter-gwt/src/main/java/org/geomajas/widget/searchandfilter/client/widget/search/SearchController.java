@@ -10,11 +10,14 @@
  */
 package org.geomajas.widget.searchandfilter.client.widget.search;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
+import com.google.gwt.core.client.GWT;
+import com.smartgwt.client.types.Alignment;
+import com.smartgwt.client.types.Overflow;
+import com.smartgwt.client.util.SC;
+import com.smartgwt.client.widgets.HTMLPane;
+import com.smartgwt.client.widgets.Label;
+import com.smartgwt.client.widgets.Window;
+import com.smartgwt.client.widgets.layout.VLayout;
 import org.geomajas.annotation.Api;
 import org.geomajas.gwt.client.Geomajas;
 import org.geomajas.gwt.client.map.feature.Feature;
@@ -27,13 +30,10 @@ import org.geomajas.widget.searchandfilter.client.util.SearchCommService;
 import org.geomajas.widget.searchandfilter.client.widget.search.SearchWidget.SearchRequestEvent;
 import org.geomajas.widget.searchandfilter.client.widget.search.SearchWidget.SearchRequestHandler;
 
-import com.google.gwt.core.client.GWT;
-import com.smartgwt.client.types.Alignment;
-import com.smartgwt.client.util.SC;
-import com.smartgwt.client.widgets.HTMLPane;
-import com.smartgwt.client.widgets.Label;
-import com.smartgwt.client.widgets.Window;
-import com.smartgwt.client.widgets.layout.VLayout;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * Controller to handle the searches.
@@ -172,6 +172,7 @@ public class SearchController implements SearchRequestHandler {
 		img.setAlign(Alignment.CENTER);
 		img.setWidth(20);
 		img.setHeight(20);
+		img.setOverflow(Overflow.HIDDEN);
 		img.setContents("<img src=\"" + Geomajas.getIsomorphicDir()
 				+ "/geomajas/ajax-loader.gif\" width=\"18\" height=\"18\" />");
 		layout.addMember(img);

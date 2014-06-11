@@ -117,7 +117,7 @@ public class BlueprintDetail extends HLayout implements SelectionChangedHandler,
 		widgetTabset.setWidth100();
 		widgetTabset.setHeight100();
 		widgetTabset.setOverflow(Overflow.HIDDEN);
-		widgetTabset.setTabBarThickness(100);
+		widgetTabset.setTabBarThickness(DeskmanagerLayout.tabBarLeftThickness);
 		tab.setPane(widgetTabset);
 
 		tabset.addTab(tab);

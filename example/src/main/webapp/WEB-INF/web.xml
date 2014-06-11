@@ -19,6 +19,10 @@
         <param-value>
 			<!-- generic Geomajas context -->
 			classpath:org/geomajas/spring/geomajasContext.xml
+
+            <!-- application specific cache location -->
+            classpath:org/geomajas/gwt/example/cacheLocation.xml
+
 			<!-- local application context -->
 			WEB-INF/applicationContext.xml
 
@@ -26,7 +30,6 @@
 			WEB-INF/security.xml
 
 			<!-- layers and maps included through geomajasExampleContext.xml -->
-
 			WEB-INF/appShowcase.xml
 			WEB-INF/map*.xml
 			WEB-INF/layer*.xml

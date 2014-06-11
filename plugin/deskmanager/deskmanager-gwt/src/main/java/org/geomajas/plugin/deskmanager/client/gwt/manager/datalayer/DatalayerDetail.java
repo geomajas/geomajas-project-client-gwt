@@ -123,7 +123,7 @@ public class DatalayerDetail extends VLayout implements SelectionChangedHandler,
 		widgetTabset.setWidth100();
 		widgetTabset.setHeight100();
 		widgetTabset.setOverflow(Overflow.HIDDEN);
-		widgetTabset.setTabBarThickness(100);
+		widgetTabset.setTabBarThickness(DeskmanagerLayout.tabBarLeftThickness);
 		extraTab.setPane(widgetTabset);
 		
 		tabset.addTab(extraTab);
