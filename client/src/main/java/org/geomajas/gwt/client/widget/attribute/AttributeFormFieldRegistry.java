@@ -11,34 +11,6 @@
 
 package org.geomajas.gwt.client.widget.attribute;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import org.geomajas.annotation.Api;
-import org.geomajas.configuration.AbstractEditableAttributeInfo;
-import org.geomajas.configuration.AbstractReadOnlyAttributeInfo;
-import org.geomajas.configuration.AssociationAttributeInfo;
-import org.geomajas.configuration.AssociationType;
-import org.geomajas.configuration.PrimitiveAttributeInfo;
-import org.geomajas.configuration.PrimitiveType;
-import org.geomajas.configuration.validation.ConstraintInfo;
-import org.geomajas.configuration.validation.DecimalMaxConstraintInfo;
-import org.geomajas.configuration.validation.DecimalMinConstraintInfo;
-import org.geomajas.configuration.validation.DigitsConstraintInfo;
-import org.geomajas.configuration.validation.FutureConstraintInfo;
-import org.geomajas.configuration.validation.MaxConstraintInfo;
-import org.geomajas.configuration.validation.MinConstraintInfo;
-import org.geomajas.configuration.validation.NotNullConstraintInfo;
-import org.geomajas.configuration.validation.PastConstraintInfo;
-import org.geomajas.configuration.validation.PatternConstraintInfo;
-import org.geomajas.configuration.validation.SizeConstraintInfo;
-import org.geomajas.configuration.validation.ValidatorInfo;
-import org.geomajas.gwt.client.map.layer.VectorLayer;
-
 import com.smartgwt.client.data.DataSourceField;
 import com.smartgwt.client.data.fields.DataSourceBooleanField;
 import com.smartgwt.client.data.fields.DataSourceDateField;
@@ -63,7 +35,35 @@ import com.smartgwt.client.widgets.form.validator.IsFloatValidator;
 import com.smartgwt.client.widgets.form.validator.LengthRangeValidator;
 import com.smartgwt.client.widgets.form.validator.RegExpValidator;
 import com.smartgwt.client.widgets.form.validator.Validator;
+import org.geomajas.annotation.Api;
+import org.geomajas.configuration.AbstractEditableAttributeInfo;
+import org.geomajas.configuration.AbstractReadOnlyAttributeInfo;
+import org.geomajas.configuration.AssociationAttributeInfo;
+import org.geomajas.configuration.AssociationType;
+import org.geomajas.configuration.PrimitiveAttributeInfo;
+import org.geomajas.configuration.PrimitiveType;
+import org.geomajas.configuration.SyntheticAttributeInfo;
+import org.geomajas.configuration.validation.ConstraintInfo;
+import org.geomajas.configuration.validation.DecimalMaxConstraintInfo;
+import org.geomajas.configuration.validation.DecimalMinConstraintInfo;
+import org.geomajas.configuration.validation.DigitsConstraintInfo;
+import org.geomajas.configuration.validation.FutureConstraintInfo;
+import org.geomajas.configuration.validation.MaxConstraintInfo;
+import org.geomajas.configuration.validation.MinConstraintInfo;
+import org.geomajas.configuration.validation.NotNullConstraintInfo;
+import org.geomajas.configuration.validation.PastConstraintInfo;
+import org.geomajas.configuration.validation.PatternConstraintInfo;
+import org.geomajas.configuration.validation.SizeConstraintInfo;
+import org.geomajas.configuration.validation.ValidatorInfo;
+import org.geomajas.gwt.client.map.layer.VectorLayer;
 import org.geomajas.gwt.client.util.Log;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -361,6 +361,10 @@ public final class AttributeFormFieldRegistry {
 				String name = ((PrimitiveAttributeInfo) info).getType().name();
 				field = DATA_SOURCE_FIELDS.get(name).create();
 				validators = new ArrayList<Validator>(FIELD_VALIDATORS.get(name));
+			} else if (info instanceof SyntheticAttributeInfo) {
+				String name = PrimitiveType.STRING.name();
+				field = DATA_SOURCE_FIELDS.get(name).create();
+				validators.addAll(FIELD_VALIDATORS.get(name));
 			} else if (info instanceof AssociationAttributeInfo) {
 				String name = ((AssociationAttributeInfo) info).getType().name();
 				field = DATA_SOURCE_FIELDS.get(name).create();
@@ -420,8 +424,12 @@ public final class AttributeFormFieldRegistry {
 			}
 		}
 		if (formItem == null) {
+ 			//Only check if attribute is editable. Non editable attributes can be ignored.
 			if (info instanceof PrimitiveAttributeInfo) {
 				String name = ((PrimitiveAttributeInfo) info).getType().name();
+				formItem = FORM_ITEMS.get(name).create();
+			} else if (info instanceof SyntheticAttributeInfo) {
+				String name = PrimitiveType.STRING.name();
 				formItem = FORM_ITEMS.get(name).create();
 			} else if (info instanceof AssociationAttributeInfo) {
 				String name = ((AssociationAttributeInfo) info).getType().name();
