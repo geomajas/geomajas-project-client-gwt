@@ -259,6 +259,12 @@ http://www.springframework.org/schema/context/spring-context-2.5.xsd">
 	                    </bean>
 	                </property>
 	            </bean>
+				<bean class="org.geomajas.configuration.SyntheticAttributeInfo">
+					<property name="label" value="Synthetic attribute"/>
+					<property name="name" value="syntheticAttr"/>
+					<property name="identifying" value="true"/>
+					<property name="expression" value="stringAttr + ' ' + doubleAttr"/>
+				</bean>
 			</list>
 		</property>
 	</bean>
