@@ -54,8 +54,7 @@ public class ToolbarMeasureSample extends SamplePanel {
 		// Map with ID osmMeasureMap is defined in the XML configuration. (mapOsmMeasure.xml)
 		final MapWidget map = new MapWidget("mapOsmMeasure", "gwtExample");
 
-		final Toolbar toolbar = new Toolbar(map);
-		toolbar.setButtonSize(WidgetLayout.toolbarLargeButtonSize);
+		final Toolbar toolbar = new Toolbar(map, WidgetLayout.toolbarLargeButtonSize);
 
 		layout.addMember(toolbar);
 		layout.addMember(map);

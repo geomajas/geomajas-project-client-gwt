@@ -75,8 +75,7 @@ public class RasterizingPanel extends SamplePanel {
 		// Create the left-side (map and tabs):
 		// ---------------------------------------------------------------------
 		final MapWidget map = new MapWidget("mapRasterizingMain", "appRasterizing");
-		final Toolbar toolbar = new Toolbar(map);
-		toolbar.setButtonSize(WidgetLayout.toolbarLargeButtonSize);
+		final Toolbar toolbar = new Toolbar(map, WidgetLayout.toolbarLargeButtonSize);
 		toolbar.setBackgroundColor("#647386");
 		toolbar.setBackgroundImage("");
 		toolbar.setBorder("0px");

@@ -57,8 +57,7 @@ public class Application implements EntryPoint {
 		// Create the left-side (map and tabs):
 		// ---------------------------------------------------------------------
 		map = new MapWidget("mapMain", "app");
-		final Toolbar toolbar = new Toolbar(map);
-		toolbar.setButtonSize(WidgetLayout.toolbarLargeButtonSize);
+		final Toolbar toolbar = new Toolbar(map, WidgetLayout.toolbarLargeButtonSize);
 		toolbar.setBackgroundColor("#647386");
 		toolbar.setBackgroundImage("");
 		toolbar.setBorder("0px");

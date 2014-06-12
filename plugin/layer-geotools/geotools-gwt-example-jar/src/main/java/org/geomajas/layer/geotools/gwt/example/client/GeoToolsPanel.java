@@ -63,8 +63,7 @@ public class GeoToolsPanel extends SamplePanel {
 		// Set a panning controller on the map:
 		map.setController(new PanController(map));
 		// Create a tool-bar for this map:
-		final Toolbar toolbar = new Toolbar(map);
-		toolbar.setButtonSize(WidgetLayout.toolbarLargeButtonSize);
+		final Toolbar toolbar = new Toolbar(map, WidgetLayout.toolbarLargeButtonSize);
 
 		layout.addMember(toolbar);
 		layout.addMember(map);

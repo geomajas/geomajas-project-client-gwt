@@ -99,8 +99,7 @@ public class FeatureinfoPanel extends SamplePanel {
 		// Create the left-side (map and tabs):
 		// ---------------------------------------------------------------------
 		final MapWidget map = new MapWidget("mapMain", "featureInfoApp");
-		final Toolbar toolbar = new Toolbar(map);
-		toolbar.setButtonSize(WidgetLayout.toolbarLargeButtonSize);
+		final Toolbar toolbar = new Toolbar(map, WidgetLayout.toolbarLargeButtonSize);
 
 		VLayout mapLayout = new VLayout();
 		mapLayout.setShowResizeBar(true);

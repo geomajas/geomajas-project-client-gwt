@@ -42,8 +42,7 @@ public class ComplexApp implements EntryPoint {
 		final MapWidget mapWidget = new MapWidget("mapMain", "app");
 		GeomajasServiceImpl.getInstance().registerMap("app", "mapMain", new MapImpl(mapWidget));
 
-		final Toolbar toolbar = new Toolbar(mapWidget);
-		toolbar.setButtonSize(WidgetLayout.toolbarLargeButtonSize);
+		final Toolbar toolbar = new Toolbar(mapWidget, WidgetLayout.toolbarLargeButtonSize);
 
 		VLayout leftLayout = new VLayout();
 		leftLayout.setShowEdges(true);
