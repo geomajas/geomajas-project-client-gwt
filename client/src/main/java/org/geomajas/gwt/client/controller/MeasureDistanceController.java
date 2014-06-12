@@ -105,7 +105,8 @@ public class MeasureDistanceController extends AbstractSnappingController {
 		distanceLine.setStyle(LINE_STYLE_1);
 		lineSegment = new GfxGeometry("measureDistanceLineSegment");
 		lineSegment.setStyle(LINE_STYLE_2);
-		geometryFactory = new GeometryFactory(mapWidget.getMapModel().getPrecision(), mapWidget.getMapModel().getSrid());
+		geometryFactory = new GeometryFactory(mapWidget.getMapModel().getPrecision(),
+				mapWidget.getMapModel().getSrid());
 		addHandler(new MeasureDistancePanel(mapWidget, showArea, displayCoordinates));
 	}
 	

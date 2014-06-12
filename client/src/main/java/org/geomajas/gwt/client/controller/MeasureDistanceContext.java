@@ -1,8 +1,3 @@
-package org.geomajas.gwt.client.controller;
-
-import java.util.Map;
-
-import org.geomajas.geometry.Coordinate;
 /*
  * This is part of Geomajas, a GIS framework, http://www.geomajas.org/.
  *
@@ -13,6 +8,9 @@ import org.geomajas.geometry.Coordinate;
  * by the Geomajas Contributors License Agreement. For full licensing
  * details, see LICENSE.txt in the project root.
  */
+package org.geomajas.gwt.client.controller;
+
+import org.geomajas.geometry.Coordinate;
 import org.geomajas.gwt.client.spatial.geometry.Geometry;
 
 /**
@@ -66,14 +64,14 @@ public interface MeasureDistanceContext {
 	double getRadius();
 
 	/**
-	 * Get the previous coordinate
+	 * Get the previous coordinate.
 	 * 
 	 * @return the previous coordinate
 	 */
 	Coordinate getPreviousCoordinate();
 
 	/**
-	 * Get the current coordinate
+	 * Get the current coordinate.
 	 * 
 	 * @return the current coordinate
 	 */

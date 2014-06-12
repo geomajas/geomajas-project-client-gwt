@@ -18,14 +18,18 @@ package org.geomajas.gwt.client.controller;
  */
 public interface MeasureDistanceHandler {
 
+	/**
+	 * State of the event that triggers {@link
+	 * #onChange(org.geomajas.gwt.client.controller.MeasureDistanceHandler.State, MeasureDistanceContext)}.
+	 */
 	enum State {
-		/** user starts clicking */
+		/** user starts clicking. */
 		START,
-		/** user moves mouse */
+		/** user moves mouse. */
 		MOVE,
-		/** user clicks another point */
+		/** user clicks another point. */
 		CLICK,
-		/** user stops by double-clicking */
+		/** user stops by double-clicking. */
 		STOP
 	}
 
