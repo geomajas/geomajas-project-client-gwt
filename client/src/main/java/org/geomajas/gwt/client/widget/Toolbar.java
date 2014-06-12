@@ -29,8 +29,6 @@ import org.geomajas.gwt.client.action.event.ToolbarActionEnabledEvent;
 import org.geomajas.gwt.client.action.event.ToolbarActionHandler;
 import org.geomajas.gwt.client.action.toolbar.ToolId;
 import org.geomajas.gwt.client.action.toolbar.ToolbarRegistry;
-import org.geomajas.gwt.client.map.event.MapModelChangedEvent;
-import org.geomajas.gwt.client.map.event.MapModelChangedHandler;
 
 import com.smartgwt.client.types.SelectionType;
 import com.smartgwt.client.widgets.IButton;
@@ -98,13 +96,28 @@ public class Toolbar extends ToolStrip {
 	 */
 	@Api
 	public Toolbar(MapWidget mapWidget) {
+		this(mapWidget, WidgetLayout.toolbarSmallButtonSize);
+	}
+
+	/**
+	 * Create a toolbar for given {@link MapWidget} and given button size.
+	 *
+	 * @param mapWidget map widget for toolbar
+	 * @param buttonSize size of toolbar button
+	 * @since 1.15.0
+	 */
+	@Api
+	public Toolbar(MapWidget mapWidget, int buttonSize) {
 		this.mapWidget = mapWidget;
-		setButtonSize(WidgetLayout.toolbarSmallButtonSize);
 		setPadding(WidgetLayout.toolbarPadding);
 		setWidth100();
-		mapWidget.getMapModel().addMapModelChangedHandler(new MapModelChangedHandler() {
 
-			public void onMapModelChanged(MapModelChangedEvent event) {
+		this.buttonSize = buttonSize;
+		setHeight(buttonSize);
+
+		mapWidget.getMapModel().runWhenInitialized(new Runnable() {
+			@Override
+			public void run() {
 				initialize(Toolbar.this.mapWidget.getMapModel().getMapInfo());
 			}
 		});
@@ -292,7 +305,11 @@ public class Toolbar extends ToolStrip {
 	 *
 	 * @param buttonSize
 	 *            The new button size.
+	 *
+	 * @deprecated use {@link #Toolbar(MapWidget, int)} instead .
+	 *
 	 */
+	@Deprecated
 	public void setButtonSize(int buttonSize) {
 		this.buttonSize = buttonSize;
 		// TODO: resize all buttons
