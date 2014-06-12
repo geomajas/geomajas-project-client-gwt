@@ -19,7 +19,7 @@
 	</parent>
 
 	<artifactId>geomajas-face-gwt-documentation</artifactId>
-	<version>1.15.0-M4</version>
+	<version>1.15.0-SNAPSHOT</version>
 	<packaging>jar</packaging>
 	<name>Geomajas GWT client: Main - Documentation</name>
 	<description>Geomajas GWT client: Main - Documentation</description>
