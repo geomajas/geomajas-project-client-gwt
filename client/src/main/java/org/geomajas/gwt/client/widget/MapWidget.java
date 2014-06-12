@@ -1260,8 +1260,8 @@ public class MapWidget extends VLayout {
 			try {
 				mapModel.accept(painterVisitor, null, mapModel.getMapView().getBounds(), false); // render base groups
 
-				final int width = getWidth();
-				final int height = getHeight();
+				final Integer width = getWidth();
+				final Integer height = getHeight();
 				if (previousWidth != width || previousHeight != height) {
 					previousWidth = width;
 					previousHeight = height;
@@ -1501,6 +1501,8 @@ public class MapWidget extends VLayout {
 		for (HandlerRegistration handler : handlers) {
 			handler.removeHandler();
 		}
+
+		graphics.destroy();
 		super.onDestroy();
 	}
 
