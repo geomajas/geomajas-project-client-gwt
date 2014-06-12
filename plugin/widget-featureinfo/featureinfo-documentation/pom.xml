@@ -21,7 +21,7 @@
 
 	<groupId>org.geomajas.widget</groupId>
 	<artifactId>geomajas-widget-featureinfo-documentation</artifactId>
-	<version>1.15.0-SNAPSHOT</version>
+	<version>1.15.0-M4</version>
 	<packaging>jar</packaging>
 	<name>Geomajas GWT client: Plugin Widget Featureinfo - Documentation</name>
 	<description>Geomajas GWT client: Plugin Widget Featureinfo - Documentation</description>
