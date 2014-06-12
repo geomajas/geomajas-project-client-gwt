@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.geomajas.gwt.client.Geomajas;
+import org.geomajas.gwt.client.util.WidgetLayout;
 import org.geomajas.gwt.client.widget.LayerTree;
 import org.geomajas.gwt.client.widget.Legend;
 import org.geomajas.gwt.client.widget.LoadingScreen;
@@ -117,8 +118,7 @@ public class Application implements EntryPoint {
 		// Create the left-side (map and tabs):
 		// ---------------------------------------------------------------------
 		mapWidget = new MapWidget("mapMain", "app");
-		final Toolbar toolbar = new Toolbar(mapWidget);
-		toolbar.setButtonSize(Toolbar.BUTTON_SIZE_BIG);
+		final Toolbar toolbar = new Toolbar(mapWidget, WidgetLayout.toolbarLargeButtonSize);
 
 		VLayout mapLayout = new VLayout();
 		mapLayout.setShowResizeBar(true);

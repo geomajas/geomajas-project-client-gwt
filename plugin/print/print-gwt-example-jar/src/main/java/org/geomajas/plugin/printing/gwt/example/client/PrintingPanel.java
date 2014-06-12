@@ -27,6 +27,7 @@ import org.geomajas.gwt.client.map.event.MapModelChangedEvent;
 import org.geomajas.gwt.client.map.event.MapModelChangedHandler;
 import org.geomajas.gwt.client.spatial.Bbox;
 import org.geomajas.gwt.client.util.GeometryConverter;
+import org.geomajas.gwt.client.util.WidgetLayout;
 import org.geomajas.gwt.client.widget.MapWidget;
 import org.geomajas.gwt.client.widget.Toolbar;
 import org.geomajas.gwt.example.base.SamplePanel;
@@ -94,8 +95,7 @@ public class PrintingPanel extends SamplePanel {
 		// Create the left-side (map and tabs):
 		// ---------------------------------------------------------------------
 		final MapWidget map = new MapWidget("mapPrinting", "appPrinting");
-		final Toolbar toolbar = new Toolbar(map);
-		toolbar.setButtonSize(Toolbar.BUTTON_SIZE_BIG);
+		final Toolbar toolbar = new Toolbar(map, WidgetLayout.toolbarLargeButtonSize);
 		map.getMapModel().runWhenInitialized(new Runnable() {
 
 			public void run() {

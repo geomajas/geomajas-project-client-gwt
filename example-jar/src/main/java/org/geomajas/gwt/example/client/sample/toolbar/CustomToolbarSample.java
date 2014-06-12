@@ -52,9 +52,7 @@ public class CustomToolbarSample extends SamplePanel {
 		layout.setHeight100();
 
 		final MapWidget map = new MapWidget("mapCustomToolbar", "gwtExample");
-
-		final Toolbar toolbar = new Toolbar(map);
-		toolbar.setButtonSize(WidgetLayout.toolbarLargeButtonSize);
+		final Toolbar toolbar = new Toolbar(map, WidgetLayout.toolbarLargeButtonSize);
 
 		layout.addMember(toolbar);
 		layout.addMember(map);
