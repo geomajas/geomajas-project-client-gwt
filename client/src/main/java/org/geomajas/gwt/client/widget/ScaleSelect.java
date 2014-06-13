@@ -20,8 +20,6 @@ import java.util.List;
 import org.geomajas.annotation.Api;
 import org.geomajas.gwt.client.i18n.I18nProvider;
 import org.geomajas.gwt.client.map.MapView;
-import org.geomajas.gwt.client.map.event.MapModelEvent;
-import org.geomajas.gwt.client.map.event.MapModelHandler;
 import org.geomajas.gwt.client.map.event.MapViewChangedEvent;
 import org.geomajas.gwt.client.map.event.MapViewChangedHandler;
 
@@ -89,16 +87,66 @@ public class ScaleSelect extends DynamicForm implements KeyPressHandler, Changed
 	 * @param pixelLength
 	 *            the pixel length in map units
 	 * @since 1.6.0
+	 * @deprecated use {@link #ScaleSelect(MapWidget, double)} instead
 	 */
 	@Api
+	@Deprecated
 	public ScaleSelect(MapView mapView, double pixelLength) {
 		this.mapView = mapView;
 		this.pixelLength = pixelLength; // Possibly NaN if called by new ScaleSelect(MapWidget) and 
-								// mapWidget hasn't been fully initialized yet 
-		setWidth100();
-		setHeight100();
+								// mapWidget hasn't been fully initialized yet
 		init();
+
+		updateResolutions();
+		// Does nothing if mapWidget provided in constructor, hasn't been fully initialized yet.
+		//	Else, will call setDisplayScale() if scaleItem value's hasn't been set yet
+		//	or scaleItem's displayValue is null or empty
+		if (null != mapView && isScaleItemInitialized) {
+			setDisplayScale(mapView.getCurrentScale() * ScaleSelect.this.pixelLength);
+		}
 	}
+	/**
+	 * Constructs a ScaleSelect that acts on the specified map widget.
+	 *
+	 * @param mapWidget map widget, must be non-null
+	 * @since 1.15.0
+	 */
+	@Api
+	public ScaleSelect(MapWidget mapWidget, double pixelLength) {
+		this.mapView = mapWidget.getMapModel().getMapView();
+		this.mapWidget = mapWidget;
+		this.pixelLength = pixelLength;
+		init();
+
+		mapWidget.getMapModel().runWhenInitialized(new Runnable() {
+			@Override
+			public void run() {
+
+				updateResolutions();
+				// Does nothing if mapWidget provided in constructor, hasn't been fully initialized yet.
+				//	Else, will call setDisplayScale() if scaleItem value's hasn't been set yet
+				//	or scaleItem's displayValue is null or empty
+				if (null != mapView && isScaleItemInitialized) {
+					setDisplayScale(mapView.getCurrentScale() * ScaleSelect.this.pixelLength);
+				}
+
+			/*	refreshPixelLength();
+				if (!Double.isNaN(ScaleSelect.this.pixelLength) && (0.0 != ScaleSelect.this.pixelLength)) {
+					if (!isScaleItemInitialized) {
+						scaleItem.clearValue();
+						updateResolutions();
+						setDisplayScale(mapView.getCurrentScale() * ScaleSelect.this.pixelLength);
+					} else if (scaleItem.getValueAsString() == null || "".equals(scaleItem.getValueAsString())) {
+						setDisplayScale(mapView.getCurrentScale() * ScaleSelect.this.pixelLength);
+					} else if (scaleItem.getDisplayValue() == null
+							|| "".equals(scaleItem.getDisplayValue())) {
+						setDisplayScale(mapView.getCurrentScale() * ScaleSelect.this.pixelLength);
+					}
+				}*/
+			}
+		});
+	}
+
 	/**
 	 * Constructs a ScaleSelect that acts on the specified map widget.
 	 *
@@ -106,29 +154,8 @@ public class ScaleSelect extends DynamicForm implements KeyPressHandler, Changed
 	 * @since 1.10.0
 	 */
 	@Api
-	public ScaleSelect(final MapWidget mapWidget) {
-		this(mapWidget.getMapModel().getMapView(), mapWidget.getPixelPerUnit());
-		this.mapWidget = mapWidget;
-
-		mapWidget.getMapModel().addMapModelHandler(new MapModelHandler() {
-			public void onMapModelChange(MapModelEvent event) {
-				/** When the MapModel changes, , setup the select item if it hasn't been fully initialized yet. */
-
-				refreshPixelLength();
-				if ( !Double.isNaN(pixelLength) && (0.0 != pixelLength)) {
-					if (!isScaleItemInitialized) {
-						scaleItem.clearValue();
-						updateResolutions();
-						setDisplayScale(mapView.getCurrentScale() * pixelLength);
-					} else if (scaleItem.getValueAsString() == null || "".equals(scaleItem.getValueAsString())) {
-						setDisplayScale(mapView.getCurrentScale() * pixelLength);
-					} else if (scaleItem.getDisplayValue() == null
-							|| "".equals(scaleItem.getDisplayValue())) {
-						setDisplayScale(mapView.getCurrentScale() * pixelLength);
-					}
-				}
-			}
-		});
+	public ScaleSelect(MapWidget mapWidget) {
+		this(mapWidget, mapWidget.getPixelPerUnit());
 	}
 
 	// -------------------------------------------------------------------------
@@ -287,7 +314,7 @@ public class ScaleSelect extends DynamicForm implements KeyPressHandler, Changed
 
 		// Update lookup map (stores user friendly representation):
 		valueToScale.clear();
-		if ( !Double.isNaN(pixelLength) && (0.0 != pixelLength)) {
+		if (!Double.isNaN(pixelLength) && (0.0 != pixelLength)) {
 			for (Double scale : scaleList) {
 				// Eliminate duplicates and null:
 				if (scale != null) {
@@ -311,7 +338,8 @@ public class ScaleSelect extends DynamicForm implements KeyPressHandler, Changed
 	}
 
 	private void init() {
-//		DynamicForm form = new DynamicForm();
+		setWidth100();
+		setHeight100();
 		scaleItem = new ComboBoxItem();
 		scaleItem.setTitle(I18nProvider.getToolbar().scaleSelectTitle());
 		scaleItem.setValidators(new ScaleValidator());
@@ -319,15 +347,6 @@ public class ScaleSelect extends DynamicForm implements KeyPressHandler, Changed
 		scaleItem.addKeyPressHandler(this);
 		scaleItem.addChangedHandler(this);
 		setFields(scaleItem);
-//		addChild(form);
-
-
-		updateResolutions();	// Does nothing if mapWidget provided in constructor, hasn't been fully initialized yet.
-							  		//	Else, will call setDisplayScale() if scaleItem value's hasn't been set yet
-									//	or scaleItem's displayValue is null or empty
-		if (null != mapView && isScaleItemInitialized) {
-			setDisplayScale(mapView.getCurrentScale() * pixelLength);
-		}
 		mapView.addMapViewChangedHandler(this);
 	}
 
