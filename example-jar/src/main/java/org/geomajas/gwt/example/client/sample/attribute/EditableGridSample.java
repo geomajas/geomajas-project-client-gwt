@@ -21,8 +21,6 @@ import org.geomajas.gwt.client.command.AbstractCommandCallback;
 import org.geomajas.gwt.client.command.GwtCommand;
 import org.geomajas.gwt.client.command.GwtCommandDispatcher;
 import org.geomajas.gwt.client.controller.PanController;
-import org.geomajas.gwt.client.map.event.MapModelEvent;
-import org.geomajas.gwt.client.map.event.MapModelHandler;
 import org.geomajas.gwt.client.map.feature.Feature;
 import org.geomajas.gwt.client.map.layer.VectorLayer;
 import org.geomajas.gwt.client.widget.FeatureListGrid;
@@ -76,10 +74,9 @@ public class EditableGridSample extends SamplePanel {
 		grid.setEditingEnabled(true);
 
 		// Add a trigger to fill the grid when the map has finished loading:
-
-		map.getMapModel().addMapModelHandler(new MapModelHandler() {
-
-			public void onMapModelChange(MapModelEvent event) {
+		map.getMapModel().runWhenInitialized(new Runnable() {
+			@Override
+			public void run() {
 				final VectorLayer layer = map.getMapModel().getVectorLayer("clientLayerBeansEditableGrid");
 				grid.setLayer(layer);
 				SearchFeatureRequest searchFeatureRequest = new SearchFeatureRequest();
@@ -99,9 +96,12 @@ public class EditableGridSample extends SamplePanel {
 									layer.getFeatureStore().addFeature(f);
 								}
 							}
-						});
+						}
+				);
 			}
 		});
+
+
 
 		layout.addMember(grid);
 		layout.addMember(mapLayout);
