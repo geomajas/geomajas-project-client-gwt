@@ -36,11 +36,14 @@ public class WidgetLayerExample implements EntryPoint {
 	}
 
 	public void onModuleLoad() {
+		SampleTreeNodeRegistry.addSampleTreeNode(new SampleTreeNode(messages.layerWidgetPlugin(),
+				"[ISOMORPHIC]/geomajas/silk/plugin.png", "WidgetLayerPlugin", "topLevel"));
+
 		SampleTreeNodeRegistry.addSampleTreeNode(new SampleTreeNode(messages.layerListShowcaseTreeTitle(),
-				"[ISOMORPHIC]/geomajas/osgeo/mapset.png", LayerListSample.TITLE, "Layertree",
+				"[ISOMORPHIC]/geomajas/osgeo/mapset.png", LayerListSample.TITLE, "WidgetLayerPlugin",
 				LayerListSample.FACTORY));
 		SampleTreeNodeRegistry.addSampleTreeNode(new SampleTreeNode(messages.layerListClientWmsShowcaseTreeTitle(),
-				"[ISOMORPHIC]/geomajas/osgeo/mapset.png", ClientWmsLayerListSample.TITLE, "Layertree",
+				"[ISOMORPHIC]/geomajas/osgeo/mapset.png", ClientWmsLayerListSample.TITLE, "WidgetLayerPlugin",
 				ClientWmsLayerListSample.FACTORY));
 	}
 
