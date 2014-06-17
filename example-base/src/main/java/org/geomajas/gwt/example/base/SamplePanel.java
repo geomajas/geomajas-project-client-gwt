@@ -63,15 +63,17 @@ public abstract class SamplePanel extends VLayout {
 		HLayout hLayout = new HLayout();
 		hLayout.setMembersMargin(10);
 		hLayout.setWidth100();
-		Canvas viewPanel = getViewPanel();
-		viewPanel.setWidth100();
-		viewPanel.setHeight100();
-		hLayout.addMember(viewPanel);
+		Canvas samplePanel = getViewPanel();
+
+		samplePanel.setHeight100();
+		samplePanel.setWidth("*");
+		hLayout.addMember(samplePanel);
 
 		String description = getDescription();
 		if (description != null) {
 			VLayout rightLayout = new VLayout();
 			rightLayout.setMembersMargin(15);
+			rightLayout.setWidth(220);
 
 			IButton sourceButton = new IButton(MESSAGES.generalSourceButton());
 			sourceButton.setIcon("[ISOMORPHIC]/geomajas/example/image/silk/script_go.png");
