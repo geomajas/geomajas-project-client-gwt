@@ -11,7 +11,6 @@
 package org.geomajas.widget.layer.client.view;
 
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.user.client.ui.Widget;
 import com.smartgwt.client.types.Alignment;
 import com.smartgwt.client.types.DragDataAction;
 import com.smartgwt.client.types.ListGridEditEvent;
@@ -173,7 +172,7 @@ public class LayerListGrid  extends ListGrid implements LayerListPresenter.View 
 	}
 
 	@Override
-	public Widget getWidget() {
+	public ListGrid getWidget() {
 		return this;
 	}
 }

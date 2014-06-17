@@ -10,7 +10,7 @@
  */
 package org.geomajas.widget.layer.client.presenter;
 
-import com.google.gwt.user.client.ui.Widget;
+import com.smartgwt.client.widgets.grid.ListGrid;
 import org.geomajas.gwt.client.map.layer.Layer;
 
 import java.util.List;
@@ -33,7 +33,7 @@ public interface LayerListPresenter {
 
 		void updateView(List<Layer<?>> layers);
 
-		Widget getWidget();
+		ListGrid getWidget();
 	}
 
 	/**
@@ -52,5 +52,5 @@ public interface LayerListPresenter {
 
 	View getView();
 
-	Widget getWidget();
+	ListGrid getWidget();
 }

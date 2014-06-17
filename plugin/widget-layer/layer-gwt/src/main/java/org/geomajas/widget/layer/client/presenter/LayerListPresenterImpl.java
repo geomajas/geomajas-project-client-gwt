@@ -11,7 +11,7 @@
 package org.geomajas.widget.layer.client.presenter;
 
 import com.google.gwt.event.shared.HandlerRegistration;
-import com.google.gwt.user.client.ui.Widget;
+import com.smartgwt.client.widgets.grid.ListGrid;
 import org.geomajas.gwt.client.map.event.LayerChangedHandler;
 import org.geomajas.gwt.client.map.event.LayerLabeledEvent;
 import org.geomajas.gwt.client.map.event.LayerShownEvent;
@@ -118,7 +118,7 @@ public class LayerListPresenterImpl implements LayerListPresenter, LayerListPres
 	}
 
 	@Override
-	public Widget getWidget() {
+	public ListGrid getWidget() {
 		return view.getWidget();
 	}
 
