@@ -64,9 +64,8 @@ public class GeocoderPanel extends SamplePanel {
 		// @extract-start createGwtWidget, Create GWT widget in toolbar
 		final MapWidget map = new MapWidget("mapGeocoderOsm", "appGeocoder");
 
-		final Toolbar toolbar = new Toolbar(map);
+		final Toolbar toolbar = new Toolbar(map, WidgetLayout.toolbarLargeButtonSize);
 		// @extract-skip-start
-		toolbar.setButtonSize(WidgetLayout.toolbarLargeButtonSize);
 		// @extract-skip-end
 		final GeocoderWidget geocoderWidget = new GeocoderWidget(map, "description", "Geocoder");
 		toolbar.addMember(geocoderWidget);

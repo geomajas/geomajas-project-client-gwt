@@ -191,14 +191,12 @@ public class FeatureSearch extends Canvas {
 		// Empty row:
 		AttributeCriterionPane newRow = new AttributeCriterionPane(layer);
 		newRow.setHeight(32);
-		newRow.setStyleName(STYLE_SEARCH_ROW);
 
 		HLayout btnLayout = new HLayout();
 		btnLayout.setHeight(32);
 		btnLayout.setMembersMargin(WidgetLayout.marginSmall);
 		btnLayout.setAlign(Alignment.CENTER);
 		btnLayout.setPadding(4);
-		btnLayout.setStyleName(STYLE_SEARCH_ROW);
 
 		IButton btnAddRow = new IButton();
 		btnAddRow.setWidth(26);

@@ -63,8 +63,7 @@ public class EditMultiLineLayerSample extends SamplePanel {
 		});
 
 		// Create a tool-bar for this map:
-		final Toolbar toolbar = new Toolbar(map);
-		toolbar.setButtonSize(WidgetLayout.toolbarLargeButtonSize);
+		final Toolbar toolbar = new Toolbar(map, WidgetLayout.toolbarLargeButtonSize);
 
 		mapLayout.addMember(toolbar);
 		mapLayout.addMember(map);

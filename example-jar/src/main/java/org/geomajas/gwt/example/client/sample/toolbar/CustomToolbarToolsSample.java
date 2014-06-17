@@ -62,8 +62,7 @@ public class CustomToolbarToolsSample extends SamplePanel {
 		final MapWidget map = new MapWidget("mapCustomToolbarTools", "gwtExample");
 		map.setController(new PanController(map));
 
-		final Toolbar toolbar = new Toolbar(map);
-		toolbar.setButtonSize(WidgetLayout.toolbarLargeButtonSize);
+		final Toolbar toolbar = new Toolbar(map, WidgetLayout.toolbarLargeButtonSize);
 
 		// Create a custom controller that will be enabled/disabled by a button in the toolbar:
 		final GraphicsController customController = new AbstractGraphicsController(map) {

@@ -15,6 +15,7 @@ import org.geomajas.gwt.client.Geomajas;
 import org.geomajas.gwt.client.map.event.MapModelEvent;
 import org.geomajas.gwt.client.map.event.MapModelHandler;
 import org.geomajas.gwt.client.map.layer.VectorLayer;
+import org.geomajas.gwt.client.util.WidgetLayout;
 import org.geomajas.gwt.client.widget.Legend;
 import org.geomajas.gwt.client.widget.LoadingScreen;
 import org.geomajas.gwt.client.widget.LocaleSelect;
@@ -88,8 +89,7 @@ public class Application implements EntryPoint {
 		// Create the left-side (map and tabs):
 		// ---------------------------------------------------------------------
 		final MapWidget map = new MapWidget("mapMain", "app");
-		final Toolbar toolbar = new Toolbar(map);
-		toolbar.setButtonSize(Toolbar.BUTTON_SIZE_BIG);
+		final Toolbar toolbar = new Toolbar(map, WidgetLayout.toolbarLargeButtonSize);
 
 		VLayout mapLayout = new VLayout();
 		mapLayout.addMember(toolbar);
