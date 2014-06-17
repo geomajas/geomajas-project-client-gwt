@@ -54,15 +54,22 @@ public class LayerListSample extends SamplePanel {
 		map.setController(new PanController(map));
 		mapLayout.addMember(map);
 
+		//LayerList panel:
+		VLayout layerListLayout = new VLayout(10);
+		layerListLayout.setHeight(120);
+		layerListLayout.setShowEdges(true);
+
 		// Build the LayerList:
 		final LayerListPresenter layersManagementPresenter = new LayerListPresenterImpl(map);
 		layersManagementPresenter.setDragDropEnabled(true);
-		Canvas canvas = (Canvas) layersManagementPresenter.getWidget();
-		canvas.setHeight(200);
-		canvas.setWidth100();
+		layersManagementPresenter.getWidget().setWidth100();
+		layersManagementPresenter.getWidget().setHeight100();
+
+		layerListLayout.addMember(layersManagementPresenter.getWidget());
+		layerListLayout.setShowResizeBar(true);
 
 		// Add both to the main layout:
-		mainLayout.addMember(layersManagementPresenter.getWidget());
+		mainLayout.addMember(layerListLayout);
 		mainLayout.addMember(mapLayout);
 
 		return mainLayout;
