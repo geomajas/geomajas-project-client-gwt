@@ -21,6 +21,8 @@ import com.google.gwt.i18n.client.Messages;
  */
 public interface WidgetLayerExampleMessages extends Messages {
 
+	String layerWidgetPlugin();
+
 	// layer list
 	String layerListDescription();
 	String layerListShowcaseTreeTitle();
