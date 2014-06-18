@@ -177,7 +177,11 @@ public class UserDetail extends AbstractEditableLoadingLayout implements UserDet
 
 	@Override
 	public void focusOnFirstField() {
-		name.focusInItem();
+		if (!email.isDisabled()) {
+			email.focusInItem();
+		} else {
+			name.focusInItem();
+		}
 	}
 
 	@Override
