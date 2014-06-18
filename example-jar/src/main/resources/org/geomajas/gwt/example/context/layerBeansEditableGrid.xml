@@ -138,7 +138,7 @@ http://www.springframework.org/schema/context/spring-context-2.5.xsd">
 	</bean>
 
 	<bean name="layerBeansEditableGridInfo" class="org.geomajas.configuration.VectorLayerInfo">
-		<property name="layerType" value="MULTIPOLYGON" />
+		<property name="layerType" value="POINT" />
 		<property name="crs" value="EPSG:900913" />
 		<property name="maxExtent">
 			<bean class="org.geomajas.geometry.Bbox">
