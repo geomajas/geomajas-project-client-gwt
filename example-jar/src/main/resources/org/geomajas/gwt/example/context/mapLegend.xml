@@ -87,8 +87,6 @@ http://www.springframework.org/schema/context/spring-context-2.5.xsd">
 		<property name="serverLayerId" value="layerRivers50m" />
 		<property name="label" value="Rivers (linestring)" />
 		<property name="visible" value="true" />
-		<property name="maximumScale" value="1:100000" />
-		<property name="minimumScale" value="1:500000000" />
 		<property name="namedStyleInfo" ref="layerRivers50mStyleInfo" />
 	</bean>
 
@@ -96,8 +94,6 @@ http://www.springframework.org/schema/context/spring-context-2.5.xsd">
 		<property name="serverLayerId" value="layerCountries110m2" />
 		<property name="label" value="Countries (polygon)" />
 		<property name="visible" value="true" />
-		<property name="maximumScale" value="1:100000" />
-		<property name="minimumScale" value="1:500000000" />
 		<property name="namedStyleInfo" ref="layerCountries110m2StyleInfo" />
 	</bean>
 
@@ -105,8 +101,6 @@ http://www.springframework.org/schema/context/spring-context-2.5.xsd">
 		<property name="serverLayerId" value="layerPopulatedPlaces110m" />
 		<property name="label" value="Populated places (point)" />
 		<property name="visible" value="true" />
-		<property name="maximumScale" value="1:100000" />
-		<property name="minimumScale" value="1:500000000" />
 		<property name="namedStyleInfo" ref="layerPopulatedPlaces110mStyleInfo" />
 	</bean>
 

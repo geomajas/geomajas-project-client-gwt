@@ -81,8 +81,6 @@ http://www.springframework.org/schema/context/spring-context-2.5.xsd">
 					<property name="serverLayerId" value="layerRoadsTrl020ML" />
 					<property name="label" value="Roads" />
 					<property name="visible" value="true" />
-					<property name="maximumScale" value="1:27000" />
-					<property name="minimumScale" value="1:500000000" />
 					<property name="namedStyleInfo" ref="layerRoadsTrl020StyleInfo" />
 					<property name="snappingRules">
 						<list>
