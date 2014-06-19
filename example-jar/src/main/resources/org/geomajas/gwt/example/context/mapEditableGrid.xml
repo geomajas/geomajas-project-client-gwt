@@ -33,20 +33,16 @@ http://www.springframework.org/schema/context/spring-context-2.5.xsd">
 				<property name="fillOpacity" value=".75" />
 			</bean>
 		</property>
-		<property name="crs" value="EPSG:4326" />
+		<property name="crs" value="EPSG:900913" />
 		<property name="scaleBarEnabled" value="true" />
 		<property name="panButtonsEnabled" value="true" />
-		<property name="scaleConfiguration">
-			<bean class="org.geomajas.configuration.client.ScaleConfigurationInfo">
-				<property name="maximumScale" value="1:100" />
-			</bean>
-		</property>
+
 		<property name="initialBounds">
 			<bean class="org.geomajas.geometry.Bbox">
-                <property name="x" value="-180"/>
-                <property name="y" value="-90"/>
-                <property name="width" value="360"/>
-                <property name="height" value="180"/>
+                <property name="x" value="-100"/>
+                <property name="y" value="-100"/>
+                <property name="width" value="200"/>
+                <property name="height" value="200"/>
 			</bean>
 		</property>
 		<property name="layers">
@@ -55,8 +51,6 @@ http://www.springframework.org/schema/context/spring-context-2.5.xsd">
 					<property name="serverLayerId" value="layerBeansEditableGrid" />
 					<property name="label" value="Test beans" />
 					<property name="visible" value="true" />
-					<property name="minimumScale" value="1:500000000" />
-			 		<property name="maximumScale" value="1:100" />
 					<property name="namedStyleInfo" ref="layerBeansEditableGridStyleInfo" />
 				</bean>
 			</list>
