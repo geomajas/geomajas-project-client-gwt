@@ -8,27 +8,25 @@
  * by the Geomajas Contributors License Agreement. For full licensing
  * details, see LICENSE.txt in the project root.
  */
+
 package org.geomajas.plugin.deskmanager.client.gwt.common;
 
 import org.geomajas.annotation.Api;
+import org.geomajas.gwt.client.command.TokenRequestHandler;
 
 /**
+ * Interface supporting a token request handler.
+ *
  * @author Oliver May
- * @since 1.0.0
+ * @since 1.15.0
  */
-@Api (allMethods = true)
-public interface ProfileRequestHandler {
+@Api(allMethods = true)
+public interface HasTokenRequestHandler {
 
 	/**
-	 * Ask for the role. This message will actually open a window asking for the role.
-	 *
-	 * @param securityToken
-	 * 			  security token for which the profiles are requested
-	 * @param  geodeskId
-	 * 			  the geodesk for which the profiles are requested
-	 * @param callback
-	 *            callback for when a role is selected.
+	 * Attach a token request handler. When a token is needed (login required) this handler will be called.
+	 * @param fallbackHandler the handler
 	 */
-	void requestProfile(String securityToken, String geodeskId, final ProfileRequestCallback callback);
+	void setTokenRequestHandler(TokenRequestHandler fallbackHandler);
 
 }

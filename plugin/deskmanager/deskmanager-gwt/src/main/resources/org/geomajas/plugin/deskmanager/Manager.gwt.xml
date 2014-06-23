@@ -1,6 +1,7 @@
 <module>
     <inherits name="com.smartgwt.SmartGwtNoTheme" />
 	<inherits name="org.geomajas.sld.editor.expert.GeomajasSldExpertSmartGwt"/>
+	<inherits name="org.geomajas.plugin.editing.gwt.Editing"/>
 
 	<source path="client/gwt/common" />
 	<source path="client/gwt/manager" />
@@ -13,6 +14,11 @@
 	<source path="domain/security/dto" />
 
 	<source path="configuration" />
+	
+	<inherits name="org.hibernate.validator.HibernateValidator" />
+	<replace-with class="org.geomajas.plugin.deskmanager.client.gwt.manager.validation.ManagerValidatorFactory">
+	    <when-type-is class="javax.validation.ValidatorFactory" />
+	</replace-with>
 
 	<entry-point class='org.geomajas.plugin.deskmanager.client.gwt.manager.impl.ManagerEntryPoint' />
 	

@@ -10,18 +10,17 @@
  */
 package org.geomajas.plugin.deskmanager.client.gwt.geodesk;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.geomajas.annotation.Api;
 import org.geomajas.gwt.client.command.AbstractCommandCallback;
 import org.geomajas.gwt.client.command.GwtCommand;
 import org.geomajas.gwt.client.command.GwtCommandDispatcher;
 import org.geomajas.gwt.client.command.TokenRequestHandler;
 import org.geomajas.plugin.deskmanager.client.gwt.common.impl.DeskmanagerTokenRequestHandler;
-import org.geomajas.plugin.deskmanager.client.gwt.common.impl.RolesWindow;
 import org.geomajas.plugin.deskmanager.command.geodesk.dto.InitializeGeodeskRequest;
 import org.geomajas.plugin.deskmanager.command.geodesk.dto.InitializeGeodeskResponse;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Loads a geodesk from the server, this command will get all geodesk information from the server, and check access for
@@ -36,13 +35,23 @@ import org.geomajas.plugin.deskmanager.command.geodesk.dto.InitializeGeodeskResp
 public class GeodeskInitializer {
 
 	private List<GeodeskInitializationHandler> handlers = new ArrayList<GeodeskInitializationHandler>();
+	private TokenRequestHandler fallbackHandler;
+
+	/**
+	 *
+	 * @param fallbackHandler Handler that is called when no (external) default authorization is set and
+	 *                        user tries to enter a non-public geodesk.
+	 */
+	public GeodeskInitializer(TokenRequestHandler fallbackHandler) {
+		this.fallbackHandler = fallbackHandler;
+	}
 
 	/**
 	 * Load a geodesk. This will execute the InitializationCommand, and ask to select a valid user if needed, using
 	 * the default token request handler.
 	 */
 	public void loadApplication(String geodeskId) {
-		loadApplication(geodeskId, new DeskmanagerTokenRequestHandler(null, geodeskId, new RolesWindow(false)));
+		loadApplication(geodeskId, new DeskmanagerTokenRequestHandler(geodeskId, fallbackHandler));
 	}
 
 	

@@ -11,11 +11,12 @@
 package org.geomajas.plugin.deskmanager.client.gwt.geodesk;
 
 import org.geomajas.annotation.Api;
+import org.geomajas.gwt.client.command.TokenRequestHandler;
 import org.geomajas.plugin.deskmanager.client.gwt.common.GdmLayout;
+import org.geomajas.plugin.deskmanager.client.gwt.common.HasTokenRequestHandler;
 import org.geomajas.plugin.deskmanager.client.gwt.common.UserApplication;
 import org.geomajas.plugin.deskmanager.client.gwt.common.UserApplicationRegistry;
 import org.geomajas.plugin.deskmanager.client.gwt.common.impl.DeskmanagerTokenRequestHandler;
-import org.geomajas.plugin.deskmanager.client.gwt.common.impl.RolesWindow;
 import org.geomajas.plugin.deskmanager.client.gwt.common.util.GeodeskUrlUtil;
 import org.geomajas.plugin.deskmanager.client.gwt.geodesk.event.UserApplicationEvent;
 import org.geomajas.plugin.deskmanager.client.gwt.geodesk.event.UserApplicationHandler;
@@ -38,7 +39,7 @@ import com.google.gwt.user.client.ui.Widget;
  * @since 1.0.0
  */
 @Api(allMethods = true)
-public class GeodeskApplicationLoader {
+public class GeodeskApplicationLoader implements HasTokenRequestHandler {
 
 	private static final GeodeskMessages MESSAGES = GWT.create(GeodeskMessages.class);
 
@@ -48,28 +49,12 @@ public class GeodeskApplicationLoader {
 
 	private String securityToken;
 
+	private TokenRequestHandler fallbackHandler;
+
 	/**
 	 * Constructor for the GeodeskApplicationLoader.
 	 */
 	public GeodeskApplicationLoader() {
-	}
-
-	/**
-	 * Get the security token to log in with.
-	 *
-	 * @return the security token.
-	 */
-	public String getSecurityToken() {
-		return securityToken;
-	}
-
-	/**
-	 * Set the security token to log in with.
-	 *
-	 * @param securityToken the security token
-	 */
-	public void setSecurityToken(String securityToken) {
-		this.securityToken = securityToken;
 	}
 
 	/**
@@ -99,7 +84,7 @@ public class GeodeskApplicationLoader {
 	 * @param callback
 	 *            called when everything is drawn and ready to add to the layout
 	 * @param handler
-	 *            the user application handler
+	 *            the user application fallbackHandler
 	 */
 	public void loadApplication(final LoadingCallback callback, final UserApplicationHandler handler) {
 		// First Install a loading screen
@@ -114,7 +99,7 @@ public class GeodeskApplicationLoader {
 			return;
 		}
 
-		GeodeskInitializer initializer = new GeodeskInitializer();
+		GeodeskInitializer initializer = new GeodeskInitializer(fallbackHandler);
 		initializer.addHandler(new GeodeskInitializationHandler() {
 
 			public void initialized(InitializeGeodeskResponse response) {
@@ -150,8 +135,12 @@ public class GeodeskApplicationLoader {
 		});
 
 		// Get application info for the geodesk
-		initializer.loadApplication(geodeskId, new DeskmanagerTokenRequestHandler(securityToken, geodeskId,
-				new RolesWindow(false)));
+		initializer.loadApplication(geodeskId, new DeskmanagerTokenRequestHandler(geodeskId, this.fallbackHandler));
+	}
+
+	@Override
+	public void setTokenRequestHandler(TokenRequestHandler fallbackHandler) {
+		this.fallbackHandler = fallbackHandler;
 	}
 
 	/**
