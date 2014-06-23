@@ -35,6 +35,7 @@ import org.geomajas.plugin.jsapi.client.map.controller.MapController;
 import org.geomajas.plugin.jsapi.client.spatial.BboxService;
 import org.geomajas.plugin.jsapi.client.spatial.GeometryService;
 import org.geomajas.plugin.jsapi.gwt.client.exporter.map.MapImpl;
+import org.geomajas.plugin.jsapi.gwt.client.exporter.map.controller.measuredistance.MeasureDistanceInfoControllerImpl;
 import org.geomajas.plugin.jsapi.gwt.client.exporter.spatial.BboxServiceImpl;
 import org.geomajas.plugin.jsapi.gwt.client.exporter.spatial.GeometryServiceImpl;
 import org.timepedia.exporter.client.Export;
@@ -201,17 +202,17 @@ public final class GeomajasServiceImpl implements Exportable, GeomajasService {
 	public MapController createMapController(Map map, String id) {
 		MapWidget mapWidget = ((MapImpl) map).getMapWidget();
 		if ("PanMode".equalsIgnoreCase(id)) {
-			return createMapController(map, new PanController(mapWidget));
+			return createMapController(map, new PanController(mapWidget), id);
 		} else if (ToolId.TOOL_MEASURE_DISTANCE_MODE.equalsIgnoreCase(id)) {
-			return createMapController(map, new MeasureDistanceController(mapWidget));
+			return createMapController(map, new MeasureDistanceController(mapWidget), id);
 		} else if (ToolId.TOOL_FEATURE_INFO.equalsIgnoreCase(id)) {
-			return createMapController(map, new FeatureInfoController(mapWidget, 3));
+			return createMapController(map, new FeatureInfoController(mapWidget, 3), id);
 		} else if (ToolId.TOOL_SELECTION_MODE.equalsIgnoreCase(id)) {
-			return createMapController(map, new SelectionController(mapWidget, 500, 0.5f, false, 3));
+			return createMapController(map, new SelectionController(mapWidget, 500, 0.5f, false, 3), id);
 		} else if ("SingleSelectionMode".equalsIgnoreCase(id)) {
-			return createMapController(map, new SingleSelectionController(mapWidget, false, 3));
+			return createMapController(map, new SingleSelectionController(mapWidget, false, 3), id);
 		} else if (ToolId.TOOL_EDIT.equalsIgnoreCase(id)) {
-			return createMapController(map, new ParentEditController(mapWidget));
+			return createMapController(map, new ParentEditController(mapWidget), id);
 		}
 		return null;
 	}
@@ -240,9 +241,13 @@ public final class GeomajasServiceImpl implements Exportable, GeomajasService {
 	// Private methods:
 	// ------------------------------------------------------------------------
 
-	private MapController createMapController(Map map, final GraphicsController controller) {
-		MapController mapController = new MapController(map, controller);
-
+	private MapController createMapController(Map map, final GraphicsController controller, String id) {
+		MapController mapController;
+		if (ToolId.TOOL_MEASURE_DISTANCE_MODE.equalsIgnoreCase(id)) {
+			mapController = new MeasureDistanceInfoControllerImpl(map, (MeasureDistanceController) controller);
+		} else {
+			mapController = new MapController(map, controller);
+		}
 		mapController.setActivationHandler(new ExportableFunction() {
 
 			public void execute() {
