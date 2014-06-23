@@ -41,6 +41,7 @@ import com.google.gwt.user.client.DOM;
  * has 2 extra handlers executed on activation and deactivation of this controller on the map.
  * 
  * @author Pieter De Graef
+ * @author Jan De Moerloose
  * @since 1.0.0
  */
 @Api
@@ -161,6 +162,16 @@ public class MapController implements Exportable {
 
 	public void setDoubleClickHandler(DoubleClickHandler doubleClickHandler) {
 		this.doubleClickHandler = doubleClickHandler;
+	}
+
+	/**
+	 * Set the info handler for this controller. Subclasses that support info should override this method.
+	 * 
+	 * @param infoHandler the information handler
+	 * @since 1.15.0
+	 */
+	public void setInfoHandler(InfoHandler infoHandler) {
+		// override for controllers that support info
 	}
 
 	public void setActivationHandler(ExportableFunction activationHandler) {
