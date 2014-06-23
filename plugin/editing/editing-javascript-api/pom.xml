@@ -47,7 +47,7 @@
 
 		<dependency>
 			<groupId>org.geomajas.plugin</groupId>
-			<artifactId>geomajas-client-gwt2-plugin-javascript-api</artifactId>
+			<artifactId>geomajas-plugin-javascript-api</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.timepedia.exporter</groupId>
