@@ -11,6 +11,18 @@
 
 package org.geomajas.gwt.example.client.sample.layer;
 
+import org.geomajas.geometry.Coordinate;
+import org.geomajas.gwt.client.controller.PanController;
+import org.geomajas.gwt.client.map.layer.ClientWmsLayer;
+import org.geomajas.gwt.client.map.layer.configuration.ClientWmsLayerInfo;
+import org.geomajas.gwt.client.widget.MapWidget;
+import org.geomajas.gwt.example.base.SamplePanel;
+import org.geomajas.gwt.example.base.SamplePanelFactory;
+import org.geomajas.gwt.example.client.sample.i18n.SampleMessages;
+import org.geomajas.gwt2.client.map.layer.tile.TileConfiguration;
+import org.geomajas.plugin.wms.client.layer.WmsLayerConfiguration;
+import org.geomajas.plugin.wms.client.service.WmsService;
+
 import com.google.gwt.core.client.GWT;
 import com.smartgwt.client.widgets.Canvas;
 import com.smartgwt.client.widgets.HTMLFlow;
@@ -21,17 +33,6 @@ import com.smartgwt.client.widgets.form.DynamicForm;
 import com.smartgwt.client.widgets.form.fields.TextItem;
 import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.VLayout;
-import org.geomajas.geometry.Coordinate;
-import org.geomajas.gwt.client.controller.PanController;
-import org.geomajas.gwt.client.map.layer.ClientWmsLayer;
-import org.geomajas.gwt.client.map.layer.configuration.ClientWmsLayerInfo;
-import org.geomajas.gwt.client.widget.MapWidget;
-import org.geomajas.gwt.example.base.SamplePanel;
-import org.geomajas.gwt.example.base.SamplePanelFactory;
-import org.geomajas.gwt.example.client.sample.i18n.SampleMessages;
-import org.geomajas.plugin.wms.client.layer.WmsLayerConfiguration;
-import org.geomajas.plugin.wms.client.layer.WmsTileConfiguration;
-import org.geomajas.plugin.wms.client.service.WmsService;
 
 /**
  * <p>
@@ -44,7 +45,7 @@ public class WmsSample extends SamplePanel {
 
 	private static final SampleMessages MESSAGES = GWT.create(SampleMessages.class);
 
-	public static final String TITLE = "WMS";
+	public static final String TITLE = "WMS Client";
 
 	public static final SamplePanelFactory FACTORY = new SamplePanelFactory() {
 
@@ -117,8 +118,8 @@ public class WmsSample extends SamplePanel {
 		wmsConfig.setMaximumResolution(Double.MAX_VALUE);
 		wmsConfig.setMinimumResolution(1 / mapWidget.getMapModel().getMapInfo().getMaximumScale());
 
-		WmsTileConfiguration tileConfig = new WmsTileConfiguration(256, 256,
-				new Coordinate(-20026376.393709917, -20026376.393709917));
+		TileConfiguration tileConfig = new TileConfiguration(256, 256, new Coordinate(-20026376.393709917,
+				-20026376.393709917), mapWidget.getMapModel().getMapView().getResolutions());
 
 		ClientWmsLayer wmsLayer = new ClientWmsLayer(name, wmsConfig, tileConfig);
 
@@ -127,7 +128,7 @@ public class WmsSample extends SamplePanel {
 	}
 
 	public String getDescription() {
-		return MESSAGES.wmsDescription();
+		return MESSAGES.clientWmsDescription();
 	}
 
 	public String[] getConfigurationFiles() {

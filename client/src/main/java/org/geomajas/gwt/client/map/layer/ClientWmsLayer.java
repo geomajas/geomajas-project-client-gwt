@@ -10,24 +10,25 @@
  */
 package org.geomajas.gwt.client.map.layer;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 import org.geomajas.geometry.Coordinate;
 import org.geomajas.gwt.client.map.MapModel;
 import org.geomajas.gwt.client.map.MapView;
 import org.geomajas.gwt.client.spatial.Bbox;
 import org.geomajas.gwt.client.util.Log;
 import org.geomajas.gwt2.client.animation.NavigationAnimation;
+import org.geomajas.gwt2.client.map.MapConfigurationImpl;
 import org.geomajas.gwt2.client.map.View;
 import org.geomajas.gwt2.client.map.ViewPort;
 import org.geomajas.gwt2.client.map.ViewPortTransformationService;
 import org.geomajas.gwt2.client.map.ZoomOption;
+import org.geomajas.gwt2.client.map.layer.tile.TileConfiguration;
 import org.geomajas.plugin.wms.client.capabilities.WmsLayerInfo;
 import org.geomajas.plugin.wms.client.layer.WmsLayerConfiguration;
 import org.geomajas.plugin.wms.client.layer.WmsLayerImpl;
-import org.geomajas.plugin.wms.client.layer.WmsTileConfiguration;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 
 /**
  * SmartGWT implementation of the client WMS layer. This is an extension of the GWT2 wms layer adding support for the
@@ -45,7 +46,7 @@ public class ClientWmsLayer extends WmsLayerImpl {
 	 * @param wmsConfig the wms configuration
 	 * @param tileConfig the tile configuration
 	 */
-	public ClientWmsLayer(String title, WmsLayerConfiguration wmsConfig, WmsTileConfiguration tileConfig) {
+	public ClientWmsLayer(String title, WmsLayerConfiguration wmsConfig, TileConfiguration tileConfig) {
 		this(title, wmsConfig, tileConfig, null);
 	}
 
@@ -58,9 +59,10 @@ public class ClientWmsLayer extends WmsLayerImpl {
 	 * @param layerCapabilities the layer capabilities or null
 	 */
 	public ClientWmsLayer(String title, WmsLayerConfiguration wmsConfig,
-			WmsTileConfiguration tileConfig,
+			TileConfiguration tileConfig,
 			WmsLayerInfo layerCapabilities) {
-		super(title, wmsConfig, tileConfig, layerCapabilities);
+		// we may need a SmartGwt MapConfiguration here !
+		super(title, new MapConfigurationImpl(), wmsConfig, tileConfig, layerCapabilities);
 	}
 
 	/**
@@ -78,7 +80,7 @@ public class ClientWmsLayer extends WmsLayerImpl {
 				"id=" + getId() + ", " +
 				"title=" + getTitle() + ", " +
 				"capabilities=" + getCapabilities() + ", " +
-				"config=" + getConfig() + ", " +
+				"config=" + getConfiguration() + ", " +
 				"legendImageUrl=" + getLegendImageUrl() + ", " +
 				"opacity=" + getOpacity() +
 				'}';

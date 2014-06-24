@@ -58,6 +58,12 @@ public interface SampleMessages extends Messages {
 
 	String osmDescription();
 
+	// client WMS sample:
+
+	String clientWmsTitle();
+
+	String clientWmsDescription();
+
 	// WMS sample:
 
 	String wmsTitle();
