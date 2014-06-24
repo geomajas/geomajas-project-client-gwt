@@ -89,7 +89,7 @@ public class GwtFaceExample implements EntryPoint {
 		
 
 		//WMS Layers
-		SampleTreeNodeRegistry.addSampleTreeNode(new SampleTreeNode(MESSAGES.wmsTitle(),
+		SampleTreeNodeRegistry.addSampleTreeNode(new SampleTreeNode(MESSAGES.clientWmsTitle(),
 				"[ISOMORPHIC]/geomajas/osgeo/mapset.png", WmsSample.TITLE, "Layers",
 				WmsSample.FACTORY));
 
