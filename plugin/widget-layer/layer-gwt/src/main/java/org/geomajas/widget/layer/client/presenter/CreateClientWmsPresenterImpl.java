@@ -10,23 +10,24 @@
  */
 package org.geomajas.widget.layer.client.presenter;
 
-import com.google.gwt.core.client.Callback;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.geomajas.geometry.Bbox;
 import org.geomajas.geometry.Coordinate;
 import org.geomajas.gwt.client.map.layer.ClientWmsLayer;
 import org.geomajas.gwt.client.map.layer.configuration.ClientWmsLayerInfo;
 import org.geomajas.gwt.client.util.Log;
 import org.geomajas.gwt.client.widget.MapWidget;
+import org.geomajas.gwt2.client.map.layer.tile.TileConfiguration;
 import org.geomajas.plugin.wms.client.WmsClient;
 import org.geomajas.plugin.wms.client.capabilities.WmsGetCapabilitiesInfo;
 import org.geomajas.plugin.wms.client.capabilities.WmsLayerInfo;
 import org.geomajas.plugin.wms.client.layer.WmsLayerConfiguration;
-import org.geomajas.plugin.wms.client.layer.WmsTileConfiguration;
 import org.geomajas.plugin.wms.client.service.WmsService;
 import org.geomajas.widget.layer.client.Layer;
 
-import java.util.ArrayList;
-import java.util.List;
+import com.google.gwt.core.client.Callback;
 
 /**
  * Default implementation of {@link RemovableLayerListPresenter}.
@@ -292,8 +293,8 @@ public class CreateClientWmsPresenterImpl implements CreateClientWmsPresenter,
 		if (bounds == null) {
 			bounds = mapWidget.getMapModel().getMapInfo().getInitialBounds();
 		}
-		WmsTileConfiguration tileConfig = new WmsTileConfiguration(256, 256,
-				new Coordinate(bounds.getX(), bounds.getY()));
+		TileConfiguration tileConfig = new TileConfiguration(256, 256, new Coordinate(bounds.getX(), bounds.getY()),
+				mapWidget.getMapModel().getMapView().getResolutions());
 
 		ClientWmsLayer wmsLayer = new ClientWmsLayer(selectedLayerInfo.getName(), wmsConfig, tileConfig,
 				selectedLayerInfo.getWmsLayerInfo());
