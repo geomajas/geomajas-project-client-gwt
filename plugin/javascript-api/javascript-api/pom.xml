@@ -18,24 +18,12 @@
 	</parent>
 
 	<groupId>org.geomajas.plugin</groupId>
-	<artifactId>geomajas-plugin-javascript-api-gwt</artifactId>
+	<artifactId>geomajas-plugin-javascript-api</artifactId>
 	<packaging>jar</packaging>
-	<name>Geomajas GWT client: Plugin JavaScript API - GWT</name>
-	<description>Geomajas GWT client: Plugin JavaScript API - GWT</description>
+	<name>Geomajas GWT client: Plugin JavaScript API</name>
+	<description>Geomajas GWT client: Plugin JavaScript API</description>
 
 	<dependencies>
-		<dependency>
-			<groupId>org.geomajas</groupId>
-			<artifactId>geomajas-gwt-client</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.geomajas.plugin</groupId>
-			<artifactId>geomajas-plugin-javascript-api</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.geomajas</groupId>
-			<artifactId>geomajas-gwt-client</artifactId>
-		</dependency>
 		<dependency>
 			<groupId>com.google.gwt</groupId>
 			<artifactId>gwt-user</artifactId>
@@ -45,6 +33,19 @@
 			<groupId>com.google.gwt</groupId>
 			<artifactId>gwt-servlet</artifactId>
             <scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.geomajas</groupId>
+			<artifactId>geomajas-client-common-gwt</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.timepedia.exporter</groupId>
+			<artifactId>gwtexporter</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.geomajas</groupId>
+			<artifactId>geomajas-api</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
@@ -99,6 +100,19 @@
 			<activation>
 				<activeByDefault>true</activeByDefault>
 			</activation>
+			<build>
+				<resources>
+					<resource>
+						<directory>src/main/resources</directory>
+					</resource>
+					<resource>
+						<directory>src/main/java</directory>
+						<includes>
+							<include>**/*.java</include>
+						</includes>
+					</resource>
+				</resources>
+			</build>
 		</profile>
 		<!--  no sources needed in eclipse -->
 		<profile>
@@ -108,7 +122,8 @@
 					<name>m2e.version</name>
 				</property>
 			</activation>
-		</profile>	
+		</profile>
 	</profiles>
+
 </project>
 
