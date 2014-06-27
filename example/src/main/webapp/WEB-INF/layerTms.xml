@@ -19,4 +19,9 @@ http://www.springframework.org/schema/beans http://www.springframework.org/schem
 		<property name="baseTmsUrl" value="http://www.milieuinfo.be/orthos/" />
 	</bean>
 
+	<bean name="layerTmsProxy" class="org.geomajas.layer.tms.TmsLayer" >
+		<property name="baseTmsUrl" value="http://www.milieuinfo.be/orthos/" />
+		<property name="useProxy" value="true"/>
+	</bean>
+
 </beans>
