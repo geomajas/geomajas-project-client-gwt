@@ -24,6 +24,7 @@ import com.smartgwt.client.widgets.tab.events.TabSelectedEvent;
 import com.smartgwt.client.widgets.tab.events.TabSelectedHandler;
 import org.geomajas.gwt.client.util.WidgetLayout;
 import org.geomajas.plugin.deskmanager.client.gwt.common.GdmLayout;
+import org.geomajas.plugin.deskmanager.client.gwt.common.util.DeskmanagerLayout;
 import org.geomajas.plugin.deskmanager.client.gwt.manager.i18n.ManagerMessages;
 import org.geomajas.plugin.deskmanager.client.gwt.manager.security.presenter.ObjectsTabHandler;
 import org.geomajas.plugin.deskmanager.client.gwt.manager.security.presenter.UsersAndGroupsHandler;
@@ -123,7 +124,7 @@ public class UsersAndGroups extends VLayout implements UsersAndGroupsView {
 		gridTabSet.addTab(groupsTab);
 		gridTabSet.addTab(adminsTab);
 		gridTabSet.setTabBarPosition(Side.LEFT);
-		gridTabSet.setTabBarThickness(70);
+		gridTabSet.setTabBarThickness(DeskmanagerLayout.tabBarLeftThickness);
 
 		topContainer.addMember(gridTabSet);
 
