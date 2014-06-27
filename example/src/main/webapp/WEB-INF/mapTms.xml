@@ -66,6 +66,7 @@ http://www.springframework.org/schema/context/spring-context-2.5.xsd">
 		<property name="layers">
 			<list>
 				<ref bean="clientLayerTms" />
+				<ref bean="clientLayerTmsProxy" />
 			</list>
 		</property>
 	</bean>
@@ -75,6 +76,15 @@ http://www.springframework.org/schema/context/spring-context-2.5.xsd">
 		<property name="label" value="TMS layer (raster)" />
 		<property name="visible" value="true" />
 		<property name="style" value="1" />
+		<property name="maximumScale" value="0.1" />
+	</bean>
+	
+	<bean class="org.geomajas.configuration.client.ClientRasterLayerInfo" id="clientLayerTmsProxy">
+		<property name="serverLayerId" value="layerTmsProxy" />
+		<property name="label" value="TMS layer (raster)" />
+		<property name="visible" value="true" />
+		<property name="style" value="1" />
+		<property name="minimumScale" value="0.1" />
 	</bean>
 
 </beans>
