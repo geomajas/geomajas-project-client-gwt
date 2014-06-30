@@ -32,6 +32,7 @@ public class ZoomPreviousAction extends ToolbarAction {
 				.getToolbar().zoomPreviousTooltip());
 		zoomQueue = ZoomQueue.getZoomQueue(mapWidget);
 		zoomQueue.setZoomPreviousAction(this);
+		setDisabled(true);
 	}
 
 	public void onClick(ClickEvent clickEvent) {

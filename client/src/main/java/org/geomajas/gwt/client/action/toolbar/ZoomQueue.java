@@ -71,7 +71,7 @@ public final class ZoomQueue implements MapViewChangedHandler {
 				previous.removeLast();
 			}
 			next.clear();
-			zoomNext.setDisabled(true);
+			updateActionsAbility();
 		} else {
 			active = true;
 		}
@@ -100,16 +100,11 @@ public final class ZoomQueue implements MapViewChangedHandler {
 	 */
 	public void zoomNext() {
 		if (hasNext()) {
-			if (zoomPrevious != null && zoomPrevious.isDisabled()) {
-				zoomPrevious.setDisabled(false);
-			}
 			MapViewChangedEvent data = next.remove();
 			previous.addFirst(data);
 			active = false;
 			mapView.applyBounds(data.getBounds(), MapView.ZoomOption.LEVEL_CLOSEST);
-			if (zoomNext != null && !hasNext()) {
-				zoomNext.setDisabled(true);
-			}
+			updateActionsAbility();
 		}
 	}
 
@@ -118,16 +113,11 @@ public final class ZoomQueue implements MapViewChangedHandler {
 	 */
 	public void zoomPrevious() {
 		if (hasPrevious()) {
-			if (zoomNext != null && zoomNext.isDisabled()) {
-				zoomNext.setDisabled(false);
-			}
 			next.addFirst(previous.remove());
 			MapViewChangedEvent data = previous.peek();
 			active = false;
 			mapView.applyBounds(data.getBounds(), MapView.ZoomOption.LEVEL_CLOSEST);
-			if (zoomPrevious != null && !hasPrevious()) {
-				zoomPrevious.setDisabled(true);
-			}
+			updateActionsAbility();
 		}
 	}
 
@@ -145,5 +135,10 @@ public final class ZoomQueue implements MapViewChangedHandler {
 				&& Math.abs(ev1.getBounds().getY() - ev2.getBounds().getY()) < DELTA
 				&& Math.abs(ev1.getBounds().getWidth() - ev2.getBounds().getWidth()) < DELTA
 				&& Math.abs(ev1.getBounds().getHeight() - ev2.getBounds().getHeight()) < DELTA;
+	}
+
+	private void updateActionsAbility() {
+		zoomNext.setDisabled(!hasNext());
+		zoomPrevious.setDisabled(!hasPrevious());
 	}
 }
