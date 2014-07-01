@@ -16,12 +16,12 @@ import com.google.gwt.editor.client.Editor;
 import com.google.gwt.editor.client.SimpleBeanEditorDriver;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.Window;
+import com.google.gwt.user.client.ui.Label;
 import com.smartgwt.client.widgets.Canvas;
 import com.smartgwt.client.widgets.IButton;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.form.DynamicForm;
-import com.smartgwt.client.widgets.form.fields.StaticTextItem;
 import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.VLayout;
 import org.geomajas.configuration.client.ClientLayerInfo;
@@ -70,8 +70,6 @@ public class GroupDetail extends AbstractEditableLoadingLayout implements GroupD
 	@UiField
 	@Path("code")
 	protected EditorTextItem key;
-
-	private StaticTextItem territory;
 
 	private DynamicForm form;
 
@@ -224,16 +222,20 @@ public class GroupDetail extends AbstractEditableLoadingLayout implements GroupD
 		key = new EditorTextItem("key");
 		key.setTitle(MESSAGES.securityGroupDetailKey());
 
-		territory = new StaticTextItem();
-		territory.setTitle(MESSAGES.securityGroupDetailTerritory());
-		territory.setValue(MESSAGES.securityGroupDetailTerritoryHint());
+		form.setFields(name, key);
+
+		Label territoryLabel = new Label(MESSAGES.securityGroupDetailTerritoryText());
+		territoryLabel.setTitle(MESSAGES.securityGroupDetailTerritoryHint());
+		territoryLabel.setWordWrap(false);
+
+		VLayout territoryInfo = new VLayout(10);
+		territoryInfo.addMember(form);
+		territoryInfo.addMember(territoryLabel);
 
 		HLayout formAndMap = new HLayout();
 		VLayout formAndEditingButtons = new VLayout();
-		form.setFields(name, key, territory);
 
-		//formAndMap.addMember(form);
-		formAndEditingButtons.addMember(form);
+		formAndEditingButtons.addMember(territoryInfo);
 		// TODO: put buttons on map
 		//formAndEditingButtons.addMember(createEditorButtonsLayout());
 		formAndMap.addMember(formAndEditingButtons);
