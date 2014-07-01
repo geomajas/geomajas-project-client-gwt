@@ -13,6 +13,7 @@ package org.geomajas.plugin.deskmanager.client.gwt.manager.datalayer.steps;
 import java.util.List;
 import java.util.Map;
 
+import com.google.web.bindery.event.shared.HandlerRegistration;
 import org.geomajas.gwt.client.Geomajas;
 import org.geomajas.plugin.deskmanager.client.gwt.manager.datalayer.NewLayerModelWizardWindow;
 import org.geomajas.plugin.deskmanager.client.gwt.manager.datalayer.Wizard;
@@ -59,6 +60,8 @@ public class WmsChooseLayerStep extends WizardStepPanel {
 
 	private String previousStep = NewLayerModelWizardWindow.STEP_WMS_PROPS;
 
+	private HandlerRegistration selectionUpdatedHandlerRegistration;
+
 	public WmsChooseLayerStep(final Wizard parent) {
 		super(NewLayerModelWizardWindow.STEP_WMS_CHOOSE_LAYER, 
 			MESSAGES.wmsChooseLayerStepNumbering() + " "  + MESSAGES.wmsChooseLayerStepTitle(), 
@@ -70,12 +73,6 @@ public class WmsChooseLayerStep extends WizardStepPanel {
 		grid.setHeight("*");
 		grid.setSelectionType(SelectionStyle.SINGLE);
 		grid.setShowAllRecords(true);
-		grid.addSelectionUpdatedHandler(new SelectionUpdatedHandler() {
-
-			public void onSelectionUpdated(SelectionUpdatedEvent event) {
-				fireChangedEvent();
-			}
-		});
 		grid.addCellDoubleClickHandler(new CellDoubleClickHandler() {
 
 			public void onCellDoubleClick(CellDoubleClickEvent event) {
@@ -112,10 +109,24 @@ public class WmsChooseLayerStep extends WizardStepPanel {
 		addMember(warnings);
 	}
 
+	private void registerSelectionUpdateHandler(boolean register) {
+		if (register) {
+			selectionUpdatedHandlerRegistration = grid.addSelectionUpdatedHandler(new SelectionUpdatedHandler() {
+
+				public void onSelectionUpdated(SelectionUpdatedEvent event) {
+					fireChangedEvent();
+				}
+			});
+		} else  {
+			selectionUpdatedHandlerRegistration.removeHandler();
+		}
+	}
+
 	@Override
 	public void initialize() {
 		if (connectionProps != null) {
 			reset();
+			registerSelectionUpdateHandler(true);
 			grid.setShowEmptyMessage(true);
 			grid.setEmptyMessage("<i>" + MESSAGES.requestingInfoFromServer() +
 					" <img src='" + Geomajas.getIsomorphicDir() +
@@ -185,5 +196,6 @@ public class WmsChooseLayerStep extends WizardStepPanel {
 				.getStep(NewLayerModelWizardWindow.STEP_WMS_PREVIEW_LAYER);
 		RasterCapabilitiesInfo info = (RasterCapabilitiesInfo) grid.getSelectedRecord().getAttributeAsObject(FLD_INFO);
 		nextStep.setData(connectionProps, info);
+		registerSelectionUpdateHandler(false);
 	}
 }
