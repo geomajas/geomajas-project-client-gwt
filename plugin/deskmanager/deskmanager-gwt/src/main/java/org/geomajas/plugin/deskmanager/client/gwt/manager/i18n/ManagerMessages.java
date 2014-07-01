@@ -387,7 +387,7 @@ public interface ManagerMessages extends Messages {
 	/* group detail */
 	String securityGroupDetailKey();
 	String securityGroupDetailName();
-	String securityGroupDetailTerritory();
+	String securityGroupDetailTerritoryText();
 	String securityGroupDetailTerritoryHint();
 	String securityGroupImportWindowTitle();
 	String securityGroupImportWindowButtonText();
