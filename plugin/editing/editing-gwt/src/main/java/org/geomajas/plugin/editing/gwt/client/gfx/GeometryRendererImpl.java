@@ -75,6 +75,7 @@ import org.geomajas.plugin.editing.client.event.state.GeometryIndexSnappingEndHa
 import org.geomajas.plugin.editing.client.gfx.GeometryRenderer;
 import org.geomajas.plugin.editing.client.handler.AbstractGeometryIndexMapHandler;
 import org.geomajas.plugin.editing.client.handler.EdgeMapHandlerFactory;
+import org.geomajas.plugin.editing.client.handler.GeometryIndexMapHandlerFactory;
 import org.geomajas.plugin.editing.client.handler.VertexMapHandlerFactory;
 import org.geomajas.plugin.editing.client.service.GeometryEditService;
 import org.geomajas.plugin.editing.client.service.GeometryEditState;
@@ -457,14 +458,6 @@ public class GeometryRendererImpl implements GeometryRenderer, GeometryEditStart
 		}
 	}
 
-	public void addVertexHandlerFactory(AbstractGeometryIndexMapHandler abstractGeometryIndexMapHandler) {
-		//TODO remove this method.
-	}
-
-	public void addEdgeHandlerFactory(AbstractGeometryIndexMapHandler abstractGeometryIndexMapHandler) {
-		//TODO remove this method.
-	}
-
 	public void addVertexHandlerFactory(VertexMapHandlerFactory factory) {
 		customVertexFactories.add(factory);
 	}
@@ -472,7 +465,14 @@ public class GeometryRendererImpl implements GeometryRenderer, GeometryEditStart
 	public void addEdgeHandlerFactory(EdgeMapHandlerFactory factory) {
 		customEdgeFactories.add(factory);
 	}
+	
+	public void addGeometryHandlerFactory(GeometryIndexMapHandlerFactory factory) {
+		EditingHandlerRegistry.addGeometryHandlerFactory(factory);
+	}
 
+	public void removeGeometryHandlerFactory(GeometryIndexMapHandlerFactory factory) {
+		EditingHandlerRegistry.removeGeometryHandlerFactory(factory);
+	}
 	// ------------------------------------------------------------------------
 	// Geometry rendering methods:
 	// ------------------------------------------------------------------------

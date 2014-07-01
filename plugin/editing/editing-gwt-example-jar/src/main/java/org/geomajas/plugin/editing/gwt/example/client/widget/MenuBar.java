@@ -21,7 +21,6 @@ import org.geomajas.plugin.editing.client.service.GeometryEditState;
 import org.geomajas.plugin.editing.client.service.GeometryIndex;
 import org.geomajas.plugin.editing.client.service.GeometryIndexType;
 import org.geomajas.plugin.editing.gwt.client.GeometryEditor;
-import org.geomajas.plugin.editing.gwt.client.handler.InfoDragLineHandler;
 import org.geomajas.plugin.editing.gwt.client.handler.InfoDragLineHandlerShowingWindow;
 import org.geomajas.plugin.editing.gwt.client.handler.LabelDragLineHandler;
 import org.geomajas.plugin.editing.gwt.example.client.event.GeometryEditSuspendResumeHandler;
@@ -284,7 +283,8 @@ public class MenuBar extends ToolStrip {
 		menu.setShowShadow(true);
 		menu.setShadowDepth(3);
 
-		final InfoDragLineHandlerShowingWindow infoHandler = new InfoDragLineHandlerShowingWindow(editor.getMapWidget(), editor.getEditService());
+		final InfoDragLineHandlerShowingWindow infoHandler = new InfoDragLineHandlerShowingWindow(
+				editor.getMapWidget(), editor.getEditService());
 		final LabelDragLineHandler labelHandler = new LabelDragLineHandler(editor.getMapWidget(),
 				editor.getEditService());
 
