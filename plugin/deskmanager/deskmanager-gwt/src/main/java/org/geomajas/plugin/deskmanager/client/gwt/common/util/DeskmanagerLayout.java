@@ -40,6 +40,9 @@ public final class DeskmanagerLayout {
 	/** left positioned tab bar thickness. */
 	public static int tabBarLeftThickness = 100;
 
+	/** height for the subTabs. */
+	public static int subTabDefaultHeight = 30;
+
 	/*============================================================
 		Style names
 	============================================================*/
