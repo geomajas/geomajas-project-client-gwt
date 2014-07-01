@@ -118,6 +118,7 @@ public class GeodeskDetail extends VLayout implements SelectionChangedHandler, E
 		widgetTabset.setHeight100();
 		widgetTabset.setOverflow(Overflow.HIDDEN);
 		widgetTabset.setTabBarThickness(DeskmanagerLayout.tabBarLeftThickness);
+		widgetTabset.setDefaultTabHeight(DeskmanagerLayout.subTabDefaultHeight);
 		tab.setPane(widgetTabset);
 
 		tabset.addTab(tab);
