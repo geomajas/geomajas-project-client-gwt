@@ -428,4 +428,9 @@ public interface SampleMessages extends Messages {
 
 	String layerName();
 
+	//Canvas MapAddon Sample
+
+	String canvasMapAddonTitle();
+
+	String canvasMapAddonDescription();
 }
