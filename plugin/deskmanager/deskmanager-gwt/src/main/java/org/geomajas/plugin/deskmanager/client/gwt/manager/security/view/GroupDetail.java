@@ -17,6 +17,8 @@ import com.google.gwt.editor.client.SimpleBeanEditorDriver;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Label;
+import com.smartgwt.client.types.Alignment;
+import com.smartgwt.client.types.VerticalAlignment;
 import com.smartgwt.client.widgets.Canvas;
 import com.smartgwt.client.widgets.IButton;
 import com.smartgwt.client.widgets.events.ClickEvent;
@@ -33,6 +35,7 @@ import org.geomajas.global.ExceptionDto;
 import org.geomajas.gwt.client.controller.GraphicsController;
 import org.geomajas.gwt.client.controller.ZoomToRectangleController;
 import org.geomajas.gwt.client.gfx.paintable.GfxGeometry;
+import org.geomajas.gwt.client.gfx.paintable.mapaddon.CanvasMapAddon;
 import org.geomajas.gwt.client.gfx.style.ShapeStyle;
 import org.geomajas.gwt.client.map.event.MapModelChangedEvent;
 import org.geomajas.gwt.client.map.event.MapModelChangedHandler;
@@ -245,6 +248,7 @@ public class GroupDetail extends AbstractEditableLoadingLayout implements GroupD
 		// territoryMap = new MapWidget("mapOsm", "appDeskManager");
 		// Instead, use a registered geodesk:
 		territoryMap = new MapWidget("mainMap", "TEST_NL");
+		territoryMap.setStyleName("gm-groupDetailMap");
 		editor = new GeometryEditorImpl(territoryMap);
 		zoomToRectangleController = new ZoomToGeometryRectangleOnceController(territoryMap);
 
@@ -257,18 +261,14 @@ public class GroupDetail extends AbstractEditableLoadingLayout implements GroupD
 		containerLayout.addMember(formAndMap);
 		editorButtonCanvas = createEditorButtonsLayout();
 
-		territoryMap.getMapModel().addMapModelChangedHandler(new MapModelChangedHandler() {
-			@Override
-			public void onMapModelChanged(MapModelChangedEvent event) {
-
-				editorButtonCanvas.setKeepInParentRect(true);
-				editorButtonCanvas.setParentElement(territoryMap);
-				editorButtonCanvas.setSnapTo("TR");
-				editorButtonCanvas.setSnapOffsetTop(20);
-				editorButtonCanvas.setSnapOffsetLeft(-10);
-				editorButtonCanvas.markForRedraw();
-			}
-		});
+		// add buttons as MapAddon
+		CanvasMapAddon editorButtonsAddon =
+				new CanvasMapAddon("editorButtons", editorButtonCanvas, territoryMap);
+		editorButtonsAddon.setAlignment(Alignment.RIGHT);
+		editorButtonsAddon.setVerticalAlignment(VerticalAlignment.TOP);
+		editorButtonsAddon.setHorizontalOffset(10);
+		editorButtonsAddon.setVerticalOffset(20);
+		territoryMap.registerMapAddon(editorButtonsAddon);
 	}
 
 	private VLayout createEditorButtonsLayout() {
