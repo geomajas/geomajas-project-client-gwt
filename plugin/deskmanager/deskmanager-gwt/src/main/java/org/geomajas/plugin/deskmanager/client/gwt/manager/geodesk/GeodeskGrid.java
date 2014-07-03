@@ -74,6 +74,8 @@ public class GeodeskGrid extends ListGrid implements GeodeskHandler, BlueprintHa
 
 	private static final String FLD_GEODESKID = "geodeskId";
 
+	private static final String FLD_OWNER = "owner";
+
 	private static final String FLD_OBJECT = "_object_";
 
 	private ListGridRecord rollOverRecord;
@@ -111,6 +113,11 @@ public class GeodeskGrid extends ListGrid implements GeodeskHandler, BlueprintHa
 		author.setWidth("*");
 		author.setPrompt(MESSAGES.geodeskGridColumnAuthorTooltip());
 
+		ListGridField owner = new ListGridField(FLD_OWNER, MESSAGES.geodeskGridColumnOwner());
+		owner.setType(ListGridFieldType.TEXT);
+		owner.setWidth("*");
+		owner.setPrompt(MESSAGES.geodeskGridColumnOwnerTooltip());
+
 		ListGridField publicUse = new ListGridField(FLD_PUBLIC, MESSAGES.geodeskGridColumnPublic());
 		publicUse.setType(ListGridFieldType.BOOLEAN);
 		publicUse.setWidth(70);
@@ -127,7 +134,7 @@ public class GeodeskGrid extends ListGrid implements GeodeskHandler, BlueprintHa
 		actions.setCanEdit(false);
 		actions.setPrompt(MESSAGES.geodeskGridColumnActionsTooltip());
 
-		setFields(name, blueprint, geodeskId, author, publicUse, active, actions);
+		setFields(name, blueprint, geodeskId, author, owner, publicUse, active, actions);
 		setSortField(0);
 		setSortDirection(SortDirection.ASCENDING);
 
@@ -257,6 +264,8 @@ public class GeodeskGrid extends ListGrid implements GeodeskHandler, BlueprintHa
 		record.setAttribute(FLD_ACTIVE, loket.isActive() && loket.getBlueprint().isGeodesksActive());
 		record.setAttribute(FLD_ACTIONS, " ");
 		record.setAttribute(FLD_GEODESKID, loket.getGeodeskId());
+		record.setAttribute(FLD_OWNER, loket.getOwner() != null ? loket.getOwner().getName() :
+				MESSAGES.geodeskGridColumnOwnerNoOwner());
 		record.setAttribute(FLD_OBJECT, loket);
 		return record;
 	}
