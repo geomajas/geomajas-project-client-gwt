@@ -57,6 +57,9 @@ public interface ManagerMessages extends Messages {
 	String geodeskGridColumnDeskId();
 	String geodeskGridColumnAuthor();
 	String geodeskGridColumnAuthorTooltip();
+	String geodeskGridColumnOwner();
+	String geodeskGridColumnOwnerTooltip();
+	String geodeskGridColumnOwnerNoOwner();
 	String geodeskGridColumnPublic();
 	String geodeskPublicTooltip();
 	String geodeskGridColumnActiv();
