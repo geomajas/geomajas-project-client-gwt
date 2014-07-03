@@ -59,15 +59,6 @@ public class BlueprintAccessRights extends AbstractConfigurationLayout implement
 
 		// ----------------------------------------------------------
 
-		ManagerCommandService.getGroups(new DataCallback<List<TerritoryDto>>() {
-
-			public void execute(List<TerritoryDto> result) {
-				groupSelect.setGroups(result);
-			}
-		});
-
-		// ----------------------------------------------------------
-
 		addMember(group);
 	}
 
@@ -101,8 +92,15 @@ public class BlueprintAccessRights extends AbstractConfigurationLayout implement
 		return true;
 	}
 	
-	public void onBlueprintSelectionChange(BlueprintEvent bpe) {
-		setBlueprint(bpe.getBlueprint());
+	public void onBlueprintSelectionChange(final BlueprintEvent bpe) {
+		// reload groups
+		ManagerCommandService.getGroups(new DataCallback<List<TerritoryDto>>() {
+
+			public void execute(List<TerritoryDto> result) {
+				groupSelect.setGroups(result);
+				setBlueprint(bpe.getBlueprint());
+			}
+		});
 	}
 
 	public boolean onResetClick(ClickEvent event) {
