@@ -63,6 +63,31 @@
 			var labelFlag = false;
 			var infoFlag = false;
             var styleService;
+            
+            function deleteVertex(context) {
+            	context.getService().remove([context.getIndex()]);
+            }
+                        
+            function deselectObject(context) {
+            	context.getService().getIndexStateService().deselect([context.getIndex()]);
+            }
+            
+            function zoomIn(context) {
+        		var position = context.getService().getIndexService().getVertex(context.getService().getGeometry(), context.getIndex());
+        		var scale = context.getMap().getViewPort().getScale();
+            	context.getMap().getViewPort().applyScale(2.0 * scale, position);
+            }
+            
+            function zoomOut(context) {
+        		var c = context.getService().getIndexService().getVertex(context.getService().getGeometry(), context.getIndex());
+        		var scale = context.getMap().getViewPort().getScale();
+            	context.getMap().getViewPort().applyScale(0.5 * scale, position);
+            }
+            
+            function zoomObject(context) {
+            	var bbox = Geomajas().getGeometryService().getBounds(context.getService().getGeometry());
+            	context.getMap().getViewPort().applyBounds(bbox);
+            }
 			
 			function onGeomajasLoad() {
 				map = Geomajas().createMap("app", "mapMain", "js-map-element");
@@ -76,6 +101,16 @@
                 styleService.getPointSymbolizerShapeAndSize().setShape("circle");
                 styleService.getPointSymbolizerShapeAndSize().setSize(6);
                 styleService.setCloseRingWhileInserting(true);
+                
+                // customize context menu when vertex is selected
+                var contextMenuRegistry = new
+                org.geomajas.plugin.editing.contextmenu.GeometryContextMenuRegistry(map, editor);
+                contextMenuRegistry.addVertexAction(deleteVertex,"delete");
+                contextMenuRegistry.addVertexAction(deselectObject,"deselect");
+                contextMenuRegistry.addVertexAction(zoomIn,"zoom in");
+                contextMenuRegistry.addVertexAction(zoomOut,"zoom out");
+                contextMenuRegistry.addVertexAction(zoomObject,"zoom to full object");
+ 
                 factory = new org.geomajas.plugin.editing.handler.GeometryHandlerFactory();
 			}
 
@@ -142,7 +177,7 @@
                 infoHandlerWithHtmlCallback = new org.geomajas.plugin.editing.gfx.InfoHandlerWithHtmlCallback(editor);
 				labelHandler = new org.geomajas.plugin.editing.gfx.LabelHandler(editor);
                 infoHandlerWithHtmlCallback.setTitleCallBack(function() {
-					return "Geometrie eigenschappen";
+					return "Geometry properties";
 				});
                 infoHandlerWithHtmlCallback.setHtmlCallBack(function(geometry, cd, ca, cb) {
 					if(geometry) {
@@ -161,11 +196,11 @@
 					}					
 					var content = "<table class='table-info'>";
 					content += "<tr><td>Type</td><td>"+type+"</td></tr>";
-					content += "<tr><td>Aantal punten</td><td>"+points+"</td></tr>";
-					content += "<tr><td>Oppervlakte</td><td>"+area+"m2</td></tr>";
-					content += "<tr><td>Lengte</td><td>"+length+"m</td></tr>";
-					content += "<tr><td>Lengte A</td><td>"+lengthA+"m</td></tr>";
-					content += "<tr><td>Lengte B</td><td>"+lengthB+"m</td></tr>";
+					content += "<tr><td>Number of points</td><td>"+points+"</td></tr>";
+					content += "<tr><td>Surface</td><td>"+area+"m2</td></tr>";
+					content += "<tr><td>Length</td><td>"+length+"m</td></tr>";
+					content += "<tr><td>Length A</td><td>"+lengthA+"m</td></tr>";
+					content += "<tr><td>Length B</td><td>"+lengthB+"m</td></tr>";
 					content += "</table>";					
 					return content;
 				});
