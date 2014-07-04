@@ -13,6 +13,8 @@ package org.geomajas.plugin.deskmanager.client.gwt.manager.datalayer.steps;
 import com.smartgwt.client.widgets.form.DynamicForm;
 import com.smartgwt.client.widgets.form.fields.CheckboxItem;
 import com.smartgwt.client.widgets.form.fields.SelectItem;
+import com.smartgwt.client.widgets.form.fields.events.ChangedEvent;
+import com.smartgwt.client.widgets.form.fields.events.ChangedHandler;
 import org.geomajas.configuration.Parameter;
 import org.geomajas.plugin.deskmanager.client.gwt.manager.datalayer.NewLayerModelWizardWindow;
 import org.geomajas.plugin.deskmanager.client.gwt.manager.datalayer.Wizard;
@@ -38,9 +40,24 @@ public class EditLayerSettingsStep extends WizardStepPanel {
 	
 	private static final ManagerMessages MESSAGES = GWT.create(ManagerMessages.class);
 
+	/**
+	 * Id used in creating Wms Layer bean server side.
+	 *
+	 * @see org.geomajas.plugin.runtimeconfig.service.factory.WmsLayerBeanFactory#ENABLE_FEATURE_INFO
+	 */
+	public static final String WMS_LAYER_BEAN_FACTORY_ENABLE_FEATURE_INFO = "enableFeatureInfoSupport";
+
+	/**
+	 * Id used in creating Wms Layer bean server side.
+	 *
+	 * @see org.geomajas.plugin.runtimeconfig.service.factory.WmsLayerBeanFactory#FEATURE_INFO_FORMAT
+	 */
+	public static final String WMS_LAYER_BEAN_FACTORY_FEATURE_INFO_FORMAT = "featureInfoFormat";
+
 	private DynamicForm featureInfoForm;
 
 	private LayerSettingsForm form;
+	private DynamicForm featureForm;
 	private MaxBoundsForm maxBoundsForm;
 
 	private boolean first = true;
@@ -70,10 +87,8 @@ public class EditLayerSettingsStep extends WizardStepPanel {
 		});
 		addMember(form);
 
-
-		addMember(createFeatureInfoForm());
-
-
+		featureForm = createFeatureInfoForm();
+		addMember(featureForm);
 
 		// -- maxbounds --
 		maxBoundsForm = new MaxBoundsForm();
@@ -111,6 +126,12 @@ public class EditLayerSettingsStep extends WizardStepPanel {
 		enableFeatureInfoItem = new CheckboxItem();
 		enableFeatureInfoItem.setTitle(MESSAGES.layerSettingsEnableFeatureInfo());
 		enableFeatureInfoItem.setTooltip(MESSAGES.layerSettingsEnableFeatureInfoTooltip());
+		enableFeatureInfoItem.addChangedHandler(new ChangedHandler() {
+			@Override
+			public void onChanged(ChangedEvent changedEvent) {
+				featureInfoFormatItem.setRequired(enableFeatureInfoItem.getValueAsBoolean());
+			}
+		});
 
 		featureInfoFormatItem = new SelectItem();
 		featureInfoFormatItem.setTitle(MESSAGES.layerSettingsFeatureInfoFormat());
@@ -166,11 +187,13 @@ public class EditLayerSettingsStep extends WizardStepPanel {
 			maxBoundsForm.getData();
 
 			if (layerConfig instanceof DynamicRasterLayerConfiguration) {
-				//FIXME: magic strings
-				layerConfig.getParameters().add(new Parameter("enableFeatureInfoSupport",
-						enableFeatureInfoItem.getValueAsBoolean().toString()));
-				layerConfig.getParameters().add(new Parameter("featureInfoFormat",
-						featureInfoFormatItem.getValueAsString()));
+				Boolean enableFeatureInfoSupport = enableFeatureInfoItem.getValueAsBoolean();
+				layerConfig.getParameters().add(new Parameter(WMS_LAYER_BEAN_FACTORY_ENABLE_FEATURE_INFO,
+						enableFeatureInfoSupport.toString()));
+				if (enableFeatureInfoSupport) {
+					layerConfig.getParameters().add(new Parameter(WMS_LAYER_BEAN_FACTORY_FEATURE_INFO_FORMAT,
+							featureInfoFormatItem.getValueAsString()));
+				}
 			}
 
 			return this.layerConfig;
@@ -192,7 +215,7 @@ public class EditLayerSettingsStep extends WizardStepPanel {
 			first = !first;
 			return false;
 		} else {
-			return form.validate() && maxBoundsForm.validate();
+			return form.validate() && featureForm.validate() && maxBoundsForm.validate();
 		}
 	}
 
