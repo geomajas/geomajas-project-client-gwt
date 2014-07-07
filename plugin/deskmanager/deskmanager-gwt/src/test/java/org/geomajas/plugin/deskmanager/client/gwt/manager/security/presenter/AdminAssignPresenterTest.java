@@ -357,9 +357,6 @@ public class AdminAssignPresenterTest extends UserMockTest {
 	}
 
 	private void verifySetPresenterEditable(boolean editable) {
-		verify(adminAssignView).setButtonEnabled(EditableLoadingView.Button.EDIT, !editable);
-		verify(adminAssignView).setButtonEnabled(EditableLoadingView.Button.CANCEL, editable);
-		verify(adminAssignView).setButtonEnabled(EditableLoadingView.Button.SAVE, editable);
 		verify(adminAssignView).setEditable(editable);
 	}
 }

@@ -11,6 +11,7 @@
 package org.geomajas.plugin.deskmanager.client.gwt.manager.security.view;
 
 import com.google.gwt.core.client.GWT;
+import com.smartgwt.client.widgets.events.ClickEvent;
 import org.geomajas.plugin.deskmanager.client.gwt.manager.i18n.ManagerMessages;
 import org.geomajas.plugin.deskmanager.client.gwt.manager.security.presenter.AdminAssignHandler;
 import org.geomajas.plugin.deskmanager.domain.security.dto.UserDto;
@@ -33,18 +34,21 @@ public class AdminAssign extends AbstractButtonsLayout implements AdminAssignVie
 	private UserSelectPanel selectPanel;
 
 	@Override
-	public void onEdit() {
+	public boolean onEditClick(ClickEvent event) {
 	   handler.onEdit();
+		return true;
 	}
 
 	@Override
-	public void onCancel() {
+	public boolean onCancelClick(ClickEvent event) {
 		handler.onCancel();
+		return true;
 	}
 
 	@Override
-	public void onSave() {
+	public boolean onSaveClick(ClickEvent event) {
 	   handler.onSave();
+		return true;
 	}
 
 	@Override
@@ -68,6 +72,11 @@ public class AdminAssign extends AbstractButtonsLayout implements AdminAssignVie
 		selectPanel.setDisabled(!editable);
 	}
 
+	@Override
+	public void setEnabled(boolean enabled) {
+		super.setEnabled(enabled);
+		fireChangedHandler();
+	}
 
 	@Override
 	public void clearValues() {
@@ -79,7 +88,7 @@ public class AdminAssign extends AbstractButtonsLayout implements AdminAssignVie
 	protected void fillContainerLayout() {
 		selectPanel = new GroupAssignUserSelectPanel();
 
-		containerLayout.addMember(buttonLayout);
+		containerLayout.addMember(saveButtonBar);
 		containerLayout.addMember(selectPanel);
 	}
 

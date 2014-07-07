@@ -31,4 +31,6 @@ public interface GroupsView {
 	void show();
 
 	void hide();
+
+	void setDisabled(boolean disabled);
 }

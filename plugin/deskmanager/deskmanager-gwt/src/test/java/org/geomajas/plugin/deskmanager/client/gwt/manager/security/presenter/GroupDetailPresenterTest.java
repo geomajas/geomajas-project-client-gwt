@@ -1,12 +1,10 @@
 package org.geomajas.plugin.deskmanager.client.gwt.manager.security.presenter;
 
 import com.google.gwt.core.client.Callback;
-import junit.framework.Assert;
 import org.geomajas.geometry.Geometry;
 import org.geomajas.geometry.service.WktException;
 import org.geomajas.geometry.service.WktService;
 import org.geomajas.plugin.deskmanager.client.gwt.manager.security.UserMockTest;
-import org.geomajas.plugin.deskmanager.client.gwt.manager.security.view.EditableLoadingView;
 import org.geomajas.plugin.deskmanager.client.gwt.manager.service.DataCallback;
 import org.geomajas.plugin.deskmanager.domain.security.dto.TerritoryDto;
 import org.junit.Before;
@@ -150,7 +148,7 @@ public class GroupDetailPresenterTest extends UserMockTest {
 		verify(groupDetailView).clearValues();
 		verify(groupDetailView).setEnabled(true);
 		verifySetPresenterEditable(true);
-		verify(groupDetailView).focusOnFirstField();
+		verify(groupDetailView).prepareForNewObjectInput();
 	}
 
 	@Test
@@ -194,9 +192,6 @@ public class GroupDetailPresenterTest extends UserMockTest {
 	}
 
 	private void verifySetPresenterEditable(boolean editable) {
-		verify(groupDetailView).setButtonEnabled(EditableLoadingView.Button.EDIT, !editable);
-		verify(groupDetailView).setButtonEnabled(EditableLoadingView.Button.CANCEL, editable);
-		verify(groupDetailView).setButtonEnabled(EditableLoadingView.Button.SAVE, editable);
 		verify(groupDetailView).setEditable(editable);
 		verify(groupDetailView).setMapEditingButtonsEnabled(editable);
 	}

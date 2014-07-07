@@ -411,9 +411,6 @@ public class GroupAssignPresenterTest extends UserMockTest {
 	}
 
 	private void verifySetPresenterEditable(boolean editable) {
-		verify(groupAssignView).setButtonEnabled(EditableLoadingView.Button.EDIT, !editable);
-		verify(groupAssignView).setButtonEnabled(EditableLoadingView.Button.CANCEL, editable);
-		verify(groupAssignView).setButtonEnabled(EditableLoadingView.Button.SAVE, editable);
 		verify(groupAssignView).setEditable(editable);
 	}
 }

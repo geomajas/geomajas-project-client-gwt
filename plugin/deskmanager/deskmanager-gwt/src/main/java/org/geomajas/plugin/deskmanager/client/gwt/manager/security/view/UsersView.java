@@ -36,4 +36,6 @@ public interface UsersView {
 	 * Notify view that delete user has failed.
 	 */
 	void deleteFailed();
+
+	void setDisabled(boolean isStart);
 }
