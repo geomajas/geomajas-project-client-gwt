@@ -27,9 +27,10 @@ import com.smartgwt.client.widgets.form.DynamicForm;
 import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.VLayout;
 import org.geomajas.configuration.client.ClientLayerInfo;
+import org.geomajas.configuration.client.ClientMapInfo;
 import org.geomajas.geometry.Bbox;
-import org.geomajas.geometry.Coordinate;
 import org.geomajas.geometry.Geometry;
+import org.geomajas.geometry.service.BboxService;
 import org.geomajas.geometry.service.GeometryService;
 import org.geomajas.global.ExceptionDto;
 import org.geomajas.gwt.client.controller.GraphicsController;
@@ -209,7 +210,12 @@ public class GroupDetail extends AbstractEditableLoadingLayout implements GroupD
 		}
 		TerritoryDto group = validate();
 		if (group != null) {
-			group.setGeometry(geometryOfCurrentGroup);
+			if (geometryOfCurrentGroup != null) {
+				group.setGeometry(geometryOfCurrentGroup);
+			} else {
+				Window.alert(MESSAGES.securityGroupWarningTerritoryWithoutGeometryOnSave());
+				group.setGeometry(getMaxBoundsAsGeometry());
+			}
 			setGeometryOfCurrentGroup(null);
 			handler.onSave(group);
 		}
@@ -446,41 +452,30 @@ public class GroupDetail extends AbstractEditableLoadingLayout implements GroupD
 
 	private void onSetDefaultGeometry() {
 		if (!getGeometryStatus().equals(GeometryStatus.EDITING)) {
-			Bbox mapMaxBounds = null;
-			try {
-				// this does not give total bounds TODO: configure correctly?
-				//ClientMapInfo mapLayer = territoryMap.getMapModel().getMapInfo();
-				ClientLayerInfo firstLayer = territoryMap.getMapModel().getMapInfo().getLayers().get(0);
-				mapMaxBounds = firstLayer.getMaxExtent();
-			} catch (Exception e) {
-				mapMaxBounds = new Bbox();
-			}
-			Geometry geometry = new Geometry(Geometry.POLYGON, -1, 2);
-			Coordinate[] coordinates = null;
-			if (mapMaxBounds != null) {
-				Coordinate startEndPoint = new Coordinate(mapMaxBounds.getX(), mapMaxBounds.getY());
-				coordinates = new Coordinate[] {
-						startEndPoint, new Coordinate(mapMaxBounds.getMaxX(), mapMaxBounds.getY()),
-						new Coordinate(mapMaxBounds.getMaxX(), mapMaxBounds.getMaxY()),
-						new Coordinate(mapMaxBounds.getX(), mapMaxBounds.getMaxY()),
-						startEndPoint};
-			} else {
-				// user Double MAX and MIN values
-				Coordinate startEndPoint = new Coordinate(Double.MIN_VALUE, Double.MIN_VALUE);
-				coordinates = new Coordinate[] {
-						startEndPoint, new Coordinate(Double.MAX_VALUE, Double.MIN_VALUE),
-						new Coordinate(Double.MAX_VALUE, Double.MAX_VALUE),
-						new Coordinate(Double.MIN_VALUE, Double.MAX_VALUE),
-						startEndPoint};
-			}
-			Geometry linearRing = new Geometry(Geometry.LINEAR_RING, 0, 2);
-			linearRing.setCoordinates(coordinates);
-			geometry.setGeometries(new Geometry[] { linearRing });
-			setGeometryOfCurrentGroup(geometry);
-
+			setGeometryOfCurrentGroup(getMaxBoundsAsGeometry());
 		} else {
 			Window.alert(MESSAGES.securityGroupWarningStopEditingFirst());
 		}
+	}
+
+	/**
+	 * Calculate max bounds based on the map's max bounds, combined with the layer's bounds.
+	 * @return Polygon based on the max bounds bbox.
+	 */
+	private Geometry getMaxBoundsAsGeometry() {
+		ClientMapInfo mapModel = territoryMap.getMapModel().getMapInfo();
+		Bbox result = mapModel.getMaxBounds();
+		for (ClientLayerInfo layer : mapModel.getLayers()) {
+			result = BboxService.union(result, layer.getMaxExtent());
+		}
+		if (result == null || result.getHeight() == 0 || result.getWidth() == 0) {
+			result = new Bbox();
+			result.setX(Double.MIN_VALUE);
+			result.setY(Double.MIN_VALUE);
+			result.setMaxX(Double.MAX_VALUE);
+			result.setMaxY(Double.MAX_VALUE);
+		}
+		return GeometryService.toPolygon(result);
 	}
 
 	private void onImportGeometry() {
