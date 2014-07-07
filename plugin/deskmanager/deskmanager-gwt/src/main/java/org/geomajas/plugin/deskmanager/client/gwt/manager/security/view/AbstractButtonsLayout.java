@@ -93,5 +93,6 @@ public abstract class AbstractButtonsLayout extends VLayout implements EditableV
 
 	private void createButtonLayout() {
 		saveButtonBar = new SaveButtonBar(this);
+		saveButtonBar.setHideResetButton(true);
 	}
 }
