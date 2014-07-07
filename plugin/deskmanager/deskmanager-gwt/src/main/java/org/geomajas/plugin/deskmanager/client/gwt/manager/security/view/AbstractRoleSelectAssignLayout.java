@@ -48,18 +48,21 @@ public abstract class AbstractRoleSelectAssignLayout<T, S>
 	private Map<Role, IButton> radioButtons;
 
 	@Override
-	public void onEdit() {
+	public boolean onEditClick(ClickEvent event) {
 	   handler.onEdit();
+		return true;
 	}
 
 	@Override
-	public void onCancel() {
+	public boolean onCancelClick(ClickEvent event) {
 		handler.onCancel();
+		return true;
 	}
 
 	@Override
-	public void onSave() {
+	public boolean onSaveClick(ClickEvent event) {
 	   handler.onSave();
+		return true;
 	}
 
 	@Override
@@ -87,6 +90,12 @@ public abstract class AbstractRoleSelectAssignLayout<T, S>
 	}
 
 	@Override
+	public void setEnabled(boolean enabled) {
+		super.setEnabled(enabled);
+		fireChangedHandler();
+	}
+
+	@Override
 	public void setEditable(boolean editable) {
 		selectPanel.setDisabled(!editable);
 	}
@@ -103,7 +112,7 @@ public abstract class AbstractRoleSelectAssignLayout<T, S>
 		createToolStrip();
 		selectPanel = createSelectPanel();
 
-		containerLayout.addMember(buttonLayout);
+		containerLayout.addMember(saveButtonBar);
 		containerLayout.addMember(toolStrip);
 		containerLayout.addMember(selectPanel.getWidget());
 	}

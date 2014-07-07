@@ -11,31 +11,27 @@
 package org.geomajas.plugin.deskmanager.client.gwt.manager.security.view;
 
 import com.google.gwt.core.client.GWT;
-import com.smartgwt.client.widgets.IButton;
 import com.smartgwt.client.widgets.events.ClickEvent;
-import com.smartgwt.client.widgets.events.ClickHandler;
-import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.VLayout;
+import org.geomajas.plugin.deskmanager.client.gwt.manager.common.SaveButtonBar;
+import org.geomajas.plugin.deskmanager.client.gwt.manager.common.WoaEventHandler;
 import org.geomajas.plugin.deskmanager.client.gwt.manager.i18n.ManagerMessages;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Abstract class for a panel with three buttons: edit, cancel, save.
  *
  * @author Jan Venstermans
  */
-public abstract class AbstractButtonsLayout extends VLayout implements EditableView {
+public abstract class AbstractButtonsLayout extends VLayout implements EditableView, WoaEventHandler {
 
 	public static final ManagerMessages MESSAGES = GWT.create(ManagerMessages.class);
 
-	/* buttons */
+	protected SaveButtonBar saveButtonBar;
 
-	private IButton editButton;
-
-	private IButton saveButton;
-
-	private IButton cancelButton;
-
-	protected HLayout buttonLayout;
+	private List<WoaChangedHandler> changedHandlers = new ArrayList<WoaChangedHandler>();
 
 	/* base container */
 	protected VLayout containerLayout;
@@ -52,29 +48,26 @@ public abstract class AbstractButtonsLayout extends VLayout implements EditableV
 
 		addMember(containerLayout);
 		setDisabled(true);
-		bind();
-	}
-
-	@Override
-	public void setButtonEnabled(Button button, boolean enabled) {
-		switch(button) {
-			case CANCEL:
-				cancelButton.setDisabled(!enabled);
-				break;
-			case EDIT:
-				editButton.setDisabled(!enabled);
-				break;
-			case SAVE:
-				saveButton.setDisabled(!enabled);
-				break;
-			default:
-				break;
-		}
 	}
 
 	@Override
 	public void setEnabled(boolean enabled) {
 		setDisabled(!enabled);
+	}
+
+	@Override
+	public boolean onResetClick(ClickEvent event) {
+		return false;
+	}
+
+	@Override
+	public boolean isDefault() {
+		return false;
+	}
+
+	@Override
+	public void registerChangedHandler(WoaChangedHandler handler) {
+		changedHandlers.add(handler);
 	}
 
 	//---------------------------------------------------------------------
@@ -85,52 +78,20 @@ public abstract class AbstractButtonsLayout extends VLayout implements EditableV
 	 * Extend this method to fill the containerLayout.
 	 */
 	protected void fillContainerLayout() {
-		containerLayout.addMember(buttonLayout);
+		containerLayout.addMember(saveButtonBar);
 	}
 
-	public abstract void onEdit();
-	public abstract void onCancel();
-	public abstract void onSave();
+	protected void fireChangedHandler() {
+		for (WoaEventHandler.WoaChangedHandler handler : changedHandlers) {
+			handler.onChange();
+		}
+	}
 
 	//---------------------------------------------------------------------
 	// private methods
 	//---------------------------------------------------------------------
 
-	private void bind() {
-		editButton.addClickHandler(new ClickHandler() {
-
-			@Override
-			public void onClick(ClickEvent event) {
-				onEdit();
-			}
-		});
-
-		saveButton.addClickHandler(new ClickHandler() {
-
-			@Override
-			public void onClick(ClickEvent event) {
-				onSave();
-			}
-		});
-
-		cancelButton.addClickHandler(new ClickHandler() {
-
-			@Override
-			public void onClick(ClickEvent event) {
-				onCancel();
-			}
-		});
-	}
-
 	private void createButtonLayout() {
-		editButton = new IButton(MESSAGES.editButtonText());
-		saveButton = new IButton(MESSAGES.saveButtonText());
-		cancelButton = new IButton(MESSAGES.cancelButtonText());
-
-		buttonLayout = new HLayout(10);
-		buttonLayout.addMember(editButton);
-		buttonLayout.addMember(cancelButton);
-		buttonLayout.addMember(saveButton);
-		buttonLayout.setAutoHeight();
+		saveButtonBar = new SaveButtonBar(this);
 	}
 }

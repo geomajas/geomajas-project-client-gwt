@@ -70,7 +70,7 @@ public abstract class AbstractDetailPresenter<T> extends AbstractEditablePresent
 	public void createNewObject() {
 		setCurrentObject(createEmptyObject());
 		setEditable(true);
-		view.focusOnFirstField();
+		view.prepareForNewObjectInput();
 	}
 
 	protected abstract T createEmptyObject();

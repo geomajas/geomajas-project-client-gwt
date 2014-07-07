@@ -32,4 +32,5 @@ public interface AdminAssignView extends EditableView {
 	
 	void hide();
 
+	void setDisabled(boolean disabled);
 }

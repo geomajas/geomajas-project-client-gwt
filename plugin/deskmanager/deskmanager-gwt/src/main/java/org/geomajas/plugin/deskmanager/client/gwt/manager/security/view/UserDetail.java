@@ -14,6 +14,7 @@ import com.google.gwt.core.client.GWT;
 import com.google.gwt.editor.client.Editor;
 import com.google.gwt.editor.client.SimpleBeanEditorDriver;
 import com.google.gwt.uibinder.client.UiField;
+import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.form.DynamicForm;
 import com.smartgwt.client.widgets.form.fields.PasswordItem;
 import com.smartgwt.client.widgets.form.validator.MatchesFieldValidator;
@@ -163,6 +164,7 @@ public class UserDetail extends AbstractEditableLoadingLayout implements UserDet
 		driver.edit(user);
 		email.setValue(user.getEmail());
 		setLoaded();
+		fireChangedHandler();
 	}
 
 	@Override
@@ -176,7 +178,11 @@ public class UserDetail extends AbstractEditableLoadingLayout implements UserDet
 	}
 
 	@Override
-	public void focusOnFirstField() {
+	public void prepareForNewObjectInput() {
+		// change buttons to edit
+		saveButtonBar.doEditClick(null);
+		setNewUserSettings(true);
+		// focus on first item
 		if (!email.isDisabled()) {
 			email.focusInItem();
 		} else {
@@ -199,19 +205,24 @@ public class UserDetail extends AbstractEditableLoadingLayout implements UserDet
 	// ---------------------------------------------------------
 
 	@Override
-	public void onEdit() {
+	public boolean onEditClick(ClickEvent event) {
 		handler.onEdit();
 		setNewUserSettings(false);
+		return true;
 	}
 
 	@Override
-	public void onCancel() {
-		handler.onCancel();
-		setNewUserSettings(false);
+	public boolean onResetClick(ClickEvent event) {
+		return true;
 	}
 
 	@Override
-	public void onSave() {
+	public boolean isDefault() {
+		return false;
+	}
+
+	@Override
+	public boolean onSaveClick(ClickEvent event) {
 		if (form.validate()) {
 			UserDto userDto = validateDriver();
 			if (userDto != null) {
@@ -219,6 +230,14 @@ public class UserDetail extends AbstractEditableLoadingLayout implements UserDet
 			}
 		}
 		setNewUserSettings(false);
+		return true;
+	}
+
+	@Override
+	public boolean onCancelClick(ClickEvent event) {
+		handler.onCancel();
+		setNewUserSettings(false);
+		return true;
 	}
 
 	// ---------------------------------------------------------

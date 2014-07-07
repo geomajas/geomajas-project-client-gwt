@@ -35,7 +35,7 @@ public abstract class AbstractEditableLoadingLayout extends AbstractButtonsLayou
 
 	@Override
 	public void setLoading() {
-		loadingLabel.setContents("<B><i>" + MESSAGES.blueprintDetailLoadingConfig() + "</i> " + "<img src='"
+		loadingLabel.setContents("<B><i>" + MESSAGES.loadingConfig() + "</i> " + "<img src='"
 				+ Geomajas.getIsomorphicDir() + "/images/circle.gif' style='height: 1em' /></B>");
 		loadingLayout.animateShow(AnimationEffect.FADE);
 	}
