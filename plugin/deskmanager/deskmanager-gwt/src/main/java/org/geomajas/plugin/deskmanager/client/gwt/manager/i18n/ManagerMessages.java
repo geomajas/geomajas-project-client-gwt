@@ -443,4 +443,6 @@ public interface ManagerMessages extends Messages {
 	String adminAssignAvailableUsers();
 	String adminAssignAssignedUsers();
 	String adminAssignAssignedUsersTooltip();
+
+	String securityGroupWarningTerritoryWithoutGeometryOnSave();
 }
