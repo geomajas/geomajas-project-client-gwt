@@ -164,6 +164,7 @@ public class UsersAndGroups extends VLayout implements UsersAndGroupsView, EditS
 		groupsTabSet.addTab(groupAssignTab);
 
 		HLayout detailContainer = new HLayout();
+		detailContainer.setStyleName(DeskmanagerLayout.STYLE_DESKMANAGER_TABPANE_DETAIL);
 		detailContainer.setMinHeight(200);
 		detailContainer.setHeight("40%");
 		detailContainer.setLayoutTopMargin(5);
