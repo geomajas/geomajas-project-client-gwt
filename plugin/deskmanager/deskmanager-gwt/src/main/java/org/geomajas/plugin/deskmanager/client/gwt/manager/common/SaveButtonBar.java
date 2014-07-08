@@ -193,7 +193,7 @@ public class SaveButtonBar extends HLayout implements WoaEventHandler.WoaChanged
 	private void addResetButton(boolean add) {
 		if (!hideResetButton) {
 			reset.setDisabled(eventHandler.isDefault());
-			if(add) {
+			if (add) {
 				addMember(reset);
 			} else {
 				removeMember(reset);
