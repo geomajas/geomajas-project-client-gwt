@@ -19,6 +19,7 @@ import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Label;
 import com.smartgwt.client.types.Alignment;
 import com.smartgwt.client.types.VerticalAlignment;
+import com.smartgwt.client.util.SC;
 import com.smartgwt.client.widgets.Canvas;
 import com.smartgwt.client.widgets.IButton;
 import com.smartgwt.client.widgets.events.ClickEvent;
@@ -207,7 +208,7 @@ public class GroupDetail extends AbstractEditableLoadingLayout implements GroupD
 			if (geometryOfCurrentGroup != null) {
 				group.setGeometry(geometryOfCurrentGroup);
 			} else {
-				Window.alert(MESSAGES.securityGroupWarningTerritoryWithoutGeometryOnSave());
+				SC.say(MESSAGES.securityGroupWarningTerritoryWithoutGeometryOnSave());
 				group.setGeometry(getMaxBoundsAsGeometry());
 			}
 			setGeometryOfCurrentGroup(null);
