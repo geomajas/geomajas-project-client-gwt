@@ -26,5 +26,5 @@ public interface DetailView<T> extends EditableLoadingView {
 	
 	void setObject(T object);
 
-	void focusOnFirstField();
+	void prepareForNewObjectInput();
 }

@@ -39,6 +39,8 @@ public class SaveButtonBar extends HLayout implements WoaEventHandler.WoaChanged
 
 	private Canvas control;
 
+	private boolean hideResetButton;
+
 	private WoaEventHandler eventHandler;
 
 	/**
@@ -109,6 +111,16 @@ public class SaveButtonBar extends HLayout implements WoaEventHandler.WoaChanged
 		eventHandler.registerChangedHandler(this);
 	}
 
+	/**
+	 * Currently: reset button is visible by default. Set {@link #hideResetButton} to true to
+	 * avoid displaying the button.
+	 *
+	 * @param hideResetButton
+	 */
+	public void setHideResetButton(boolean hideResetButton) {
+		this.hideResetButton = hideResetButton;
+	}
+
 	private void resetState() {
 		if (hasMember(save)) {
 			removeMember(save);
@@ -117,8 +129,7 @@ public class SaveButtonBar extends HLayout implements WoaEventHandler.WoaChanged
 			removeMember(cancel);
 		}
 		addMember(edit);
-		addMember(reset);
-		reset.setDisabled(eventHandler.isDefault());
+		addResetButton(true);
 	}
 
 	/**
@@ -128,7 +139,7 @@ public class SaveButtonBar extends HLayout implements WoaEventHandler.WoaChanged
 		EditSessionEvent e = new EditSessionEvent(true, control);
 		if (eventHandler.onEditClick(event)) {
 			removeMember(edit);
-			removeMember(reset);
+			addResetButton(false);
 			addMember(save);
 			addMember(cancel);
 			Whiteboard.fireEvent(e);
@@ -144,8 +155,7 @@ public class SaveButtonBar extends HLayout implements WoaEventHandler.WoaChanged
 			removeMember(save);
 			removeMember(cancel);
 			addMember(edit);
-			reset.setDisabled(eventHandler.isDefault());
-			addMember(reset);
+			addResetButton(true);
 			Whiteboard.fireEvent(e);
 		}
 	}
@@ -159,8 +169,7 @@ public class SaveButtonBar extends HLayout implements WoaEventHandler.WoaChanged
 			removeMember(save);
 			removeMember(cancel);
 			addMember(edit);
-			reset.setDisabled(eventHandler.isDefault());
-			addMember(reset);
+			addResetButton(true);
 			Whiteboard.fireEvent(e);
 		}
 	}
@@ -179,6 +188,17 @@ public class SaveButtonBar extends HLayout implements WoaEventHandler.WoaChanged
 	// -------------------------------------------------
 	public void onChange() {
 		resetState();
+	}
+
+	private void addResetButton(boolean add) {
+		if (!hideResetButton) {
+			reset.setDisabled(eventHandler.isDefault());
+			if (add) {
+				addMember(reset);
+			} else {
+				removeMember(reset);
+			}
+		}
 	}
 
 }

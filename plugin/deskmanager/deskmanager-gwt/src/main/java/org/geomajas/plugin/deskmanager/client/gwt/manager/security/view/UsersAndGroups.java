@@ -25,6 +25,9 @@ import com.smartgwt.client.widgets.tab.events.TabSelectedHandler;
 import org.geomajas.gwt.client.util.WidgetLayout;
 import org.geomajas.plugin.deskmanager.client.gwt.common.GdmLayout;
 import org.geomajas.plugin.deskmanager.client.gwt.common.util.DeskmanagerLayout;
+import org.geomajas.plugin.deskmanager.client.gwt.manager.events.EditSessionEvent;
+import org.geomajas.plugin.deskmanager.client.gwt.manager.events.EditSessionHandler;
+import org.geomajas.plugin.deskmanager.client.gwt.manager.events.Whiteboard;
 import org.geomajas.plugin.deskmanager.client.gwt.manager.i18n.ManagerMessages;
 import org.geomajas.plugin.deskmanager.client.gwt.manager.security.presenter.ObjectsTabHandler;
 import org.geomajas.plugin.deskmanager.client.gwt.manager.security.presenter.UsersAndGroupsHandler;
@@ -42,7 +45,7 @@ import java.util.Map;
  * @author Jan De Moerloose
  * @author Jan Venstermans
  */
-public class UsersAndGroups extends VLayout implements UsersAndGroupsView {
+public class UsersAndGroups extends VLayout implements UsersAndGroupsView, EditSessionHandler {
 
 	private static final ManagerMessages MESSAGES = GWT.create(ManagerMessages.class);
 
@@ -65,6 +68,13 @@ public class UsersAndGroups extends VLayout implements UsersAndGroupsView {
 
 	private UsersAndGroupsHandler handler;
 
+	private UsersView usersView;
+	private GroupsView groupsView;
+	private AdminAssignView adminsView;
+
+	private IButton userButtonNew;
+	private IButton groupButtonNew;
+
 	public UsersAndGroups() {
 		super(MARGIN);
 
@@ -76,7 +86,7 @@ public class UsersAndGroups extends VLayout implements UsersAndGroupsView {
 		topContainer.setLayoutBottomMargin(5);
 
 		/* Add buttons */
-		IButton userButtonNew = new IButton(MESSAGES.securityNewUserButtonText());
+		userButtonNew = new IButton(MESSAGES.securityNewUserButtonText());
 		userButtonNew.setWidth(userButtonNew.getTitle().length() * GdmLayout.buttonFontWidth + GdmLayout.buttonOffset);
 		userButtonNew.setIcon(WidgetLayout.iconAdd);
 		userButtonNew.addClickHandler(new ClickHandler() {
@@ -87,7 +97,7 @@ public class UsersAndGroups extends VLayout implements UsersAndGroupsView {
 
 		});
 
-		IButton groupButtonNew = new IButton(MESSAGES.securityNewGroupButtonText());
+		groupButtonNew = new IButton(MESSAGES.securityNewGroupButtonText());
 		groupButtonNew.setWidth(userButtonNew.getTitle().length() * GdmLayout.buttonFontWidth + GdmLayout.buttonOffset);
 		groupButtonNew.setIcon(WidgetLayout.iconAdd);
 		groupButtonNew.addClickHandler(new ClickHandler() {
@@ -97,9 +107,9 @@ public class UsersAndGroups extends VLayout implements UsersAndGroupsView {
 			}
 		});
 
-		UsersView usersView = Manager.getUsersManagementViews().getUsersView();
-		GroupsView groupsView = Manager.getUsersManagementViews().getGroupsView();
-		AdminAssignView adminsView = Manager.getUsersManagementViews().getAdminsView();
+		usersView = Manager.getUsersManagementViews().getUsersView();
+		groupsView = Manager.getUsersManagementViews().getGroupsView();
+		adminsView = Manager.getUsersManagementViews().getAdminsView();
 
 		/* main tabs*/
 		VLayout userLayout = new VLayout();
@@ -208,6 +218,7 @@ public class UsersAndGroups extends VLayout implements UsersAndGroupsView {
 			}
 
 		});
+		Whiteboard.registerHandler(this);
 	}
 
 	private void createObject(UsersAndGroupsHandler.MainTab objectTab) {
@@ -251,4 +262,104 @@ public class UsersAndGroups extends VLayout implements UsersAndGroupsView {
 	   }
 	}
 
+	// -- EditSessionHandler--------------------------------------------------------
+
+	@Override
+	public void onEditSessionChange(EditSessionEvent ese) {
+		boolean isStart = ese.isSessionStart();
+		Canvas editSource = ese.getRequestee();
+		UsersAndGroupsHandler.MainTab sourceAsSubTab = getMainTabOfSubTabPane(editSource);
+		if (sourceAsSubTab != null) {
+			ObjectsTabHandler.SubTab subTab = getSubTabOfSubTabPane(editSource, sourceAsSubTab);
+			switch (sourceAsSubTab) {
+				case USERS:
+					usersView.setDisabled(isStart);
+					userButtonNew.setDisabled(isStart);
+					disableTabs(sourceAsSubTab, subTab, isStart);
+					break;
+				case GROUPS:
+					groupsView.setDisabled(isStart);
+					groupButtonNew.setDisabled(isStart);
+					disableTabs(sourceAsSubTab, subTab, isStart);
+					break;
+			}
+
+		} else {
+			UsersAndGroupsHandler.MainTab sourceAsTab = getMainTabOfTabPane(editSource);
+			if (sourceAsTab != null) {
+				switch (sourceAsTab) {
+					case ADMINS:
+						//adminsView.setDisabled(isStart);
+						disableTabs(sourceAsTab, null, isStart);
+						break;
+				}
+			}
+		}
+	}
+
+	private void disableTabs(UsersAndGroupsHandler.MainTab sourceMainTab,
+							 ObjectsTabHandler.SubTab sourceSubTab, boolean disable) {
+		// disable main tabs
+		for (Map.Entry<UsersAndGroupsHandler.MainTab, Tab> tabEntry : mainTabsMap.entrySet()) {
+			if (!tabEntry.getKey().equals(sourceMainTab)) {
+				tabEntry.getValue().setDisabled(disable);
+			}
+		}
+		// disable sub tabs
+		if (subTabMap.containsKey(sourceMainTab)) {
+			for ( Map.Entry<ObjectsTabHandler.SubTab, Tab> subTabEntry : subTabMap.get(sourceMainTab).entrySet()) {
+				if (!subTabEntry.getKey().equals(sourceSubTab)) {
+					subTabEntry.getValue().setDisabled(disable);
+				}
+			}
+		}
+	}
+
+	/**
+	 * Returns the {@link UsersAndGroupsHandler.MainTab} of the subTab whose Canvas is the attribute.
+	 * If no subTab with the required Canvas exists, null is returned.
+	 *
+	 * @param subTabPane
+	 * @return
+	 */
+	private UsersAndGroupsHandler.MainTab getMainTabOfSubTabPane(Canvas subTabPane) {
+		for (Map.Entry<UsersAndGroupsHandler.MainTab, Map<ObjectsTabHandler.SubTab, Tab>> subTabMapEntry :
+				subTabMap.entrySet()) {
+			for (Tab subTab : subTabMapEntry.getValue().values()) {
+			   if (subTab.getPane().equals(subTabPane)) {
+				   return subTabMapEntry.getKey();
+			   }
+			}
+		}
+		return null;
+	}
+
+	private ObjectsTabHandler.SubTab getSubTabOfSubTabPane(Canvas editSource,
+														   UsersAndGroupsHandler.MainTab mainTab) {
+		for (Map.Entry<ObjectsTabHandler.SubTab, Tab> subtTabEntry : subTabMap.get(mainTab).entrySet()) {
+			if (subtTabEntry.getValue().getPane().equals(editSource)) {
+				return subtTabEntry.getKey();
+			}
+		}
+		return null;
+	}
+
+	/**
+	 * Returns the {@link UsersAndGroupsHandler.MainTab} of the tab whose Canvas is the attribute.
+	 * If no tab with the required Canvas exists, null is returned.
+	 *
+	 * @param tabPane
+	 * @return
+	 */
+	private UsersAndGroupsHandler.MainTab getMainTabOfTabPane(Canvas tabPane) {
+		for (Map.Entry<UsersAndGroupsHandler.MainTab, Tab> tabMapEntry : mainTabsMap.entrySet()) {
+			// main tab is a VPanel
+			for (Canvas child : tabMapEntry.getValue().getPane().getChildren()) {
+				if (tabPane.equals(child)) {
+					return tabMapEntry.getKey();
+				}
+			}
+		}
+		return null;
+	}
 }

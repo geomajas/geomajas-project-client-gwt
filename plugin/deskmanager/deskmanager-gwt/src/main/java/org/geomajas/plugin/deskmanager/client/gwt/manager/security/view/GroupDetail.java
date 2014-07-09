@@ -139,6 +139,7 @@ public class GroupDetail extends AbstractEditableLoadingLayout implements GroupD
 		} else {
 			setGeometryOfCurrentGroup(null);
 		}
+		fireChangedHandler();
 	}
 
 	@Override
@@ -167,8 +168,11 @@ public class GroupDetail extends AbstractEditableLoadingLayout implements GroupD
 	}
 
 	@Override
-	public void focusOnFirstField() {
+	public void prepareForNewObjectInput() {
+		// focus on first item
 		name.focusInItem();
+		// change buttons to edit
+		saveButtonBar.doEditClick(null);
 	}
 
 	@Override
@@ -181,22 +185,24 @@ public class GroupDetail extends AbstractEditableLoadingLayout implements GroupD
 	// -------------------------------------------------------------
 
 	@Override
-	public void onEdit() {
+	public boolean onEditClick(ClickEvent event) {
 		handler.onEdit();
+		return true;
 	}
 
 	@Override
-	public void onCancel() {
+	public boolean onCancelClick(ClickEvent event) {
 		// stop editing service
 		if (getGeometryStatus().equals(GeometryStatus.EDITING)) {
 			editor.getEditService().stop();
 		}
 		setGeometryOfCurrentGroup(null);
 		handler.onCancel();
+		return true;
 	}
 
 	@Override
-	public void onSave() {
+	public boolean onSaveClick(ClickEvent event) {
 		// save changes of the editing service
 		if (getGeometryStatus().equals(GeometryStatus.EDITING)) {
 			onEditingSaveGeometry();
@@ -207,6 +213,7 @@ public class GroupDetail extends AbstractEditableLoadingLayout implements GroupD
 			setGeometryOfCurrentGroup(null);
 			handler.onSave(group);
 		}
+		return true;
 	}
 
 	// -------------------------------------------------------------
@@ -255,7 +262,7 @@ public class GroupDetail extends AbstractEditableLoadingLayout implements GroupD
 		editor.getStyleService().getPointSymbolizerShapeAndSize().setSize(6);
 		formAndMap.addMember(territoryMap);
 
-		containerLayout.addMember(buttonLayout);
+		containerLayout.addMember(saveButtonBar);
 		containerLayout.addMember(formAndMap);
 		editorButtonCanvas = createEditorButtonsLayout();
 

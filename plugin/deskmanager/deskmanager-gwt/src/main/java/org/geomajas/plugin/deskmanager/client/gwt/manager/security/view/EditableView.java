@@ -22,19 +22,5 @@ public interface EditableView {
 
 	void setEnabled(boolean enabled);
 
-	/**
-	 * Button functions.
-	 *
-	 * @author Jan De Moerloose
-	 * @author Jan Venstermans
-	 */
-	enum Button {
-		EDIT,
-		SAVE,
-		CANCEL
-	}
-
-	void setButtonEnabled(Button button, boolean enabled);
-
 	void clearValues();
 }

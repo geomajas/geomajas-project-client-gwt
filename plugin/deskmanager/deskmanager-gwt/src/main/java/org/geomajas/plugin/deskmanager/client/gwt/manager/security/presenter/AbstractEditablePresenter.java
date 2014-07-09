@@ -10,7 +10,6 @@
  */
 package org.geomajas.plugin.deskmanager.client.gwt.manager.security.presenter;
 
-import org.geomajas.plugin.deskmanager.client.gwt.manager.security.view.EditableLoadingView;
 import org.geomajas.plugin.deskmanager.client.gwt.manager.security.view.EditableView;
 
 /**
@@ -53,9 +52,6 @@ public class AbstractEditablePresenter implements EditableHandler {
 
 	@Override
 	public void setEditable(boolean editable) {
-		view.setButtonEnabled(EditableLoadingView.Button.EDIT, !editable);
-		view.setButtonEnabled(EditableLoadingView.Button.CANCEL, editable);
-		view.setButtonEnabled(EditableLoadingView.Button.SAVE, editable);
 		view.setEditable(editable);
 	}
 
