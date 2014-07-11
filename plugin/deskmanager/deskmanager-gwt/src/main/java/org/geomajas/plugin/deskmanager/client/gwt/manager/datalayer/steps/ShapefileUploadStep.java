@@ -10,21 +10,22 @@
  */
 package org.geomajas.plugin.deskmanager.client.gwt.manager.datalayer.steps;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
-
+import com.google.gwt.core.client.GWT;
+import com.smartgwt.client.widgets.form.events.ItemChangedEvent;
+import com.smartgwt.client.widgets.form.events.ItemChangedHandler;
 import org.geomajas.gwt.client.util.Notify;
 import org.geomajas.plugin.deskmanager.client.gwt.manager.datalayer.NewLayerModelWizardWindow;
 import org.geomajas.plugin.deskmanager.client.gwt.manager.datalayer.Wizard;
 import org.geomajas.plugin.deskmanager.client.gwt.manager.datalayer.WizardStepPanel;
-import org.geomajas.plugin.deskmanager.client.gwt.manager.datalayer.panels.UploadShapefileForm;
+import org.geomajas.plugin.deskmanager.client.gwt.manager.datalayer.panels.GenericUploadForm;
 import org.geomajas.plugin.deskmanager.client.gwt.manager.i18n.ManagerMessages;
 import org.geomajas.plugin.deskmanager.client.gwt.manager.service.DataCallback;
+import org.geomajas.plugin.deskmanager.client.gwt.manager.service.ManagerCommandService;
+import org.geomajas.plugin.deskmanager.command.manager.dto.ProcessShapeFileResponse;
 import org.geomajas.plugin.deskmanager.domain.dto.DynamicLayerConfiguration;
 
-import com.google.gwt.core.client.GWT;
-import com.smartgwt.client.widgets.form.events.ItemChangedEvent;
-import com.smartgwt.client.widgets.form.events.ItemChangedHandler;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 /**
  * @author Kristof Heirwegh
@@ -33,7 +34,7 @@ public class ShapefileUploadStep extends WizardStepPanel {
 
 	private static final ManagerMessages MESSAGES = GWT.create(ManagerMessages.class);
 
-	private UploadShapefileForm form;
+	private GenericUploadForm form;
 
 	private boolean first = true;
 
@@ -44,7 +45,7 @@ public class ShapefileUploadStep extends WizardStepPanel {
 				MESSAGES.shapefileUploadStepTitle(), false, parent);
 		setWindowTitle(MESSAGES.shapefileUploadStepTitle());
 
-		form = new UploadShapefileForm();
+		form = new GenericUploadForm();
 		form.setWidth100();
 		form.setColWidths("125", "*");
 
@@ -104,14 +105,21 @@ public class ShapefileUploadStep extends WizardStepPanel {
 		if (nextStep != null) {
 			form.upload(new DataCallback<String>() {
 
-				public void execute(String result) {
-					nextStep.setPreviousStep(NewLayerModelWizardWindow.STEP_SHAPEFILE_UPLOAD);
-					if (result != null && !"".equals(result)) {
-						nextStep.setData(connectionProps, result);
-						nextStep.initialize();
-					} else {
-						nextStep.setWarning(MESSAGES.shapefileUploadStepErrorDuringUpload());
-					}
+				public void execute(String fileId) {
+
+					ManagerCommandService.processShapeFileUpload(fileId, new DataCallback<ProcessShapeFileResponse>() {
+						@Override
+						public void execute(ProcessShapeFileResponse commandResult) {
+							String result = commandResult.getLayerName();
+							nextStep.setPreviousStep(NewLayerModelWizardWindow.STEP_SHAPEFILE_UPLOAD);
+							if (result != null && !"".equals(result)) {
+								nextStep.setData(connectionProps, result);
+								nextStep.initialize();
+							} else {
+								nextStep.setWarning(MESSAGES.shapefileUploadStepErrorDuringUpload());
+							}
+						}
+					});
 				}
 			});
 		} else {

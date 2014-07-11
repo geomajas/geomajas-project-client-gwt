@@ -10,19 +10,18 @@
  */
 package org.geomajas.plugin.deskmanager.client.gwt.manager.datalayer;
 
-import org.geomajas.plugin.deskmanager.client.gwt.manager.common.AbstractConfigurationLayout;
-import org.geomajas.plugin.deskmanager.client.gwt.manager.common.SaveButtonBar;
-import org.geomajas.plugin.deskmanager.client.gwt.manager.datalayer.panels.UploadShapefileForm;
-import org.geomajas.plugin.deskmanager.client.gwt.manager.i18n.ManagerMessages;
-import org.geomajas.plugin.deskmanager.client.gwt.manager.service.DataCallback;
-import org.geomajas.plugin.deskmanager.domain.dto.LayerModelDto;
-
 import com.google.gwt.core.client.GWT;
 import com.smartgwt.client.types.Overflow;
 import com.smartgwt.client.util.BooleanCallback;
 import com.smartgwt.client.util.SC;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.layout.VLayout;
+import org.geomajas.plugin.deskmanager.client.gwt.manager.common.AbstractConfigurationLayout;
+import org.geomajas.plugin.deskmanager.client.gwt.manager.common.SaveButtonBar;
+import org.geomajas.plugin.deskmanager.client.gwt.manager.datalayer.panels.GenericUploadForm;
+import org.geomajas.plugin.deskmanager.client.gwt.manager.i18n.ManagerMessages;
+import org.geomajas.plugin.deskmanager.client.gwt.manager.service.DataCallback;
+import org.geomajas.plugin.deskmanager.domain.dto.LayerModelDto;
 
 /**
  * @author Kristof Heirwegh
@@ -32,9 +31,11 @@ public class DatalayerShapeUpload extends AbstractConfigurationLayout {
 	private static final ManagerMessages MESSAGES = GWT.create(ManagerMessages.class);
 
 	
-	private UploadShapefileForm form;
+	private GenericUploadForm form;
 
 	private SaveButtonBar buttonBar;
+
+	private LayerModelDto lmd;
 
 	public DatalayerShapeUpload() {
 		super();
@@ -46,7 +47,7 @@ public class DatalayerShapeUpload extends AbstractConfigurationLayout {
 
 		// ----------------------------------------------------------
 
-		form = new UploadShapefileForm();
+		form = new GenericUploadForm();
 		form.setWidth100();
 		form.setDisabled(true);
 
@@ -59,7 +60,7 @@ public class DatalayerShapeUpload extends AbstractConfigurationLayout {
 	}
 
 	public void setLayerModel(LayerModelDto lmd) {
-		form.setData(lmd.getClientLayerId()); // update instead of new
+		this.lmd = lmd;
 		fireChangedHandler();
 	}
 
@@ -80,6 +81,7 @@ public class DatalayerShapeUpload extends AbstractConfigurationLayout {
 						form.upload(new DataCallback<String>() {
 
 							public void execute(String result) {
+
 								buttonBar.doCancelClick(null); // could do saveClick, but nothing changed so no
 																// point in reloading everything
 							}
