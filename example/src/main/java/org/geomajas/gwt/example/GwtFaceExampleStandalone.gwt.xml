@@ -30,6 +30,8 @@
 	<set-property name="user.agent" value="gecko1_8" />
 	<set-property name="locale" value="default" />
 	-->
+	<!-- Compile to a single file, this speeds up compilation at the penalty of creating a single large file -->
+	<collapse-all-properties />
 
 	<entry-point class="org.geomajas.gwt.example.client.GwtFaceExampleStandalone"/>
 </module>
