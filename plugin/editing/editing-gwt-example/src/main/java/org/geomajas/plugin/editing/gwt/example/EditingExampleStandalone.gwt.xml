@@ -22,5 +22,8 @@
 	<!-- where value = "ie6/opera/gecko1_8/safari/gecko" , "gecko1_8" is FireFox 3 -->
  	<set-property name="user.agent" value="gecko1_8" />
 
+	<!-- Compile to a single file, this speeds up compilation at the penalty of creating a single large file -->
+	<collapse-all-properties />
+
 	<entry-point class="org.geomajas.plugin.editing.gwt.example.client.EditingExampleStandalone"/>
 </module>
