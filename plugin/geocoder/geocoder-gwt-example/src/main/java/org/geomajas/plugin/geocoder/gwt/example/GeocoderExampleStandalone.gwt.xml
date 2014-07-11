@@ -31,6 +31,9 @@
 	<set-property name="user.agent" value="gecko1_8" />
 	<!-- @extract-skip-end -->
 
+	<!-- Compile to a single file, this speeds up compilation at the penalty of creating a single large file -->
+	<collapse-all-properties />
+
 	<entry-point class="org.geomajas.plugin.geocoder.gwt.example.client.GeocoderExampleStandalone"/>
 </module>
 <!-- @extract-end -->
