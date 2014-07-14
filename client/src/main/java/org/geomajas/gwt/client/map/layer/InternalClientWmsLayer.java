@@ -10,17 +10,21 @@
  */
 package org.geomajas.gwt.client.map.layer;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.geomajas.annotation.Api;
 import org.geomajas.gwt.client.map.MapModel;
 import org.geomajas.gwt.client.map.layer.configuration.ClientWmsLayerInfo;
 import org.geomajas.gwt.client.map.store.ClientWmsRasterLayerStore;
 import org.geomajas.gwt.client.spatial.Bbox;
+import org.geomajas.gwt2.client.map.layer.tile.TileConfiguration;
 import org.geomajas.gwt2.client.map.render.Tile;
+import org.geomajas.gwt2.client.service.TileService;
 import org.geomajas.layer.tile.RasterTile;
 import org.geomajas.layer.tile.TileCode;
-
-import java.util.ArrayList;
-import java.util.List;
+import org.geomajas.plugin.wms.client.WmsClient;
+import org.geomajas.plugin.wms.client.layer.WmsLayer;
 
 /**
  * <p>
@@ -51,8 +55,7 @@ public class InternalClientWmsLayer extends RasterLayer {
 	}
 
 	public List<RasterTile> getTiles(Bbox worldBounds, double resolution) {
-		List<Tile> tiles = wmsLayer.getTiles(resolution, worldBounds.toDtoBbox());
-
+		List<Tile> tiles = getTiles(wmsLayer, resolution, worldBounds.toDtoBbox());
 		List<RasterTile> rasterTiles = new ArrayList<RasterTile>(tiles.size());
 		for (Tile tile : tiles) {
 			RasterTile rasterTile = new RasterTile();
@@ -63,10 +66,6 @@ public class InternalClientWmsLayer extends RasterLayer {
 			rasterTiles.add(rasterTile);
 		}
 		return rasterTiles;
-	}
-
-	private TileCode convertTileCode(Tile tile) {
-		return new TileCode(tile.getCode().getTileLevel(), tile.getCode().getX(), tile.getCode().getY());
 	}
 
 	public ClientWmsLayer getWmsLayer() {
@@ -82,5 +81,36 @@ public class InternalClientWmsLayer extends RasterLayer {
 		//setShowing(isVisible());
 		// don't do anything?
 	} */
+
+	
+	private List<Tile> getTiles(WmsLayer wmsLayer, double resolution, org.geomajas.geometry.Bbox worldBounds) {
+ 		TileConfiguration tileConfig = wmsLayer.getTileConfiguration();
+ 		List<org.geomajas.gwt2.client.map.render.TileCode> codes = TileService.getTileCodesForBounds(tileConfig,
+ 				worldBounds, resolution);
+ 		List<Tile> tiles = new ArrayList<Tile>();
+ 		if (!codes.isEmpty()) {
+ 			double actualResolution = tileConfig.getResolution(codes.get(0).getTileLevel());
+ 			for (org.geomajas.gwt2.client.map.render.TileCode code : codes) {
+ 				org.geomajas.geometry.Bbox bounds = TileService.getWorldBoundsForTile(tileConfig, code);
+ 				Tile tile = new Tile(getScreenBounds(actualResolution, bounds));
+ 				tile.setCode(code);
+ 				tile.setUrl(WmsClient.getInstance().getWmsService().getMapUrl(wmsLayer.getConfiguration(),
+ 						bounds, tileConfig.getTileWidth(), tileConfig.getTileHeight()));
+ 				tiles.add(tile);
+ 			}
+ 		}
+ 		return tiles;
+ 	}
+	
+	private org.geomajas.geometry.Bbox getScreenBounds(double resolution, org.geomajas.geometry.Bbox worldBounds) {
+		return new org.geomajas.geometry.Bbox(Math.round(worldBounds.getX() / resolution), -Math.round(worldBounds
+				.getMaxY() / resolution), Math.round(worldBounds.getMaxX() / resolution)
+				- Math.round(worldBounds.getX() / resolution), Math.round(worldBounds.getMaxY() / resolution)
+				- Math.round(worldBounds.getY() / resolution));
+	}
+
+	private TileCode convertTileCode(Tile tile) {
+		return new TileCode(tile.getCode().getTileLevel(), tile.getCode().getX(), tile.getCode().getY());
+	}
 
 }

@@ -20,7 +20,6 @@ import org.geomajas.gwt.client.map.MapView;
 import org.geomajas.gwt.client.spatial.Bbox;
 import org.geomajas.gwt.client.util.Log;
 import org.geomajas.gwt2.client.animation.NavigationAnimation;
-import org.geomajas.gwt2.client.map.MapConfigurationImpl;
 import org.geomajas.gwt2.client.map.View;
 import org.geomajas.gwt2.client.map.ViewPort;
 import org.geomajas.gwt2.client.map.ViewPortTransformationService;
@@ -46,8 +45,8 @@ public class ClientWmsLayer extends WmsLayerImpl {
 	 * @param wmsConfig the wms configuration
 	 * @param tileConfig the tile configuration
 	 */
-	public ClientWmsLayer(String title, WmsLayerConfiguration wmsConfig, TileConfiguration tileConfig) {
-		this(title, wmsConfig, tileConfig, null);
+	public ClientWmsLayer(String title, String crs, WmsLayerConfiguration wmsConfig, TileConfiguration tileConfig) {
+		this(title, crs, wmsConfig, tileConfig, null);
 	}
 
 	/**
@@ -58,11 +57,10 @@ public class ClientWmsLayer extends WmsLayerImpl {
 	 * @param tileConfig the tile configuration
 	 * @param layerCapabilities the layer capabilities or null
 	 */
-	public ClientWmsLayer(String title, WmsLayerConfiguration wmsConfig,
-			TileConfiguration tileConfig,
+	public ClientWmsLayer(String title, String crs, WmsLayerConfiguration wmsConfig, TileConfiguration tileConfig,
 			WmsLayerInfo layerCapabilities) {
 		// we may need a SmartGwt MapConfiguration here !
-		super(title, new MapConfigurationImpl(), wmsConfig, tileConfig, layerCapabilities);
+		super(title, crs, wmsConfig, tileConfig, layerCapabilities);
 	}
 
 	/**

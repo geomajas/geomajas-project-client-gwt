@@ -121,7 +121,8 @@ public class WmsSample extends SamplePanel {
 		TileConfiguration tileConfig = new TileConfiguration(256, 256, new Coordinate(-20026376.393709917,
 				-20026376.393709917), mapWidget.getMapModel().getMapView().getResolutions());
 
-		ClientWmsLayer wmsLayer = new ClientWmsLayer(name, wmsConfig, tileConfig);
+		ClientWmsLayer wmsLayer = new ClientWmsLayer(name, mapWidget.getMapModel().getMapInfo().getCrs(), wmsConfig,
+				tileConfig);
 
 		ClientWmsLayerInfo wmsLayerInfo = new ClientWmsLayerInfo(wmsLayer);
 		return wmsLayerInfo;

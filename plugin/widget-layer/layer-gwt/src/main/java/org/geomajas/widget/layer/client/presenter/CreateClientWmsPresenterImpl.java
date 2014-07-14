@@ -296,8 +296,8 @@ public class CreateClientWmsPresenterImpl implements CreateClientWmsPresenter,
 		TileConfiguration tileConfig = new TileConfiguration(256, 256, new Coordinate(bounds.getX(), bounds.getY()),
 				mapWidget.getMapModel().getMapView().getResolutions());
 
-		ClientWmsLayer wmsLayer = new ClientWmsLayer(selectedLayerInfo.getName(), wmsConfig, tileConfig,
-				selectedLayerInfo.getWmsLayerInfo());
+		ClientWmsLayer wmsLayer = new ClientWmsLayer(selectedLayerInfo.getName(), mapWidget.getMapModel().getCrs(),
+				wmsConfig, tileConfig, selectedLayerInfo.getWmsLayerInfo());
 
 		ClientWmsLayerInfo wmsLayerInfo = new ClientWmsLayerInfo(wmsLayer);
 		return wmsLayerInfo;
