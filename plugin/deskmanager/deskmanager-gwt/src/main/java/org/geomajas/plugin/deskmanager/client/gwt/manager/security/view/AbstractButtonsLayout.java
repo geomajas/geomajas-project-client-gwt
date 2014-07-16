@@ -13,6 +13,7 @@ package org.geomajas.plugin.deskmanager.client.gwt.manager.security.view;
 import com.google.gwt.core.client.GWT;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.layout.VLayout;
+import org.geomajas.plugin.deskmanager.client.gwt.manager.ManagerClientBundle;
 import org.geomajas.plugin.deskmanager.client.gwt.manager.common.SaveButtonBar;
 import org.geomajas.plugin.deskmanager.client.gwt.manager.common.WoaEventHandler;
 import org.geomajas.plugin.deskmanager.client.gwt.manager.i18n.ManagerMessages;
@@ -36,8 +37,15 @@ public abstract class AbstractButtonsLayout extends VLayout implements EditableV
 	/* base container */
 	protected VLayout containerLayout;
 
+	/**
+	 * Resource for the manager section.
+	 */
+	protected ManagerClientBundle resource;
+
 	public AbstractButtonsLayout() {
 		super(10);
+		resource = GWT.create(ManagerClientBundle.class);
+		resource.css().ensureInjected();
 		createButtonLayout();
 
 		containerLayout = new VLayout();

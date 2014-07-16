@@ -108,7 +108,6 @@ public abstract class AbstractRoleSelectAssignLayout<T, S>
 
 	@Override
 	protected void fillContainerLayout() {
-		//buttonLayout.setAutoHeight();
 		createToolStrip();
 		selectPanel = createSelectPanel();
 
@@ -121,11 +120,8 @@ public abstract class AbstractRoleSelectAssignLayout<T, S>
 
 	private void createToolStrip() {
 		toolStrip = new ToolStrip();
-		toolStrip.setWidth(200);
-		toolStrip.setHeight(24);
-		toolStrip.setMembersMargin(3);
-		// TODO: should be moved to css. Default toolstrip has border (in current theme)!
-		//toolStrip.setBorder("none");
+		toolStrip.setStyleName(resource.css().usersGroupsRolesButtonsPanel());
+		toolStrip.setMembersMargin(10);
 	}
 
 	private void addRadioRoleButton(final Role role) {
