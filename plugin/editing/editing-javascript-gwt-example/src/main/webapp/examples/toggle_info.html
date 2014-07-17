@@ -1,0 +1,262 @@
+<!DOCTYPE HTML>
+<html>
+<!--
+		  ~ This is part of Geomajas, a GIS framework, http://www.geomajas.org/.
+		  ~
+		  ~ Copyright 2008-2014 Geosparc nv, http://www.geosparc.com/, Belgium.
+		  ~
+		  ~ The program is available in open source according to the GNU Affero
+		  ~ General Public License. All contributions in this program are covered
+		  ~ by the Geomajas Contributors License Agreement. For full licensing
+		  ~ details, see LICENSE.txt in the project root.
+		  -->
+	<head>
+		<meta http-equiv="content-type" content="text/html;charset=utf-8" />
+		<link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon" />
+
+		<title>Geomajas Javascript API Showcase</title>
+		<link type="text/css" rel="stylesheet" href="geomajas.css" />
+
+		<script type="text/javascript">var isomorphicDir = "../showcase/sc/";</script>
+		<script type="text/javascript" src="../showcase/showcase.nocache.js"></script>
+
+		<script type="text/javascript">
+			var map; // The map object.
+			var editor; // Geometry editor. Holds the central editing service, the renderer, the styling information...
+			var service; // The central editing service.
+			var factory; // GeometryHandlerFactory for deleting rings
+			var deleteFromPoint; // HandlerRegistration for delete from point
+			var infoHandler; // HandlerRegistration for delete from point
+			var infoHandlerWithHtmlCallback; // HandlerRegistration for delete from point
+			var labelHandler; // HandlerRegistration for delete from point
+			var labelFlag = false;
+			var infoFlag = false;
+            var styleService;
+
+			function onGeomajasLoad() {
+				map = Geomajas().createMap("app", "mapMain", "js-map-element");
+				map.setDefaultCursor('crosshair');
+				editor = new org.geomajas.plugin.editing.GeometryEditor();
+				editor.setMap(map);
+				service = editor.getService();
+                styleService = editor.getStyleService();
+                styleService.getVertexStyle().setFillColor("blue");
+                styleService.getEdgeStyle().setStrokeColor("red");
+                styleService.getPointSymbolizerShapeAndSize().setShape("circle");
+                styleService.getPointSymbolizerShapeAndSize().setSize(6);
+                styleService.setCloseRingWhileInserting(true);
+                factory = new org.geomajas.plugin.editing.handler.GeometryHandlerFactory();
+			}
+
+			function cancel() {
+				if (editor.isBusyEditing()) {
+					var geometry = service.stop();
+					var wkt = Geomajas().getGeometryService().toWkt(geometry);
+					log("Resulting geometry: " + wkt);
+				} else {
+					log("No editing process busy.");
+				}
+			}
+
+			function suspend() {
+				if (service.isStarted() == true && service.isSuspended() == false) {
+					service.suspend();
+				}
+			}
+
+			function resume() {
+				if (service.isSuspended() == true) {
+					service.resume();
+				}
+			}
+
+			function drawPolygon() {
+				clearLog();
+				service.stop();
+				var geometry = new org.geomajas.jsapi.spatial.Geometry("Polygon", 0, 0);
+				infoHandler = new org.geomajas.plugin.editing.gfx.InfoHandler(editor);
+				infoHandlerWithHtmlCallback = new org.geomajas.plugin.editing.gfx.InfoHandlerWithHtmlCallback(editor);
+				labelHandler = new org.geomajas.plugin.editing.gfx.LabelHandler(editor);
+				infoHandlerWithHtmlCallback.setTitleCallBack(function() {
+					return "Geometrie eigenschappen";
+				});
+				infoHandlerWithHtmlCallback.setHtmlCallBack(function(geometry, cd, ca, cb) {
+					if(geometry) {
+						var type = geometry.getGeometryType();
+						var points = Geomajas().getGeometryService().getNumPoints(geometry);
+						var area = Geomajas().getGeometryService().getArea(geometry);
+						var length = Geomajas().getGeometryService().getLength(geometry);
+						var lengthA = "";
+						var lengthB = "";
+						if(ca) {
+							var lengthA = cd.distance(ca);
+						}
+						if(cb) {
+							var lengthB = cd.distance(cb);
+						}
+					}
+					var content = "<table class='table-info'>";
+					content += "<tr><td>Type</td><td>"+type+"</td></tr>";
+					content += "<tr><td>Aantal punten</td><td>"+points+"</td></tr>";
+					content += "<tr><td>Oppervlakte</td><td>"+area+"m2</td></tr>";
+					content += "<tr><td>Lengte</td><td>"+length+"m</td></tr>";
+					content += "<tr><td>Lengte A</td><td>"+lengthA+"m</td></tr>";
+					content += "<tr><td>Lengte B</td><td>"+lengthB+"m</td></tr>";
+					content += "</table>";
+					return content;
+				});
+				infoHandler.addInfoListener(function(geometry, cd, ca, cb) {
+					if(geometry) {
+						var type = geometry.getGeometryType();
+						var points = Geomajas().getGeometryService().getNumPoints(geometry);
+						var area = Geomajas().getGeometryService().getArea(geometry);
+						var length = Geomajas().getGeometryService().getLength(geometry);
+						var lengthA = "";
+						var lengthB = "";
+						if(ca) {
+							var lengthA = cd.distance(ca);
+						}
+						if(cb) {
+							var lengthB = cd.distance(cb);
+						}
+						document.getElementById("infoType").innerHTML = type;
+						document.getElementById("infoPoints").innerHTML = points;
+						document.getElementById("infoOpp").innerHTML = area;
+						document.getElementById("infoLengte").innerHTML = length;
+						document.getElementById("infoLengteA").innerHTML = lengthA;
+						document.getElementById("infoLengteB").innerHTML = lengthB;
+					}
+				});
+				infoHandler.register();
+				labelHandler.register();
+
+				edgeMouseOverHandler = new org.geomajas.plugin.editing.handler.EdgeHandlerFactory();
+				vertexMouseOverHandler = new org.geomajas.plugin.editing.handler.VertexHandlerFactory();
+
+				edgeMouseOverHandler.setMouseOverHandler(function(geometryIndex) {
+					if(geometryIndex) {
+						document.getElementById("indexMouseOverOut").innerHTML = "mouse over edge";
+					}
+				});
+				edgeMouseOverHandler.setMouseOutHandler(function(geometryIndex) {
+					if(geometryIndex) {
+						document.getElementById("indexMouseOverOut").innerHTML = "";
+					}
+				});
+				vertexMouseOverHandler.setMouseOverHandler(function(geometryIndex) {
+					if(geometryIndex) {
+						document.getElementById("indexMouseOverOut").innerHTML = "mouse over vertex";
+					}
+				});
+				vertexMouseOverHandler.setMouseOutHandler(function(geometryIndex) {
+					if(geometryIndex) {
+						document.getElementById("indexMouseOverOut").innerHTML = "";
+					}
+				});
+				editor.getRenderer().addVertexHandlerFactory(vertexMouseOverHandler);
+				editor.getRenderer().addEdgeHandlerFactory(edgeMouseOverHandler);
+
+				service.start(geometry);
+				service.addEmptyChild();
+				var index = service.getIndexService().create("vertex", [0, 0]);
+				service.setInsertIndex(index);
+				service.setEditingState("inserting");
+			}
+
+			function toggleLabel() {
+				if(labelFlag) {
+					labelHandler.register();
+				} else {
+					labelHandler.unregister();
+				}
+				labelFlag = !labelFlag;
+			}
+
+			function toggleInfo() {
+				if(infoFlag) {
+					infoHandler.register();
+				} else {
+					infoHandler.unregister();
+				}
+				infoFlag = !infoFlag;
+			}
+
+			function toggleInfoHtmlPanelOnMap() {
+				if(infoFlag) {
+					infoHandlerWithHtmlCallback.register();
+				} else {
+					infoHandlerWithHtmlCallback.unregister();
+				}
+				infoFlag = !infoFlag;
+			}
+
+			function log(txt) {
+				var el = document.getElementById("log");
+				el.innerHTML += txt + "<br/>";
+			}
+
+			function clearLog() {
+				var el = document.getElementById("log");
+				el.innerHTML = "";
+			}
+
+			function listMethods(myObject) {
+				var element = document.getElementById('log');
+				element.innerHTML += "Properties for " + myObject + "<br>";
+				for ( var property in myObject) {
+					element.innerHTML += "    Property: " + property + "<br>";
+				}
+			}
+
+		</script>
+	</head>
+
+	<body>
+		<div class="titleBar">
+			<div class="title">Geomajas Editing JavaScript API test</div>
+			<div class="subtitle">Example application for the JavaScript API for the editing plugin. Uses the GWT face.</div>
+		</div>
+
+		<div>
+			<p>
+				When drawing a geometric figure we can suspend the service to undertake other actions on the
+				map. After that we simply can resume were we left off.
+			</p>
+		</div>
+
+		<table>
+			<tr>
+				<td valign="top" style="width:640px;">
+					<div id="js-map-element" style="width:640px; height:480px; border: 1px solid #337428;">
+						<!-- on load, the map is attached here -->
+					</div>
+				</td>
+				<td valign="top">
+					<div>
+						<button onclick="drawPolygon()">Draw a Polygon</button><br>
+						<p>Double click ends the polygon.</p>
+						<button onclick="toggleInfo()">Toggle geometry info</button><br>
+						<button onclick="toggleInfoHtmlPanelOnMap()">Toggle geometry info panel on map</button><br>
+						<button onclick="toggleLabel()">Toggle labels on geometry</button><br><br>
+						<button id="clear" onclick="cancel()">Clear the map and output the resulting geometry</button>
+					</div>
+					<br>
+					<div>
+						<table>
+							<tr><td>Type</td><td id="infoType"></td></tr>
+							<tr><td>Aantal punten</td><td><p id="infoPoints"></p></td></tr>
+							<tr><td>Oppervlakte</td><td id="infoOpp"></td></tr>
+							<tr><td>Lengte</td><td id="infoLengte"></td></tr>
+							<tr><td>Lengte A</td><td id="infoLengteA"></td></tr>
+							<tr><td>Lengte B</td><td id="infoLengteB"></td></tr>
+						</table>
+					</div>
+					<strong>Log:</strong><br><br>
+					<div id="log"></div>
+					<p id="indexMouseOverOut"></p>
+				</td>
+			</tr>
+		</table>
+
+	</body>
+</html>

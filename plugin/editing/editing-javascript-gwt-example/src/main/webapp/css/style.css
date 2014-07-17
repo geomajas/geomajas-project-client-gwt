@@ -1,0 +1,47 @@
+.row {
+	margin-bottom: 15px;
+}
+
+.heading {
+	padding-top: 10px;
+	font-size: 16px;
+}
+
+.description {
+
+}
+
+.tags {
+	padding: 10px;
+	border: 1px solid #ddd;
+}
+
+.showcase-search {
+	padding: 10px;
+	background-color: #eee;
+	border: 1px solid #ddd;
+}
+
+.showcase-content {
+
+}
+
+.items {
+	padding: 5px;
+}
+
+.info-block {
+	background-color: #eee;
+	border: 1px solid #ddd;
+	padding: 10px;
+}
+
+.info-block:hover {
+	background-color: #DEFFE1;
+	cursor: pointer;
+}
+
+hr {
+	margin-top: 15px;
+	margin-bottom: 15px;
+}

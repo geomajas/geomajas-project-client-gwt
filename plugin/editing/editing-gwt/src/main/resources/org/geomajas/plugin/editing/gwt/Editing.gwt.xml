@@ -14,5 +14,8 @@
 	<inherits name="org.geomajas.plugin.editing.Editing" />
 	<inherits name="org.geomajas.plugin.editing.EditingServerExtentions" />
 
+	<inherits name="com.google.gwt.logging.Logging"/>
+	<set-property name="gwt.logging.enabled" value="TRUE"/>
+
 	<source path="client" />
 </module>

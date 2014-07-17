@@ -11,6 +11,11 @@
 
 package org.geomajas.plugin.editing.gwt.client.controller;
 
+import com.google.gwt.event.dom.client.DoubleClickEvent;
+import com.google.gwt.event.dom.client.HumanInputEvent;
+import com.google.gwt.event.dom.client.MouseMoveEvent;
+import com.google.gwt.event.dom.client.MouseOutEvent;
+import com.google.gwt.event.dom.client.MouseOverEvent;
 import org.geomajas.gwt.client.controller.AbstractController;
 import org.geomajas.gwt.client.controller.AbstractGraphicsController;
 import org.geomajas.gwt.client.controller.PanController;
@@ -21,18 +26,16 @@ import org.geomajas.plugin.editing.client.service.GeometryEditService;
 import org.geomajas.plugin.editing.client.service.GeometryEditState;
 import org.geomajas.plugin.editing.client.snap.SnapService;
 
-import com.google.gwt.event.dom.client.DoubleClickEvent;
-import com.google.gwt.event.dom.client.HumanInputEvent;
-import com.google.gwt.event.dom.client.MouseMoveEvent;
-import com.google.gwt.event.dom.client.MouseOutEvent;
-import com.google.gwt.event.dom.client.MouseOverEvent;
+import java.util.logging.Logger;
 
 /**
  * ...
- * 
+ *
  * @author Pieter De Graef
  */
 public class EditGeometryBaseController extends AbstractGraphicsController {
+
+	private static Logger logger = Logger.getLogger(EditGeometryBaseController.class.getName());
 
 	private AbstractController idleController;
 
@@ -118,6 +121,7 @@ public class EditGeometryBaseController extends AbstractGraphicsController {
 		} else if (service.getEditingState() == GeometryEditState.DRAGGING) {
 			dragController.onUp(event);
 		} else if (service.getEditingState() == GeometryEditState.INSERTING) {
+			logger.info("ON UP RECEIVED!");
 			insertController.onUp(event);
 		}
 	}
@@ -128,6 +132,7 @@ public class EditGeometryBaseController extends AbstractGraphicsController {
 		} else if (service.getEditingState() == GeometryEditState.DRAGGING) {
 			dragController.onDoubleClick(event);
 		} else if (service.getEditingState() == GeometryEditState.INSERTING) {
+			logger.info("ON DOUBLE CLICK RECEIVED!");
 			insertController.onDoubleClick(event);
 		}
 	}

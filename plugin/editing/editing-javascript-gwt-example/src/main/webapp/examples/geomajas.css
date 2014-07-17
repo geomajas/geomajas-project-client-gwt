@@ -22,7 +22,7 @@
 	float:left;
 	overflow: auto;
 }
-		
+
 .outer-over {
 	height: 80px;
 	width: 350px;
@@ -38,8 +38,8 @@
 	overflow: auto;
 	cursor: pointer;
 }
- 
- 
+
+
 body {
 	padding: 0px;
 	margin: 0px;
@@ -51,18 +51,18 @@ h1, h2 {
 	margin-top: 15px;
 	margin-bottom: 0px;
 	font-family: Arial;
-} 
+}
 
 h3, h4, h5 {
 	margin-top: 20px;
 	margin-bottom: 5px;
 	font-family: Arial;
-} 
+}
 
 .titleBar {
 	border-bottom: 1px solid #337428;
 	background-color: #337428;
-	background: #337428 url('images/geomajas_logo.png') no-repeat;
+	background: #337428 url('../images/geomajas_logo.png') no-repeat;
 	height: 52px;
 	width: 100%;
 }
