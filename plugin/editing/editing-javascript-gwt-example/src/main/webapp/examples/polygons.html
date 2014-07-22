@@ -34,24 +34,19 @@
 				editor.setMap(map);
 				service = editor.getService();
 
-                styleService = editor.getStyleService();
-                styleService.getVertexStyle().setFillColor("black");
-				styleService.getVertexStyle().setStrokeColor("black");
-				styleService.getEdgeStyle().setStrokeColor("black");
-				styleService.getBackgroundStyle().setFillColor("black");
-				styleService.getBackgroundStyle().setFillOpacity(0.5);
-				styleService.getPointSymbolizerShapeAndSize().setShape("square");
-                styleService.getPointSymbolizerShapeAndSize().setSize(10);
+				styleService = editor.getStyleService();
+
 			}
 
-			function drawPolygon() {
+			function drawPolygonArea() {
 
-/*				factory = new org.geomajas.plugin.editing.handler.GeometryHandlerFactory();
-				factory.setDoubleClickHandler(function(event) {
-					console.log("Double click");
-				});
-				editor.getRenderer().addGeometryHandlerFactory(factory);*/
+				service.stop();
 
+				styleService.getVertexStyle().setFillColor("blue");
+				styleService.getEdgeStyle().setStrokeColor("red");
+				styleService.getPointSymbolizerShapeAndSize().setShape("square");
+				styleService.getPointSymbolizerShapeAndSize().setSize(12);
+				styleService.setCloseRingWhileInserting(true);
 
 				var geometry = new org.geomajas.jsapi.spatial.Geometry("Polygon", 0, 0);
 				service.start(geometry);
@@ -61,11 +56,26 @@
 				service.setInsertIndex(index);
 				service.setEditingState("inserting");
 
-				var editorController = map.getMapController();
-				editorController.setDoubleClickHandler(function(event) {
-					console.log("double click");
-				});
-				map.setMapController(editorController);
+			}
+
+			function drawPolygonBorder() {
+
+				service.stop();
+
+				styleService.getVertexStyle().setFillColor("blue");
+				styleService.getEdgeStyle().setStrokeColor("red");
+				styleService.getBackgroundStyle().setFillOpacity(0.5);
+				styleService.getPointSymbolizerShapeAndSize().setShape("square");
+				styleService.getPointSymbolizerShapeAndSize().setSize(10);
+				styleService.setCloseRingWhileInserting(false);
+
+				var geometry = new org.geomajas.jsapi.spatial.Geometry("Polygon", 0, 0);
+				service.start(geometry);
+
+				service.addEmptyChild();
+				var index = service.getIndexService().create("vertex", [0, 0]);
+				service.setInsertIndex(index);
+				service.setEditingState("inserting");
 
 			}
 
@@ -73,10 +83,15 @@
 				if (editor.isBusyEditing()) {
 					var geometry = service.stop();
 					var wkt = Geomajas().getGeometryService().toWkt(geometry);
-					alert("Resulting geometry: " + wkt);
+					log("Resulting geometry: " + wkt);
 				} else {
-					alert("No editing process busy.");
+					log("No editing process busy.");
 				}
+			}
+
+			function log(txt) {
+				var el = document.getElementById("log");
+				el.innerHTML += txt + "<br/>";
 			}
 
 		</script>
@@ -89,7 +104,8 @@
 		</div>
 
 		<div>
-			<button onclick="drawPolygon()">Draw Polygon</button>
+			<button onclick="drawPolygonArea()">Draw Polygon area style</button>
+			<button onclick="drawPolygonBorder()">Draw Polygon border style</button>
 		</div>
 
 		<table>

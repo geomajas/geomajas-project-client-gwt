@@ -121,7 +121,6 @@ public class EditGeometryBaseController extends AbstractGraphicsController {
 		} else if (service.getEditingState() == GeometryEditState.DRAGGING) {
 			dragController.onUp(event);
 		} else if (service.getEditingState() == GeometryEditState.INSERTING) {
-			logger.info("ON UP RECEIVED!");
 			insertController.onUp(event);
 		}
 	}
@@ -132,7 +131,6 @@ public class EditGeometryBaseController extends AbstractGraphicsController {
 		} else if (service.getEditingState() == GeometryEditState.DRAGGING) {
 			dragController.onDoubleClick(event);
 		} else if (service.getEditingState() == GeometryEditState.INSERTING) {
-			logger.info("ON DOUBLE CLICK RECEIVED!");
 			insertController.onDoubleClick(event);
 		}
 	}
