@@ -10,12 +10,9 @@
  */
 package org.geomajas.plugin.deskmanager.client.gwt.manager.util;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
+import com.google.gwt.core.client.GWT;
 import org.geomajas.configuration.client.ClientVectorLayerInfo;
+import org.geomajas.geometry.Geometry;
 import org.geomajas.layer.LayerType;
 import org.geomajas.plugin.deskmanager.command.manager.dto.DynamicVectorLayerConfiguration;
 import org.geomajas.sld.CssParameterInfo;
@@ -35,9 +32,18 @@ import org.geomajas.sld.SymbolizerTypeInfo;
 import org.geomajas.sld.TextSymbolizerInfo;
 import org.geomajas.sld.UserStyleInfo;
 import org.geomajas.sld.WellKnownNameInfo;
+import org.geomajas.sld.expression.FunctionTypeInfo;
+import org.geomajas.sld.expression.LiteralTypeInfo;
 import org.geomajas.sld.expression.PropertyNameInfo;
+import org.geomajas.sld.filter.BinaryLogicOpTypeInfo;
+import org.geomajas.sld.filter.FilterTypeInfo;
+import org.geomajas.sld.filter.OrInfo;
+import org.geomajas.sld.filter.PropertyIsEqualToInfo;
 
-import com.google.gwt.core.client.GWT;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Some sld utilities.
@@ -75,10 +81,32 @@ public final class SldUtils {
 		FeatureTypeStyleInfo fsi = new FeatureTypeStyleInfo();
 		fsi.setName(usi.getTitle());
 		usi.getFeatureTypeStyleList().add(fsi);
+		if (dvc.getVectorLayerInfo().getLayerType().equals(LayerType.GEOMETRY)) {
+			String geometryName = dvc.getVectorLayerInfo().getFeatureInfo().getGeometryType().getName();
+			RuleInfo pointRule = createRule(LayerType.POINT, properties);
+			pointRule.setName(pointRule.getName() != null ? pointRule.getName() + "_point" : null);
+			pointRule.setTitle(pointRule.getTitle() != null ? pointRule.getTitle() + "_point" : null);
+			pointRule.setChoice(createChoice(geometryName,
+					new String[] {Geometry.POINT, Geometry.MULTI_POINT}));
+			fsi.getRuleList().add(pointRule);
 
-		RuleInfo ri = createRule(dvc.getVectorLayerInfo().getLayerType(), properties);
-		fsi.getRuleList().add(ri);
+			RuleInfo lineRule = createRule(LayerType.LINESTRING, properties);
+			lineRule.setName(lineRule.getName() != null ? lineRule.getName() + "_line" : null);
+			lineRule.setTitle(lineRule.getTitle() != null ? lineRule.getTitle() + "_line" : null);
+			lineRule.setChoice(createChoice(geometryName,
+					new String[] {Geometry.LINE_STRING, Geometry.MULTI_LINE_STRING}));
+			fsi.getRuleList().add(lineRule);
 
+			RuleInfo polygonRule = createRule(LayerType.POLYGON, properties);
+			polygonRule.setName(polygonRule.getName() != null ? polygonRule.getName() + "_polygon" : null);
+			polygonRule.setTitle(polygonRule.getTitle() != null ? polygonRule.getTitle() + "_polygon" : null);
+			polygonRule.setChoice(createChoice(geometryName,
+					new String[] {Geometry.POLYGON, Geometry.MULTI_POLYGON}));
+			fsi.getRuleList().add(polygonRule);
+		} else {
+			RuleInfo ri = createRule(dvc.getVectorLayerInfo().getLayerType(), properties);
+			fsi.getRuleList().add(ri);
+		}
 		return usi;
 	}
 
@@ -86,11 +114,7 @@ public final class SldUtils {
 	 * Leave null what you don't need/want defaults will be used.
 	 * 
 	 * @param type
-	 * @param fillColor
-	 * @param fillOpacity
-	 * @param strokeColor
-	 * @param strokeOpacity
-	 * @param strokeWidth
+	 * @param properties
 	 * @return
 	 */
 	public static RuleInfo createRule(LayerType type, Map<String, Object> properties) {
@@ -334,5 +358,35 @@ public final class SldUtils {
 		SizeInfo si = new SizeInfo();
 		si.setValue(getPropValue(SIZE, properties, DEFAULT_SIZE));
 		return si;
+	}
+
+	private static RuleInfo.ChoiceInfo createChoice(String geometryName, String[] geometryTypes) {
+		OrInfo orInfo = new OrInfo();
+		for (String geometryType : geometryTypes) {
+			BinaryLogicOpTypeInfo.ChoiceInfo choice = new BinaryLogicOpTypeInfo.ChoiceInfo();
+			choice.setComparisonOps(createPropertyIsEqualToInfo(geometryName, geometryType));
+			orInfo.getChoiceList().add(choice);
+		}
+
+		RuleInfo.ChoiceInfo choiceInfo = new RuleInfo.ChoiceInfo();
+		choiceInfo.setFilter(new FilterTypeInfo());
+		choiceInfo.getFilter().setLogicOps(orInfo);
+		return choiceInfo;
+	}
+
+	private static PropertyIsEqualToInfo createPropertyIsEqualToInfo(String geometryName, String geometryType) {
+		PropertyIsEqualToInfo propertyIsEqualToInfo = new PropertyIsEqualToInfo();
+		FunctionTypeInfo functionTypeInfo = new FunctionTypeInfo();
+		PropertyNameInfo propertyNameInfo = new PropertyNameInfo();
+		propertyNameInfo.setValue(geometryName);
+		functionTypeInfo.setValue("");
+		functionTypeInfo.setName("geometryType");
+		functionTypeInfo.getExpressionList().add(propertyNameInfo);
+
+		LiteralTypeInfo literalTypeInfo = new LiteralTypeInfo();
+		literalTypeInfo.setValue(geometryType);
+		propertyIsEqualToInfo.getExpressionList().add(functionTypeInfo);
+		propertyIsEqualToInfo.getExpressionList().add(literalTypeInfo);
+		return propertyIsEqualToInfo;
 	}
 }
