@@ -1,30 +1,88 @@
-<!DOCTYPE HTML>
-<html>
-<!--
-		  ~ This is part of Geomajas, a GIS framework, http://www.geomajas.org/.
-		  ~
-		  ~ Copyright 2008-2014 Geosparc nv, http://www.geosparc.com/, Belgium.
-		  ~
-		  ~ The program is available in open source according to the GNU Affero
-		  ~ General Public License. All contributions in this program are covered
-		  ~ by the Geomajas Contributors License Agreement. For full licensing
-		  ~ details, see LICENSE.txt in the project root.
-		  -->
-	<head>
-		<meta http-equiv="content-type" content="text/html;charset=utf-8" />
-		<link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon" />
+<!DOCTYPE html>
 
-		<title>Geomajas Javascript API Showcase</title>
-		<link type="text/css" rel="stylesheet" href="geomajas.css" />
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
 
-		<script type="text/javascript">var isomorphicDir = "../showcase/sc/";</script>
-		<script type="text/javascript" src="../showcase/showcase.nocache.js"></script>
+	<title>Gwt editing javascript - Showcase</title>
+
+	<link href='http://fonts.googleapis.com/css?family=Exo+2:400,300' rel='stylesheet' type='text/css'>
+
+	<link href="../css/style.css" rel="stylesheet" type="text/css">
+	<link href="../css/mqueries.css" rel="stylesheet" type="text/css" media="screen">
+
+	<script src="../js/jquery.modernizr.min.js"></script>
+
+	<script type="text/javascript">var isomorphicDir = "../showcase/sc/";</script>
+	<script type="text/javascript" src="../showcase/showcase.nocache.js"></script>
+
+	</head>
+
+	<body>
+
+		<div id="page">
+
+			<header id="header" class="wrapper">
+
+				<div class="header_tagline">
+					<h3>Polygon implementations.</h3>
+					<h4>
+						This example show multiple implementations for drawing a polygon on the map.
+					</h4>
+				</div>
+
+			</header>
+
+			<section id="main">
+
+				<div class="main_inner wrapper clearfix">
+
+					<ul class="filter">
+						<li id="drawPolygonArea">
+							<a href="#">Draw polygon with final sides</a>
+						</li>
+						<li id="drawPolygonBorder">
+							<a href="#">Draw polygon without final sides</a>
+						</li>
+						<li id=cancel>
+							<a href="#">Clear and log geometry</a>
+						</li>
+					</ul>
+
+					<div class="columnsection">
+
+						<div class="column one_half">
+
+							<div id="js-map-element">
+								<!-- on load, the map is attached here -->
+							</div>
+
+						</div>
+
+						<div class="column one_half">
+
+							<h4>Log:</h4>
+							<ul id="log"></ul>
+
+						</div>
+
+					</div>
+
+				</div><!-- END main inner -->
+
+			</section><!-- END #content -->
+
+		</div><!-- END #page -->
+
+		<script src="../js/jquery-1.7.1.min.js"></script>
 
 		<script type="text/javascript">
 			var map; // The map object.
 			var editor; // Geometry editor. Holds the central editing service, the renderer, the styling information...
 			var service; // The central editing service.
-            var styleService;
+			var styleService;
 			var factory;
 
 			function onGeomajasLoad() {
@@ -83,45 +141,53 @@
 				if (editor.isBusyEditing()) {
 					var geometry = service.stop();
 					var wkt = Geomajas().getGeometryService().toWkt(geometry);
-					log("Resulting geometry: " + wkt);
+					log("<strong>Resulting geometry: </strong><br>" + wkt);
 				} else {
-					log("No editing process busy.");
+					log("Geometry editor service has not been started yet.");
 				}
 			}
 
 			function log(txt) {
-				var el = document.getElementById("log");
-				el.innerHTML += txt + "<br/>";
+				while($('#log')[0].scrollHeight >= $('#js-map-element').height() - 150) {
+					$('#log li:last-child').remove();
+				}
+
+				$('#log li').removeClass('first-log-item');
+				$("#log").prepend("<li class='first-log-item log-item'>" + txt  + "</li>");
 			}
 
 		</script>
-	</head>
 
-	<body>
-		<div class="titleBar">
-			<div class="title">Geomajas Editing JavaScript API test</div>
-			<div class="subtitle">Example application for the JavaScript API for the editing plugin. Uses the GWT face.</div>
-		</div>
+		<script>
+			// load when the document is ready.
+			$(document).ready(function() {
 
-		<div>
-			<button onclick="drawPolygonArea()">Draw Polygon area style</button>
-			<button onclick="drawPolygonBorder()">Draw Polygon border style</button>
-		</div>
+				$('#drawPolygonArea').click(function(){
+					if ($('#drawPolygonBorder').hasClass('active')) {
+						log("Press clear to start a new geometry.");
+					} else {
+						$(this).addClass('active');
+						drawPolygonArea();
+					}
+				});
 
-		<table>
-			<tr>
-				<td valign="top">
-					<div id="js-map-element" style="width:640px; height:480px; border: 1px solid #337428;">
-						<!-- on load, the map is attached here -->
-					</div>
-					<div id="log"></div>
-				</td>
-				<td valign="top">
-					<div>
-						<button id="cancel" onclick="cancel()">Cancel</button>
-					</div>
-				</td>
-			</tr>
-		</table>
+				$('#drawPolygonBorder').click(function() {
+					if ($('#drawPolygonArea').hasClass('active')) {
+						log("Press clear to start a new geometry.");
+					} else {
+						$(this).addClass('active');
+						drawPolygonBorder();
+					}
+				});
+
+				$('#cancel').click(function(){
+					$('.filter li').removeClass('active');
+					cancel();
+				});
+
+			});
+		</script>
+
 	</body>
+
 </html>

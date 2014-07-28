@@ -1,20 +1,37 @@
-function initialise() {
+// load when the document is ready.
+$(document).ready(function() {
 
-	// Set an effect for the isotope (http://api.jqueryui.com/easings/)
-	$easingType= 'easeInOutQuart';
-
-	// Isotope init
 	var $container = $('#masonry');
-	$container.imagesLoaded( function(){
+
+	$container.isotope({
+		itemSelector : '.masonry_item'
+	});
+
+	// quick search regex
+	var qsRegex;
+
+	// use value of search field to filter
+	var $search = $('#search').keyup(function() {
 
 		$container.isotope({
-			itemSelector : '.masonry_item'
+			itemSelector: '.masonry_item',
+			filter: function() {
+				return qsRegex ? $(this).text().match( qsRegex ) : true;
+			}
 		});
+
+		qsRegex = new RegExp( $search.val(), 'gi' );
+		$container.isotope();
 
 	});
 
 	// Filter isotope entries.
 	$('.filter li').click(function(){
+
+		$container.isotope({
+			itemSelector: '.masonry_item',
+			filter: "*"
+		});
 
 		$('.filter li').removeClass('active');
 		$(this).addClass('active');
@@ -37,12 +54,5 @@ function initialise() {
 		});
 
 	});
-
-}
-
-// load when the document is ready.
-$(document).ready(function() {
-
-	initialise();
 
 });

@@ -20,8 +20,6 @@ textarea { width: 290px; height: 150px; max-width: 100%; }		/* padding issue (32
 General ID's or Classes
 ------------------------------------------------*/
 .wrapper { width: 690px; }
-#sidebar { width: 180px; }
-#maincontent { width: 480px; }
 
 /*----------------------------------------------
 Entries
@@ -35,10 +33,6 @@ Columns
 .one_half  { width: 300px; }
 .one_third { width: 190px; }
 .two_third { width: 410px; }
-
-#entry-single .one_half  { width: 195px; }
-#entry-single .one_third { width: 120px; }
-#entry-single .two_third { width: 270px; }
 
 .last {	margin-right: 0px; }
 
@@ -65,34 +59,11 @@ textarea { width: 230px; height: 150px; max-width: 100%; }		/* padding issue (25
 /*----------------------------------------------
 General ID's or Classes
 ------------------------------------------------*/
-.wrapper { width: 300px; float: none; }		/* visuel width = 280 */
-#sidebar { width: 240px; padding: 60px 30px 30px 30px; float: none; margin-bottom: 30px;}
-#maincontent { width: 300px; }
-
+.wrapper { width: 300px; float: none; }		/* visual width = 280 */
 
 /*----------------------------------------------
-Header
+Filter
 ------------------------------------------------*/
-header #logo { float: none; text-align: center; }
-header #logo a { margin: 0 auto; display: inline-block; }
-
-/*----------------------------------------------
-Footer
-------------------------------------------------*/
-footer .left_float, footer .right_float { float: none; }
-
-/*----------------------------------------------
-Top
-------------------------------------------------*/
-#top { text-align: center; height: 30px; }
-#top .widget { display: none; }
-#top .socialmedia { padding-left: 0px;  }
-
-/*----------------------------------------------
-Article
-------------------------------------------------*/
-article, #article {	background: none;	box-shadow:  none;	-moz-box-shadow:  none;	-webkit-box-shadow:  none;	border-bottom: none;	}
-
 .filter li {
     margin-bottom: 10px;
 }
@@ -107,14 +78,6 @@ Entries
 .entry { width: 300px; }
 
 /*----------------------------------------------
-Social Media Widget
-------------------------------------------------*/
-.socialmedia { float: none; width: 100%; padding-left: 0px; text-align: center; }
-.socialmedia a { display: inline-block; float: none; width: 30px; height: 30px; margin-left: -4px; background-position: -5px -5px;}
-.socialmedia a:hover { background-position: -5px -45px; }
-
-
-/*----------------------------------------------
 Columns
 ------------------------------------------------*/
 .columnsection { margin: 0; padding: 0; margin-bottom: 60px;}
@@ -124,10 +87,6 @@ div .column:first-child { padding: 0; }
 .one_half  { width: 240px; }
 .one_third { width: 240px; }
 .two_third { width: 240px; }
-
-#entry-single .one_half  { width: 240px; }
-#entry-single .one_third { width: 240px; }
-#entry-single .two_third { width: 240px; }
 
 .last {	margin-right: 0px; }
 
