@@ -15,6 +15,7 @@ import java.util.Map;
 
 import com.google.web.bindery.event.shared.HandlerRegistration;
 import org.geomajas.gwt.client.Geomajas;
+import org.geomajas.plugin.deskmanager.client.gwt.manager.datalayer.DataReceiverWizardStep;
 import org.geomajas.plugin.deskmanager.client.gwt.manager.datalayer.NewLayerModelWizardWindow;
 import org.geomajas.plugin.deskmanager.client.gwt.manager.datalayer.Wizard;
 import org.geomajas.plugin.deskmanager.client.gwt.manager.datalayer.WizardStepPanel;
@@ -39,8 +40,9 @@ import com.smartgwt.client.widgets.grid.events.SelectionUpdatedHandler;
 
 /**
  * @author Jan De Moerloose
+ * @author Jan Venstermans
  */
-public class WmsChooseLayerStep extends WizardStepPanel {
+public class WmsChooseLayerStep extends WizardStepPanel implements DataReceiverWizardStep {
 
 	private static final ManagerMessages MESSAGES = GWT.create(ManagerMessages.class);
 
@@ -159,6 +161,7 @@ public class WmsChooseLayerStep extends WizardStepPanel {
 		}
 	}
 
+	@Override
 	public void setData(Map<String, String> connectionProps) {
 		this.connectionProps = connectionProps;
 	}
@@ -191,11 +194,12 @@ public class WmsChooseLayerStep extends WizardStepPanel {
 	}
 
 	@Override
-	public void stepFinished() {
+	public boolean stepFinished() {
 		final WmsPreviewLayerStep nextStep = (WmsPreviewLayerStep) parent
 				.getStep(NewLayerModelWizardWindow.STEP_WMS_PREVIEW_LAYER);
 		RasterCapabilitiesInfo info = (RasterCapabilitiesInfo) grid.getSelectedRecord().getAttributeAsObject(FLD_INFO);
 		nextStep.setData(connectionProps, info);
 		registerSelectionUpdateHandler(false);
+		return true;
 	}
 }

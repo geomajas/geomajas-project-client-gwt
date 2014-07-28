@@ -16,6 +16,7 @@ import java.util.Map;
 
 import org.geomajas.gwt.client.Geomajas;
 import org.geomajas.gwt.client.util.Notify;
+import org.geomajas.plugin.deskmanager.client.gwt.manager.datalayer.DataReceiverWizardStep;
 import org.geomajas.plugin.deskmanager.client.gwt.manager.datalayer.NewLayerModelWizardWindow;
 import org.geomajas.plugin.deskmanager.client.gwt.manager.datalayer.Wizard;
 import org.geomajas.plugin.deskmanager.client.gwt.manager.datalayer.WizardStepPanel;
@@ -40,8 +41,9 @@ import com.smartgwt.client.widgets.grid.events.SelectionUpdatedHandler;
 
 /**
  * @author Kristof Heirwegh
+ * @author Jan Venstermans
  */
-public class VectorChooseLayerStep extends WizardStepPanel {
+public class VectorChooseLayerStep extends WizardStepPanel implements DataReceiverWizardStep {
 
 	private static final ManagerMessages MESSAGES = GWT.create(ManagerMessages.class);
 
@@ -193,14 +195,15 @@ public class VectorChooseLayerStep extends WizardStepPanel {
 	}
 
 	@Override
-	public void stepFinished() {
+	public boolean stepFinished() {
 		VectorEditLayerAttributesStep nextStep = (VectorEditLayerAttributesStep) parent
 				.getStep(NewLayerModelWizardWindow.STEP_VECTOR_EDIT_LAYER_ATTRIBUTES);
 		if (nextStep != null) {
 			nextStep.setData(connectionProps, grid.getSelectedRecord().getAttribute(FLD_TYPENAME));
 			nextStep.setPreviousStep(NewLayerModelWizardWindow.STEP_VECTOR_CHOOSE_LAYER);
-		} else {
-			Notify.error(MESSAGES.vectorChooseLayerStepNextStepNotFound());
+			return true;
 		}
+		Notify.error(MESSAGES.vectorChooseLayerStepNextStepNotFound());
+		return false;
 	}
 }

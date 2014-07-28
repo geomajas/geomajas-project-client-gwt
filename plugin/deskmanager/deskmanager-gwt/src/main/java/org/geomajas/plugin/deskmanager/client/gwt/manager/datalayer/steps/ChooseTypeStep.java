@@ -106,6 +106,7 @@ public class ChooseTypeStep extends WizardStepPanel {
 	}
 
 	@Override
-	public void stepFinished() {
+	public boolean stepFinished() {
+		return true;
 	}
 }
