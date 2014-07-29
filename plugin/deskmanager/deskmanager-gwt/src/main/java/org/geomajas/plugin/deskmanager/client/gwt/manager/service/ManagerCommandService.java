@@ -44,6 +44,8 @@ import org.geomajas.plugin.deskmanager.command.manager.dto.GetLayerModelsRespons
 import org.geomajas.plugin.deskmanager.command.manager.dto.GetTerritoriesRequest;
 import org.geomajas.plugin.deskmanager.command.manager.dto.GetTerritoriesResponse;
 import org.geomajas.plugin.deskmanager.command.manager.dto.LayerModelResponse;
+import org.geomajas.plugin.deskmanager.command.manager.dto.ProcessShapeFileRequest;
+import org.geomajas.plugin.deskmanager.command.manager.dto.ProcessShapeFileResponse;
 import org.geomajas.plugin.deskmanager.command.manager.dto.ReloadDynamicLayersRequest;
 import org.geomajas.plugin.deskmanager.command.manager.dto.SaveBlueprintRequest;
 import org.geomajas.plugin.deskmanager.command.manager.dto.SaveGeodeskRequest;
@@ -347,7 +349,7 @@ public final class ManagerCommandService {
 	/**
 	 * {@see org.geomajas.plugin.deskmanager.command.manager.getGeodesksCommand}.
 	 * 
-	 * @param onFinich callback called when the geodesk is retrieved.
+	 * @param onFinish callback called when the geodesk is retrieved.
 	 */
 	public static void getGeodesk(String uuid, final DataCallback<GeodeskDto> onFinish) {
 		GetGeodeskRequest request = new GetGeodeskRequest();
@@ -473,6 +475,24 @@ public final class ManagerCommandService {
 					public void execute(FindUsersResponse response) {
 						if (onFinish != null) {
 							onFinish.execute(response.getUsers());
+						}
+					}
+				});
+	}
+
+	public static void processShapeFileUpload(String fileId, final DataCallback<ProcessShapeFileResponse> onFinish) {
+		ProcessShapeFileRequest request = new ProcessShapeFileRequest();
+		request.setFileId(fileId);
+
+		GwtCommand command = new GwtCommand(ProcessShapeFileRequest.COMMAND);
+		command.setCommandRequest(request);
+
+		GwtCommandDispatcher.getInstance().execute(command,
+				new AbstractCommandCallback<ProcessShapeFileResponse>() {
+					@Override
+					public void execute(ProcessShapeFileResponse commandResponse) {
+						if (onFinish != null) {
+							onFinish.execute(commandResponse);
 						}
 					}
 				});
