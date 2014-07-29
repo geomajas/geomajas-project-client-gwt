@@ -10,10 +10,6 @@
  */
 package org.geomajas.plugin.deskmanager.client.gwt.manager.datalayer.util;
 
-import org.geomajas.plugin.deskmanager.client.gwt.manager.datalayer.NotEncodingUrlBuilder;
-
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
@@ -93,20 +89,22 @@ public final class WizardUtil {
 
 	public static String getBaseOfUrl(String inputUrl) {
 		try {
-			URL url1 = new URL(inputUrl);
-			return url1.getProtocol() + "://" + url1.getHost() + url1.getPath();
-		} catch (MalformedURLException e) {
+			// java.net.URL and com.google.gwt.http.client.URL cannot be used in this situation
+			if (inputUrl.contains("?")) {
+				return inputUrl.substring(0, inputUrl.indexOf("?"));
+			} else {
+				return inputUrl;
+			}
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return null;
 	}
 
 	public static String getQueryPartOfUrl(String inputUrl) {
-		try {
-			URL url1 = new URL(inputUrl);
-			return url1.getQuery();
-		} catch (MalformedURLException e) {
-			e.printStackTrace();
+		// java.net.URL and com.google.gwt.http.client.URL cannot be used in this situation
+		if (inputUrl.contains("?")) {
+			return inputUrl.substring(inputUrl.indexOf("?") + 1);
 		}
 		return null;
 	}

@@ -8,7 +8,7 @@
  * by the Geomajas Contributors License Agreement. For full licensing
  * details, see LICENSE.txt in the project root.
  */
-package org.geomajas.plugin.deskmanager.client.gwt.manager.datalayer;
+package org.geomajas.plugin.deskmanager.client.gwt.manager.datalayer.util;
 
 import java.util.HashMap;
 import java.util.Iterator;
