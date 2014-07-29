@@ -53,7 +53,8 @@ public class AboutAction extends MenuAction {
 		HTMLFlow flow = new HTMLFlow("<h2>Geomajas " + Geomajas.getVersion() + "</h2>" +
 				"<p>" + MESSAGES.aboutCopyRight() + "</p>" + "<p>" + MESSAGES.aboutVisit()
 				+ ": <a href='http://www.geomajas.org/'>http://www.geomajas.org/</a><br />"
-				+ MESSAGES.sourceUrl() + ":  <a href='https://github.com/geomajas/geomajas-project-client-gwt'>https://github.com/geomajas/geomajas-project-client-gwt</a> </p>");
+				+ MESSAGES.sourceUrl() + ":  <a href='https://github.com/geomajas/geomajas-project-client-gwt'>" +
+				"https://github.com/geomajas/geomajas-project-client-gwt</a> </p>");
 
 
 
