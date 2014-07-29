@@ -11,7 +11,6 @@
 package org.geomajas.plugin.deskmanager.client.gwt.manager;
 
 import com.google.gwt.resources.client.ClientBundle;
-import org.geomajas.annotation.Api;
 
 
 /**
