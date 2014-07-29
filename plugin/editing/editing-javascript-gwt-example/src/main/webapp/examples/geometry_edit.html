@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+
+<html lang="en">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+
+		<title>Gwt editing javascript - Showcase</title>
+
+		<link href='http://fonts.googleapis.com/css?family=Exo+2:400,300' rel='stylesheet' type='text/css'>
+
+		<link href="../css/style.css" rel="stylesheet" type="text/css">
+		<link href="../css/mqueries.css" rel="stylesheet" type="text/css" media="screen">
+
+		<script src="../js/jquery.modernizr.min.js"></script>
+
+		<script type="text/javascript">var isomorphicDir = "../showcase/sc/";</script>
+		<script type="text/javascript" src="../showcase/showcase.nocache.js"></script>
+
+	</head>
+
+	<body>
+
+		<div id="page">
+
+			<header id="header" class="wrapper">
+
+				<div class="header_tagline">
+					<h3>Edit a geometry.</h3>
+					<h4>
+						With this example we can draw a polygon, insert holes and delete them from the polygon.
+						<br>This example also shows us the redo, undo operations.
+					</h4>
+				</div>
+
+			</header>
+
+			<section id="main">
+
+				<div class="main_inner wrapper clearfix">
+
+					<ul class="filter">
+						<li id="drawPolygon">
+							<a href="#">Draw polygon</a>
+						</li>
+						<li id="insertHole">
+							<a href="#">Insert hole</a>
+						</li>
+						<li id="holeDeletion">
+							<a href="#">Register hole deletion</a>
+						</li>
+						<li id="cancel">
+							<a href="#">Cancel</a>
+						</li>
+						<li id="undo">
+							<a href="#">Undo</a>
+						</li>
+						<li id="redo">
+							<a href="#">Redo</a>
+						</li>
+					</ul>
+
+					<div class="columnsection">
+
+						<div class="column one_half">
+
+							<div id="js-map-element">
+								<!-- on load, the map is attached here -->
+							</div>
+
+						</div>
+
+						<div class="column one_half">
+
+							<h4 id="infoHeader">Info:</h4>
+							<ul class="infoHeader">
+								<li><span>Type:</span><div id="infoType"></div></li>
+								<li><span>Total points:</span><div id="infoPoints"></div></li>
+								<li><span>Surface area:</span><div id="infoOpp"></div></li>
+								<li><span>Total Length:</span><div id="infoLengte"></div></li>
+								<li><span>Length A:</span><div id="infoLengteA"></div></li>
+								<li><span>Length B:</span><div id="infoLengteB"></div></li>
+								<li><span>Event:</span><div id="indexMouseOverOut"></div></li>
+							</ul>
+
+							<h4>Log:</h4>
+							<ul id="log"></ul>
+
+						</div>
+
+					</div>
+
+				</div><!-- END main inner -->
+
+			</section><!-- END #content -->
+
+		</div><!-- END #page -->
+
+		<script src="../js/jquery-1.7.1.min.js"></script>
+
+		<script type="text/javascript">
+			var map; // The map object.
+			var editor; // Geometry editor. Holds the central editing service, the renderer, the styling information...
+			var service; // The central editing service.
+			var factory; // GeometryHandlerFactory for deleting rings
+			var infoHandler; // HandlerRegistration for delete from point
+			var labelHandler; // HandlerRegistration for delete from point
+			var labelFlag = false;
+			var infoFlag = false;
+			var styleService;
+
+			function onGeomajasLoad() {
+				map = Geomajas().createMap("app", "mapMain", "js-map-element");
+				map.setDefaultCursor('crosshair');
+				editor = new org.geomajas.plugin.editing.GeometryEditor();
+				editor.setMap(map);
+				service = editor.getService();
+				styleService = editor.getStyleService();
+				styleService.getVertexStyle().setFillColor("blue");
+				styleService.getEdgeStyle().setStrokeColor("red");
+				styleService.getPointSymbolizerShapeAndSize().setShape("square");
+				styleService.getPointSymbolizerShapeAndSize().setSize(12);
+				styleService.setCloseRingWhileInserting(true);
+				factory = new org.geomajas.plugin.editing.handler.GeometryHandlerFactory();
+			}
+
+			function cancel() {
+				if (editor.isBusyEditing()) {
+					var geometry = service.stop();
+					var wkt = Geomajas().getGeometryService().toWkt(geometry);
+					log("<strong>Resulting geometry: </strong><br>" + wkt);
+				} else {
+					log("Geometry editor service has not been started yet.");
+				}
+			}
+
+			function undo() {
+				if (service.canUndo()) {
+					service.undo();
+				} else {
+					log("No UNDO operation available.");
+				}
+			}
+
+			function redo() {
+				if (service.canRedo()) {
+					service.redo();
+				} else {
+					log("No REDO operation available.");
+				}
+			}
+
+			function drawPolygon() {
+				service.stop();
+				var geometry = new org.geomajas.jsapi.spatial.Geometry("Polygon", 0, 0);
+				infoHandler = new org.geomajas.plugin.editing.gfx.InfoHandler(editor);
+				labelHandler = new org.geomajas.plugin.editing.gfx.LabelHandler(editor);
+				infoHandler.addInfoListener(function(geometry, cd, ca, cb) {
+					if(geometry) {
+						var type = geometry.getGeometryType();
+						var points = Geomajas().getGeometryService().getNumPoints(geometry);
+						var area = Geomajas().getGeometryService().getArea(geometry);
+						var length = Geomajas().getGeometryService().getLength(geometry);
+						var lengthA = "";
+						var lengthB = "";
+						if(ca) {
+							var lengthA = cd.distance(ca);
+						}
+						if(cb) {
+							var lengthB = cd.distance(cb);
+						}
+						document.getElementById("infoType").innerHTML = type;
+						document.getElementById("infoPoints").innerHTML = points;
+						document.getElementById("infoOpp").innerHTML = area;
+						document.getElementById("infoLengte").innerHTML = length;
+						document.getElementById("infoLengteA").innerHTML = lengthA;
+						document.getElementById("infoLengteB").innerHTML = lengthB;
+					}
+				});
+				infoHandler.register();
+				labelHandler.register();
+
+				edgeMouseOverHandler = new org.geomajas.plugin.editing.handler.EdgeHandlerFactory();
+				vertexMouseOverHandler = new org.geomajas.plugin.editing.handler.VertexHandlerFactory();
+
+				edgeMouseOverHandler.setMouseOverHandler(function(geometryIndex) {
+					if(geometryIndex) {
+						document.getElementById("indexMouseOverOut").innerHTML = "mouse over edge";
+					}
+				});
+				edgeMouseOverHandler.setMouseOutHandler(function(geometryIndex) {
+					if(geometryIndex) {
+						document.getElementById("indexMouseOverOut").innerHTML = "";
+					}
+				});
+				vertexMouseOverHandler.setMouseOverHandler(function(geometryIndex) {
+					if(geometryIndex) {
+						document.getElementById("indexMouseOverOut").innerHTML = "mouse over vertex";
+					}
+				});
+				vertexMouseOverHandler.setMouseOutHandler(function(geometryIndex) {
+					if(geometryIndex) {
+						document.getElementById("indexMouseOverOut").innerHTML = "";
+					}
+				});
+				editor.getRenderer().addVertexHandlerFactory(vertexMouseOverHandler);
+				editor.getRenderer().addEdgeHandlerFactory(edgeMouseOverHandler);
+
+				service.start(geometry);
+				service.addEmptyChild();
+				var index = service.getIndexService().create("vertex", [0, 0]);
+				service.setInsertIndex(index);
+				service.setEditingState("inserting");
+			}
+
+			function insertHole() {
+
+				unRegisterDeleteHole();
+
+				var geometry = service.getGeometry();
+				var ringIndex = service.addEmptyChild();
+				var index = service.getIndexService().create("vertex", [ringIndex.getValue(), 0]);
+				service.setInsertIndex(index);
+				service.setEditingState("inserting");
+
+			}
+
+			function registerDeleteHole() {
+				factory = new org.geomajas.plugin.editing.handler.GeometryHandlerFactory();
+				factory.setUpHandler(function(event) {
+					var index = factory.getIndex();
+					if (service.getIndexStateService().isMarkedForDeletion(index)) {
+						try {
+							service.remove([index]);
+						}
+						catch (e) {
+							log("Error occurred while deleting the inner ring: " + e.getMessage());
+						}
+					}
+				});
+				factory.setMouseOverHandler(function(event) {
+					var index = factory.getIndex();
+					var geometryType = service.getIndexService().getGeometryType(service.getGeometry(), index);
+					if (geometryType == "LinearRing") {
+						if (service.getIndexService().getValue(index) > 0) {
+							// Only inner rings must be marked. The outer shell can remain as-is.
+							service.getIndexStateService().markForDeletionBegin([index]);
+						}
+					}
+				});
+				factory.setMouseOutHandler(function(event) {
+					var index = factory.getIndex();
+					if (service.getIndexStateService().isMarkedForDeletion(index)) {
+						service.getIndexStateService().markForDeletionEnd([index]);
+					}
+				});
+				editor.getRenderer().addGeometryHandlerFactory(factory);
+				editor.getRenderer().redraw();
+			}
+
+			function unRegisterDeleteHole() {
+				if(factory) {
+					editor.getRenderer().removeGeometryHandlerFactory(factory);
+					editor.getRenderer().redraw();
+				}
+			}
+
+			function log(txt) {
+				while($('#log')[0].scrollHeight >= $('#js-map-element').height() - 260) {
+					$('#log li:last-child').remove();
+				}
+
+				$('#log li').removeClass('first-log-item');
+				$("#log").prepend("<li class='first-log-item log-item'>" + txt  + "</li>");
+			}
+		</script>
+
+		<script>
+
+			$(document).ready(function() {
+
+				$('#drawPolygon').click(function(){
+					$(this).addClass('active');
+					drawPolygon();
+				});
+
+				$('#insertHole').click(function(){
+					if ($('#drawPolygon').hasClass('active')) {
+						insertHole()
+					} else {
+						log("There is no geometry on the map.");
+					}
+				});
+
+				$('#holeDeletion').click(function(){
+					if ($('#drawPolygon').hasClass('active')) {
+						if ($(this).hasClass('active')) {
+							$(this).removeClass('active');
+							$(this).find('a').text('Activate hole deletion');
+							unRegisterDeleteHole();
+						} else {
+							$(this).addClass('active');
+							$(this).find('a').text('Deactivate hole deletion');
+							registerDeleteHole();
+						}
+					} else {
+						log("There is no geometry on the map.");
+					}
+				});
+
+				$('#cancel').click(function(){
+					$('.filter li').removeClass('active');
+					cancel();
+				});
+
+				$('#undo').click(function(){
+					undo()
+				});
+
+				$('#redo').click(function(){
+					redo()
+				});
+
+			});
+
+		</script>
+
+	</body>
+
+</html>

@@ -1,0 +1,94 @@
+/* QUERIES FOR IPAD/TABLETPC  PORTRAIT AND LANDSSCAPE */
+@media only screen and (max-width: 1024px), only screen and (min-device-width: 768px) and (max-device-width: 1024px) {
+
+/* Headings
+---------------------------------------- */
+h1 { font-size: 50px; line-height: 58px; }
+h2 { font-size: 35px; line-height: 43px; }
+h3 { font-size: 24px; line-height: 30px; }
+h4 { font-size: 18px; line-height: 22px; }
+h5 { font-size: 16px; line-height: 19px; }
+h6 { font-size: 14px; line-height: 17px; }
+
+
+/* Forms
+---------------------------------------- */
+input[type=text], input[type=password] { width: 180px; }		/* padding issue (200 + 2*5 = 210) */
+textarea { width: 290px; height: 150px; max-width: 100%; }		/* padding issue (320 + 2*5 = 330) */
+
+/*----------------------------------------------
+General ID's or Classes
+------------------------------------------------*/
+.wrapper { width: 690px; }
+
+/*----------------------------------------------
+Entries
+------------------------------------------------*/
+.entry { width: 330px; }
+
+/*----------------------------------------------
+Columns
+------------------------------------------------*/
+.one_full { width: 100%; }
+.one_half  { width: 300px; }
+.one_third { width: 190px; }
+.two_third { width: 410px; }
+
+.last {	margin-right: 0px; }
+
+}
+
+
+/* QUERIES FOR IHONE/SMARTPHONES */
+@media only screen and (max-width: 767px), only screen and (max-device-width: 480px), only screen and (max-width: 767px) {
+
+/* Headings
+---------------------------------------- */
+h1 { font-size: 44px; line-height: 46px; }
+h2 { font-size: 26px; line-height: 34px; }
+h3 { font-size: 20px; line-height: 26px; }
+h4 { font-size: 18px; line-height: 22px; }
+h5 { font-size: 16px; line-height: 19px; }
+h6 { font-size: 14px; line-height: 17px; }
+
+/* Forms
+---------------------------------------- */
+input[type=text], input[type=password] { width: 230px;  max-width: 100%; }		/* padding issue (250 + 2*5 = 260) */
+textarea { width: 230px; height: 150px; max-width: 100%; }		/* padding issue (250 + 2*5 = 260) */
+
+/*----------------------------------------------
+General ID's or Classes
+------------------------------------------------*/
+.wrapper { width: 300px; float: none; }		/* visual width = 280 */
+
+/*----------------------------------------------
+Filter
+------------------------------------------------*/
+.filter li {
+    margin-bottom: 10px;
+}
+
+.filter {
+    width: 100% !important;
+}
+
+/*----------------------------------------------
+Entries
+------------------------------------------------*/
+.entry { width: 300px; }
+
+/*----------------------------------------------
+Columns
+------------------------------------------------*/
+.columnsection { margin: 0; padding: 0; margin-bottom: 60px;}
+.column { float: none; margin:0; padding:0; padding-top: 60px; }
+div .column:first-child { padding: 0; }
+.one_full { width: 240px; }
+.one_half  { width: 240px; }
+.one_third { width: 240px; }
+.two_third { width: 240px; }
+
+.last {	margin-right: 0px; }
+
+
+}

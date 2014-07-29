@@ -1,0 +1,433 @@
+/*----------------------------------------------
+Reset
+------------------------------------------------*/
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, font, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	outline: 0;
+	font-size: 100%; }
+
+ol, ul  { list-style: none; }
+
+:focus  { outline: 0; }
+
+input, textarea { -moz-appearance: none; -webkit-appearance: none; }
+
+/*----------------------------------------------
+HTML5 display definitions
+------------------------------------------------*/
+
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section, dialog {
+display: block;
+	}
+
+/* Corrects inline-block not defined in IE6/7/8 and FF3 */
+audio, canvas, video {
+display: inline-block;
+*display: inline;
+*zoom: 1;
+	}
+
+audio:not([controls]) {
+display: none;
+	}
+
+/* Ensures content is hidden from all presentations, including screenreaders */
+[hidden] {
+display: none;
+visibility: hidden;
+	}
+
+@import url("//hello.myfonts.net/count/2af0ed");
+@font-face {
+	font-family: 'DINNextLTPro-Medium';
+	src: url("font/2AF0ED_0_0.eot");
+	src: url("font/2AF0ED_0_0.eot?#iefix") format("embedded-opentype"), url("font/2AF0ED_0_0.woff") format("woff"), url("font/2AF0ED_0_0.ttf") format("truetype"); }
+@font-face {
+	font-family: 'DINNextLTPro-Regular';
+	src: url("font/2AF0ED_1_0.eot");
+	src: url("font/2AF0ED_1_0.eot?#iefix") format("embedded-opentype"), url("font/2AF0ED_1_0.woff") format("woff"), url("font/2AF0ED_1_0.ttf") format("truetype"); }
+
+
+/*----------------------------------------------
+Base structure
+------------------------------------------------*/
+html {
+	height: 100%;
+	font-size: 100%;
+	overflow-y: scroll; /* Force a scrollbar in non-IE */
+	-webkit-text-size-adjust: 100%; /* Prevent iOS text size adjust on orientation change without disabling user zoom */
+	-ms-text-size-adjust: 100%;
+	}
+
+body {
+	font-family: 'DINNextLTPro-Regular', sans-serif; font-size:14px; color:#999999; text-align: left; line-height:19px;
+	}
+::selection { background:#0581b5; color:#fff; }
+::-moz-selection { background:#0581b5; color:#fff; }
+::-webkit-selection { background:#0581b5; color:#fff; }
+
+
+/* Headings
+---------------------------------------- */
+h1, h2, h3, h4, h5, h6 {
+	font-family: 'DINNextLTPro-Regular', sans-serif;
+	color: #666666;
+	font-weight: normal;
+	text-shadow: 1px 1px 0px #ffffff;
+	}
+
+h4, h5, h6 {
+	font-family: 'DINNextLTPro-Regular', sans-serif;
+	}
+
+h1 { font-size: 60px; line-height: 68px; }
+h2 { font-size: 40px; line-height: 46px; }
+h3 { font-size: 24px; line-height: 30px; }
+h4 { font-size: 18px; line-height: 22px; }
+h5 { font-size: 16px; line-height: 20px; }
+h6 { font-size: 14px; line-height: 18px; }
+
+div h1, div h2, div h3, div h4, div h5, div h6 {
+	margin-top: 30px;
+	}
+
+div h1:first-child, div h2:first-child, div h3:first-child, div h4:first-child, div h5:first-child, div h6:first-child {
+	margin-top: 0px;
+	}
+
+/* Forms
+---------------------------------------- */
+input[type=text], input[type=password], input[type=search], textarea {
+	font-family: 'DINNextLTPro-Regular', sans-serif;
+	font-size: 16px;
+	background: #f0f0f0;
+	border: none;
+	line-height: 20px;
+	color: #343434;
+	padding: 10px 10px;
+	}
+
+input[type=text], input[type=search], input[type=password] { width: 350px; }
+
+/* Links
+---------------------------------------- */
+
+a, a:visited {
+	text-decoration: none;
+	color: #666666;
+	cursor: pointer;
+	}
+
+a:hover {
+	color: #0581b5;
+	}
+
+a.color {
+	text-decoration: none;
+	color: #0581b5;
+	}
+
+a.color:hover {
+	color: #666666;
+	}
+
+/* Others
+---------------------------------------- */
+
+strong, b, dt {
+	font-weight: bold;
+}
+
+i, dfn {
+	font-style: italic;
+	}
+
+sub, sup {
+	font-size: 0.625em;
+	line-height: 0;
+	position: relative;
+	vertical-align: baseline;
+	}
+
+sup {
+	top: -0.5em;
+	}
+
+sub {
+	bottom: -0.25em;
+	}
+
+/* paragraph rules */
+p {
+	margin-top: 30px;
+	}
+
+div p:first-child {
+	margin-top: 0px;
+	}
+
+blockquote {
+	margin-top: 30px;
+	padding-left: 35px;
+	}
+
+blockquote p {
+	border-left: 1px dashed #e5e5e5;
+	padding-left: 15px;
+	}
+
+div blockquote:first-child {
+	margin-top: 0px;
+	}
+
+address {
+	border: 1px dashed #e5e5e5;
+	padding: 15px;
+	margin-top: 30px;
+	}
+
+div address:first-child {
+	margin-top: 0px;
+	}
+
+pre {
+	border: 1px dashed #e5e5e5;
+	padding: 15px;
+	margin-top: 30px;
+	}
+
+div pre:first-child {
+	margin-top: 0px;
+	}
+
+
+/*----------------------------------------------
+General ID's or Classes
+------------------------------------------------*/
+#page {
+	position: relative;
+	overflow: hidden;
+	}
+
+.wrapper {
+	/*width: 900px;*/
+	width: 1200px;
+	margin: 0 auto;
+	position: relative;
+	}
+
+.clearfix:after {
+    content: "";
+    display: block;
+    clear: both;
+    visibility: hidden;
+    font-size: 0;
+    height: 0;
+}
+
+.clearfix {
+    *display: inline-block;
+    height: 1%;
+}
+
+.clear {
+	clear: both;
+	}
+
+.left_float {
+	float: left;
+	}
+
+.right_float {
+	float: right;
+	}
+
+.center_content {
+	text-align: center;
+}
+
+/*----------------------------------------------
+Header
+------------------------------------------------*/
+header, #header {
+	overflow: hidden;
+	margin-top: 10px;
+}
+
+.header_tagline {
+	background: transparent url(../images/seperator_main.png) repeat-x bottom left;
+	padding-bottom: 20px;
+	margin-bottom: 20px;
+	text-align: center;
+	}
+
+.header_tagline h1, .header_tagline h2, .header_tagline h3, .header_tagline h4, .header_tagline h5, .header_tagline h6 {
+	margin:  0 0 5px 0;
+	}
+
+/*----------------------------------------------
+Entries
+------------------------------------------------*/
+.entries {
+	width: 110%;
+	margin-bottom: 30px;
+	}
+
+.entry {
+	float: left;
+	/*width: 280px;*/
+	width: 380px;
+	background: #fff;
+	margin-right: 30px;
+	margin-bottom: 30px;
+	/*border-bottom: 1px solid #e0e0e0;*/
+	border: 1px solid #e0e0e0;
+	position: relative;
+	box-shadow:  rgba(0,0,0, 0.1) 0px 0px 3px;
+	-moz-box-shadow:  rgba(0,0,0, 0.1) 0px 0px 3px;
+	-webkit-box-shadow:  rgba(0,0,0, 0.1) 0px 0px 3px;
+	}
+
+.entry:hover {
+	cursor: pointer;
+}
+
+.entry .entry-headline {
+	border-left: 5px solid #0581b5;
+	padding-left: 15px;
+	margin: 20px 15px 20px 15px;
+}
+
+.entry .entry-title {
+	margin-bottom: 5px;
+}
+
+.entry-category {
+	font-size: 14px;
+	line-height: 12px;
+	text-transform: uppercase;
+}
+
+.entry .entry-info {
+	background: url(../images/seperator_default.png) repeat-x top left;
+	font-size: 14px;
+	line-height: 18px;
+	padding: 15px;
+}
+
+/*----------------------------------------------
+Filter
+------------------------------------------------*/
+.filter {
+	background: transparent url(../images/seperator_main.png) repeat-x bottom left;
+	padding-bottom: 20px;
+	margin-bottom: 20px;
+	padding-left: 0;
+  	text-align: center;
+	}
+
+.filter li {
+	display: inline-block;
+  	margin: 0px 10px;
+	}
+
+.filter li a {
+	border: 2px solid transparent;
+	  -webkit-border-radius: 14px;
+	  -moz-border-radius: 14px;
+	  -ms-border-radius: 14px;
+	  -o-border-radius: 14px;
+	  border-radius: 14px;
+	  color: #0581b5;
+	  display: block;
+	  font-size: 14px;
+	  font-weight: 500;
+	  padding: 5px 20px 3px 20px;
+	  position: relative;
+	  text-transform: uppercase;
+	  -webkit-transition: all 0.2s linear;
+	  -moz-transition: all 0.2s linear;
+	  -o-transition: all 0.2s linear;
+	  transition: all 0.2s linear;
+	}
+.filter li a:hover { text-decoration: none;}
+.filter li:hover a {
+  border-color: #0581b5;
+  color: #0581b5;
+}
+.filter li.active a {
+	background-color: #343434;
+    border-color: #343434;
+    color: #fff;
+}
+
+.filter li a:active {
+	background-color: #343434;
+	border-color: #343434;
+	color: #fff;
+}
+
+/*----------------------------------------------
+Search
+------------------------------------------------*/
+.search {
+	background: transparent url(../images/seperator_main.png) repeat-x bottom left;
+	padding-bottom: 20px;
+	margin-bottom: 20px;
+	text-align: center;
+}
+
+/*----------------------------------------------
+Columns
+------------------------------------------------*/
+.columnsection {
+	padding-bottom: 30px;
+	font-size: 16px;
+}
+
+.column {
+	float: left;
+	margin-right: 30px;
+}
+
+.one_half  { width: 550px; }
+
+.last {	margin-right: 0px; }
+
+.infoHeader li span {
+	display: inline-block;
+	width: 140px;
+	font-weight: 400;
+}
+
+.infoHeader li div {
+	display: inline;
+}
+
+#js-map-element {
+	width: 540px;
+	height: 480px;
+	border: 1px solid #0581b5;
+}
+
+.log-item {
+	padding-top: 8px;
+}
+
+.first-log-item {
+	color: #0581b5;
+}
+
+#indexMouseOverOut {
+	color: #0581b5;
+}

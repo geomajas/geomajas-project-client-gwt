@@ -171,7 +171,11 @@
 				<dependency>
 					<groupId>org.geomajas</groupId>
 					<artifactId>geomajas-jetty-runner</artifactId>
-					<version>${gwt-client-build-tools-version}</version>
+				</dependency>
+				<dependency>
+					<groupId>com.google.gwt</groupId>
+					<artifactId>gwt-dev</artifactId>
+					<scope>provided</scope>
 				</dependency>
 			</dependencies>
 		</profile>

@@ -61,7 +61,7 @@
 			<name>Frank Wynants</name>
 		</developer>
 	</developers>
-	
+
 	<modules>
 		<!-- Order of documentation is imported, these should be the first projects to build, if not scanning
 		will take a long time because it will scan compiled code -->
@@ -600,5 +600,5 @@
 		<gwt-exporter-version>2.4.0</gwt-exporter-version>
 		<gwt-client-build-tools-version>2.1.0</gwt-client-build-tools-version>
 	</properties>
-	
+
 </project>
