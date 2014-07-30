@@ -592,7 +592,7 @@
 	</profiles>
 
 	<properties>
-		<gwt-client-server-version>1.17.0-SNAPSHOT</gwt-client-server-version>
+		<gwt-client-server-version>1.16.1</gwt-client-server-version>
 		<gwt-client-gwt-version>2.5.1</gwt-client-gwt-version>
 		<gwt-client-gwt-maven-version>2.5.1</gwt-client-gwt-maven-version>
 		<gwt-client-common-gwt-version>2.1.0-M2</gwt-client-common-gwt-version>
