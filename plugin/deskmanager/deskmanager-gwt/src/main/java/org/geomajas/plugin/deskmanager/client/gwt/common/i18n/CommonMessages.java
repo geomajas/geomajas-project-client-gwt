@@ -57,4 +57,6 @@ public interface CommonMessages extends Messages {
 	String loadingScreenEditorName();
 	String loadingScreenGroupTitle();
 
+	String logoutButtonText();
+
 }

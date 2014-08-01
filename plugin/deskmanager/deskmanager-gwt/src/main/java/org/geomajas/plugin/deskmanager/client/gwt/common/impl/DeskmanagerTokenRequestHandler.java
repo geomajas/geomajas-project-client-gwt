@@ -11,6 +11,7 @@
 package org.geomajas.plugin.deskmanager.client.gwt.common.impl;
 
 import com.google.gwt.i18n.client.LocaleInfo;
+import com.google.gwt.user.client.Window;
 import org.geomajas.gwt.client.command.CommandCallback;
 import org.geomajas.gwt.client.command.GwtCommand;
 import org.geomajas.gwt.client.command.GwtCommandDispatcher;
@@ -18,6 +19,7 @@ import org.geomajas.gwt.client.command.TokenRequestHandler;
 import org.geomajas.gwt.client.command.event.TokenChangedEvent;
 import org.geomajas.gwt.client.command.event.TokenChangedHandler;
 import org.geomajas.plugin.deskmanager.client.gwt.common.HelperWindows;
+import org.geomajas.plugin.deskmanager.client.gwt.common.LogoutHandler;
 import org.geomajas.plugin.deskmanager.client.gwt.common.ProfileRequestCallback;
 import org.geomajas.plugin.deskmanager.command.security.dto.RetrieveRolesRequest;
 import org.geomajas.plugin.deskmanager.command.security.dto.RetrieveRolesResponse;
@@ -36,7 +38,8 @@ import java.util.Map;
  *
  * @author Oliver May
  */
-public class DeskmanagerTokenRequestHandler implements org.geomajas.gwt.client.command.TokenRequestHandler {
+public class DeskmanagerTokenRequestHandler implements org.geomajas.gwt.client.command.TokenRequestHandler,
+		LogoutHandler {
 
 	private TokenRequestHandler fallbackTokenRequestHandler;
 	private String geodeskId;
@@ -225,5 +228,15 @@ public class DeskmanagerTokenRequestHandler implements org.geomajas.gwt.client.c
 	 */
 	public void setUnauthorizedWindow(HelperWindows.UnauthorizedWindow unauthorizedWindow) {
 		this.unauthorizedWindow = unauthorizedWindow;
+	}
+
+	@Override
+	public void logout() {
+		if (fallbackTokenRequestHandler != null && fallbackTokenRequestHandler instanceof LogoutHandler) {
+			((LogoutHandler) fallbackTokenRequestHandler).logout();
+			return;
+		}
+		token = null;
+		Window.Location.reload();
 	}
 }

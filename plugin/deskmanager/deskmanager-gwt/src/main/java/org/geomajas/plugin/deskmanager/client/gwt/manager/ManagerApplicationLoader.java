@@ -10,12 +10,20 @@
  */
 package org.geomajas.plugin.deskmanager.client.gwt.manager;
 
-import com.smartgwt.client.widgets.layout.Layout;
+import com.google.gwt.core.client.GWT;
+import com.smartgwt.client.types.Alignment;
+import com.smartgwt.client.widgets.IButton;
+import com.smartgwt.client.widgets.events.ClickEvent;
+import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.layout.HLayout;
+import com.smartgwt.client.widgets.layout.Layout;
 import org.geomajas.annotation.Api;
 import org.geomajas.gwt.client.command.TokenRequestHandler;
+import org.geomajas.plugin.deskmanager.client.gwt.common.CommonClientBundle;
 import org.geomajas.plugin.deskmanager.client.gwt.common.GdmLayout;
 import org.geomajas.plugin.deskmanager.client.gwt.common.HasTokenRequestHandler;
+import org.geomajas.plugin.deskmanager.client.gwt.common.LogoutHandler;
+import org.geomajas.plugin.deskmanager.client.gwt.common.i18n.CommonMessages;
 import org.geomajas.plugin.deskmanager.client.gwt.common.impl.DeskmanagerTokenRequestHandler;
 import org.geomajas.plugin.deskmanager.client.gwt.geodesk.impl.LoadingScreen;
 import org.geomajas.plugin.deskmanager.client.gwt.manager.impl.ManagerInitializer;
@@ -34,6 +42,8 @@ public final class ManagerApplicationLoader implements HasTokenRequestHandler {
 
 	private static final ManagerApplicationLoader INSTANCE = new ManagerApplicationLoader();
 
+	private static final CommonMessages MESSAGES_COMMON = GWT.create(CommonMessages.class);
+
 	private LoadingScreen loadScreen;
 
 	private ProfileDto profile;
@@ -41,8 +51,15 @@ public final class ManagerApplicationLoader implements HasTokenRequestHandler {
 	private String securityToken;
 	private TokenRequestHandler fallbackHandler;
 
+	/**
+	 * Resource for the manager section.
+	 */
+	protected CommonClientBundle commonResource;
+
 	// Hide default constructor.
 	private ManagerApplicationLoader() {
+		commonResource = GWT.create(CommonClientBundle.class);
+		commonResource.css().ensureInjected();
 	}
 
 	/**
@@ -96,8 +113,9 @@ public final class ManagerApplicationLoader implements HasTokenRequestHandler {
 		loadScreen.draw();
 
 		ManagerInitializer initializer = new ManagerInitializer();
-		initializer.loadManagerApplication(new DeskmanagerTokenRequestHandler(RetrieveRolesRequest.MANAGER_ID,
-				fallbackHandler));
+		final DeskmanagerTokenRequestHandler deskmanagerTokenRequestHandler =
+				new DeskmanagerTokenRequestHandler(RetrieveRolesRequest.MANAGER_ID, fallbackHandler);
+		initializer.loadManagerApplication(deskmanagerTokenRequestHandler);
 		if (handler != null) {
 			initializer.addHandler(handler);
 		}
@@ -106,11 +124,9 @@ public final class ManagerApplicationLoader implements HasTokenRequestHandler {
 			public void initialized(ProfileDto pr) {
 				profile = pr;
 
-				if (null == header) {
-					parentLayout.addMember(new ManagerLayout());
-				} else {
-					parentLayout.addMember(new ManagerLayout(header));
-				}
+				ManagerLayout managerLayout = header != null ? new ManagerLayout(header) : new ManagerLayout();
+				managerLayout.addMember(createLogoutButtonLayout(deskmanagerTokenRequestHandler), 0);
+				parentLayout.addMember(managerLayout);
 
 				loadScreen.fadeOut();
 			}
@@ -139,5 +155,23 @@ public final class ManagerApplicationLoader implements HasTokenRequestHandler {
 	@Override
 	public void setTokenRequestHandler(TokenRequestHandler fallbackHandler) {
 		this.fallbackHandler = fallbackHandler;
+	}
+
+	private Layout createLogoutButtonLayout(final LogoutHandler logoutHandler) {
+		IButton logoutButton;
+		//--- logout button ---
+		logoutButton = new IButton(MESSAGES_COMMON.logoutButtonText());
+		// adding style to button does not work
+		//logoutButton.addStyleName(commonResource.css().logoutButton());
+		logoutButton.addClickHandler(new ClickHandler() {
+			public void onClick(ClickEvent event) {
+				logoutHandler.logout();
+			}
+		});
+		HLayout logoutLayout = new HLayout();
+		logoutLayout.setAlign(Alignment.RIGHT);
+		logoutLayout.addMember(logoutButton);
+		logoutLayout.setStyleName(commonResource.css().logoutPanel());
+		return logoutLayout;
 	}
 }
