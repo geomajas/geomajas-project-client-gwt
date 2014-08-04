@@ -22,6 +22,9 @@
 		<param-value>
 			<!-- framework context -->
 			classpath:org/geomajas/spring/geomajasContext.xml
+			
+            <!-- application specific cache location -->
+            classpath:org/geomajas/plugin/editing/jsapi/example/cacheLocation.xml
 
 			<!-- application context -->
 			WEB-INF/applicationContext.xml

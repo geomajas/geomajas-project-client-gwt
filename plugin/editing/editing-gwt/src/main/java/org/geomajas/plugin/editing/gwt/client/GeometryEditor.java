@@ -10,11 +10,11 @@
  */
 package org.geomajas.plugin.editing.gwt.client;
 
-import com.google.gwt.event.shared.EventBus;
 import org.geomajas.gwt.client.widget.MapWidget;
 import org.geomajas.plugin.editing.client.BaseGeometryEditor;
-import org.geomajas.plugin.editing.client.handler.AbstractGeometryIndexMapHandler;
 import org.geomajas.plugin.editing.gwt.client.gfx.StyleService;
+
+import com.google.gwt.event.shared.EventBus;
 
 /**
  * Extends {@link BaseGeometryEditor} to provide access to the {@link MapWidget} and {@link StyleService}.
@@ -37,11 +37,7 @@ public interface GeometryEditor extends BaseGeometryEditor {
 	 * @return the style service
 	 */
 	StyleService getStyleService();
-
-	void addVertexHandlerFactory(final AbstractGeometryIndexMapHandler handler);
-
-	void addEdgeHandlerFactory(AbstractGeometryIndexMapHandler handler);
-
+	
 	EventBus getGeometryEditorSpecificEventbus();
 
 }
