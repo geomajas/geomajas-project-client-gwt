@@ -15,7 +15,7 @@
 	<parent>
 		<groupId>org.geomajas</groupId>
 		<artifactId>geomajas-parent</artifactId>
-		<version>2.0.0</version>
+		<version>2.2.0</version>
 	</parent>
 
 	<groupId>org.geomajas.project</groupId>
@@ -61,7 +61,7 @@
 			<name>Frank Wynants</name>
 		</developer>
 	</developers>
-	
+
 	<modules>
 		<!-- Order of documentation is imported, these should be the first projects to build, if not scanning
 		will take a long time because it will scan compiled code -->
@@ -592,13 +592,13 @@
 	</profiles>
 
 	<properties>
-		<gwt-client-server-version>1.15.1</gwt-client-server-version>
+		<gwt-client-server-version>1.16.0-SNAPSHOT</gwt-client-server-version>
 		<gwt-client-gwt-version>2.5.1</gwt-client-gwt-version>
 		<gwt-client-gwt-maven-version>2.5.1</gwt-client-gwt-maven-version>
-		<gwt-client-common-gwt-version>2.0.0-M1</gwt-client-common-gwt-version>
+		<gwt-client-common-gwt-version>2.1.0-SNAPSHOT</gwt-client-common-gwt-version>
 		<gwt-client-smartgwt-version>4.1p-2014-04-10</gwt-client-smartgwt-version>
 		<gwt-exporter-version>2.4.0</gwt-exporter-version>
-		<gwt-client-build-tools-version>2.0.0</gwt-client-build-tools-version>
+		<gwt-client-build-tools-version>2.1.0</gwt-client-build-tools-version>
 	</properties>
-	
+
 </project>
