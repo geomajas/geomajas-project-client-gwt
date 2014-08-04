@@ -20,8 +20,8 @@ import org.geomajas.gwt.example.base.SamplePanel;
 import org.geomajas.gwt.example.base.SamplePanelFactory;
 import org.geomajas.gwt.example.client.sample.i18n.SampleMessages;
 import org.geomajas.gwt2.client.map.layer.tile.TileConfiguration;
-import org.geomajas.plugin.wms.client.layer.WmsLayerConfiguration;
-import org.geomajas.plugin.wms.client.service.WmsService;
+import org.geomajas.gwt2.plugin.wms.client.layer.WmsLayerConfiguration;
+import org.geomajas.gwt2.plugin.wms.client.service.WmsService;
 
 import com.google.gwt.core.client.GWT;
 import com.smartgwt.client.widgets.Canvas;

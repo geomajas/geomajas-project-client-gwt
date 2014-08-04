@@ -59,6 +59,9 @@
 						<li id="redo">
 							<a href="#">Redo</a>
 						</li>
+						<li id="suspend-resume">
+							<a href="#">Suspend service</a>
+						</li>
 					</ul>
 
 					<div class="columnsection">
@@ -282,6 +285,7 @@
 
 				$('#drawPolygon').click(function(){
 					$(this).addClass('active');
+					$('#suspend-resume').addClass('active');
 					drawPolygon();
 				});
 
@@ -322,6 +326,29 @@
 					redo()
 				});
 
+			});
+			$('#suspend-resume').click(function() {
+				if ($('#drawPolygon').hasClass('active')) {
+					if ($(this).hasClass('active')) {
+						$(this).removeClass('active');
+						$(this).find('a').text('Resume service');
+
+						if (service.isStarted() == true && service.isSuspended() == false) {
+							service.suspend();
+							log("Editing service has been suspended.");
+						}
+					} else {
+						$(this).addClass('active');
+						$(this).find('a').text('Suspend service');
+
+						if (service.isSuspended() == true) {
+							service.resume();
+							log("Editing service has been resumed.");
+						}
+					}
+				} else {
+					log("There is no geometry on the map.");
+				}
 			});
 
 		</script>

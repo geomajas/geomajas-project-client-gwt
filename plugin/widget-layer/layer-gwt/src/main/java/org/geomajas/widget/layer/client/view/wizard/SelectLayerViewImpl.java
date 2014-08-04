@@ -10,6 +10,12 @@
  */
 package org.geomajas.widget.layer.client.view.wizard;
 
+import java.util.List;
+
+import org.geomajas.gwt2.plugin.wms.client.capabilities.WmsLayerInfo;
+import org.geomajas.widget.layer.client.i18n.LayerMessages;
+import org.geomajas.widget.layer.client.presenter.CreateClientWmsPresenter;
+
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.ui.Widget;
 import com.smartgwt.client.types.ListGridFieldType;
@@ -18,11 +24,6 @@ import com.smartgwt.client.widgets.grid.ListGrid;
 import com.smartgwt.client.widgets.grid.ListGridField;
 import com.smartgwt.client.widgets.grid.ListGridRecord;
 import com.smartgwt.client.widgets.layout.VLayout;
-import org.geomajas.plugin.wms.client.capabilities.WmsLayerInfo;
-import org.geomajas.widget.layer.client.i18n.LayerMessages;
-import org.geomajas.widget.layer.client.presenter.CreateClientWmsPresenter;
-
-import java.util.List;
 
 /**
  * @author Jan Venstermans

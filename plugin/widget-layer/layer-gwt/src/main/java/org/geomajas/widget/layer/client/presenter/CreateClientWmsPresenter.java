@@ -10,11 +10,12 @@
  */
 package org.geomajas.widget.layer.client.presenter;
 
+import java.util.List;
+
+import org.geomajas.gwt2.plugin.wms.client.capabilities.WmsLayerInfo;
+
 import com.google.gwt.user.client.ui.Widget;
 import com.smartgwt.client.widgets.Canvas;
-import org.geomajas.plugin.wms.client.capabilities.WmsLayerInfo;
-
-import java.util.List;
 
 /**
  * Presenter for creating Client Wms layer via choosing a layer from a get capabilites list.
