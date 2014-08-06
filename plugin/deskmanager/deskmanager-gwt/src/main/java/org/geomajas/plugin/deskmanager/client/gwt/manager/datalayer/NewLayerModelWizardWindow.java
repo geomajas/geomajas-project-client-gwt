@@ -151,12 +151,14 @@ public class NewLayerModelWizardWindow extends Window implements Wizard {
 		next.addClickHandler(new ClickHandler() {
 
 			public void onClick(ClickEvent event) {
-				currentStep.stepFinished();
-				WizardStepPanel wsp = steps.get(currentStep.getNextStep());
-				if (wsp != null) {
-					wsp.initialize();
+				boolean finishedCorrectly = currentStep.stepFinished();
+				if (finishedCorrectly) {
+					WizardStepPanel wsp = steps.get(currentStep.getNextStep());
+					if (wsp != null) {
+						wsp.initialize();
+					}
+					setStep(wsp);
 				}
-				setStep(wsp);
 			}
 		});
 

@@ -109,16 +109,16 @@ public class DatabaseCapabilitiesStep extends WizardStepPanel {
 	}
 
 	@Override
-	public void stepFinished() {
+	public boolean stepFinished() {
 		VectorChooseLayerStep nextStep = (VectorChooseLayerStep) parent
 				.getStep(NewLayerModelWizardWindow.STEP_VECTOR_CHOOSE_LAYER);
 		if (nextStep != null) {
 			nextStep.setPreviousStep(NewLayerModelWizardWindow.STEP_DATABASE_PROPS);
 			nextStep.setData(getData());
-		} else {
-			Notify.error(MESSAGES.databaseCapabilitiesStepChooseVectorLayerNotFound());
-			//TODO: cleanup or turn into logging instruction? 
+			return true;
 		}
+		Notify.error(MESSAGES.databaseCapabilitiesStepChooseVectorLayerNotFound());
+		return false;
 	}
 
 	public Map<String, String> getData() {

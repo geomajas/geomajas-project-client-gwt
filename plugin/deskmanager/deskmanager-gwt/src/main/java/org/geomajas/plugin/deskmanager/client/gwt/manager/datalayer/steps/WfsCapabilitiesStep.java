@@ -10,81 +10,64 @@
  */
 package org.geomajas.plugin.deskmanager.client.gwt.manager.datalayer.steps;
 
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-
-import org.geomajas.gwt.client.util.Notify;
 import org.geomajas.plugin.deskmanager.client.gwt.manager.datalayer.NewLayerModelWizardWindow;
 import org.geomajas.plugin.deskmanager.client.gwt.manager.datalayer.Wizard;
-import org.geomajas.plugin.deskmanager.client.gwt.manager.datalayer.WizardStepPanel;
-import org.geomajas.plugin.deskmanager.client.gwt.manager.datalayer.panels.FormElement;
-import org.geomajas.plugin.deskmanager.client.gwt.manager.datalayer.panels.KeyValueForm;
-import org.geomajas.plugin.deskmanager.client.gwt.manager.i18n.ManagerMessages;
+import org.geomajas.plugin.deskmanager.client.gwt.manager.datalayer.util.GetCapabilitiesIllegalArgumentException;
+import org.geomajas.plugin.deskmanager.client.gwt.manager.datalayer.util.WizardUtil;
 import org.geomajas.plugin.deskmanager.command.manager.dto.GetGeotoolsVectorCapabilitiesRequest;
 import org.geomajas.plugin.deskmanager.domain.dto.DynamicLayerConfiguration;
 
-import com.google.gwt.core.client.GWT;
-import com.smartgwt.client.widgets.form.events.ItemChangedEvent;
-import com.smartgwt.client.widgets.form.events.ItemChangedHandler;
-
 /**
+ * Implementation of {@link AbstractCapabilitiesStep} for WFS layers.
+ *
  * @author Kristof Heirwegh
+ * @author Jan Venstermans
  */
-public class WfsCapabilitiesStep extends WizardStepPanel {
-
-	private static final ManagerMessages MESSAGES = GWT.create(ManagerMessages.class);
-
-	private KeyValueForm form;
-
-	private boolean first = true;
+public class WfsCapabilitiesStep extends AbstractCapabilitiesStep {
 
 	public WfsCapabilitiesStep(Wizard parent) {
-		super(NewLayerModelWizardWindow.STEP_WFS_PROPS, MESSAGES.wfsCapabilitiesStepNumbering() + " "  + 
-				MESSAGES.wfsCapabilitiesStepTitle(), false, parent);
-		setWindowTitle(MESSAGES.wfsCapabilitiesStepTitle());
-
-		List<FormElement> fields = new ArrayList<FormElement>();
-		fields.add(new FormElement(GetGeotoolsVectorCapabilitiesRequest.PROPERTY_WFS_CAPABILITIESURL,
-				MESSAGES.wfsCapabilitiesStepParametersCapabilitiesURL(), 
-				true));
-		fields.add(new FormElement(GetGeotoolsVectorCapabilitiesRequest.PROPERTY_WFS_USERNAME,
-				MESSAGES.wfsCapabilitiesStepParametersUserName(), 150));
-		fields.add(new FormElement(GetGeotoolsVectorCapabilitiesRequest.PROPERTY_WFS_PASSWORD,
-				MESSAGES.wfsCapabilitiesStepParametersPassword(),
-				KeyValueForm.ITEMTYPE_PASSWORD, false, 150, null, null));
-
-		form = new KeyValueForm();
-		form.setWidth100();
-		form.setColWidths("125", "*");
-		form.updateFields(fields);
-
-		form.addItemChangedHandler(new ItemChangedHandler() {
-
-			public void onItemChanged(ItemChangedEvent event) {
-				fireChangedEvent();
-			}
-		});
-		addMember(form);
+		super(parent, NewLayerModelWizardWindow.STEP_WFS_PROPS, MESSAGES.wfsCapabilitiesStepTitle(),
+				MESSAGES.wfsCapabilitiesStepNumbering());
 	}
 
 	@Override
-	public void initialize() {
-		Map<String, String> values = new LinkedHashMap<String, String>();
-		values.put(DynamicLayerConfiguration.PARAM_SOURCE_TYPE, DynamicLayerConfiguration.SOURCE_TYPE_WFS);
-		form.setData(values);
+	protected String getCapabilitiesUrlTextFieldName() {
+		return GetGeotoolsVectorCapabilitiesRequest.PROPERTY_WFS_CAPABILITIESURL;
 	}
 
 	@Override
-	public boolean isValid() {
-		// don't check first time, otherwise errors are immediately shown
-		if (first) {
-			first = !first;
-			return false;
-		} else {
-			return form.validate();
-		}
+	protected String getCapabilitiesUrlTextFieldTitle() {
+		return MESSAGES.wfsCapabilitiesStepParametersCapabilitiesURL();
+	}
+
+	@Override
+	protected String getCapabilitiesUrlTextFieldTooltip() {
+		return MESSAGES.wfsCapabilitiesStepParametersCapabilitiesURLTooltip();
+	}
+
+	@Override
+	protected String getUserNameTextFieldName() {
+		return GetGeotoolsVectorCapabilitiesRequest.PROPERTY_WFS_USERNAME;
+	}
+
+	@Override
+	protected String getUserNameTextFieldTitle() {
+		return MESSAGES.wfsCapabilitiesStepParametersUserName();
+	}
+
+	@Override
+	protected String getPasswordTextFieldName() {
+		return GetGeotoolsVectorCapabilitiesRequest.PROPERTY_WFS_PASSWORD;
+	}
+
+	@Override
+	protected String getPasswordTextFieldTitle() {
+		return MESSAGES.wfsCapabilitiesStepParametersPassword();
+	}
+
+	@Override
+	protected String getParamSourceType() {
+		return DynamicLayerConfiguration.SOURCE_TYPE_WFS;
 	}
 
 	@Override
@@ -93,29 +76,18 @@ public class WfsCapabilitiesStep extends WizardStepPanel {
 	}
 
 	@Override
-	public String getPreviousStep() {
-		return NewLayerModelWizardWindow.STEP_CHOOSE_TYPE;
+	protected String cannotFindNextStepErrorMessage() {
+		return MESSAGES.wfsCapabilitiesStepNextStepNotFound();
 	}
 
 	@Override
-	public void reset() {
-		form.reset();
+	protected String convertToFullCapabilitiesUrl(String inputUrl) throws GetCapabilitiesIllegalArgumentException {
+		return WizardUtil.constructWfsGetCapabilities(inputUrl);
 	}
 
 	@Override
-	public void stepFinished() {
-		VectorChooseLayerStep nextStep = (VectorChooseLayerStep) parent
-				.getStep(NewLayerModelWizardWindow.STEP_VECTOR_CHOOSE_LAYER);
-		if (nextStep != null) {
-			nextStep.setPreviousStep(NewLayerModelWizardWindow.STEP_WFS_PROPS);
-			nextStep.setData(getData());
-		} else {
-			Notify.error(MESSAGES.wfsCapabilitiesStepNextStepNotFound());
-			//TODO: cleanup or turn into logging instruction?
-		}
+	protected String getCapabilitiesUrlProperty() {
+		return GetGeotoolsVectorCapabilitiesRequest.PROPERTY_WFS_CAPABILITIESURL;
 	}
 
-	public Map<String, String> getData() {
-		return form.getData(true);
-	}
 }

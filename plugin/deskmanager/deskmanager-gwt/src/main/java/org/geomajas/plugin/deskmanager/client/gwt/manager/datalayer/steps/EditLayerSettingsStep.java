@@ -235,6 +235,7 @@ public class EditLayerSettingsStep extends WizardStepPanel {
 	}
 
 	@Override
-	public void stepFinished() {
+	public boolean stepFinished() {
+		return true;
 	}
 }

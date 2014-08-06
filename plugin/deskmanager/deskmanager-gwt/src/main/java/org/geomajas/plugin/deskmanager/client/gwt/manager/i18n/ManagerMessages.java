@@ -306,9 +306,12 @@ public interface ManagerMessages extends Messages {
 	String wfsCapabilitiesStepNumbering();
 	String wfsCapabilitiesStepTitle();
 	String wfsCapabilitiesStepParametersCapabilitiesURL();
+	String wfsCapabilitiesStepParametersCapabilitiesURLTooltip();
 	String wfsCapabilitiesStepParametersUserName();
 	String wfsCapabilitiesStepParametersPassword();
 	String wfsCapabilitiesStepNextStepNotFound();
+
+	String addLayerGetCapabilitiesUrlError(String urlKey, String urlObligedValue);
 
 	String vectorChooseLayerStepNumbering();
 	String vectorChooseLayerStepTitle();
@@ -335,6 +338,7 @@ public interface ManagerMessages extends Messages {
 	String wmsCapabilitiesStepNumbering();
 	String wmsCapabilitiesStepTitle();
 	String wmsCapabilitiesStepParametersCapabilitiesURL();
+	String wmsCapabilitiesStepParametersCapabilitiesURLTooltip();
 	String wmsCapabilitiesStepParametersUserName();
 	String wmsCapabilitiesStepParametersPassword();
 	String wmsCapabilitiesStepNextStepNotFound();
@@ -445,4 +449,6 @@ public interface ManagerMessages extends Messages {
 	String adminAssignAssignedUsersTooltip();
 
 	String securityGroupWarningTerritoryWithoutGeometryOnSave();
+
+
 }

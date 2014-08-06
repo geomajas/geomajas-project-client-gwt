@@ -99,7 +99,7 @@ public class ShapefileUploadStep extends WizardStepPanel {
 	}
 
 	@Override
-	public void stepFinished() {
+	public boolean stepFinished() {
 		final VectorEditLayerAttributesStep nextStep = (VectorEditLayerAttributesStep) parent
 				.getStep(NewLayerModelWizardWindow.STEP_VECTOR_EDIT_LAYER_ATTRIBUTES);
 		if (nextStep != null) {
@@ -122,9 +122,9 @@ public class ShapefileUploadStep extends WizardStepPanel {
 					});
 				}
 			});
-		} else {
-			Notify.error(MESSAGES.shapefileUploadStepNextStepNotFound());
-			//TODO: cleanup or turn into logging instruction?
+			return true;
 		}
+		Notify.error(MESSAGES.shapefileUploadStepNextStepNotFound());
+		return false;
 	}
 }

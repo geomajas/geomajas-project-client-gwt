@@ -121,14 +121,15 @@ public class WmsPreviewLayerStep extends WizardStepPanel {
 	}
 
 	@Override
-	public void stepFinished() {
+	public boolean stepFinished() {
 		EditLayerSettingsStep nextStep = (EditLayerSettingsStep) parent
 				.getStep(NewLayerModelWizardWindow.STEP_EDIT_LAYER_SETTINGS);
 		if (nextStep != null) {
 			nextStep.setData(layerConfiguration, info, NewLayerModelWizardWindow.STEP_WMS_PREVIEW_LAYER);
-		} else {
-			Notify.error(MESSAGES.wmsPreviewLayerStepNextStepNotFound());
+			return true;
 		}
+		Notify.error(MESSAGES.wmsPreviewLayerStepNextStepNotFound());
+		return false;
 	}
 
 	@Override

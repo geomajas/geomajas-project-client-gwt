@@ -14,8 +14,9 @@ import com.smartgwt.client.widgets.layout.VLayout;
 
 /**
  * @author Kristof Heirwegh
+ * @author Jan Venstermans
  */
-public abstract class WizardStepPanel extends VLayout {
+public abstract class WizardStepPanel extends VLayout implements WizardStep {
 
 	protected String name;
 
@@ -43,19 +44,6 @@ public abstract class WizardStepPanel extends VLayout {
 		this.setHeight100();
 	}
 
-	public abstract boolean isValid();
-
-	public abstract String getNextStep();
-
-	public abstract String getPreviousStep();
-
-	public abstract void reset();
-
-	/**
-	 * Called when user selects [next]. Prepare data for the next step here.
-	 */
-	public abstract void stepFinished();
-
 	/**
 	 * only called on nextstep, not on previousstep, to prevent reloading of data.
 	 */
@@ -63,29 +51,47 @@ public abstract class WizardStepPanel extends VLayout {
 	}
 
 	// -------------------------------------------------
+	// getters and setters
+	// -------------------------------------------------
 
+	@Override
 	public String getName() {
 		return name;
 	}
 
+	@Override
 	public void setName(String name) {
 		this.name = name;
 	}
 
+	@Override
 	public String getTitle() {
 		return title;
 	}
 
+	@Override
 	public void setTitle(String title) {
 		this.title = title;
 	}
 
+	@Override
 	public boolean isLastStep() {
 		return lastStep;
 	}
 
+	@Override
 	public void setLastStep(boolean lastStep) {
 		this.lastStep = lastStep;
+	}
+
+	@Override
+	public String getWindowTitle() {
+		return windowTitle;
+	}
+
+	@Override
+	public void setWindowTitle(String windowTitle) {
+		this.windowTitle = windowTitle;
 	}
 
 	// -------------------------------------------------
@@ -94,11 +100,4 @@ public abstract class WizardStepPanel extends VLayout {
 		parent.onChanged(this);
 	}
 
-	public String getWindowTitle() {
-		return windowTitle;
-	}
-
-	public void setWindowTitle(String windowTitle) {
-		this.windowTitle = windowTitle;
-	}
 }

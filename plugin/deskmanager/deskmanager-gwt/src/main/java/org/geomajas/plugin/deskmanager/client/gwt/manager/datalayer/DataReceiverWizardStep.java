@@ -8,22 +8,18 @@
  * by the Geomajas Contributors License Agreement. For full licensing
  * details, see LICENSE.txt in the project root.
  */
-package org.geomajas.plugin.deskmanager.client.gwt.manager;
+package org.geomajas.plugin.deskmanager.client.gwt.manager.datalayer;
 
-import com.google.gwt.resources.client.CssResource;
-
+import java.util.Map;
 
 /**
- * Css Resource for Manager.
- * 
+ * Extension of {@link WizardStep} for steps that can receive data.
+ *
  * @author Jan Venstermans
  */
-public interface ManagerCssResource extends CssResource {
+public interface DataReceiverWizardStep extends WizardStep {
 
-	@ClassName("gm-deskmanger-usersgroups-rolesButtonsPanel")
-	String usersGroupsRolesButtonsPanel();
+	void setPreviousStep(String currentStep);
 
-	@ClassName("gm-deskmanger-addLayer-getCapabilitiesUrl-errorLabel")
-	String addLayerGetCapabilitiesUrlErrorLabel();
-
+	void setData(Map<String, String> data);
 }

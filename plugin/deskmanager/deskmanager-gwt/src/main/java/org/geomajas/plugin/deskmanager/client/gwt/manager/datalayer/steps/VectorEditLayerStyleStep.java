@@ -109,14 +109,15 @@ public class VectorEditLayerStyleStep extends WizardStepPanel {
 	}
 
 	@Override
-	public void stepFinished() {
+	public boolean stepFinished() {
 		applyChanges(dvLayerConfig);
 		EditLayerSettingsStep nextStep = (EditLayerSettingsStep) parent
 				.getStep(NewLayerModelWizardWindow.STEP_EDIT_LAYER_SETTINGS);
 		if (nextStep != null) {
 			nextStep.setData(dvLayerConfig, null, NewLayerModelWizardWindow.STEP_VECTOR_EDIT_LAYER_STYLE);
-		} else {
-			Notify.error(MESSAGES.vectorEditLayerStyleStepNextStepNotFound());
+			return true;
 		}
+		Notify.error(MESSAGES.vectorEditLayerStyleStepNextStepNotFound());
+		return false;
 	}
 }
