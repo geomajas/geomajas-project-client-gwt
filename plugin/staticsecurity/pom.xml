@@ -57,6 +57,7 @@
 			</activation>
             <modules>
                 <module>staticsecurity-gwt-example</module>
+	            <module>staticsecurity-gwt-documentation</module>
             </modules>
 		</profile>
 		<profile>

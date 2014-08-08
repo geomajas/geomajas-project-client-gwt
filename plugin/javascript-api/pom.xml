@@ -53,6 +53,7 @@
 			</activation>
             <modules>
                 <module>javascript-api-gwt-example</module>
+	            <module>javascript-api-gwt-documentation</module>
             </modules>
 		</profile>
 		<profile>

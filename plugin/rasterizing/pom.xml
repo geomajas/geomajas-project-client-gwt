@@ -38,6 +38,7 @@
 			</activation>
             <modules>
                 <module>rasterizing-gwt-example</module>
+	            <module>rasterizing-gwt-documentation</module>
             </modules>
 		</profile>
 		<profile>

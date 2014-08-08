@@ -58,6 +58,7 @@
 			</activation>
             <modules>
                 <module>wms-gwt-example</module>
+	            <module>wms-gwt-documentation</module>
             </modules>
 		</profile>
 		<profile>

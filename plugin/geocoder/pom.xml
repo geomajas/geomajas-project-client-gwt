@@ -49,6 +49,7 @@
 			</activation>
             <modules>
                 <module>geocoder-gwt-example</module>
+	            <module>geocoder-gwt-documentation</module>
             </modules>
 		</profile>
 		<profile>

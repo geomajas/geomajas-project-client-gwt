@@ -36,6 +36,7 @@
 			</activation>
             <modules>
                 <module>reporting-gwt-example</module>
+	            <module>reporting-gwt-documentation</module>
             </modules>
 		</profile>
 		<profile>

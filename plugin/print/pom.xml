@@ -63,6 +63,7 @@
 			</activation>
             <modules>
                 <module>print-gwt-example</module>
+	            <module>print-gwt-documentation</module>
             </modules>
 		</profile>
 		<profile>

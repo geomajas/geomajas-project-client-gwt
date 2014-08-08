@@ -72,6 +72,7 @@
 			</activation>
             <modules>
                 <module>runtimeconfig-gwt-example</module>
+	            <module>runtimeconfig-gwt-documentation</module>
             </modules>
 		</profile>
 		<profile>

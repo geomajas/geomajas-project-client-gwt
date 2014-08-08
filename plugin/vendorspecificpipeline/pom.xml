@@ -47,6 +47,7 @@
 			</activation>
             <modules>
                 <module>vendorspecificpipeline-gwt-example</module>
+	            <module>vendorspecificpipeline-gwt-documentation</module>
             </modules>
 		</profile>
 		<profile>

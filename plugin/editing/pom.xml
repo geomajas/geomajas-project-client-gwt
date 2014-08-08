@@ -52,7 +52,10 @@
 			</activation>
             <modules>
                 <module>editing-gwt-example</module>
+	            <module>editing-gwt-documentation</module>
+
                 <module>editing-javascript-gwt-example</module>
+	            <module>editing-javascript-api-gwt-documentation</module>
             </modules>
 		</profile>
         <profile>

@@ -58,6 +58,7 @@
 			</activation>
             <modules>
                 <module>googlemaps-example</module>
+	            <module>googlemaps-documentation</module>
             </modules>
 		</profile>
 		<profile>
