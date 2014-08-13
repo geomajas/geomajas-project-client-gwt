@@ -62,27 +62,12 @@
 	<modules>
 		<module>runtimeconfig-gwt</module>
 		<module>runtimeconfig-gwt-example-jar</module>
+		<module>runtimeconfig-gwt-example</module>
+		<module>runtimeconfig-gwt-documentation</module>
+		<module>runtimeconfig-gwt-javadoc</module>
 	</modules>
 
 	<profiles>
-		<profile>
-			<id>full-build</id>
-			<activation>
-				<activeByDefault>true</activeByDefault>
-			</activation>
-            <modules>
-                <module>runtimeconfig-gwt-example</module>
-	            <module>runtimeconfig-gwt-documentation</module>
-            </modules>
-		</profile>
-		<profile>
-			<id>skipDocs</id>
-			<activation>
-				<property>
-					<name>skipDocs</name>
-				</property>
-			</activation>
-		</profile>
 		<profile>
 			<id>m2e</id>
 			<activation>

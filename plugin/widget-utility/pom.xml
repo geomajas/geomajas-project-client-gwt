@@ -38,27 +38,12 @@
 		<module>utility-common-gwt</module>
 		<module>utility-gwt</module>
 		<module>utility-gwt-example-jar</module>
+		<module>utility-documentation</module>
+		<module>utility-gwt-example</module>
+		<module>utility-gwt-javadoc</module>
 	</modules>
 
 	<profiles>
-		<profile>
-			<id>full-build</id>
-			<activation>
-				<activeByDefault>true</activeByDefault>
-			</activation>
-			<modules>
-				<module>utility-documentation</module>
-                <module>utility-gwt-example</module>
-			</modules>
-		</profile>
-		<profile>
-			<id>skipDocs</id>
-			<activation>
-				<property>
-					<name>skipDocs</name>
-				</property>
-			</activation>
-		</profile>
 		<profile>
 			<id>m2e</id>
 			<activation>

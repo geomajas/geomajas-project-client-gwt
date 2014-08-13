@@ -39,28 +39,13 @@
 		<module>layer</module>
 		<module>layer-gwt</module>
 		<module>layer-editor</module>
+		<module>layer-gwt-example</module>
+		<module>layer-gwt-example-jar</module>
+		<module>layer-documentation</module>
+		<module>layer-gwt-javadoc</module>
 	</modules>
 
 	<profiles>
-		<profile>
-			<id>full-build</id>
-			<activation>
-				<activeByDefault>true</activeByDefault>
-			</activation>
-			<modules>
-                <module>layer-gwt-example</module>
-                <module>layer-gwt-example-jar</module>
-				<module>layer-documentation</module>
-			</modules>
-		</profile>
-		<profile>
-			<id>skipDocs</id>
-			<activation>
-				<property>
-					<name>skipDocs</name>
-				</property>
-			</activation>
-		</profile>
 		<profile>
 			<id>m2e</id>
 			<activation>

@@ -26,23 +26,6 @@
 	<name>Geomajas GWT client: Plugin Layer Geotools - Documentation</name>
 	<description>Geomajas GWT client: Plugin Layer Geotools - Documentation</description>
 
-	<profiles>
-		<profile>
-			<id>skipDocs</id>
-			<activation>
-				<property>
-					<name>skipDocs</name>
-				</property>
-			</activation>
-		</profile>
-		<profile>
-			<id>documentation</id>
-			<activation>
-				<activeByDefault>true</activeByDefault>
-			</activation>
-		</profile>
-	</profiles>
-
 	<properties>
 		<listing.sourceDirectory>${basedir}/..</listing.sourceDirectory>
 	</properties>

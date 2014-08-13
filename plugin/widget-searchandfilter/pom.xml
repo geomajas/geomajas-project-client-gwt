@@ -50,27 +50,12 @@
 		<module>searchandfilter-gwt</module>
 		<module>searchandfilter-editor</module>
 		<module>searchandfilter-ribbon-gwt</module>
+		<module>searchandfilter-documentation</module>
+		<module>searchandfilter-gwt-example</module>
+		<module>searchandfilter-gwt-javadoc</module>
 	</modules>
 
 	<profiles>
-		<profile>
-			<id>full-build</id>
-			<activation>
-				<activeByDefault>true</activeByDefault>
-			</activation>
-			<modules>
-				<module>searchandfilter-documentation</module>
-                <module>searchandfilter-gwt-example</module>
-            </modules>
-		</profile>
-		<profile>
-			<id>skipDocs</id>
-			<activation>
-				<property>
-					<name>skipDocs</name>
-				</property>
-			</activation>
-		</profile>
 		<profile>
 			<id>m2e</id>
 			<activation>
