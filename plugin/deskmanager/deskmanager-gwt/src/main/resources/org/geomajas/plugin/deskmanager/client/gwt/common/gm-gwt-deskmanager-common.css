@@ -1,0 +1,7 @@
+@external gm-*;
+.gm-deskmanger-logout-panel {
+    width: 100%;
+    margin-top: 5px;
+    overflow: visible;
+    height: 0px;
+}
