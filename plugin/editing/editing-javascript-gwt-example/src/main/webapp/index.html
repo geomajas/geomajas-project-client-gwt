@@ -75,7 +75,7 @@
                 styleService.getEdgeStyle().setStrokeColor("red");
                 styleService.getPointSymbolizerShapeAndSize().setShape("circle");
                 styleService.getPointSymbolizerShapeAndSize().setSize(6);
-
+                styleService.setCloseRingWhileInserting(true);
                 factory = new org.geomajas.plugin.editing.handler.GeometryHandlerFactory();
 			}
 
@@ -102,6 +102,18 @@
 					service.redo();
 				} else {
 					alert("No REDO operation available.");
+				}
+			}
+			
+			function suspend() {
+				if (service.isStarted() && !service.isSuspended()) {
+					service.suspend();
+				}
+			}
+
+			function resume() {
+				if (service.isSuspended()) {
+					service.resume();
 				}
 			}
 
@@ -181,28 +193,32 @@
                 });
 				infoHandler.register();
 				labelHandler.register();
+				
+				edgeMouseOverHandler = new org.geomajas.plugin.editing.handler.EdgeHandlerFactory();
+				vertexMouseOverHandler = new org.geomajas.plugin.editing.handler.VertexHandlerFactory();
 
-                indexMouseOverOutHandler = new org.geomajas.plugin.editing.handler.InfoMouseOverOutHandler(editor);
-                indexMouseOverOutHandler.addVertexMouseOverListener(function(geometryIndex) {
-                    if(geometryIndex) {
-                        document.getElementById("indexMouseOverOut").innerHTML = "mouse over vertex";
-                    }
-                });
-                indexMouseOverOutHandler.addVertexMouseOutListener(function(geometryIndex) {
-                    if(geometryIndex) {
-                        document.getElementById("indexMouseOverOut").innerHTML = "";
-                    }
-                });
-                indexMouseOverOutHandler.addEdgeMouseOverListener(function(geometryIndex) {
+				edgeMouseOverHandler.setMouseOverHandler(function(geometryIndex) {
                     if(geometryIndex) {
                         document.getElementById("indexMouseOverOut").innerHTML = "mouse over edge";
                     }
                 });
-                indexMouseOverOutHandler.addEdgeMouseOutListener(function(geometryIndex) {
+				edgeMouseOverHandler.setMouseOutHandler(function(geometryIndex) {
                     if(geometryIndex) {
                         document.getElementById("indexMouseOverOut").innerHTML = "";
                     }
                 });
+				vertexMouseOverHandler.setMouseOverHandler(function(geometryIndex) {
+                    if(geometryIndex) {
+                        document.getElementById("indexMouseOverOut").innerHTML = "mouse over vertex";
+                    }
+                });
+				vertexMouseOverHandler.setMouseOutHandler(function(geometryIndex) {
+                    if(geometryIndex) {
+                        document.getElementById("indexMouseOverOut").innerHTML = "";
+                    }
+                });
+				editor.getRenderer().addVertexHandlerFactory(vertexMouseOverHandler);
+				editor.getRenderer().addEdgeHandlerFactory(edgeMouseOverHandler);
 
 				service.start(geometry);
 				service.addEmptyChild();
@@ -244,6 +260,7 @@
 				var index = service.getIndexService().create("vertex", [ringIndex.getValue(), 0]);
 				service.setInsertIndex(index);
 				service.setEditingState("inserting");
+				alert('insertHole done');
 			}
 			
 			function deletefirstHole() {
@@ -282,13 +299,13 @@
 						service.getIndexStateService().markForDeletionEnd([index]);
 					}
 				});
-				EditingHandlerRegistry().addGeometryHandlerFactory(factory);	
+				editor.getRenderer().addGeometryHandlerFactory(factory);	
 				editor.getRenderer().redraw();
 			}
 
 			function unRegisterDeleteHole() {
 				if(factory) {
-					EditingHandlerRegistry().removeGeometryHandlerFactory(factory);
+					editor.getRenderer().removeGeometryHandlerFactory(factory);
 					editor.getRenderer().redraw();
 				}
 			}
@@ -370,6 +387,8 @@
 						<button id="cancel" onclick="cancel()">Cancel</button><br/>
 						<button id="undo" onclick="undo()">Undo</button><br/>
 						<button id="redo" onclick="redo()">Redo</button>
+						<button id="suspend" onclick="suspend()">Suspend</button><br/>
+						<button id="resume" onclick="resume()">Resume</button>
                         <div>
                             <h6 id="infoHeader"></h6>
                             <table>
