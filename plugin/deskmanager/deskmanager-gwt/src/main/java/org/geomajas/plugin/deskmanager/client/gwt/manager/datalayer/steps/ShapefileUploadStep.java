@@ -11,6 +11,10 @@
 package org.geomajas.plugin.deskmanager.client.gwt.manager.datalayer.steps;
 
 import com.google.gwt.core.client.GWT;
+import com.smartgwt.client.types.Alignment;
+import com.smartgwt.client.types.Overflow;
+import com.smartgwt.client.widgets.Dialog;
+import com.smartgwt.client.widgets.HTMLFlow;
 import com.smartgwt.client.widgets.form.events.ItemChangedEvent;
 import com.smartgwt.client.widgets.form.events.ItemChangedHandler;
 import org.geomajas.gwt.client.util.Notify;
@@ -39,6 +43,8 @@ public class ShapefileUploadStep extends WizardStepPanel {
 	private boolean first = true;
 
 	private Map<String, String> connectionProps = new LinkedHashMap<String, String>();
+
+	private Dialog loadDialog;
 
 	public ShapefileUploadStep(Wizard parent) {
 		super(NewLayerModelWizardWindow.STEP_SHAPEFILE_UPLOAD, MESSAGES.shapefileUploadStepNumbering() + " "  + 
@@ -106,10 +112,12 @@ public class ShapefileUploadStep extends WizardStepPanel {
 			form.upload(new DataCallback<String>() {
 
 				public void execute(String fileId) {
+					showProcessingDialog();
 
 					ManagerCommandService.processShapeFileUpload(fileId, new DataCallback<ProcessShapeFileResponse>() {
 						@Override
 						public void execute(ProcessShapeFileResponse commandResult) {
+							hideProcessingDialog();
 							String result = commandResult.getLayerName();
 							nextStep.setPreviousStep(NewLayerModelWizardWindow.STEP_SHAPEFILE_UPLOAD);
 							if (result != null && !"".equals(result)) {
@@ -127,4 +135,31 @@ public class ShapefileUploadStep extends WizardStepPanel {
 		Notify.error(MESSAGES.shapefileUploadStepNextStepNotFound());
 		return false;
 	}
+
+	private void showProcessingDialog() {
+		if (loadDialog == null) {
+			HTMLFlow msg = new HTMLFlow(MESSAGES.uploadShapefileUploadingFile());
+			msg.setWidth100();
+			msg.setHeight100();
+			msg.setAlign(Alignment.CENTER);
+			msg.setPadding(20);
+			msg.setOverflow(Overflow.HIDDEN);
+			loadDialog = new Dialog();
+			loadDialog.setShowCloseButton(false);
+			loadDialog.setWidth(330);
+			loadDialog.setHeight(100);
+			loadDialog.setIsModal(true);
+			loadDialog.setShowModalMask(true);
+			loadDialog.setTitle(MESSAGES.titlePleaseWait());
+			loadDialog.addItem(msg);
+		}
+		loadDialog.show();
+	}
+
+	private void hideProcessingDialog() {
+		if (loadDialog != null) {
+			loadDialog.hide();
+		}
+	}
+
 }
