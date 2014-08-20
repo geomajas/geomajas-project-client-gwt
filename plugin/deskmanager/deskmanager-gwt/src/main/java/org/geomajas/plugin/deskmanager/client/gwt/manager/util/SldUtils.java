@@ -73,6 +73,13 @@ public final class SldUtils {
 	private SldUtils() {
 	}
 
+	/**
+	 * Create a simple SLD style.
+	 *
+	 * @param dvc the dynamic vector layer configuration
+	 * @param properties configuration properties
+	 * @return the simple sld style
+	 */
 	public static UserStyleInfo createSimpleSldStyle(DynamicVectorLayerConfiguration dvc, 
 			Map<String, Object> properties) {
 		UserStyleInfo usi = new UserStyleInfo();
@@ -81,83 +88,65 @@ public final class SldUtils {
 		FeatureTypeStyleInfo fsi = new FeatureTypeStyleInfo();
 		fsi.setName(usi.getTitle());
 		usi.getFeatureTypeStyleList().add(fsi);
-		if (dvc.getVectorLayerInfo().getLayerType().equals(LayerType.GEOMETRY)) {
-			String geometryName = dvc.getVectorLayerInfo().getFeatureInfo().getGeometryType().getName();
-			RuleInfo pointRule = createRule(LayerType.POINT, properties);
-			pointRule.setName(pointRule.getName() != null ? pointRule.getName() + "_point" : null);
-			pointRule.setTitle(pointRule.getTitle() != null ? pointRule.getTitle() + "_point" : null);
-			pointRule.setChoice(createChoice(geometryName,
-					new String[] {Geometry.POINT, Geometry.MULTI_POINT}));
-			fsi.getRuleList().add(pointRule);
+		String geometryName = dvc.getVectorLayerInfo().getFeatureInfo().getGeometryType().getName();
 
-			RuleInfo lineRule = createRule(LayerType.LINESTRING, properties);
-			lineRule.setName(lineRule.getName() != null ? lineRule.getName() + "_line" : null);
-			lineRule.setTitle(lineRule.getTitle() != null ? lineRule.getTitle() + "_line" : null);
-			lineRule.setChoice(createChoice(geometryName,
-					new String[] {Geometry.LINE_STRING, Geometry.MULTI_LINE_STRING}));
-			fsi.getRuleList().add(lineRule);
+		List<RuleInfo> ri = createRules(dvc.getVectorLayerInfo().getLayerType(), properties, geometryName);
+		fsi.getRuleList().addAll(ri);
 
-			RuleInfo polygonRule = createRule(LayerType.POLYGON, properties);
-			polygonRule.setName(polygonRule.getName() != null ? polygonRule.getName() + "_polygon" : null);
-			polygonRule.setTitle(polygonRule.getTitle() != null ? polygonRule.getTitle() + "_polygon" : null);
-			polygonRule.setChoice(createChoice(geometryName,
-					new String[] {Geometry.POLYGON, Geometry.MULTI_POLYGON}));
-			fsi.getRuleList().add(polygonRule);
-		} else {
-			RuleInfo ri = createRule(dvc.getVectorLayerInfo().getLayerType(), properties);
-			fsi.getRuleList().add(ri);
-		}
 		return usi;
 	}
 
 	/**
-	 * Leave null what you don't need/want defaults will be used.
+	 * Create one or more rules for the given layer type and properties.
+	 * (Multi)Point, linestring and polygons return a single rule, geometry returns three rules.
 	 * 
-	 * @param type
-	 * @param properties
-	 * @return
+	 * @param type the layer type
+	 * @param properties the configuration properties
+	 * @param geometryName the name of the geometry attribute
+	 * @return a list of rules
 	 */
-	public static RuleInfo createRule(LayerType type, Map<String, Object> properties) {
-		RuleInfo rule = new RuleInfo();
-		rule.setName(getPropValue(STYLENAME, properties, "default"));
-		List<SymbolizerTypeInfo> symbolizerList = new ArrayList<SymbolizerTypeInfo>();
-		SymbolizerTypeInfo symbolizer = null;
+	public static List<RuleInfo> createRules(LayerType type, Map<String, Object> properties, String geometryName) {
+
+		List<RuleInfo> rules = new ArrayList<RuleInfo>();
 
 		switch (type) {
 		case POINT:
 		case MULTIPOINT:
-			symbolizer = new PointSymbolizerInfo();
-			GraphicInfo gi = new GraphicInfo();
-			((PointSymbolizerInfo) symbolizer).setGraphic(gi);
-			gi.setSize(createSize(properties));
-			List<GraphicInfo.ChoiceInfo> list = new ArrayList<GraphicInfo.ChoiceInfo>();
-			GraphicInfo.ChoiceInfo choiceInfoGraphic = new GraphicInfo.ChoiceInfo();
-			list.add(choiceInfoGraphic);
-			((PointSymbolizerInfo) symbolizer).getGraphic().setChoiceList(list);
-			choiceInfoGraphic.setMark(createMark(properties));
-
+			rules.add(createPointRule(properties));
 			break;
 		case LINESTRING:
 		case MULTILINESTRING:
-			symbolizer = new LineSymbolizerInfo();
-			((LineSymbolizerInfo) symbolizer).setStroke(createStroke(properties));
-
+			rules.add(createLineStringRule(properties));
 			break;
 		case POLYGON:
 		case MULTIPOLYGON:
-			symbolizer = new PolygonSymbolizerInfo();
-			((PolygonSymbolizerInfo) symbolizer).setFill(createFill(properties));
-			((PolygonSymbolizerInfo) symbolizer).setStroke(createStroke(properties));
+			rules.add(createPolygonRule(properties));
+			break;
+		case GEOMETRY:
+			RuleInfo pointRule = createRules(LayerType.POINT, properties, geometryName).get(0);
+			pointRule.setName(pointRule.getName() + "_point");
+			pointRule.setChoice(createChoice(geometryName,
+					new String[] {Geometry.POINT, Geometry.MULTI_POINT}));
+			rules.add(pointRule);
 
+			RuleInfo lineRule = createRules(LayerType.LINESTRING, properties, geometryName).get(0);
+			lineRule.setName(lineRule.getName() + "_line");
+			lineRule.setChoice(createChoice(geometryName,
+					new String[]{Geometry.LINE_STRING, Geometry.MULTI_LINE_STRING}));
+			rules.add(lineRule);
+
+			RuleInfo polygonRule = createRules(LayerType.POLYGON, properties, geometryName).get(0);
+			polygonRule.setName(polygonRule.getName() + "_polygon");
+			polygonRule.setChoice(createChoice(geometryName,
+					new String[] {Geometry.POLYGON, Geometry.MULTI_POLYGON}));
+			rules.add(polygonRule);
 			break;
 		default:
 			GWT.log("unsupported geometrytype");
 		}
 
-		symbolizerList.add(symbolizer);
-		rule.setSymbolizerList(symbolizerList);
 
-		// -- set a textsymbolizer
+		// -- Add textsymbolizers
 		if (properties.containsKey(LABELFEATURENAME)) {
 			TextSymbolizerInfo tsi = new TextSymbolizerInfo();
 			tsi.setLabel(new LabelInfo());
@@ -165,13 +154,51 @@ public final class SldUtils {
 			pni.setValue(properties.get(LABELFEATURENAME).toString());
 			tsi.getLabel().getExpressionList().add(pni);
 			tsi.getLabel().setValue("\n  ");
-			symbolizerList.add(tsi);
+			for (RuleInfo rule : rules) {
+				rule.getSymbolizerList().add(tsi);
+			}
 		}
 
+		return rules;
+	}
+
+	private static RuleInfo createPolygonRule(Map<String, Object> properties) {
+		RuleInfo rule = new RuleInfo();
+		rule.setName(getPropValue(STYLENAME, properties, "default"));
+		PolygonSymbolizerInfo symbolizer = new PolygonSymbolizerInfo();
+		symbolizer.setFill(createFill(properties));
+		symbolizer.setStroke(createStroke(properties));
+		rule.getSymbolizerList().add(symbolizer);
 		return rule;
 	}
 
-	public static Map<String, Object> getProperties(ClientVectorLayerInfo cvli) {
+	private static RuleInfo createLineStringRule(Map<String, Object> properties) {
+		RuleInfo rule = new RuleInfo();
+		rule.setName(getPropValue(STYLENAME, properties, "default"));
+		LineSymbolizerInfo symbolizer = new LineSymbolizerInfo();
+		symbolizer.setStroke(createStroke(properties));
+		rule.getSymbolizerList().add(symbolizer);
+		return rule;
+	}
+
+	private static RuleInfo createPointRule(Map<String, Object> properties) {
+		RuleInfo rule = new RuleInfo();
+		rule.setName(getPropValue(STYLENAME, properties, "default"));
+		SymbolizerTypeInfo symbolizer = new PointSymbolizerInfo();
+		GraphicInfo gi = new GraphicInfo();
+		((PointSymbolizerInfo) symbolizer).setGraphic(gi);
+		gi.setSize(createSize(properties));
+		List<ChoiceInfo> list = new ArrayList<ChoiceInfo>();
+		ChoiceInfo choiceInfoGraphic = new ChoiceInfo();
+		list.add(choiceInfoGraphic);
+		((PointSymbolizerInfo) symbolizer).getGraphic().setChoiceList(list);
+		choiceInfoGraphic.setMark(createMark(properties));
+
+		rule.getSymbolizerList().add(symbolizer);
+		return rule;
+	}
+
+	private static Map<String, Object> getProperties(ClientVectorLayerInfo cvli) {
 		return getProperties(cvli.getNamedStyleInfo().getUserStyle());
 	}
 
@@ -180,7 +207,7 @@ public final class SldUtils {
 	 * 
 	 * @return map of properties
 	 */
-	public static Map<String, Object> getProperties(UserStyleInfo usi) {
+	private static Map<String, Object> getProperties(UserStyleInfo usi) {
 		Map<String, Object> props = new HashMap<String, Object>();
 		if (usi != null) {
 			if (usi.getTitle() != null) {
@@ -208,7 +235,7 @@ public final class SldUtils {
 
 	// ---------------------------------------------------------------
 
-	public static String getPropValue(String propName, Map<String, Object> properties, String defaultValue) {
+	private static String getPropValue(String propName, Map<String, Object> properties, String defaultValue) {
 		if (properties.containsKey(propName)) {
 			return (String) properties.get(propName);
 		} else {
@@ -216,7 +243,7 @@ public final class SldUtils {
 		}
 	}
 
-	public static Float getPropValue(String propName, Map<String, Object> properties, Float defaultValue) {
+	private static Float getPropValue(String propName, Map<String, Object> properties, Float defaultValue) {
 		if (properties.containsKey(propName)) {
 			return (Float) properties.get(propName);
 		} else {
