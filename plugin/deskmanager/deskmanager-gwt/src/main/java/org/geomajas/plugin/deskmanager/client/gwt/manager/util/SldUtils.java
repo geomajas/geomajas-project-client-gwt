@@ -127,7 +127,9 @@ public final class SldUtils {
 
 			break;
 		default:
-			GWT.log("unsupported geometrytype");
+			GWT.log("unsupported geometrytype, using line symbolizer");
+			symbolizer = new LineSymbolizerInfo();
+			((LineSymbolizerInfo) symbolizer).setStroke(createStroke(properties));
 		}
 
 		symbolizerList.add(symbolizer);
