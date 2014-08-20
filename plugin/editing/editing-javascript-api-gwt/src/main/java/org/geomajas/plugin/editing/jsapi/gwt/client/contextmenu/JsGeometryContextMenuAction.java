@@ -11,16 +11,17 @@
 package org.geomajas.plugin.editing.jsapi.gwt.client.contextmenu;
 
 import org.geomajas.annotation.Api;
-import org.geomajas.plugin.editing.gwt.client.contextmenu.GeometryContextMenuAction;
 import org.timepedia.exporter.client.Export;
 import org.timepedia.exporter.client.ExportClosure;
 import org.timepedia.exporter.client.ExportPackage;
 import org.timepedia.exporter.client.Exportable;
 
 /**
- * Exports {@link GeometryContextMenuAction} as a closure. Pass a function and receive a context to base the action upon.
+ * Exports {@link org.geomajas.plugin.editing.gwt.client.contextmenu.GeometryContextMenuAction} as a closure. Pass a
+ * function and receive a context to base the action upon.
  * 
  * @author Jan De Moerloose
+ * @since 1.15.0
  * 
  */
 @Export

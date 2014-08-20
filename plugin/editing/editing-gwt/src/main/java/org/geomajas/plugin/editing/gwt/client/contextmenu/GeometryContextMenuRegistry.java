@@ -13,11 +13,13 @@ package org.geomajas.plugin.editing.gwt.client.contextmenu;
 import org.geomajas.gwt.client.widget.MapWidget;
 import org.geomajas.plugin.editing.client.handler.AbstractGeometryIndexMapHandler;
 import org.geomajas.plugin.editing.client.handler.EdgeMapHandlerFactory;
+import org.geomajas.plugin.editing.client.handler.GeometryIndexMapHandlerFactory;
 import org.geomajas.plugin.editing.client.handler.VertexMapHandlerFactory;
 import org.geomajas.plugin.editing.client.service.GeometryEditService;
 import org.geomajas.plugin.editing.client.service.GeometryIndex;
 import org.geomajas.plugin.editing.client.service.GeometryIndexType;
 import org.geomajas.plugin.editing.gwt.client.GeometryEditor;
+import org.geomajas.plugin.editing.gwt.client.handler.EditingHandlerRegistry;
 
 import com.google.gwt.event.dom.client.MouseOutEvent;
 import com.google.gwt.event.dom.client.MouseOutHandler;
@@ -40,6 +42,8 @@ public class GeometryContextMenuRegistry implements GeometryContextMenuAction.Co
 	private Menu vertexMenu = new Menu();
 
 	private Menu edgeMenu = new Menu();
+
+	private Menu geometryMenu = new Menu();
 
 	private GeometryEditService service;
 
@@ -92,6 +96,13 @@ public class GeometryContextMenuRegistry implements GeometryContextMenuAction.Co
 				return new MenuHandler(GeometryIndexType.TYPE_VERTEX);
 			}
 		});
+		EditingHandlerRegistry.addGeometryHandlerFactory(new GeometryIndexMapHandlerFactory() {
+			
+			@Override
+			public AbstractGeometryIndexMapHandler create() {
+				return new MenuHandler(GeometryIndexType.TYPE_GEOMETRY);
+			}
+		});
 		editor.getRenderer().redraw();
 	}
 
@@ -113,6 +124,16 @@ public class GeometryContextMenuRegistry implements GeometryContextMenuAction.Co
 	public void addEdgeAction(GeometryContextMenuAction action) {
 		action.setContext(this);
 		edgeMenu.addItem(action);
+	}
+
+	/**
+	 * Add a edge action to the registry.
+	 * 
+	 * @param action
+	 */
+	public void addGeometryAction(GeometryContextMenuAction action) {
+		action.setContext(this);
+		geometryMenu.addItem(action);
 	}
 
 	public boolean isOnOneMenuItemSimulateClick() {
@@ -143,6 +164,8 @@ public class GeometryContextMenuRegistry implements GeometryContextMenuAction.Co
 			map.setContextMenu(edgeMenu);
 		} else if (GeometryIndexType.TYPE_VERTEX == selectedType) {
 			map.setContextMenu(vertexMenu);
+		} else if (GeometryIndexType.TYPE_GEOMETRY == selectedType) {
+			map.setContextMenu(geometryMenu);
 		} else {
 			// set default
 			map.setContextMenu(null);
