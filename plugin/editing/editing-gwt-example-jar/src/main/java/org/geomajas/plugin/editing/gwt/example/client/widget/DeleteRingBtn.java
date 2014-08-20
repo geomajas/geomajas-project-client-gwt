@@ -23,13 +23,13 @@ import org.geomajas.plugin.editing.client.event.GeometryEditStopEvent;
 import org.geomajas.plugin.editing.client.event.GeometryEditStopHandler;
 import org.geomajas.plugin.editing.client.gfx.GeometryRenderer;
 import org.geomajas.plugin.editing.client.handler.AbstractGeometryIndexMapHandler;
+import org.geomajas.plugin.editing.client.handler.GeometryIndexMapHandlerFactory;
 import org.geomajas.plugin.editing.client.operation.GeometryOperationFailedException;
 import org.geomajas.plugin.editing.client.service.GeometryEditService;
 import org.geomajas.plugin.editing.client.service.GeometryIndex;
 import org.geomajas.plugin.editing.client.service.GeometryIndexNotFoundException;
 import org.geomajas.plugin.editing.client.service.GeometryIndexType;
 import org.geomajas.plugin.editing.gwt.client.handler.EditingHandlerRegistry;
-import org.geomajas.plugin.editing.gwt.client.handler.EditingHandlerRegistry.GeometryHandlerFactory;
 import org.geomajas.plugin.editing.gwt.example.client.event.GeometryEditResumeEvent;
 import org.geomajas.plugin.editing.gwt.example.client.event.GeometryEditSuspendEvent;
 import org.geomajas.plugin.editing.gwt.example.client.event.GeometryEditSuspendReason;
@@ -56,12 +56,12 @@ public class DeleteRingBtn extends ToolStripButton implements GeometryEditStartH
 
 	private GeometryEditService service;
 
-	private GeometryHandlerFactory factory;
+	private GeometryIndexMapHandlerFactory factory;
 
 	public DeleteRingBtn(final MenuBar menuBar, final GeometryEditService service, final GeometryRenderer renderer) {
 		this.menuBar = menuBar;
 		this.service = service;
-		factory = new GeometryHandlerFactory() {
+		factory = new GeometryIndexMapHandlerFactory() {
 
 			public AbstractGeometryIndexMapHandler create() {
 				return new DeleteRingHandler();

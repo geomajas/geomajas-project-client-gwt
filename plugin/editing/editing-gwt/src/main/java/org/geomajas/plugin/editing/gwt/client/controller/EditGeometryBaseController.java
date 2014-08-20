@@ -11,6 +11,8 @@
 
 package org.geomajas.plugin.editing.gwt.client.controller;
 
+import java.util.logging.Logger;
+
 import org.geomajas.gwt.client.controller.AbstractController;
 import org.geomajas.gwt.client.controller.AbstractGraphicsController;
 import org.geomajas.gwt.client.controller.PanController;
@@ -33,6 +35,8 @@ import com.google.gwt.event.dom.client.MouseOverEvent;
  * @author Pieter De Graef
  */
 public class EditGeometryBaseController extends AbstractGraphicsController {
+
+	private static Logger logger = Logger.getLogger(EditGeometryBaseController.class.getName());
 
 	private AbstractController idleController;
 

@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
+
+	<title>Gwt editing javascript - Showcase</title>
+
+	<link href='http://fonts.googleapis.com/css?family=Exo+2:400,300' rel='stylesheet' type='text/css'>
+
+	<link href="../css/style.css" rel="stylesheet" type="text/css">
+	<link href="../css/mqueries.css" rel="stylesheet" type="text/css" media="screen">
+
+	<script src="../js/jquery.modernizr.min.js"></script>
+
+	<script type="text/javascript">var isomorphicDir = "../showcase/sc/";</script>
+	<script type="text/javascript" src="../showcase/showcase.nocache.js"></script>
+
+	</head>
+
+<body>
+
+<div id="page">
+
+	<header id="header" class="wrapper">
+
+		<div class="header_tagline">
+			<h3>Suspend / Resume editing service.</h3>
+			<h4>
+				When drawing a geometric figure we can suspend the service to undertake other actions on the
+				map. <br>After that we simply can resume were we left off.
+			</h4>
+		</div>
+
+	</header>
+
+	<section id="main">
+
+		<div class="main_inner wrapper clearfix">
+
+			<ul class="filter">
+				<li id="drawLineString">
+					<a href="#">Draw Line String</a>
+				</li>
+				<li id="suspend-resume">
+					<a href="#">Suspend service</a>
+				</li>
+				<li id="cancel">
+					<a href="#">Clear and log geometry</a>
+				</li>
+			</ul>
+
+			<div class="columnsection">
+
+				<div class="column one_half">
+
+					<div id="js-map-element">
+						<!-- on load, the map is attached here -->
+					</div>
+
+				</div>
+
+				<div class="column one_half">
+
+					<h4>Log:</h4>
+					<ul id="log"></ul>
+
+				</div>
+
+			</div>
+
+		</div><!-- END main inner -->
+
+	</section><!-- END #content -->
+
+</div><!-- END #page -->
+
+	<script src="../js/jquery-1.7.1.min.js"></script>
+
+	<script>
+
+		var map; // The map object.
+		var editor; // Geometry editor. Holds the central editing service, the renderer, the styling information...
+		var service; // The central editing service.
+		var factory; // GeometryHandlerFactory for deleting rings
+		var deleteFromPoint; // HandlerRegistration for delete from point
+		var infoHandler; // HandlerRegistration for delete from point
+		var infoHandlerWithHtmlCallback; // HandlerRegistration for delete from point
+		var labelHandler; // HandlerRegistration for delete from point
+		var labelFlag = false;
+		var infoFlag = false;
+		var styleService;
+
+		function onGeomajasLoad() {
+			map = Geomajas().createMap("app", "mapMain", "js-map-element");
+			map.setDefaultCursor('crosshair');
+			editor = new org.geomajas.plugin.editing.GeometryEditor();
+			editor.setMap(map);
+			service = editor.getService();
+			styleService = editor.getStyleService();
+			styleService.getVertexStyle().setFillColor("blue");
+			styleService.getEdgeStyle().setStrokeColor("red");
+			styleService.getPointSymbolizerShapeAndSize().setShape("circle");
+			styleService.getPointSymbolizerShapeAndSize().setSize(6);
+			styleService.setCloseRingWhileInserting(true);
+			factory = new org.geomajas.plugin.editing.handler.GeometryHandlerFactory();
+		}
+
+		$('#drawLineString').click(function(){
+			if ($(this).hasClass('active')) {
+				log("Press clear to start a new geometry.");
+			} else {
+				$(this).addClass('active');
+				$('#suspend-resume').addClass('active');
+
+				service.stop();
+				var geometry = new org.geomajas.jsapi.spatial.Geometry("LineString", 0, 0);
+				service.start(geometry);
+				var index = service.getIndexService().create("vertex", [0]);
+				service.setInsertIndex(index);
+				service.setEditingState("inserting");
+
+				if (service.isSuspended() == true) {
+					service.resume();
+					log("Editing service has been resumed.");
+					$('#suspend-resume').find('a').text('Suspend service');
+				}
+			}
+		});
+
+		$('#suspend-resume').click(function() {
+			if ($('#drawLineString').hasClass('active')) {
+				if ($(this).hasClass('active')) {
+					$(this).removeClass('active');
+					$(this).find('a').text('Resume service');
+
+					if (service.isStarted() == true && service.isSuspended() == false) {
+						service.suspend();
+						log("Editing service has been suspended.");
+					}
+				} else {
+					$(this).addClass('active');
+					$(this).find('a').text('Suspend service');
+
+					if (service.isSuspended() == true) {
+						service.resume();
+						log("Editing service has been resumed.");
+					}
+				}
+			} else {
+				log("There is no geometry on the map.");
+			}
+		});
+
+		$('#cancel').click(function(){
+			$('.filter li').removeClass('active');
+
+			if (editor.isBusyEditing()) {
+				var geometry = service.stop();
+				var wkt = Geomajas().getGeometryService().toWkt(geometry);
+				log("<strong>Resulting geometry: </strong><br>" + wkt);
+			} else {
+				log("Geometry editor service has not been started yet.");
+			}
+		});
+
+		function log(txt) {
+			while($('#log')[0].scrollHeight >= $('#js-map-element').height() - 100) {
+				$('#log li:last-child').remove();
+			}
+
+			$('#log li').removeClass('first-log-item');
+			$("#log").prepend("<li class='first-log-item log-item'>" + txt  + "</li>");
+		}
+
+	</script>
+
+</body>
+
+</html>

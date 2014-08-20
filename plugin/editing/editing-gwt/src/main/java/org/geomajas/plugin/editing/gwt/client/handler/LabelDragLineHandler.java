@@ -22,6 +22,10 @@ import org.geomajas.gwt.client.spatial.WorldViewTransformer;
 import org.geomajas.gwt.client.widget.MapWidget;
 import org.geomajas.gwt.client.widget.MapWidget.RenderGroup;
 import org.geomajas.gwt.client.widget.MapWidget.RenderStatus;
+import org.geomajas.plugin.editing.client.event.GeometryEditResumeEvent;
+import org.geomajas.plugin.editing.client.event.GeometryEditResumeHandler;
+import org.geomajas.plugin.editing.client.event.GeometryEditSuspendEvent;
+import org.geomajas.plugin.editing.client.event.GeometryEditSuspendHandler;
 import org.geomajas.plugin.editing.client.service.GeometryEditService;
 
 /**
@@ -30,7 +34,8 @@ import org.geomajas.plugin.editing.client.service.GeometryEditService;
  * @author Jan De Moerloose
  * 
  */
-public class LabelDragLineHandler extends BaseDragLineHandler implements MapViewChangedHandler {
+public class LabelDragLineHandler extends BaseDragLineHandler implements MapViewChangedHandler,
+		GeometryEditSuspendHandler, GeometryEditResumeHandler {
 
 	private MapWidget map;
 
@@ -50,6 +55,8 @@ public class LabelDragLineHandler extends BaseDragLineHandler implements MapView
 	 */
 	public LabelDragLineHandler(MapWidget map, GeometryEditService editService) {
 		super(editService);
+		editService.addGeometryEditSuspendHandler(this);
+		editService.addGeometryEditResumeHandler(this);
 		this.map = map;
 		aRenderer = new LabelRenderer("drag-label-a", "A");
 		bRenderer = new LabelRenderer("drag-label-b", "B");
@@ -101,6 +108,22 @@ public class LabelDragLineHandler extends BaseDragLineHandler implements MapView
 
 	@Override
 	public void onMapViewChanged(MapViewChangedEvent event) {
+		aRenderer.draw();
+		bRenderer.draw();
+	}
+
+	@Override
+	public void onGeometryEditResume(GeometryEditResumeEvent event) {
+		aRenderer.setVisible(true);
+		bRenderer.setVisible(true);
+		aRenderer.draw();
+		bRenderer.draw();
+	}
+
+	@Override
+	public void onGeometryEditSuspend(GeometryEditSuspendEvent event) {
+		aRenderer.setVisible(false);
+		bRenderer.setVisible(false);
 		aRenderer.draw();
 		bRenderer.draw();
 	}

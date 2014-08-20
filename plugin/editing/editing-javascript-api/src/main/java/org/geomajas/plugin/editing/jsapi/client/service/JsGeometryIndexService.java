@@ -325,6 +325,7 @@ public class JsGeometryIndexService implements ExportOverlay<GeometryIndexServic
 	public int getSiblingCount(Geometry geometry, GeometryIndex index) {
 		return 0;
 	}
+
 	//
 	// public Coordinate[] getSiblingVertices(Geometry geometry, GeometryIndex index)
 	// throws GeometryIndexNotFoundException {
