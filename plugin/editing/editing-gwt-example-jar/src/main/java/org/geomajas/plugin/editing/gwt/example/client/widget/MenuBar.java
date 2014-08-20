@@ -11,6 +11,20 @@
 
 package org.geomajas.plugin.editing.gwt.example.client.widget;
 
+import org.geomajas.geometry.Coordinate;
+import org.geomajas.geometry.Geometry;
+import org.geomajas.gwt.client.map.layer.VectorLayer;
+import org.geomajas.gwt.client.util.WidgetLayout;
+import org.geomajas.gwt.client.widget.MapWidget;
+import org.geomajas.plugin.editing.client.operation.GeometryOperationFailedException;
+import org.geomajas.plugin.editing.client.service.GeometryEditState;
+import org.geomajas.plugin.editing.client.service.GeometryIndex;
+import org.geomajas.plugin.editing.client.service.GeometryIndexType;
+import org.geomajas.plugin.editing.gwt.client.GeometryEditor;
+import org.geomajas.plugin.editing.gwt.client.handler.InfoDragLineHandlerShowingWindow;
+import org.geomajas.plugin.editing.gwt.client.handler.LabelDragLineHandler;
+import org.geomajas.plugin.editing.gwt.example.client.event.GeometryEditSuspendResumeHandler;
+
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.event.shared.SimpleEventBus;
@@ -25,19 +39,6 @@ import com.smartgwt.client.widgets.menu.events.MenuItemClickEvent;
 import com.smartgwt.client.widgets.toolbar.ToolStrip;
 import com.smartgwt.client.widgets.toolbar.ToolStripButton;
 import com.smartgwt.client.widgets.toolbar.ToolStripMenuButton;
-import org.geomajas.geometry.Coordinate;
-import org.geomajas.geometry.Geometry;
-import org.geomajas.gwt.client.map.layer.VectorLayer;
-import org.geomajas.gwt.client.util.WidgetLayout;
-import org.geomajas.gwt.client.widget.MapWidget;
-import org.geomajas.plugin.editing.client.operation.GeometryOperationFailedException;
-import org.geomajas.plugin.editing.client.service.GeometryEditState;
-import org.geomajas.plugin.editing.client.service.GeometryIndex;
-import org.geomajas.plugin.editing.client.service.GeometryIndexType;
-import org.geomajas.plugin.editing.gwt.client.GeometryEditor;
-import org.geomajas.plugin.editing.gwt.client.handler.InfoDragLineHandler;
-import org.geomajas.plugin.editing.gwt.client.handler.LabelDragLineHandler;
-import org.geomajas.plugin.editing.gwt.example.client.event.GeometryEditSuspendResumeHandler;
 
 /**
  * The editing toolbar used within this sample application.
@@ -79,6 +80,9 @@ public class MenuBar extends ToolStrip {
 		RedoBtn redoBtn = new RedoBtn(editor.getEditService());
 		addGeometryEditSuspensionHandler(redoBtn);
 		addButton(redoBtn);
+
+		SuspendBtn suspendBtn = new SuspendBtn(editor.getEditService());
+		addButton(suspendBtn);
 
 		addSeparator();
 
@@ -279,8 +283,8 @@ public class MenuBar extends ToolStrip {
 		menu.setShowShadow(true);
 		menu.setShadowDepth(3);
 
-		final InfoDragLineHandler infoHandler = new InfoDragLineHandler(editor.getMapWidget(), editor.getEditService(),
-				eventBus);
+		final InfoDragLineHandlerShowingWindow infoHandler = new InfoDragLineHandlerShowingWindow(
+				editor.getMapWidget(), editor.getEditService());
 		final LabelDragLineHandler labelHandler = new LabelDragLineHandler(editor.getMapWidget(),
 				editor.getEditService());
 

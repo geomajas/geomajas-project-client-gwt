@@ -11,33 +11,37 @@
 
 package org.geomajas.plugin.editing.gwt.client;
 
-import com.google.gwt.event.shared.EventBus;
-import com.google.gwt.event.shared.SimpleEventBus;
 import org.geomajas.gwt.client.controller.GraphicsController;
 import org.geomajas.gwt.client.map.event.MapViewChangedEvent;
 import org.geomajas.gwt.client.map.event.MapViewChangedHandler;
 import org.geomajas.gwt.client.spatial.Bbox;
 import org.geomajas.gwt.client.widget.MapWidget;
+import org.geomajas.plugin.editing.client.event.GeometryEditResumeEvent;
+import org.geomajas.plugin.editing.client.event.GeometryEditResumeHandler;
 import org.geomajas.plugin.editing.client.event.GeometryEditStartEvent;
 import org.geomajas.plugin.editing.client.event.GeometryEditStartHandler;
 import org.geomajas.plugin.editing.client.event.GeometryEditStopEvent;
 import org.geomajas.plugin.editing.client.event.GeometryEditStopHandler;
+import org.geomajas.plugin.editing.client.event.GeometryEditSuspendEvent;
+import org.geomajas.plugin.editing.client.event.GeometryEditSuspendHandler;
 import org.geomajas.plugin.editing.client.gfx.GeometryRenderer;
-import org.geomajas.plugin.editing.client.handler.AbstractGeometryIndexMapHandler;
 import org.geomajas.plugin.editing.client.service.GeometryEditService;
 import org.geomajas.plugin.editing.client.service.GeometryEditServiceImpl;
 import org.geomajas.plugin.editing.client.snap.SnapService;
 import org.geomajas.plugin.editing.gwt.client.controller.EditGeometryBaseController;
 import org.geomajas.plugin.editing.gwt.client.gfx.GeometryRendererImpl;
 import org.geomajas.plugin.editing.gwt.client.gfx.StyleService;
-import org.geomajas.plugin.editing.gwt.client.handler.GeometryIndexMouseInMouseOutFactory;
+
+import com.google.gwt.event.shared.EventBus;
+import com.google.gwt.event.shared.SimpleEventBus;
 
 /**
  * Top level geometry editor for the GWT face.
  * 
  * @author Pieter De Graef
  */
-public class GeometryEditorImpl implements GeometryEditor, GeometryEditStartHandler, GeometryEditStopHandler {
+public class GeometryEditorImpl implements GeometryEditor, GeometryEditStartHandler, GeometryEditStopHandler,
+		GeometryEditSuspendHandler, GeometryEditResumeHandler {
 
 	private final MapWidget mapWidget;
 
@@ -67,6 +71,8 @@ public class GeometryEditorImpl implements GeometryEditor, GeometryEditStartHand
 		service = new GeometryEditServiceImpl();
 		service.addGeometryEditStartHandler(this);
 		service.addGeometryEditStopHandler(this);
+		service.addGeometryEditSuspendHandler(this);
+		service.addGeometryEditResumeHandler(this);
 
 		snappingService = new SnapService();
 		baseController = new EditGeometryBaseController(mapWidget, service, snappingService);
@@ -81,6 +87,8 @@ public class GeometryEditorImpl implements GeometryEditor, GeometryEditStartHand
 
 		service.addGeometryEditStartHandler(renderer);
 		service.addGeometryEditStopHandler(renderer);
+		service.addGeometryEditSuspendHandler(renderer);
+		service.addGeometryEditResumeHandler(renderer);
 		service.addGeometryEditShapeChangedHandler(renderer);
 		service.addGeometryEditMoveHandler(renderer);
 		service.addGeometryEditChangeStateHandler(renderer);
@@ -112,9 +120,6 @@ public class GeometryEditorImpl implements GeometryEditor, GeometryEditStartHand
 				service.getIndexStateService().highlightEndAll();
 			}
 		});
-
-		renderer.addVertexHandlerFactory(new GeometryIndexMouseInMouseOutFactory(geometryEditorSpecificEventbus));
-		renderer.addEdgeHandlerFactory(new GeometryIndexMouseInMouseOutFactory(geometryEditorSpecificEventbus));
 	}
 
 	// GeometryEditWorkflowHandler implementation:
@@ -142,6 +147,24 @@ public class GeometryEditorImpl implements GeometryEditor, GeometryEditStartHand
 		// Cleanup controllers and painters.
 		mapWidget.setController(previousController);
 	}
+	
+	// ------------------------------------------------------------------------
+	// GeometryEditSuspendHandler implementation:
+	// ------------------------------------------------------------------------
+
+	@Override
+	public void onGeometryEditSuspend(GeometryEditSuspendEvent event) {
+		// Restore the original map controller:
+		mapWidget.setController(previousController);		
+	}
+	// ------------------------------------------------------------------------
+	// GeometryEditResumeHandler implementation:
+	// ------------------------------------------------------------------------
+	@Override
+	public void onGeometryEditResume(GeometryEditResumeEvent event) {
+		// Restore the base controller:
+		mapWidget.setController(baseController);
+	}
 
 	// Getters and setters:
 
@@ -152,16 +175,6 @@ public class GeometryEditorImpl implements GeometryEditor, GeometryEditStartHand
 	@Override
 	public StyleService getStyleService() {
 		return renderer.getStyleService();
-	}
-
-	@Override
-	public void addVertexHandlerFactory(AbstractGeometryIndexMapHandler handler) {
-		renderer.addVertexHandlerFactory(handler);
-	}
-
-	@Override
-	public void addEdgeHandlerFactory(AbstractGeometryIndexMapHandler handler) {
-		renderer.addEdgeHandlerFactory(handler);
 	}
 
 	@Override

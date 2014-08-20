@@ -15,55 +15,36 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.geomajas.plugin.editing.client.handler.AbstractGeometryIndexMapHandler;
+import org.geomajas.plugin.editing.client.handler.EdgeMapHandlerFactory;
 import org.geomajas.plugin.editing.client.handler.GeometryIndexDragSelectionHandler;
 import org.geomajas.plugin.editing.client.handler.GeometryIndexHighlightHandler;
 import org.geomajas.plugin.editing.client.handler.GeometryIndexInsertHandler;
+import org.geomajas.plugin.editing.client.handler.GeometryIndexMapHandlerFactory;
 import org.geomajas.plugin.editing.client.handler.GeometryIndexSelectHandler;
 import org.geomajas.plugin.editing.client.handler.GeometryIndexSnapToDeleteHandler;
 import org.geomajas.plugin.editing.client.handler.GeometryIndexStopInsertingHandler;
+import org.geomajas.plugin.editing.client.handler.VertexMapHandlerFactory;
 
 /**
- * ...
+ * Registry for vertex/map/geometry handlers.
  * 
  * @author Pieter De Graef
  */
 public final class EditingHandlerRegistry {
 
-	/**
-	 * ...
-	 * 
-	 * @author Pieter De Graef
-	 */
-	public interface VertexHandlerFactory {
+	private static final List<VertexMapHandlerFactory> VERTEX_FACTORIES;
 
-		AbstractGeometryIndexMapHandler create();
+	private static final List<EdgeMapHandlerFactory> EDGE_FACTORIES;
+
+	private static final List<GeometryIndexMapHandlerFactory> GEOMETRY_FACTORIES;
+
+	static {
+		VERTEX_FACTORIES = new ArrayList<VertexMapHandlerFactory>();
+
+		EDGE_FACTORIES = new ArrayList<EdgeMapHandlerFactory>();
+
+		GEOMETRY_FACTORIES = new ArrayList<GeometryIndexMapHandlerFactory>();
 	}
-
-	/**
-	 * ...
-	 * 
-	 * @author Pieter De Graef
-	 */
-	public interface EdgeHandlerFactory {
-
-		AbstractGeometryIndexMapHandler create();
-	}
-
-	/**
-	 * ...
-	 * 
-	 * @author Pieter De Graef
-	 */
-	public interface GeometryHandlerFactory {
-
-		AbstractGeometryIndexMapHandler create();
-	}
-
-	private static final List<VertexHandlerFactory> VERTEX_FACTORIES = new ArrayList<VertexHandlerFactory>();
-
-	private static final List<EdgeHandlerFactory> EDGE_FACTORIES = new ArrayList<EdgeHandlerFactory>();
-
-	private static final List<GeometryHandlerFactory> GEOMETRY_FACTORIES = new ArrayList<GeometryHandlerFactory>();
 
 	private EditingHandlerRegistry() {
 		// Utility class: private constructor.
@@ -71,31 +52,31 @@ public final class EditingHandlerRegistry {
 
 	static {
 		// Create all the default vertex handler factories:
-		VERTEX_FACTORIES.add(new VertexHandlerFactory() {
+		VERTEX_FACTORIES.add(new VertexMapHandlerFactory() {
 
 			public AbstractGeometryIndexMapHandler create() {
 				return new GeometryIndexHighlightHandler();
 			}
 		});
-		VERTEX_FACTORIES.add(new VertexHandlerFactory() {
+		VERTEX_FACTORIES.add(new VertexMapHandlerFactory() {
 
 			public AbstractGeometryIndexMapHandler create() {
 				return new GeometryIndexSelectHandler();
 			}
 		});
-		VERTEX_FACTORIES.add(new VertexHandlerFactory() {
+		VERTEX_FACTORIES.add(new VertexMapHandlerFactory() {
 
 			public AbstractGeometryIndexMapHandler create() {
 				return new GeometryIndexDragSelectionHandler();
 			}
 		});
-		VERTEX_FACTORIES.add(new VertexHandlerFactory() {
+		VERTEX_FACTORIES.add(new VertexMapHandlerFactory() {
 
 			public AbstractGeometryIndexMapHandler create() {
 				return new GeometryIndexSnapToDeleteHandler();
 			}
 		});
-		VERTEX_FACTORIES.add(new VertexHandlerFactory() {
+		VERTEX_FACTORIES.add(new VertexMapHandlerFactory() {
 
 			public AbstractGeometryIndexMapHandler create() {
 				return new GeometryIndexStopInsertingHandler();
@@ -103,19 +84,19 @@ public final class EditingHandlerRegistry {
 		});
 
 		// Create all the default edge handler factories:
-		EDGE_FACTORIES.add(new EdgeHandlerFactory() {
+		EDGE_FACTORIES.add(new EdgeMapHandlerFactory() {
 
 			public AbstractGeometryIndexMapHandler create() {
 				return new GeometryIndexHighlightHandler();
 			}
 		});
-		EDGE_FACTORIES.add(new EdgeHandlerFactory() {
+		EDGE_FACTORIES.add(new EdgeMapHandlerFactory() {
 
 			public AbstractGeometryIndexMapHandler create() {
 				return new GeometryIndexInsertHandler();
 			}
 		});
-		EDGE_FACTORIES.add(new EdgeHandlerFactory() {
+		EDGE_FACTORIES.add(new EdgeMapHandlerFactory() {
 
 			public AbstractGeometryIndexMapHandler create() {
 				return new GeometryIndexSnapToDeleteHandler();
@@ -126,13 +107,13 @@ public final class EditingHandlerRegistry {
 		// ....
 	};
 
-	public static void addGeometryHandlerFactory(GeometryHandlerFactory factory) {
+	public static void addGeometryHandlerFactory(GeometryIndexMapHandlerFactory factory) {
 		if (!GEOMETRY_FACTORIES.contains(factory)) {
 			GEOMETRY_FACTORIES.add(factory);
 		}
 	}
 
-	public static void removeGeometryHandlerFactory(GeometryHandlerFactory factory) {
+	public static void removeGeometryHandlerFactory(GeometryIndexMapHandlerFactory factory) {
 		if (GEOMETRY_FACTORIES.contains(factory)) {
 			GEOMETRY_FACTORIES.remove(factory);
 		}
@@ -140,7 +121,7 @@ public final class EditingHandlerRegistry {
 
 	public static List<AbstractGeometryIndexMapHandler> getVertexHandlers() {
 		List<AbstractGeometryIndexMapHandler> handlers = new ArrayList<AbstractGeometryIndexMapHandler>();
-		for (VertexHandlerFactory factory : VERTEX_FACTORIES) {
+		for (VertexMapHandlerFactory factory : VERTEX_FACTORIES) {
 			handlers.add(factory.create());
 		}
 		return handlers;
@@ -148,7 +129,7 @@ public final class EditingHandlerRegistry {
 
 	public static List<AbstractGeometryIndexMapHandler> getEdgeHandlers() {
 		List<AbstractGeometryIndexMapHandler> handlers = new ArrayList<AbstractGeometryIndexMapHandler>();
-		for (EdgeHandlerFactory factory : EDGE_FACTORIES) {
+		for (EdgeMapHandlerFactory factory : EDGE_FACTORIES) {
 			handlers.add(factory.create());
 		}
 		return handlers;
@@ -156,7 +137,7 @@ public final class EditingHandlerRegistry {
 
 	public static List<AbstractGeometryIndexMapHandler> getGeometryHandlers() {
 		List<AbstractGeometryIndexMapHandler> handlers = new ArrayList<AbstractGeometryIndexMapHandler>();
-		for (GeometryHandlerFactory factory : GEOMETRY_FACTORIES) {
+		for (GeometryIndexMapHandlerFactory factory : GEOMETRY_FACTORIES) {
 			handlers.add(factory.create());
 		}
 		return handlers;

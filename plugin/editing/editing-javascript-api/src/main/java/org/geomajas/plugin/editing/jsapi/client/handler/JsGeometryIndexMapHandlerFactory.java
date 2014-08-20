@@ -8,15 +8,15 @@
  * by the Geomajas Contributors License Agreement. For full licensing
  * details, see LICENSE.txt in the project root.
  */
-package org.geomajas.plugin.editing.jsapi.gwt.client.handler;
+package org.geomajas.plugin.editing.jsapi.client.handler;
 
 import org.geomajas.annotation.Api;
 import org.geomajas.gwt.client.handler.MapDownHandler;
 import org.geomajas.gwt.client.handler.MapDragHandler;
 import org.geomajas.gwt.client.handler.MapUpHandler;
 import org.geomajas.plugin.editing.client.handler.AbstractGeometryIndexMapHandler;
+import org.geomajas.plugin.editing.client.handler.GeometryIndexMapHandlerFactory;
 import org.geomajas.plugin.editing.client.service.GeometryIndex;
-import org.geomajas.plugin.editing.gwt.client.handler.EditingHandlerRegistry.GeometryHandlerFactory;
 import org.geomajas.plugin.jsapi.client.map.controller.DoubleClickHandler;
 import org.geomajas.plugin.jsapi.client.map.controller.DownHandler;
 import org.geomajas.plugin.jsapi.client.map.controller.DragHandler;
@@ -45,7 +45,7 @@ import com.google.gwt.event.dom.client.MouseOverEvent;
 @Api
 @Export("GeometryHandlerFactory")
 @ExportPackage("org.geomajas.plugin.editing.handler")
-public class JsGeometryHandlerFactory implements GeometryHandlerFactory, Exportable {
+public class JsGeometryIndexMapHandlerFactory implements GeometryIndexMapHandlerFactory, Exportable {
 
 	private MouseMoveHandler mouseMoveHandler = new MouseAdapter();
 
@@ -62,6 +62,10 @@ public class JsGeometryHandlerFactory implements GeometryHandlerFactory, Exporta
 	private DoubleClickHandler doubleClickHandler = new MouseAdapter();
 	
 	private GeometryIndex currentIndex;
+	
+	public JsGeometryIndexMapHandlerFactory() {
+		
+	}
 
 	@NoExport
 	public AbstractGeometryIndexMapHandler create() {
