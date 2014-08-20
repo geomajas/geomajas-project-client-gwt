@@ -122,14 +122,7 @@
 			context.getMap().getViewPort().applyBounds(bbox);
 			log("Zoomed to object, bbox = " + bbox);
 		}
-		
-		function deleteEdge(context) {
-			var prev = context.getService().getIndexService().getPreviousVertex(context.getIndex());
-			var next = context.getService().getIndexService().getNextVertex(context.getIndex());
-			context.getService().remove([prev, next]);
-			log("Deleted edge " + context.getIndex());
-		}
-		
+				
 		function zoomEdge(context) {
 			var edge = context.getService().getIndexService().getEdge(context.getService().getGeometry(), context.getIndex());
 			var bbox = org.geomajas.jsapi.spatial.Bbox(Math.min(edge[0].getX(),edge[1].getX()), Math.min(edge[0].getY(),edge[1].getY()), 
@@ -137,7 +130,6 @@
 			context.getMap().getViewPort().applyBounds(bbox);
 			log("Zoomed to edge, bbox = " + bbox);
 		}
-		 
 
 		function onGeomajasLoad() {
 			map = Geomajas().createMap("app", "mapMain", "js-map-element");
@@ -152,7 +144,6 @@
 			contextMenuRegistry.addVertexAction(deselectObject,"deselect");
 			contextMenuRegistry.addVertexAction(zoomIn,"zoom in");
 			contextMenuRegistry.addVertexAction(zoomOut,"zoom out");
-			contextMenuRegistry.addEdgeAction(deleteEdge,"delete");
 			contextMenuRegistry.addEdgeAction(zoomEdge,"zoom to edge");
 			contextMenuRegistry.addGeometryAction(zoomObject,"zoom to full geometry");
 		}
