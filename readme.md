@@ -1,4 +1,4 @@
-Geomajas GWT Client 2.x
+Geomajas GWT Client 1.x
 =======================
 
 What is Geomajas
