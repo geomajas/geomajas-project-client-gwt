@@ -198,7 +198,7 @@ public final class SldUtils {
 		return rule;
 	}
 
-	private static Map<String, Object> getProperties(ClientVectorLayerInfo cvli) {
+	public static Map<String, Object> getProperties(ClientVectorLayerInfo cvli) {
 		return getProperties(cvli.getNamedStyleInfo().getUserStyle());
 	}
 
@@ -207,7 +207,7 @@ public final class SldUtils {
 	 * 
 	 * @return map of properties
 	 */
-	private static Map<String, Object> getProperties(UserStyleInfo usi) {
+	public static Map<String, Object> getProperties(UserStyleInfo usi) {
 		Map<String, Object> props = new HashMap<String, Object>();
 		if (usi != null) {
 			if (usi.getTitle() != null) {
@@ -235,7 +235,7 @@ public final class SldUtils {
 
 	// ---------------------------------------------------------------
 
-	private static String getPropValue(String propName, Map<String, Object> properties, String defaultValue) {
+	public static String getPropValue(String propName, Map<String, Object> properties, String defaultValue) {
 		if (properties.containsKey(propName)) {
 			return (String) properties.get(propName);
 		} else {
@@ -243,7 +243,7 @@ public final class SldUtils {
 		}
 	}
 
-	private static Float getPropValue(String propName, Map<String, Object> properties, Float defaultValue) {
+	public static Float getPropValue(String propName, Map<String, Object> properties, Float defaultValue) {
 		if (properties.containsKey(propName)) {
 			return (Float) properties.get(propName);
 		} else {
