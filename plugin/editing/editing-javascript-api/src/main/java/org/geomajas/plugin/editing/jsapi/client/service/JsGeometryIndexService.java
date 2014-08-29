@@ -152,10 +152,19 @@ public class JsGeometryIndexService implements ExportOverlay<GeometryIndexServic
 		return null;
 	}
 
-	//
-	// public Coordinate[] getEdge(Geometry geometry, GeometryIndex index) throws GeometryIndexNotFoundException {
-	// return null;
-	// }
+	/**
+	 * Given a certain geometry, get the edge the index points to. This only works if the index actually points to an
+	 * edge.
+	 * 
+	 * @param geometry The geometry to search in.
+	 * @param index The index that points to an edge within the given geometry.
+	 * @return Returns the edge if it exists.
+	 * @throws GeometryIndexNotFoundException Thrown in case the index is of the wrong type, or if the edge could not be
+	 *         found within the given geometry.
+	 */
+	 public Coordinate[] getEdge(Geometry geometry, GeometryIndex index) throws GeometryIndexNotFoundException {
+		 return null;
+	 }
 
 	// ------------------------------------------------------------------------
 	// Helper methods:

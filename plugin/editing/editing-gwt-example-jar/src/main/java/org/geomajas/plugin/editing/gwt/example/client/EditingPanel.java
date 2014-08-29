@@ -11,9 +11,6 @@
 
 package org.geomajas.plugin.editing.gwt.example.client;
 
-import com.google.gwt.core.client.GWT;
-import com.smartgwt.client.widgets.Canvas;
-import com.smartgwt.client.widgets.layout.VLayout;
 import org.geomajas.gwt.client.map.event.MapModelChangedEvent;
 import org.geomajas.gwt.client.map.event.MapModelChangedHandler;
 import org.geomajas.gwt.client.widget.MapWidget;
@@ -25,10 +22,17 @@ import org.geomajas.plugin.editing.client.snap.algorithm.NearestEdgeSnapAlgorith
 import org.geomajas.plugin.editing.client.snap.algorithm.NearestVertexSnapAlgorithm;
 import org.geomajas.plugin.editing.gwt.client.GeometryEditor;
 import org.geomajas.plugin.editing.gwt.client.GeometryEditorImpl;
+import org.geomajas.plugin.editing.gwt.client.contextmenu.GeometryContextMenuDefaultAction;
+import org.geomajas.plugin.editing.gwt.client.contextmenu.GeometryContextMenuRegistry;
+import org.geomajas.plugin.editing.gwt.client.contextmenu.GeometryContextMenuDefaultAction.ActionType;
 import org.geomajas.plugin.editing.gwt.client.gfx.PointSymbolizerShapeAndSize;
 import org.geomajas.plugin.editing.gwt.client.snap.VectorLayerSourceProvider;
 import org.geomajas.plugin.editing.gwt.example.client.i18n.EditingMessages;
 import org.geomajas.plugin.editing.gwt.example.client.widget.MenuBar;
+
+import com.google.gwt.core.client.GWT;
+import com.smartgwt.client.widgets.Canvas;
+import com.smartgwt.client.widgets.layout.VLayout;
 
 /**
  * Entry point and main class for GWT application. This class defines the layout and functionality of this application.
@@ -63,6 +67,14 @@ public class EditingPanel extends SamplePanel implements MapModelChangedHandler 
 		editor.getStyleService().getPointSymbolizerShapeAndSize().setShape(PointSymbolizerShapeAndSize.Shape.CIRCLE);
 		editor.getStyleService().getPointSymbolizerShapeAndSize().setSize(6);
 
+		// register operations for vertex contect menu
+		GeometryContextMenuRegistry controller = new GeometryContextMenuRegistry(map, editor);
+		controller.addVertexAction(new GeometryContextMenuDefaultAction(ActionType.DESELECT));
+		controller.addVertexAction(new GeometryContextMenuDefaultAction(ActionType.REMOVE));
+		controller.addVertexAction(new GeometryContextMenuDefaultAction(ActionType.ZOOM_IN));
+		controller.addVertexAction(new GeometryContextMenuDefaultAction(ActionType.ZOOM_OUT));
+		controller.addVertexAction(new GeometryContextMenuDefaultAction(ActionType.ZOOM_TO_BOUNDS));
+		
 		VLayout layout = new VLayout();
 		MenuBar editingToolStrip = new MenuBar(editor);
 		layout.addMember(editingToolStrip);
