@@ -1,8 +1,0 @@
-<module>
-	<inherits name="com.google.gwt.i18n.I18N"/>
-  	<inherits name="org.geomajas.plugin.deskmanager.Manager"/>
-	<inherits name="org.geomajas.widget.searchandfilter.SearchAndFilter"/>
-
-	<source path="client" />
-	<entry-point class='org.geomajas.widget.searchandfilter.editor.client.SearchAndFilterEditor' />
-</module>

@@ -48,7 +48,6 @@
 	<modules>
 		<module>advancedviews</module>
 		<module>advancedviews-gwt</module>
-		<module>advancedviews-editor</module>
 	</modules>
 
 	<profiles>
