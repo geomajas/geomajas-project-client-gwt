@@ -10,4 +10,4 @@ cache:
   - $HOME/.m2
 install: true
 script: "travis_retry mvn verify -B -V --settings target/geomajas-build-tools/settings.xml"
-env: MAVEN_OPTS="-XX:MaxPermSize=256m"
+env: MAVEN_OPTS="-Xmx2048m -XX:MaxPermSize=512m"
