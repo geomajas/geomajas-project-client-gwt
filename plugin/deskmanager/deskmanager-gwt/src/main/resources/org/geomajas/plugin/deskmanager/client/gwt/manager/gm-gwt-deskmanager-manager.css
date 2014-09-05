@@ -1,9 +1,0 @@
-@external gm-*;
-.gm-deskmanger-usersgroups-rolesButtonsPanel {
-    border: none;
-}
-
-.gm-deskmanger-addLayer-getCapabilitiesUrl-errorLabel {
-    color: red;
-    height: auto;
-}
