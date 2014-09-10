@@ -61,12 +61,13 @@
 			<name>Frank Wynants</name>
 		</developer>
 	</developers>
-	
+
 	<modules>
 		<!-- Order of documentation is imported, these should be the first projects to build, if not scanning
 		will take a long time because it will scan compiled code -->
 		<module>smartgwt-archetype-documentation</module>
 		<module>documentation</module>
+		<module>javadoc</module>
 
 		<module>common-gwt-smartgwt</module>
 		<module>client</module>
@@ -418,13 +419,6 @@
 				<version>${project.version}</version>
 			</dependency>
 
-			<dependency>
-				<groupId>commons-codec</groupId>
-				<artifactId>commons-codec</artifactId>
-				<version>1.7</version>
-			</dependency>
-
-
 			<!-- geomajas-client-gwt-widget-layer -->
 			<dependency>
 				<groupId>org.geomajas.widget</groupId>
@@ -600,5 +594,5 @@
 		<gwt-exporter-version>2.4.0</gwt-exporter-version>
 		<gwt-client-build-tools-version>2.1.0</gwt-client-build-tools-version>
 	</properties>
-	
+
 </project>

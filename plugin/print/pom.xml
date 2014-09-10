@@ -53,26 +53,12 @@
 	<modules>
 		<module>print-gwt</module>
 		<module>print-gwt-example-jar</module>
+		<module>print-gwt-example</module>
+		<module>print-gwt-documentation</module>
+		<module>print-gwt-javadoc</module>
 	</modules>
 
 	<profiles>
-		<profile>
-			<id>full-build</id>
-			<activation>
-				<activeByDefault>true</activeByDefault>
-			</activation>
-            <modules>
-                <module>print-gwt-example</module>
-            </modules>
-		</profile>
-		<profile>
-			<id>skipDocs</id>
-			<activation>
-				<property>
-					<name>skipDocs</name>
-				</property>
-			</activation>
-		</profile>
 		<profile>
 			<id>m2e</id>
 			<activation>

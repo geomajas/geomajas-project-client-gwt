@@ -23,8 +23,9 @@
 	<packaging>jar</packaging>
 	<name>Geomajas GWT client: Plugin Widget Layer - Documentation</name>
 	<description>Geomajas GWT client: Plugin Widget Layer - Documentation</description>
-	
+
 	<properties>
 		<listing.sourceDirectory>${basedir}/..</listing.sourceDirectory>
 	</properties>
+
 </project>

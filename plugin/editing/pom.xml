@@ -42,27 +42,15 @@
   		<module>editing-javascript-api</module>
 		<module>editing-javascript-api-gwt</module>
 
+		<module>editing-gwt-example</module>
+		<module>editing-gwt-documentation</module>
+		<module>editing-gwt-javadoc</module>
+		<module>editing-javascript-gwt-example</module>
+		<module>editing-javascript-api-gwt-documentation</module>
+		<module>editing-javascript-api-gwt-javadoc</module>
 	</modules>
 
 	<profiles>
-		<profile>
-			<id>full-build</id>
-			<activation>
-				<activeByDefault>true</activeByDefault>
-			</activation>
-            <modules>
-                <module>editing-gwt-example</module>
-                <module>editing-javascript-gwt-example</module>
-            </modules>
-		</profile>
-        <profile>
-			<id>skipDocs</id>
-			<activation>
-				<property>
-					<name>skipDocs</name>
-				</property>
-			</activation>
-		</profile>
 		<profile>
 			<id>m2e</id>
 			<activation>

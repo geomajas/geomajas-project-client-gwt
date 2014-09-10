@@ -48,26 +48,12 @@
 	<modules>
 		<module>wms-gwt</module>
 		<module>wms-gwt-example-jar</module>
+		<module>wms-gwt-example</module>
+		<module>wms-gwt-documentation</module>
+		<module>wms-gwt-javadoc</module>
 	</modules>
 
 	<profiles>
-		<profile>
-			<id>full-build</id>
-			<activation>
-				<activeByDefault>true</activeByDefault>
-			</activation>
-            <modules>
-                <module>wms-gwt-example</module>
-            </modules>
-		</profile>
-		<profile>
-			<id>skipDocs</id>
-			<activation>
-				<property>
-					<name>skipDocs</name>
-				</property>
-			</activation>
-		</profile>
 		<profile>
 			<id>m2e</id>
 			<activation>

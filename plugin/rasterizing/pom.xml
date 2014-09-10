@@ -28,26 +28,12 @@
 	<modules>
 		<module>rasterizing-gwt</module>
 		<module>rasterizing-gwt-example-jar</module>
+		<module>rasterizing-gwt-example</module>
+		<module>rasterizing-gwt-documentation</module>
+		<module>rasterizing-gwt-javadoc</module>
 	</modules>
 
 	<profiles>
-		<profile>
-			<id>full-build</id>
-			<activation>
-				<activeByDefault>true</activeByDefault>
-			</activation>
-            <modules>
-                <module>rasterizing-gwt-example</module>
-            </modules>
-		</profile>
-		<profile>
-			<id>skipDocs</id>
-			<activation>
-				<property>
-					<name>skipDocs</name>
-				</property>
-			</activation>
-		</profile>
 		<profile>
 			<id>m2e</id>
 			<activation>

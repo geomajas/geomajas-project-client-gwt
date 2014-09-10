@@ -26,26 +26,12 @@
 
 	<modules>
 		<module>reporting-gwt</module>
+		<module>reporting-gwt-example</module>
+		<module>reporting-gwt-documentation</module>
+		<module>reporting-gwt-javadoc</module>
   </modules>
 
 	<profiles>
-		<profile>
-			<id>full-build</id>
-			<activation>
-				<activeByDefault>true</activeByDefault>
-			</activation>
-            <modules>
-                <module>reporting-gwt-example</module>
-            </modules>
-		</profile>
-		<profile>
-			<id>skipDocs</id>
-			<activation>
-				<property>
-					<name>skipDocs</name>
-				</property>
-			</activation>
-		</profile>
 		<profile>
 			<id>m2e</id>
 			<activation>
