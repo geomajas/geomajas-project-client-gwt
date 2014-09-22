@@ -62,7 +62,6 @@
 		<dependency>
 			<groupId>org.geomajas.plugin</groupId>
 			<artifactId>geomajas-plugin-editing-javascript-api</artifactId>
-			<version>${project.version}</version>
 		</dependency>
 
 		<!-- Test dependencies -->
@@ -116,7 +115,7 @@
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>gwt-maven-plugin</artifactId>
-				<version>${gwt-client-gwt-maven-version}</version>
+				<version>${gwt-client-version-gwt-maven-plugin}</version>
 			</plugin>
 
 			<!-- clean the source tree (Gwt compile of eclipse plugin) -->

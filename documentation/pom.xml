@@ -15,7 +15,7 @@
 	<parent>
 		<groupId>org.geomajas</groupId>
 		<artifactId>geomajas-doc-parent</artifactId>
-		<version>2.3.0</version>
+		<version>2.3.2</version>
 	</parent>
 
 	<artifactId>geomajas-face-gwt-documentation</artifactId>
@@ -27,43 +27,5 @@
 	<properties>
 		<listing.sourceDirectory>${basedir}/..</listing.sourceDirectory>
 	</properties>
-
-	<build>
-		<plugins>
-
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-dependency-plugin</artifactId>
-				<executions>
-					<execution>
-						<id>explode-resources</id>
-						<phase>generate-sources</phase>
-						<goals>
-							<goal>unpack</goal>
-						</goals>
-						<configuration>
-							<artifactItems>
-								<artifactItem>
-									<groupId>org.geomajas</groupId>
-									<artifactId>geomajas-gwt-simple</artifactId>
-									<version>1.7.1</version>
-									<classifier>sources</classifier>
-									<outputDirectory>${project.build.directory}/extract/simple</outputDirectory>
-								</artifactItem>
-								<artifactItem>
-									<groupId>org.geomajas</groupId>
-									<artifactId>geomajas-gwt-example</artifactId>
-									<version>1.7.1</version>
-									<classifier>sources</classifier>
-									<outputDirectory>${project.build.directory}/extract/example</outputDirectory>
-								</artifactItem>
-							</artifactItems>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
-
-		</plugins>
-	</build>
 
 </project>

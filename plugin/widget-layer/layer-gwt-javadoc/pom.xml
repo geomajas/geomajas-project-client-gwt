@@ -19,64 +19,42 @@
 	</parent>
 
 	<artifactId>geomajas-client-gwt-plugin-layer-javadoc</artifactId>
-	<version>1.15.0-SNAPSHOT</version>
 	<packaging>jar</packaging>
 	<name>Geomajas GWT client: Plugin Layer - Javadoc</name>
 	<description>Geomajas GWT client: Plugin Layer - Javadoc</description>
 
 	<dependencies>
-
 		<dependency>
 			<groupId>org.geomajas.widget</groupId>
 			<artifactId>geomajas-widget-layer</artifactId>
-			<version>${project.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.geomajas.widget</groupId>
 			<artifactId>geomajas-widget-layer</artifactId>
-			<version>${project.version}</version>
-			<classifier>sources</classifier>
-		</dependency>
-
-		<dependency>
-			<groupId>org.geomajas.widget</groupId>
-			<artifactId>geomajas-widget-layer-editor</artifactId>
-			<version>${project.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.geomajas.widget</groupId>
-			<artifactId>geomajas-widget-layer-editor</artifactId>
-			<version>${project.version}</version>
 			<classifier>sources</classifier>
 		</dependency>
 
 		<dependency>
 			<groupId>org.geomajas.widget</groupId>
 			<artifactId>geomajas-widget-layer-gwt</artifactId>
-			<version>${project.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.geomajas.widget</groupId>
 			<artifactId>geomajas-widget-layer-gwt</artifactId>
-			<version>${project.version}</version>
 			<classifier>sources</classifier>
 		</dependency>
 
 		<dependency>
 			<groupId>com.google.gwt</groupId>
 			<artifactId>gwt-user</artifactId>
-			<version>${gwt-client-gwt-version}</version>
 			<scope>provided</scope>
 		</dependency>
-
 	</dependencies>
 
 	<build>
 		<plugins>
-
 			<plugin>
 				<artifactId>maven-javadoc-plugin</artifactId>
-				<version>2.9.1</version>
 				<executions>
 					<execution>
 						<id>javadoc-jar</id>
@@ -94,8 +72,6 @@
 					</execution>
 				</executions>
 			</plugin>
-
 		</plugins>
 	</build>
-
 </project>

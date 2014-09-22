@@ -21,7 +21,7 @@
 				<property name="version" value="${project.version}" />
 			</bean>
 		</property>
-		<property name="backendVersion" value="${gwt-client-server-version}" />
+		<property name="backendVersion" value="${gwt-client-version-geomajas-server}" />
 		<property name="dependencies">
 			<list>
 				<!--

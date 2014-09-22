@@ -124,12 +124,12 @@
 			<plugin>
 				<groupId>org.mortbay.jetty</groupId>
 				<artifactId>maven-jetty-plugin</artifactId>
-				<version>6.1.20</version>
+				<version>${gwt-client-version-maven-jetty-plugin}</version>
 				<dependencies>
 					<dependency>
 						<groupId>com.google.gwt</groupId>
 						<artifactId>gwt-servlet</artifactId>
-						<version>${gwt-client-gwt-version}</version>
+						<version>${gwt-client-version-gwt}</version>
 					</dependency>
 				</dependencies>
 				<configuration>
@@ -148,17 +148,17 @@
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>gwt-maven-plugin</artifactId>
-				<version>${gwt-client-gwt-version}</version>
+				<version>${gwt-client-version-gwt-maven-plugin}</version>
 				<dependencies>
 					<dependency>
 						<groupId>com.google.gwt</groupId>
 						<artifactId>gwt-user</artifactId>
-						<version>${gwt-client-gwt-version}</version>
+						<version>${gwt-client-version-gwt}</version>
 					</dependency>
 					<dependency>
 						<groupId>com.google.gwt</groupId>
 						<artifactId>gwt-dev</artifactId>
-						<version>${gwt-client-gwt-version}</version>
+						<version>${gwt-client-version-gwt}</version>
 					</dependency>
 				</dependencies>
 				<configuration>
@@ -194,6 +194,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-eclipse-plugin</artifactId>
+				<version>${gwt-client-version-maven-eclipse-plugin}</version>
 			</plugin>
 
 			<!-- clean the source tree (Gwt compile of eclipse plugin) -->
@@ -235,7 +236,7 @@
 				<dependency>
 					<groupId>org.geomajas</groupId>
 					<artifactId>geomajas-jetty-runner</artifactId>
-					<version>${gwt-client-build-tools-version}</version>
+					<version>${gwt-client-version-geomajas-build-tools}</version>
 				</dependency>
 			</dependencies>
 		</profile>

@@ -323,7 +323,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-eclipse-plugin</artifactId>
-				<version>2.8</version>
+				<version>${gwt-client-version-maven-eclipse-plugin}</version>
 			</plugin>
 
 			<!-- clean the source tree (Gwt compile of eclipse plugin) -->
@@ -385,7 +385,7 @@
 				<dependency>
 					<groupId>org.geomajas</groupId>
 					<artifactId>geomajas-jetty-runner</artifactId>
-					<version>${gwt-client-build-tools-version}</version>
+					<version>${gwt-client-version-geomajas-build-tools}</version>
 				</dependency>
 				<dependency>
 					<groupId>com.google.gwt</groupId>

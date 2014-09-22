@@ -19,7 +19,6 @@
 	</parent>
 
 	<artifactId>geomajas-client-gwt-plugin-vendorspecificpipeline-javadoc</artifactId>
-	<version>1.15.0-SNAPSHOT</version>
 	<packaging>jar</packaging>
 	<name>Geomajas GWT client: Plugin Vendorspecificpipeline - Javadoc</name>
 	<description>Geomajas GWT client: Plugin Vendorspecificpipeline - Javadoc</description>

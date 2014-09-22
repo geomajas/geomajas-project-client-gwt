@@ -66,12 +66,10 @@
 		<dependency>
 			<groupId>org.geomajas.widget</groupId>
 			<artifactId>geomajas-widget-advancedviews</artifactId>
-			<version>${project.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.geomajas.widget</groupId>
 			<artifactId>geomajas-widget-advancedviews-gwt</artifactId>
-			<version>${project.version}</version>
 		</dependency>
 		<!-- @extract-end -->
 		
@@ -127,7 +125,7 @@
 			<plugin>
 				<groupId>org.mortbay.jetty</groupId>
 				<artifactId>maven-jetty-plugin</artifactId>
-				<version>6.1.20</version>
+				<version>${gwt-client-version-maven-jetty-plugin}</version>
 				<configuration>
 					<webAppConfig>
 						<contextPath>/</contextPath>
@@ -144,17 +142,17 @@
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>gwt-maven-plugin</artifactId>
-				<version>${gwt-client-gwt-maven-version}</version>
+				<version>${gwt-client-version-gwt-maven-plugin}</version>
 				<dependencies>
 					<dependency>
 						<groupId>com.google.gwt</groupId>
 						<artifactId>gwt-user</artifactId>
-						<version>${gwt-client-gwt-version}</version>
+						<version>${gwt-client-version-gwt}</version>
 					</dependency>
 					<dependency>
 						<groupId>com.google.gwt</groupId>
 						<artifactId>gwt-dev</artifactId>
-						<version>${gwt-client-gwt-version}</version>
+						<version>${gwt-client-version-gwt}</version>
 					</dependency>
 				</dependencies>
 				<configuration>
@@ -167,7 +165,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-eclipse-plugin</artifactId>
-				<version>2.8</version>
+				<version>${gwt-client-version-maven-eclipse-plugin}</version>
 			</plugin>
 
 		</plugins>
@@ -222,7 +220,7 @@
 				<dependency>
 					<groupId>org.geomajas</groupId>
 					<artifactId>geomajas-jetty-runner</artifactId>
-					<version>${gwt-client-build-tools-version}</version>
+					<version>${gwt-client-version-geomajas-build-tools}</version>
 				</dependency>
 			</dependencies>
 		</profile>

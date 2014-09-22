@@ -22,7 +22,7 @@
 				<property name="version" value="${project.version}" />
 			</bean>
 		</property>
-		<property name="backendVersion" value="${gwt-client-server-version}" />
+		<property name="backendVersion" value="${gwt-client-version-geomajas-server}" />
 		<property name="dependencies">
 			<list>
 				<bean class="org.geomajas.global.PluginVersionInfo">
@@ -35,7 +35,7 @@
 				</bean>
 				<bean class="org.geomajas.global.PluginVersionInfo">
 					<property name="name" value="WMS layer" />
-					<property name="version" value="${gwt-client-server-version}" />
+					<property name="version" value="${gwt-client-version-geomajas-server}" />
 				</bean>
 			</list>
 		</property>

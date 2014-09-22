@@ -35,13 +35,13 @@
 		<dependency>
 			<groupId>com.google.gwt</groupId>
 			<artifactId>gwt-user</artifactId>
-			<version>${gwt-client-gwt-version}</version>
+			<version>${gwt-client-version-gwt}</version>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>com.google.gwt</groupId>
 			<artifactId>gwt-servlet</artifactId>
-			<version>${gwt-client-gwt-version}</version>
+			<version>${gwt-client-version-gwt}</version>
 			<scope>runtime</scope>
 		</dependency>
 
