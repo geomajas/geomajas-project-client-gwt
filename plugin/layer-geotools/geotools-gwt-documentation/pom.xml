@@ -21,7 +21,7 @@
 
 	<groupId>org.geomajas.plugin</groupId>
 	<artifactId>geomajas-client-gwt-plugin-layer-geotools-documentation</artifactId>
-	<version>1.15.0</version>
+	<version>1.16.0-SNAPSHOT</version>
 	<packaging>jar</packaging>
 	<name>Geomajas GWT client: Plugin Layer Geotools - Documentation</name>
 	<description>Geomajas GWT client: Plugin Layer Geotools - Documentation</description>
