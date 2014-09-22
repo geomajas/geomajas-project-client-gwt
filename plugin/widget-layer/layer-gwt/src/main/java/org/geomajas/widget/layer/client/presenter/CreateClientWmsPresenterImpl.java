@@ -20,11 +20,11 @@ import org.geomajas.gwt.client.map.layer.configuration.ClientWmsLayerInfo;
 import org.geomajas.gwt.client.util.Log;
 import org.geomajas.gwt.client.widget.MapWidget;
 import org.geomajas.gwt2.client.map.layer.tile.TileConfiguration;
-import org.geomajas.plugin.wms.client.WmsClient;
-import org.geomajas.plugin.wms.client.capabilities.WmsGetCapabilitiesInfo;
-import org.geomajas.plugin.wms.client.capabilities.WmsLayerInfo;
-import org.geomajas.plugin.wms.client.layer.WmsLayerConfiguration;
-import org.geomajas.plugin.wms.client.service.WmsService;
+import org.geomajas.gwt2.plugin.wms.client.WmsClient;
+import org.geomajas.gwt2.plugin.wms.client.capabilities.WmsGetCapabilitiesInfo;
+import org.geomajas.gwt2.plugin.wms.client.capabilities.WmsLayerInfo;
+import org.geomajas.gwt2.plugin.wms.client.layer.WmsLayerConfiguration;
+import org.geomajas.gwt2.plugin.wms.client.service.WmsService;
 import org.geomajas.widget.layer.client.Layer;
 
 import com.google.gwt.core.client.Callback;

@@ -680,14 +680,6 @@
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
-			<dependency>
-				<groupId>org.geomajas.project</groupId>
-				<artifactId>geomajas-project-sld-editor-all</artifactId>
-				<version>${gwt-client-version-geomajas-sld-editor}</version>
-				<type>pom</type>
-				<scope>import</scope>
-			</dependency>
-
 
 			<!-- Other dependencies -->
 			<!-- GWT -->
@@ -849,7 +841,6 @@
 		<gwt-client-version-geomajas-build-tools>2.4.0</gwt-client-version-geomajas-build-tools>
 		<gwt-client-version-geomajas-server>1.16.2</gwt-client-version-geomajas-server>
 		<gwt-client-version-geomajas-client-gwt2>2.1.0</gwt-client-version-geomajas-client-gwt2>
-		<gwt-client-version-geomajas-sld-editor>1.0.0-M2</gwt-client-version-geomajas-sld-editor>
 		<!-- gwt versions -->
 		<gwt-client-version-gwt>2.5.1</gwt-client-version-gwt>
 		<gwt-client-version-gwt-maven-plugin>2.5.1</gwt-client-version-gwt-maven-plugin>

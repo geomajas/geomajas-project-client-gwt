@@ -21,10 +21,10 @@ import org.geomajas.gwt.client.spatial.Bbox;
 import org.geomajas.gwt2.client.map.layer.tile.TileConfiguration;
 import org.geomajas.gwt2.client.map.render.Tile;
 import org.geomajas.gwt2.client.service.TileService;
+import org.geomajas.gwt2.plugin.wms.client.WmsClient;
+import org.geomajas.gwt2.plugin.wms.client.layer.WmsLayer;
 import org.geomajas.layer.tile.RasterTile;
 import org.geomajas.layer.tile.TileCode;
-import org.geomajas.plugin.wms.client.WmsClient;
-import org.geomajas.plugin.wms.client.layer.WmsLayer;
 
 /**
  * <p>

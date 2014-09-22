@@ -18,7 +18,7 @@ import com.smartgwt.client.widgets.grid.ListGrid;
 import com.smartgwt.client.widgets.grid.ListGridField;
 import com.smartgwt.client.widgets.grid.ListGridRecord;
 import com.smartgwt.client.widgets.layout.VLayout;
-import org.geomajas.plugin.wms.client.capabilities.WmsLayerInfo;
+import org.geomajas.gwt2.plugin.wms.client.capabilities.WmsLayerInfo;
 import org.geomajas.widget.layer.client.i18n.LayerMessages;
 import org.geomajas.widget.layer.client.presenter.CreateClientWmsPresenter;
 

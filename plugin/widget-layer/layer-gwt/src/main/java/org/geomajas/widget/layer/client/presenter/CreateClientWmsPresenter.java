@@ -12,7 +12,7 @@ package org.geomajas.widget.layer.client.presenter;
 
 import com.google.gwt.user.client.ui.Widget;
 import com.smartgwt.client.widgets.Canvas;
-import org.geomajas.plugin.wms.client.capabilities.WmsLayerInfo;
+import org.geomajas.gwt2.plugin.wms.client.capabilities.WmsLayerInfo;
 
 import java.util.List;
 

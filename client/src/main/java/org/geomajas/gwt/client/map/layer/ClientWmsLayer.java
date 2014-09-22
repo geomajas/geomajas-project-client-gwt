@@ -25,9 +25,9 @@ import org.geomajas.gwt2.client.map.ViewPort;
 import org.geomajas.gwt2.client.map.ViewPortTransformationService;
 import org.geomajas.gwt2.client.map.ZoomOption;
 import org.geomajas.gwt2.client.map.layer.tile.TileConfiguration;
-import org.geomajas.plugin.wms.client.capabilities.WmsLayerInfo;
-import org.geomajas.plugin.wms.client.layer.WmsLayerConfiguration;
-import org.geomajas.plugin.wms.client.layer.WmsLayerImpl;
+import org.geomajas.gwt2.plugin.wms.client.capabilities.WmsLayerInfo;
+import org.geomajas.gwt2.plugin.wms.client.layer.WmsLayerConfiguration;
+import org.geomajas.gwt2.plugin.wms.client.layer.WmsLayerImpl;
 
 /**
  * SmartGWT implementation of the client WMS layer. This is an extension of the GWT2 wms layer adding support for the
@@ -47,6 +47,7 @@ public class ClientWmsLayer extends WmsLayerImpl {
 	 */
 	public ClientWmsLayer(String title, String crs, WmsLayerConfiguration wmsConfig, TileConfiguration tileConfig) {
 		this(title, crs, wmsConfig, tileConfig, null);
+
 	}
 
 	/**
