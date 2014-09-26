@@ -755,11 +755,6 @@
 				<artifactId>gwtexporter</artifactId>
 				<version>${gwt-client-version-exporter}</version>
 			</dependency>
-			<dependency>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-javadoc-plugin</artifactId>
-				<version>${gwt-client-version-maven-javadoc-plugin}</version>
-			</dependency>
 		</dependencies>
 	</dependencyManagement>
 
