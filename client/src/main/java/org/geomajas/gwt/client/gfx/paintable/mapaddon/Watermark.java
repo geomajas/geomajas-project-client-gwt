@@ -35,14 +35,17 @@ public class Watermark extends MapAddon {
 
 	private Rectangle dummy;
 
+	private static final int WIDTH = 120;
+	private static final int HEIGHT = 14;
+
 	// Constructor:
 
 	public Watermark(String id, MapWidget map) {
-		super(id, 125, 12);
+		super(id, WIDTH, HEIGHT);
 		this.map = map;
 		image = new Image(id + "-img");
-		image.setBounds(new Bbox(0, 0, 125, 12));
-		image.setHref(Geomajas.getIsomorphicDir() + "geomajas/mapaddon/powered_by_geomajas.gif");
+		image.setBounds(new Bbox(0, 0, WIDTH, HEIGHT));
+		image.setHref(Geomajas.getIsomorphicDir() + "geomajas/mapaddon/powered_by_geomajas.png");
 		image.setStyle(new PictureStyle(1));
 
 		dummy = new Rectangle(getId() + "-dummy");
