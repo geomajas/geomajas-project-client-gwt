@@ -114,6 +114,7 @@ public class WmsSample extends SamplePanel {
 		wmsConfig.setLayers(name);
 		wmsConfig.setVersion(WmsService.WmsVersion.V1_1_1);
 		wmsConfig.setBaseUrl(url);
+		wmsConfig.setCrs("EPSG:900913");
 		wmsConfig.setTransparent(true);
 		wmsConfig.setMaximumResolution(Double.MAX_VALUE);
 		wmsConfig.setMinimumResolution(1 / mapWidget.getMapModel().getMapInfo().getMaximumScale());
