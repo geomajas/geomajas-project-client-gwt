@@ -76,6 +76,27 @@
 		<module>example</module>
 	</modules>
 
+	<properties>
+		<!-- geomajas versions -->
+		<gwt-client-version-geomajas-build-tools>2.4.0</gwt-client-version-geomajas-build-tools>
+		<gwt-client-version-geomajas-server>1.16.2</gwt-client-version-geomajas-server>
+		<gwt-client-version-geomajas-client-gwt2>2.1.1</gwt-client-version-geomajas-client-gwt2>
+		<!-- gwt versions -->
+		<gwt-client-version-gwt>2.5.1</gwt-client-version-gwt>
+		<gwt-client-version-gwt-maven-plugin>2.5.1</gwt-client-version-gwt-maven-plugin>
+		<gwt-client-version-smartgwt>4.1p-2014-04-10</gwt-client-version-smartgwt>
+		<!-- other versions -->
+		<gwt-client-version-spring>3.0.5.RELEASE</gwt-client-version-spring>
+		<gwt-client-version-selenium>2.39.0</gwt-client-version-selenium>
+		<gwt-client-version-commons-codec>1.7</gwt-client-version-commons-codec>
+		<gwt-client-version-httpclient>4.2.2</gwt-client-version-httpclient>
+		<gwt-client-version-exporter>2.4.0</gwt-client-version-exporter>
+		<gwt-client-version-maven-javadoc-plugin>2.9.1</gwt-client-version-maven-javadoc-plugin>
+		<gwt-client-version-maven-jetty-plugin>6.1.20</gwt-client-version-maven-jetty-plugin>
+		<gwt-client-version-maven-surefire-plugin>2.10</gwt-client-version-maven-surefire-plugin>
+		<gwt-client-version-maven-eclipse-plugin>2.8</gwt-client-version-maven-eclipse-plugin>
+	</properties>
+
 	<dependencyManagement>
 		<dependencies>
 			<!-- Artifacts within this project (exclude documentation) -->
@@ -830,26 +851,5 @@
 			</activation>
 		</profile>
 	</profiles>
-
-	<properties>
-		<!-- geomajas versions -->
-		<gwt-client-version-geomajas-build-tools>2.4.0</gwt-client-version-geomajas-build-tools>
-		<gwt-client-version-geomajas-server>1.16.2</gwt-client-version-geomajas-server>
-		<gwt-client-version-geomajas-client-gwt2>2.1.0</gwt-client-version-geomajas-client-gwt2>
-		<!-- gwt versions -->
-		<gwt-client-version-gwt>2.5.1</gwt-client-version-gwt>
-		<gwt-client-version-gwt-maven-plugin>2.5.1</gwt-client-version-gwt-maven-plugin>
-		<gwt-client-version-smartgwt>4.1p-2014-04-10</gwt-client-version-smartgwt>
-		<!-- other versions -->
-		<gwt-client-version-spring>3.0.5.RELEASE</gwt-client-version-spring>
-		<gwt-client-version-selenium>2.39.0</gwt-client-version-selenium>
-		<gwt-client-version-commons-codec>1.7</gwt-client-version-commons-codec>
-		<gwt-client-version-httpclient>4.2.2</gwt-client-version-httpclient>
-		<gwt-client-version-exporter>2.4.0</gwt-client-version-exporter>
-		<gwt-client-version-maven-javadoc-plugin>2.9.1</gwt-client-version-maven-javadoc-plugin>
-		<gwt-client-version-maven-jetty-plugin>6.1.20</gwt-client-version-maven-jetty-plugin>
-		<gwt-client-version-maven-surefire-plugin>2.10</gwt-client-version-maven-surefire-plugin>
-		<gwt-client-version-maven-eclipse-plugin>2.8</gwt-client-version-maven-eclipse-plugin>
-	</properties>
 
 </project>
