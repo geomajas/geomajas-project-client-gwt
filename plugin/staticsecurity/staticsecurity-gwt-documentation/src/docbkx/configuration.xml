@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ This is part of Geomajas, a GIS framework, http://www.geomajas.org/.
+  ~
+  ~ Copyright 2008-2013 Geosparc nv, http://www.geosparc.com/, Belgium.
+  ~
+  ~ The program is available in open source according to the GNU Affero
+  ~ General Public License. All contributions in this program are covered
+  ~ by the Geomajas Contributors License Agreement. For full licensing
+  ~ details, see LICENSE.txt in the project root.
+  -->
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.4//EN"
+"http://www.oasis-open.org/docbook/xml/4.4/docbookx.dtd">
+<chapter id="chapter-configuration">
+  <title>Configuration</title>
+
+  <para>The configuration of staticsecurity involves the following
+  elements:</para>
+
+  <para><itemizedlist>
+      <listitem>
+        <para>configure the use of staticsecurity as security service.</para>
+      </listitem>
+
+      <listitem>
+        <para>configure the way to access the users.</para>
+      </listitem>
+
+      <listitem>
+        <para>configure the policies to use.</para>
+      </listitem>
+    </itemizedlist></para>
+
+  <section id="dependencies">
+    <title>Dependencies</title>
+
+    <para>Make sure you include the correct version of the plugin in your
+    project. This can be done either by including a reference to geomajas-dep
+    or the following excerpt (with the correct version) in the
+    dependencyManagement section of your project:</para>
+
+    <informalexample>
+		<programlisting> &lt;dependency&gt;
+   &lt;groupId&gt;org.geomajas.project&lt;/groupId&gt;
+   &lt;artifactId&gt;geomajas-project-client-gwt&lt;/artifactId&gt;
+   &lt;version&gt;<?eval ${project.version}?>&lt;/version&gt;
+   &lt;type&gt;pom&lt;/type&gt;
+   &lt;scope&gt;import&lt;/scope&gt;
+&lt;/dependency&gt;</programlisting>
+    </informalexample>
+
+    <para>If you are using geomajas-dep, this includes the latest version of
+    the staticsecurity plugin (at the time of publishing of that version). If
+    you want to overwrite the staticsecurity plugin version, make sure to
+    include this excerpt <emphasis>before</emphasis> the geomajas-dep
+    dependency.</para>
+
+    <para>You can now include the actual dependency without explicit version.
+    You will probably need the dependency for the client you are using. In case
+    of the client GWT, this is:</para>
+
+    <informalexample>
+      <programlisting>&lt;dependency&gt;
+    &lt;groupId&gt;org.geomajas.plugin&lt;/groupId&gt;
+    &lt;artifactId&gt;geomajas-plugin-staticsecurity-gwt&lt;/artifactId&gt;
+&lt;/dependency&gt;</programlisting>
+    </informalexample>
+  </section>
+
+  <section id="useSecServ">
+    <title>Use staticsecurity security service</title>
+
+    <para>To enable the use of the staticsecurity security service, you have
+    to replace the "security.securityInfo" bean with your own version. When
+    such a bean is not defined, nobody is allowed to do anything.</para>
+
+    <xi:include href="listing/UseStaticsecurity.xml"
+                xmlns:xi="http://www.w3.org/2001/XInclude" />
+
+    <para>The configuration actually defines two services. The second
+    (LoginAllowedSecurityService) assures that everybody is allowed access to
+    the login command which is provided by the plugin.</para>
+
+    <para>The actual staticsecurity security service requires you to define a
+    bean of the class
+    org.geomajas.plugin.staticsecurity.configuration.SecurityServiceInfo to be
+    defined in your application context. All configuration is read from that
+    bean. Details are given in the following sections.</para>
+  </section>
+
+  <section id="tokenValidity">
+    <title>Configure token validity</title>
+
+    <para>Tokens have a default lifespan of four hours. You can change this
+    using the tokenLifetime property in SecurityServiceInfo. When a token is
+    used after it has expired, it will be removed from the list of available
+    tokens and the token is invalid. By default the list of available tokens
+    is not automatically purged. However, this can easily be done using a
+    little bit of Spring configuration by adding the following
+    configuration.</para>
+
+    <xi:include href="listing/AutoSchedule.xml"
+                xmlns:xi="http://www.w3.org/2001/XInclude" />
+
+    <para>When this is enabled, the list of available tokens are purged every
+    minute.</para>
+  </section>
+</chapter>
