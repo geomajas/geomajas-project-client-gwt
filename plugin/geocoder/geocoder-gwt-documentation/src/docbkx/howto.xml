@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ This is part of Geomajas, a GIS framework, http://www.geomajas.org/.
+  ~
+  ~ Copyright 2008-2013 Geosparc nv, http://www.geosparc.com/, Belgium.
+  ~
+  ~ The program is available in open source according to the GNU Affero
+  ~ General Public License. All contributions in this program are covered
+  ~ by the Geomajas Contributors License Agreement. For full licensing
+  ~ details, see LICENSE.txt in the project root.
+  -->
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.4//EN"
+"http://www.oasis-open.org/docbook/xml/4.4/docbookx.dtd">
+<chapter id="chapter-howto">
+  <title>How-to</title>
+
+  <para>This chapter details the extension possibilities of the geocoder
+  plugin.</para>
+
+  <section id="widgetInTool">
+    <title>How to declaratively put the geocoder widget in the toolbar</title>
+
+    <para>You can use the following tool configuration to add tools in the
+    toolbar.</para>
+
+    <example>
+      <title>Tool configuration</title>
+
+      <programlisting>&lt;bean name="Geocoder" class="org.geomajas.configuration.client.ClientToolInfo"&gt;
+  &lt;property name="parameters"&gt;
+    &lt;list&gt;
+      &lt;bean class="org.geomajas.configuration.Parameter"&gt;
+        &lt;property name="name" value="name" /&gt;
+        &lt;property name="value" value="geocoder" /&gt;
+      &lt;/bean&gt;
+      &lt;bean class="org.geomajas.configuration.Parameter"&gt;
+        &lt;property name="name" value="title" /&gt;
+        &lt;property name="value" value="Location" /&gt;
+      &lt;/bean&gt;
+    &lt;/list&gt;
+  &lt;/property&gt;
+&lt;/bean&gt;
+</programlisting>
+    </example>
+  </section>
+
+  <section id="chawidget">
+    <title>How to change behaviour of the GeocoderWidget</title>
+
+    <para>The widgets behaviour is controlled using two handler classes,
+    SelectLocationHandler and SelectAlterativeHandler. For both only one
+    handler can be configured for the widget.</para>
+
+    <para>The SelectLocationHandler has a default implementation which zooms
+    to the location which was found or selected. The default implementation is
+    displayed in listing <xref linkend="DefaultSelectLocation" />.</para>
+
+    <xi:include href="listing/DefaultSelectLocation.xml"
+                xmlns:xi="http://www.w3.org/2001/XInclude" />
+
+    <para>The SelectAlternativeHandler is used when the location was
+    considered ambiguous and several alternatives are returned. The default
+    implementation (listing <xref linkend="???" />) puts a window on the map
+    in which the correct location can be selected by the user. This uses the
+    GeocoderAlternativesGrid which lists the options and invokes the
+    SelectLocationHandler on the geocoder when the user selects a line.</para>
+
+    <xi:include href="listing/DefaultSelectAlternative.xml"
+                xmlns:xi="http://www.w3.org/2001/XInclude" />
+  </section>
+</chapter>

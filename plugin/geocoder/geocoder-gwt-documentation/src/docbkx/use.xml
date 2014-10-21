@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ This is part of Geomajas, a GIS framework, http://www.geomajas.org/.
+  ~
+  ~ Copyright 2008-2013 Geosparc nv, http://www.geosparc.com/, Belgium.
+  ~
+  ~ The program is available in open source according to the GNU Affero
+  ~ General Public License. All contributions in this program are covered
+  ~ by the Geomajas Contributors License Agreement. For full licensing
+  ~ details, see LICENSE.txt in the project root.
+  -->
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.4//EN"
+"http://www.oasis-open.org/docbook/xml/4.4/docbookx.dtd">
+<chapter id="chapter-use">
+  <title>Use</title>
+
+  <para>How to use the GWT client geocoder plugin.</para>
+
+  <section id="usegwt">
+    <title>GWT widget</title>
+
+    <para>To make it easier for you, the plugin contains a widget which can
+    be included in the client GWT.</para>
+
+    <para>This widget consists of a text box where the user can type the
+    location string. On pressing <keycode>&lt;enter&gt;</keycode> or
+    indicating the search icon, the GetLocationForString command is called.
+    When this returns a match, the map will zoom to that area. When the search
+    is ambiguous, a pop-up with the alternatives is displayed.<figure>
+        <title>Search widget</title>
+
+        <mediaobject>
+          <imageobject>
+            <imagedata fileref="images/geocoderWidget.png" width="50%" />
+          </imageobject>
+        </mediaobject>
+      </figure></para>
+
+    <para>Including the widget is easy. In the initialization code for your
+    application, add in instance of the GeocoderWidget where you want to put
+    it. This requires a couple of parameters, the map the widget is connected
+    with, the description and label for the widget. In listing <xref
+    linkend="createGwtWidget" /> you see an excerpt where the widget in placed
+    inside the map's toolbar. The widget tries to adapt itself to the
+    currently active locale.</para>
+
+    <xi:include href="listing/createGwtWidget.xml"
+                xmlns:xi="http://www.w3.org/2001/XInclude" />
+
+    <para></para>
+  </section>
+</chapter>
