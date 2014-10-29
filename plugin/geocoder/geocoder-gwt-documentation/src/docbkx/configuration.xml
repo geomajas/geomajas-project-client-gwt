@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ This is part of Geomajas, a GIS framework, http://www.geomajas.org/.
+  ~
+  ~ Copyright 2008-2013 Geosparc nv, http://www.geosparc.com/, Belgium.
+  ~
+  ~ The program is available in open source according to the GNU Affero
+  ~ General Public License. All contributions in this program are covered
+  ~ by the Geomajas Contributors License Agreement. For full licensing
+  ~ details, see LICENSE.txt in the project root.
+  -->
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.4//EN"
+"http://www.oasis-open.org/docbook/xml/4.4/docbookx.dtd">
+<chapter id="chapter-configuration">
+  <title>Configuration</title>
+
+  <para>Configuration for the client GWT geocoder plugin.</para>
+
+  <section id="dependencies">
+    <title>Dependencies</title>
+
+    <para>Make sure sure you include the correct version of the plugin in
+    your project. Use the following excerpt (with the correct version) in the
+    dependencyManagement section of your project:</para>
+
+    <informalexample>
+		<programlisting> &lt;dependency&gt;
+    &lt;groupId&gt;org.geomajas.project&lt;/groupId&gt;
+    &lt;artifactId&gt;geomajas-project-client-gwt&lt;/artifactId&gt;
+    &lt;version&gt;<?eval ${project.version}?>&lt;/version&gt;
+    &lt;type&gt;pom&lt;/type&gt;
+    &lt;scope&gt;import&lt;/scope&gt;
+&lt;/dependency&gt;</programlisting>
+    </informalexample>
+
+    <para>If you are using geomajas-dep, this includes the latest released
+    version of the caching plugin (at the time of publishing of that
+    version). If you want to overwrite the caching plugin version, make sure
+    to include this excerpt <emphasis>before</emphasis> the geomajas-dep
+    dependency.</para>
+
+    <para>You can now include the actual dependency without explicit
+    version.</para>
+
+    <example>
+      <title>Plugin dependency</title>
+
+      <programlisting>&lt;dependency&gt;
+    &lt;groupId&gt;org.geomajas.plugin&lt;/groupId&gt;
+    &lt;artifactId&gt;geomajas-plugin-geocoder-gwt&lt;/artifactId&gt;
+&lt;/dependency&gt;</programlisting>
+    </example>
+
+    <para>To use the widget, you have to include the geocoder GWT module
+    description as in listing <xref linkend="GwtModule" />.</para>
+
+    <xi:include href="listing/GwtModule.xml"
+                xmlns:xi="http://www.w3.org/2001/XInclude" />
+  </section>
+
+  <section id="command">
+    <title>Geocoder command configuration</title>
+
+    <para>When you include the geocoder dependency, you also have to configure
+    the geocoder command or you will get an exception when the application
+    context is built.</para>
+
+    <para>An example configuration looks like this:</para>
+
+    <xi:include href="listing/exampleConfiguration.xml"
+                xmlns:xi="http://www.w3.org/2001/XInclude" />
+
+    <para>To configure the geocoder plugin, you have to create a bean
+    instantiating the GeocoderInfo class.</para>
+
+    <para>In the bean, you have to set the geocoderServices property to select
+    which geocoder services you want to be used to attempt to convert the
+    string to a location.</para>
+
+    <para>Other properties you may want to set:</para>
+
+    <para><itemizedlist>
+        <listitem>
+          <para><emphasis>splitGeocoderStringService</emphasis>: the service
+          which should be used to split the location string into parts and to
+          determine the order in which parts are given. Depending on this
+          service, you may tell your users to search for "Antwerpen, BE", "BE,
+          Antwerpen" or "Antwerpen; BE",...</para>
+        </listitem>
+
+        <listitem>
+          <para><emphasis>combineResultService</emphasis>: service which
+          combines the result when several geocoder services found a match for
+          the location string.</para>
+        </listitem>
+
+        <listitem>
+          <para><emphasis>loopAllServices</emphasis>: the command will loop
+          all geocoder services which have been specified. Should this loop
+          stop when one geocoder found either a match or some
+          alternatives?</para>
+        </listitem>
+
+        <listitem>
+          <para><emphasis>pointDisplayWidth</emphasis>: width in meters for
+          the area which needs to be displayed on the map when the geocoder
+          service returned a point. Defaults to 2000 (2km).</para>
+        </listitem>
+
+        <listitem>
+          <para><emphasis>pointDisplayHeight</emphasis>: width in meters for
+          the area which needs to be displayed on the map when the geocoder
+          service returned a point. Defaults to 1000 (1km).</para>
+        </listitem>
+      </itemizedlist></para>
+  </section>
+</chapter>
