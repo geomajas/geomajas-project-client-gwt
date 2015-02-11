@@ -31,7 +31,8 @@
 	<set-property name="locale" value="default" />
 	-->
 	<!-- Compile to a single file, this speeds up compilation at the penalty of creating a single large file -->
-	<collapse-all-properties />
+	<!-- Never use in production! IE11 problems -->
+	<!--<collapse-all-properties />-->
 
 	<entry-point class="org.geomajas.gwt.example.client.GwtFaceExampleStandalone"/>
 </module>
