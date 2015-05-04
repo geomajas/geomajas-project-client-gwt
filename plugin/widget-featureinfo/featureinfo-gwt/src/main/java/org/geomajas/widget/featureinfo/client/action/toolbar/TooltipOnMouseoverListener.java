@@ -44,7 +44,6 @@ import org.geomajas.widget.featureinfo.client.util.FitLayout;
 import org.geomajas.widget.featureinfo.client.util.FitSetting;
 
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.core.client.impl.StringBuilderImpl;
 import com.google.gwt.user.client.Timer;
 import com.smartgwt.client.widgets.Canvas;
 import com.smartgwt.client.widgets.Img;
@@ -163,29 +162,29 @@ public class TooltipOnMouseoverListener extends AbstractListener {
 		}
 	}
 
-	private void writeLayerStart(StringBuilderImpl sb, String label) {
+	private void writeLayerStart(StringBuilder sb, String label) {
 		sb.append("<span class='tblcLayerLabel'>");
 		sb.append(label);
 		sb.append("</span><ul class='tblcFeatureLabelList'>");
 	}
 
-	private void writeFeature(StringBuilderImpl sb, String label) {
+	private void writeFeature(StringBuilder sb, String label) {
 		sb.append("<li class='tblcFeatureLabel'>");
 		sb.append(label);
 		sb.append("</li>");
 	}
 
-	private void writeLayerEnd(StringBuilderImpl sb) {
+	private void writeLayerEnd(StringBuilder sb) {
 		sb.append("</ul>");
 	}
 
-	private void writeNone(StringBuilderImpl sb) {
+	private void writeNone(StringBuilder sb) {
 		sb.append("<span class='tblcMore'>(");
 		sb.append(MESSAGES.tooltipOnMouseoverNoResult());
 		sb.append(")</span>");
 	}
 
-	private void writeTooMany(StringBuilderImpl sb, int tooMany) {
+	private void writeTooMany(StringBuilder sb, int tooMany) {
 		sb.append("<span class='tblcMore'>");
 		sb.append(Integer.toString(tooMany));
 		sb.append("</span>");
@@ -193,7 +192,7 @@ public class TooltipOnMouseoverListener extends AbstractListener {
 
 	private void setTooltipData(Coordinate coordUsedForRetrieval, Map<String, List<Feature>> featureMap) {
 		if (coordUsedForRetrieval.equals(worldPosition) && tooltip != null) {
-			StringBuilderImpl sb = new StringBuilderImpl.ImplStringAppend();
+			StringBuilder sb = new StringBuilder();
 			sb.append(CSS);
 			widest = 10;
 			count = 0;
@@ -236,7 +235,7 @@ public class TooltipOnMouseoverListener extends AbstractListener {
 		} // else - mouse moved between request and data retrieval
 	}
 
-	private void setTooltipDefaultData(StringBuilderImpl sb, Layer<?> layer, List<Feature> features) {
+	private void setTooltipDefaultData(StringBuilder sb, Layer<?> layer, List<Feature> features) {
 		if (count < maxLabelCount) {
 			writeLayerStart(sb, layer.getLabel());
 			widest = updateTooltipSize(widest,
@@ -255,7 +254,7 @@ public class TooltipOnMouseoverListener extends AbstractListener {
 		}
 	}
 
-	private void setTooltipDetailData(StringBuilderImpl sb, Layer<?> layer, List<Feature> features) {
+	private void setTooltipDetailData(StringBuilder sb, Layer<?> layer, List<Feature> features) {
 		for (Feature feature : features) {
 			if (count < maxLabelCount) {
 
