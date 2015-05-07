@@ -18,7 +18,7 @@
 	<inherits name="com.smartgwt.tools.SmartGwtTools"/>
 	<inherits name="org.geomajas.gwt.GeomajasClient"/>
 	<inherits name="org.geomajas.plugin.runtimeconfig.RuntimeConfig"/>
-	<inherits name="com.smartclient.theme.enterprise.Enterprise"/>
+	<inherits name="com.smartclient.theme.enterprise.EnterpriseResources"/>
 
 	<!-- @extract-skip-start -->
 

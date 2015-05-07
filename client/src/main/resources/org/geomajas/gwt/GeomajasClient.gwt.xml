@@ -19,7 +19,7 @@
 	<inherits name="org.geomajas.gwt2.plugin.wms.GeomajasClientPluginWms" />
 
 	<!-- Inherited modules: SmartGWT without theme -->
-	<inherits name='com.smartgwt.SmartGwtNoTheme'/>
+	<inherits name='com.smartgwt.SmartGwtNoScript'/>
 
 	<!-- make sure the default is there -->
 	<source path="client"/>
