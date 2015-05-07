@@ -13,7 +13,7 @@
 <module>
 	<inherits name="com.smartgwt.tools.SmartGwtTools"/>
     <inherits name="org.geomajas.gwt.GeomajasClient"/>
-    <inherits name="com.smartclient.theme.enterprise.EnterpriseResources"/>
+    <inherits name="com.smartclient.theme.enterprise.Enterprise"/>
     <inherits name="org.geomajas.plugin.staticsecurity.StaticSecurity" />
 	<!-- Inherit the GWT widget (plugin) module for the featureinfo widget . -->
 	<inherits name="org.geomajas.widget.searchandfilter.SearchAndFilter"/>

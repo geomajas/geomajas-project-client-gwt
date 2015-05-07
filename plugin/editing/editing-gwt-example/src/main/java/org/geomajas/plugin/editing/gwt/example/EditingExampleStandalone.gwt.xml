@@ -12,7 +12,7 @@
 
 <module rename-to="EditingExample">
 	<inherits name="org.geomajas.plugin.editing.gwt.example.EditingExample"/>
-	<inherits name="com.smartclient.theme.enterprise.EnterpriseResources"/>
+	<inherits name="com.smartclient.theme.enterprise.Enterprise"/>
 
 	<!-- add required languages
 	<extend-property name="locale" values="nl"/>
