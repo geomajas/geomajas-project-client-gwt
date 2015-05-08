@@ -82,7 +82,7 @@
 		<gwt-client-version-geomajas-client-gwt2>2.3.0</gwt-client-version-geomajas-client-gwt2>
 		<!-- gwt versions -->
 		<gwt-client-version-gwt>2.7.0</gwt-client-version-gwt>
-		<gwt-client-version-smartgwt>4.1p-2014-04-10</gwt-client-version-smartgwt>
+		<gwt-client-version-smartgwt>4.1p-2015-05-06</gwt-client-version-smartgwt>
 		<!-- other versions -->
 		<gwt-client-version-spring>3.0.5.RELEASE</gwt-client-version-spring>
 		<gwt-client-version-selenium>2.39.0</gwt-client-version-selenium>

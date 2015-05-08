@@ -220,6 +220,12 @@
 					<groupId>org.geomajas</groupId>
 					<artifactId>geomajas-jetty-runner</artifactId>
 					<version>${geomajas-build-tools-version}</version>
+					<exclusions>
+						<exclusion>
+							<groupId>org.eclipse.jetty.aggregate</groupId>
+							<artifactId>jetty-all</artifactId>
+						</exclusion>
+					</exclusions>
 				</dependency>
 				<dependency>
 					<groupId>com.google.gwt</groupId>
