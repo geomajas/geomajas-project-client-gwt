@@ -13,7 +13,7 @@ package org.geomajas.widget.searchandfilter.command.searchandfilter;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.geomajas.command.Command;
+import org.geomajas.command.CommandHasRequest;
 import org.geomajas.service.DtoConverterService;
 import org.geomajas.widget.searchandfilter.command.dto.GeometryUtilsRequest;
 import org.geomajas.widget.searchandfilter.command.dto.GeometryUtilsResponse;
@@ -34,13 +34,14 @@ import com.vividsolutions.jts.geom.Geometry;
  * @author Kristof Heirwegh
  */
 @Component
-public class GeometryUtilsCommand implements Command<GeometryUtilsRequest, GeometryUtilsResponse> {
+public class GeometryUtilsCommand implements CommandHasRequest<GeometryUtilsRequest, GeometryUtilsResponse> {
 
 	private final Logger log = LoggerFactory.getLogger(GeometryUtilsCommand.class);
 
 	@Autowired
 	private DtoConverterService converter;
 
+	@Override
 	public void execute(final GeometryUtilsRequest request, final GeometryUtilsResponse response) throws Exception {
 		if (request.getGeometries() != null && request.getGeometries().length > 0) {
 			int geomCount = request.getGeometries().length;
@@ -110,6 +111,12 @@ public class GeometryUtilsCommand implements Command<GeometryUtilsRequest, Geome
 		return result;
 	}
 
+	@Override
+	public GeometryUtilsRequest getEmptyCommandRequest() {
+		return new GeometryUtilsRequest();
+	}
+
+	@Override
 	public GeometryUtilsResponse getEmptyCommandResponse() {
 		return new GeometryUtilsResponse();
 	}

@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import org.geomajas.command.Command;
+import org.geomajas.command.CommandHasRequest;
 import org.geomajas.geometry.Crs;
 import org.geomajas.global.ExceptionCode;
 import org.geomajas.global.GeomajasException;
@@ -46,7 +46,7 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Component
 @Transactional(readOnly = true, rollbackFor = { Exception.class })
-public class FeatureSearchCommand implements Command<FeatureSearchRequest, FeatureSearchResponse> {
+public class FeatureSearchCommand implements CommandHasRequest<FeatureSearchRequest, FeatureSearchResponse> {
 
 	@SuppressWarnings("unused")
 	private final Logger log = LoggerFactory.getLogger(FeatureSearchCommand.class);
@@ -69,6 +69,7 @@ public class FeatureSearchCommand implements Command<FeatureSearchRequest, Featu
 	@Autowired
 	private SecurityContext securityContext;
 
+	@Override
 	public void execute(final FeatureSearchRequest request, final FeatureSearchResponse response) throws Exception {
 		if (request.getCriterion() == null) {
 			throw new GeomajasException(ExceptionCode.PARAMETER_MISSING, "criterion");
@@ -112,6 +113,12 @@ public class FeatureSearchCommand implements Command<FeatureSearchRequest, Featu
 		}
 	}
 
+	@Override
+	public FeatureSearchRequest getEmptyCommandRequest() {
+		return new FeatureSearchRequest();
+	}
+
+	@Override
 	public FeatureSearchResponse getEmptyCommandResponse() {
 		return new FeatureSearchResponse();
 	}

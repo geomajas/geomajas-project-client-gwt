@@ -12,7 +12,7 @@ package org.geomajas.widget.searchandfilter.command.searchandfilter;
 
 import java.util.List;
 
-import org.geomajas.command.Command;
+import org.geomajas.command.CommandHasRequest;
 import org.geomajas.command.CommandDispatcher;
 import org.geomajas.command.dto.SearchByLocationRequest;
 import org.geomajas.command.dto.SearchByLocationResponse;
@@ -41,7 +41,7 @@ import org.springframework.stereotype.Component;
  * @author Kristof Heirwegh
  */
 @Component
-public class ExportToCsvCommand implements Command<ExportToCsvRequest, ExportToCsvResponse> {
+public class ExportToCsvCommand implements CommandHasRequest<ExportToCsvRequest, ExportToCsvResponse> {
 
 	private final Logger log = LoggerFactory.getLogger(ExportToCsvCommand.class);
 
@@ -59,10 +59,17 @@ public class ExportToCsvCommand implements Command<ExportToCsvRequest, ExportToC
 	@Autowired
 	private CsvExportService csvService;
 
+	@Override
+	public ExportToCsvRequest getEmptyCommandRequest() {
+		return new ExportToCsvRequest();
+	}
+
+	@Override
 	public ExportToCsvResponse getEmptyCommandResponse() {
 		return new ExportToCsvResponse();
 	}
 
+	@Override
 	public void execute(ExportToCsvRequest request, ExportToCsvResponse response) throws Exception {
 		Feature[] features = null;
 		String token = securityContext.getToken();

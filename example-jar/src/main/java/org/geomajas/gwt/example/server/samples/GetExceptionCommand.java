@@ -11,7 +11,7 @@
 
 package org.geomajas.gwt.example.server.samples;
 
-import org.geomajas.command.Command;
+import org.geomajas.command.CommandHasRequest;
 import org.geomajas.command.CommandResponse;
 import org.geomajas.command.EmptyCommandRequest;
 import org.springframework.stereotype.Component;
@@ -28,12 +28,19 @@ import com.vividsolutions.jts.geom.GeometryFactory;
  * @author Pieter De Graef
  */
 @Component
-public class GetExceptionCommand implements Command<EmptyCommandRequest, CommandResponse> {
+public class GetExceptionCommand implements CommandHasRequest<EmptyCommandRequest, CommandResponse> {
 
+	@Override
 	public void execute(EmptyCommandRequest request, CommandResponse response) throws Exception {
 		throw new UnserializableException();
 	}
 
+	@Override
+	public EmptyCommandRequest getEmptyCommandRequest() {
+		return new EmptyCommandRequest();
+	}
+
+	@Override
 	public CommandResponse getEmptyCommandResponse() {
 		return new CommandResponse();
 	}

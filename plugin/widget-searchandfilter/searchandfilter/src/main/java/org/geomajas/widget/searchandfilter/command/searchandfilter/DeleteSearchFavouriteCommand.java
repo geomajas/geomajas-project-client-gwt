@@ -10,7 +10,7 @@
  */
 package org.geomajas.widget.searchandfilter.command.searchandfilter;
 
-import org.geomajas.command.Command;
+import org.geomajas.command.CommandHasRequest;
 import org.geomajas.command.SuccessCommandResponse;
 import org.geomajas.global.ExceptionCode;
 import org.geomajas.global.GeomajasException;
@@ -31,7 +31,8 @@ import org.springframework.stereotype.Component;
  * @author Kristof Heirwegh
  */
 @Component
-public class DeleteSearchFavouriteCommand implements Command<DeleteSearchFavouriteRequest, SuccessCommandResponse> {
+public class DeleteSearchFavouriteCommand implements
+		CommandHasRequest<DeleteSearchFavouriteRequest, SuccessCommandResponse> {
 
 	@SuppressWarnings("unused")
 	private final Logger log = LoggerFactory.getLogger(DeleteSearchFavouriteCommand.class);
@@ -45,6 +46,7 @@ public class DeleteSearchFavouriteCommand implements Command<DeleteSearchFavouri
 	@Autowired
 	private SecurityContext securityContext;
 
+	@Override
 	public void execute(final DeleteSearchFavouriteRequest request, final SuccessCommandResponse response)
 			throws Exception {
 		if (null == request.getSearchFavouriteId()) {
@@ -83,6 +85,12 @@ public class DeleteSearchFavouriteCommand implements Command<DeleteSearchFavouri
 		}
 	}
 
+	@Override
+	public DeleteSearchFavouriteRequest getEmptyCommandRequest() {
+		return new DeleteSearchFavouriteRequest();
+	}
+
+	@Override
 	public SuccessCommandResponse getEmptyCommandResponse() {
 		return new SuccessCommandResponse();
 	}
