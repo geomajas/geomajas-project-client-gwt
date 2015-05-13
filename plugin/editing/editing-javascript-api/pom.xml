@@ -110,7 +110,7 @@
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>gwt-maven-plugin</artifactId>
-				<version>${gwt-client-version-gwt-maven-plugin}</version>
+				<version>${gwt-client-version-gwt}</version>
 			</plugin>
 
 			<!-- clean the source tree (Gwt compile of eclipse plugin) -->

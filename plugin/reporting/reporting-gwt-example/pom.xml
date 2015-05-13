@@ -107,7 +107,7 @@
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>gwt-maven-plugin</artifactId>
-				<version>${gwt-client-version-gwt-maven-plugin}</version>
+				<version>${gwt-client-version-gwt}</version>
 				<dependencies>
 					<dependency>
 						<groupId>com.google.gwt</groupId>
@@ -179,7 +179,7 @@
 				<dependency>
 					<groupId>org.geomajas</groupId>
 					<artifactId>geomajas-jetty-runner</artifactId>
-					<version>${gwt-client-version-geomajas-build-tools}</version>
+					<version>${geomajas-build-tools-version}</version>
 				</dependency>
 				<dependency>
 					<groupId>com.google.gwt</groupId>
