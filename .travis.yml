@@ -11,4 +11,6 @@ cache:
   directories:
   - $HOME/.m2
 install: mvn dependency:go-offline -q --settings target/geomajas-build-tools/settings.xml
-script: mvn test -B -V --settings target/geomajas-build-tools/settings.xml
+script: 
+  - mvn test -B -V --settings target/geomajas-build-tools/settings.xml
+  - mvn verify -B -V --settings target/geomajas-build-tools/settings.xml
