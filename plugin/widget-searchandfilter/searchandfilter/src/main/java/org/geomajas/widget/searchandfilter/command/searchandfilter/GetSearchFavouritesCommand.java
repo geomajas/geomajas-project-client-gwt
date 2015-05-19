@@ -10,7 +10,7 @@
  */
 package org.geomajas.widget.searchandfilter.command.searchandfilter;
 
-import org.geomajas.command.Command;
+import org.geomajas.command.CommandHasRequest;
 import org.geomajas.global.ExceptionCode;
 import org.geomajas.security.GeomajasSecurityException;
 import org.geomajas.security.SecurityContext;
@@ -29,7 +29,8 @@ import org.springframework.stereotype.Component;
  * @author Kristof Heirwegh
  */
 @Component
-public class GetSearchFavouritesCommand implements Command<GetSearchFavouritesRequest, GetSearchFavouritesResponse> {
+public class GetSearchFavouritesCommand implements
+		CommandHasRequest<GetSearchFavouritesRequest, GetSearchFavouritesResponse> {
 
 	@SuppressWarnings("unused")
 	private final Logger log = LoggerFactory.getLogger(GetSearchFavouritesCommand.class);
@@ -43,6 +44,7 @@ public class GetSearchFavouritesCommand implements Command<GetSearchFavouritesRe
 	@Autowired
 	private SecurityContext securityContext;
 
+	@Override
 	public void execute(final GetSearchFavouritesRequest request, final GetSearchFavouritesResponse response)
 			throws Exception {
 		String user = securityContext.getUserName();
@@ -58,6 +60,12 @@ public class GetSearchFavouritesCommand implements Command<GetSearchFavouritesRe
 		response.setSharedSearchFavourites(searchFavouritesService.getSharedSearchFavourites());
 	}
 
+	@Override
+	public GetSearchFavouritesRequest getEmptyCommandRequest() {
+		return new GetSearchFavouritesRequest();
+	}
+
+	@Override
 	public GetSearchFavouritesResponse getEmptyCommandResponse() {
 		return new GetSearchFavouritesResponse();
 	}

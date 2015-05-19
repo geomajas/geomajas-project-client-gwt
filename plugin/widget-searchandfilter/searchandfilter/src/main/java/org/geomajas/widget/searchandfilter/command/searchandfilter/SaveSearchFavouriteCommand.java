@@ -12,7 +12,7 @@ package org.geomajas.widget.searchandfilter.command.searchandfilter;
 
 import java.util.Date;
 
-import org.geomajas.command.Command;
+import org.geomajas.command.CommandHasRequest;
 import org.geomajas.global.ExceptionCode;
 import org.geomajas.global.GeomajasException;
 import org.geomajas.security.GeomajasSecurityException;
@@ -33,7 +33,8 @@ import org.springframework.stereotype.Component;
  * @author Kristof Heirwegh
  */
 @Component
-public class SaveSearchFavouriteCommand implements Command<SaveSearchFavouriteRequest, SaveSearchFavouriteResponse> {
+public class SaveSearchFavouriteCommand implements
+		CommandHasRequest<SaveSearchFavouriteRequest, SaveSearchFavouriteResponse> {
 
 	@SuppressWarnings("unused")
 	private final Logger log = LoggerFactory.getLogger(SaveSearchFavouriteCommand.class);
@@ -47,6 +48,7 @@ public class SaveSearchFavouriteCommand implements Command<SaveSearchFavouriteRe
 	@Autowired
 	private SecurityContext securityContext;
 
+	@Override
 	public void execute(final SaveSearchFavouriteRequest request, final SaveSearchFavouriteResponse response)
 			throws Exception {
 		SearchFavourite sf = request.getSearchFavourite();
@@ -100,6 +102,12 @@ public class SaveSearchFavouriteCommand implements Command<SaveSearchFavouriteRe
 		}
 	}
 
+	@Override
+	public SaveSearchFavouriteRequest getEmptyCommandRequest() {
+		return new SaveSearchFavouriteRequest();
+	}
+
+	@Override
 	public SaveSearchFavouriteResponse getEmptyCommandResponse() {
 		return new SaveSearchFavouriteResponse();
 	}

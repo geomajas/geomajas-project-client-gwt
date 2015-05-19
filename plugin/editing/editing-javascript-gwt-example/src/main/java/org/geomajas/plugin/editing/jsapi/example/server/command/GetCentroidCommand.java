@@ -13,7 +13,7 @@ package org.geomajas.plugin.editing.jsapi.example.server.command;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.geomajas.command.Command;
+import org.geomajas.command.CommandHasRequest;
 import org.geomajas.geometry.Coordinate;
 import org.geomajas.geometry.Geometry;
 import org.geomajas.global.ExceptionCode;
@@ -34,15 +34,22 @@ import com.vividsolutions.jts.geom.Point;
  * @author Pieter De Graef
  */
 @Component
-public class GetCentroidCommand implements Command<GetCentroidRequest, GetCentroidResponse> {
+public class GetCentroidCommand implements CommandHasRequest<GetCentroidRequest, GetCentroidResponse> {
 
 	@Autowired
 	private DtoConverterService converter;
 
+	@Override
+	public GetCentroidRequest getEmptyCommandRequest() {
+		return new GetCentroidRequest();
+	}
+
+	@Override
 	public GetCentroidResponse getEmptyCommandResponse() {
 		return new GetCentroidResponse();
 	}
 
+	@Override
 	public void execute(GetCentroidRequest request, GetCentroidResponse response) throws Exception {
 		if (request.getGeometries() == null || request.getGeometries().size() == 0) {
 			throw new GeomajasException(ExceptionCode.PARAMETER_MISSING, "request");

@@ -11,7 +11,7 @@
 
 package org.geomajas.gwt.example.base.command.resource;
 
-import org.geomajas.command.Command;
+import org.geomajas.command.CommandHasRequest;
 import org.geomajas.global.ExceptionCode;
 import org.geomajas.global.GeomajasException;
 import org.geomajas.gwt.example.base.command.dto.GetResourceRequest;
@@ -38,7 +38,7 @@ import java.util.regex.Pattern;
  * @author Joachim Van der Auwera
  */
 @Component
-public class GetResourceCommand implements Command<GetResourceRequest, GetResourceResponse> {
+public class GetResourceCommand implements CommandHasRequest<GetResourceRequest, GetResourceResponse> {
 
 	private static final String PROCESS_START_STRING = "\tpublic Canvas getViewPanel";
 	private static final String PROCESS_END_STRING = "\n\t}";
@@ -50,6 +50,7 @@ public class GetResourceCommand implements Command<GetResourceRequest, GetResour
 	@Autowired
 	private ApplicationContext context;
 
+	@Override
 	public void execute(GetResourceRequest request, GetResourceResponse response) throws Exception {
 		String[] resources = request.getResources();
 		if (null == resources) {
@@ -80,6 +81,12 @@ public class GetResourceCommand implements Command<GetResourceRequest, GetResour
 		response.setResources(result);
 	}
 
+	@Override
+	public GetResourceRequest getEmptyCommandRequest() {
+		return new GetResourceRequest();
+	}
+
+	@Override
 	public GetResourceResponse getEmptyCommandResponse() {
 		return new GetResourceResponse();
 	}

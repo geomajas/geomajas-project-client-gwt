@@ -11,7 +11,7 @@
 
 package org.geomajas.plugin.staticsecurity.gwt.example.server.command;
 
-import org.geomajas.command.Command;
+import org.geomajas.command.CommandHasRequest;
 import org.geomajas.command.CommandDispatcher;
 import org.geomajas.command.dto.GetConfigurationRequest;
 import org.geomajas.command.dto.GetConfigurationResponse;
@@ -28,7 +28,7 @@ import org.springframework.stereotype.Component;
  */
 // @extract-start AppConfigurationCommand, Replacement command to read the configuration
 @Component
-public class AppConfigurationCommand implements Command<AppConfigurationRequest, AppConfigurationResponse> {
+public class AppConfigurationCommand implements CommandHasRequest<AppConfigurationRequest, AppConfigurationResponse> {
 
 	@Autowired
 	private CommandDispatcher commandDispatcher;
@@ -36,10 +36,17 @@ public class AppConfigurationCommand implements Command<AppConfigurationRequest,
 	@Autowired
 	private AppSecurityContext securityContext;
 
+	@Override
+	public AppConfigurationRequest getEmptyCommandRequest() {
+		return new AppConfigurationRequest();
+	}
+
+	@Override
 	public AppConfigurationResponse getEmptyCommandResponse() {
 		return new AppConfigurationResponse();
 	}
 
+	@Override
 	public void execute(AppConfigurationRequest request, AppConfigurationResponse response) throws Exception {
 		GetConfigurationResponse original = (GetConfigurationResponse) commandDispatcher.execute(
 				GetConfigurationRequest.COMMAND, request, securityContext.getToken(), null);
