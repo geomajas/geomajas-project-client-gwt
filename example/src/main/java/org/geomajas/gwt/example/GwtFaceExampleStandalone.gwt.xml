@@ -23,7 +23,9 @@
 	<inherits name="org.geomajas.plugin.printing.gwt.example.PrintingExample"/>
 	<inherits name="org.geomajas.widget.layer.gwt.example.WidgetLayerExample"/>
 
-	<extend-property name="locale" values="nl"/>
+	<inherits name="com.smartclient.theme.enterprise.EnterpriseResources" />
+	<inherits name="com.smartclient.theme.graphite.GraphiteResources" />
+	<inherits name="com.smartclient.theme.enterpriseblue.EnterpriseBlueResources" />
 
 	<!-- uncomment following lines for faster compile during development -->
 	<!--
