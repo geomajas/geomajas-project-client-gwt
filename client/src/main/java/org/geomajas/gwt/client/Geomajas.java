@@ -25,12 +25,15 @@ import java.util.Map;
  * </p>
  * 
  * @author Pieter De Graef
+ * @author Jan Venstermans
  * @since 1.6.0
  */
 @Api(allMethods = true)
 public final class Geomajas {
 
 	private static final VersionMessages MESSAGES = GWT.create(VersionMessages.class);
+
+	private static String dispatcherUrl;
 
 	private Geomajas() {
 		// do not allow instantiation.
@@ -77,6 +80,27 @@ public final class Geomajas {
 	 * @since 1.10.0
 	 */
 	public static String getDispatcherUrl() {
+		if (dispatcherUrl == null) {
+			dispatcherUrl = getModuleBaseDispatcherUrl();
+		}
+		return dispatcherUrl;
+	}
+
+	/**
+	 * Set the Spring dispatcher URL. The URL should ends with a slash.
+	 *
+	 * @param dispatcherUrl url to desired dispatcher
+	 * @since 1.16.0
+	 */
+	public static void setDispatcherUrl(String dispatcherUrl) {
+		Geomajas.dispatcherUrl = dispatcherUrl;
+	}
+
+	/**
+	 *
+	 * @return dispatcher ur based on GWT.getModuleBaseURL().
+	 */
+	private static String getModuleBaseDispatcherUrl() {
 		String moduleBaseUrl = GWT.getModuleBaseURL();
 		// remove last slash
 		moduleBaseUrl = moduleBaseUrl.substring(0, moduleBaseUrl.length() - 1);
