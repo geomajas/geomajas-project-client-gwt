@@ -73,6 +73,7 @@ public class SvgGraphicsContext implements GraphicsContext {
 		Dom.setElementAttribute(rootNode, "width", sWidth);
 		Dom.setElementAttribute(rootNode, "height", sHeight);
 		Dom.setElementAttribute(rootNode, "viewBox", "0 0 " + sWidth + " " + sHeight);
+		//TODO: is xml:base attribute used in any way?
 		Dom.setElementAttribute(rootNode, "xml:base", GWT.getHostPageBaseURL());
 		helper = new DomHelper(rootNode, Namespace.SVG);
 

@@ -11,10 +11,10 @@
 
 package org.geomajas.plugin.reporting.gwt.example.client;
 
-import com.google.gwt.core.client.GWT;
 import com.smartgwt.client.widgets.menu.events.ClickHandler;
 import com.smartgwt.client.widgets.menu.events.MenuItemClickEvent;
 import org.geomajas.configuration.client.ClientMapInfo;
+import org.geomajas.gwt.client.Geomajas;
 import org.geomajas.gwt.client.command.AbstractCommandCallback;
 import org.geomajas.gwt.client.command.GwtCommand;
 import org.geomajas.gwt.client.command.GwtCommandDispatcher;
@@ -103,8 +103,8 @@ public class ReportingClickHandler implements ClickHandler {
 	public class ReportCallback extends AbstractCommandCallback<PrepareReportingResponse> {
 
 		public void execute(PrepareReportingResponse response) {
-			String url = GWT.getHostPageBaseURL();
-			url += "d/reporting/c/" + serverLayerId + "/" + reportName + "." + format + "?key=" + response.getKey();
+			String url = Geomajas.getDispatcherUrl();
+			url += "reporting/c/" + serverLayerId + "/" + reportName + "." + format + "?key=" + response.getKey();
 			com.google.gwt.user.client.Window.open(url, "_blank", null);
 		}
 	}
