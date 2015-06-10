@@ -63,4 +63,32 @@ mapModel.runWhenInitialized(new Runnable() {
     token changes), then you should use addMapModelChangedHandler
     instead.</para>
   </section>
+
+    <section>
+        <title>How to add a smartgwt Canvas widget to the map</title>
+
+        <para>When adding a (custom) widget to the map, this is generally possible by adding
+        the widget as a child to the MapWidget. Position can be applied via <code>top</code> and
+            <code>left</code> css parameters.</para>
+
+        <para>However, some issues arise when widgets extending smartgwt's <code>Canvas</code> class
+            are positioned at the right hand side or bottom of the map. On window resize, this can
+        lead to the map not being resized correctly.
+            Solution for this is using the <code>CanvasMapAddon</code> class: this wraps the
+            <code>Canvas</code> class in a <code>MapAddon</code>. The wrapper is then added as a map addon
+        and both map and widget will respond correctly on resize events.</para>
+
+        <para>Example for placing a button on the top right of the map with some additional offset:</para>
+
+        <informalexample>
+            <programlisting>// create button and place as a MapAddon on the map, top right
+IButton editorAddButton = new IButton("A button");
+CanvasMapAddon buttonMapAddon = new CanvasMapAddon("exampleButton", editorAddButton, map);
+buttonMapAddon.setAlignment(Alignment.RIGHT);
+buttonMapAddon.setVerticalAlignment(VerticalAlignment.TOP);
+buttonMapAddon.setHorizontalOffset(100); // in this case: offset from the right
+buttonMapAddon.setVerticalOffset(50); // in this case: offset from the top
+map.registerMapAddon(buttonMapAddon);</programlisting>
+        </informalexample>
+    </section>
 </chapter>

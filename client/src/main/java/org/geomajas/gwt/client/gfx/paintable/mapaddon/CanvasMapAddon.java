@@ -41,6 +41,13 @@ public class CanvasMapAddon extends MapAddon {
 	 */
 	private int horizontalOffset;
 
+	/**
+	 * Default constructor.
+	 *
+	 * @param id The unique mapAddon identifier.
+	 * @param canvas the widget wrapped by the addon.
+	 * @param mapWidget the map on which the canvas widget needs to be positioned.
+	 */
 	public CanvasMapAddon(String id, final Canvas canvas, final MapWidget mapWidget) {
 		super(id, canvas.getOffsetWidth(), canvas.getOffsetHeight());
 		//this.widget = widget;
