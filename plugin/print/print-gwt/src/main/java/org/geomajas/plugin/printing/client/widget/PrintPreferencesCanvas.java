@@ -13,6 +13,7 @@ package org.geomajas.plugin.printing.client.widget;
 import java.util.LinkedHashMap;
 
 import com.google.gwt.i18n.client.LocaleInfo;
+import org.geomajas.gwt.client.Geomajas;
 import org.geomajas.gwt.client.command.AbstractCommandCallback;
 import org.geomajas.gwt.client.command.GwtCommand;
 import org.geomajas.gwt.client.command.GwtCommandDispatcher;
@@ -65,7 +66,11 @@ public class PrintPreferencesCanvas extends Canvas {
 	private static final String OPEN = "open";
 	private static final String FILENAME = "filename";
 	private static final String EXTENSION = ".pdf";
-	private static final String URL_PATH = "d/printing";
+
+	/**
+	 * This section is added after the dispatcher url.
+	 */
+	private static final String DISPATCHING_SERVICE = "printing";
 	private static final String URL_DOCUMENT_ID = "documentId";
 	private static final String URL_NAME = "name";
 	private static final String URL_TOKEN = "userToken";
@@ -229,8 +234,8 @@ public class PrintPreferencesCanvas extends Canvas {
 
 			public void execute(PrintGetTemplateResponse response) {
 				stopProgress();
-				UrlBuilder url = new UrlBuilder(GWT.getHostPageBaseURL());
-				url.addPath(URL_PATH);
+				UrlBuilder url = new UrlBuilder(Geomajas.getDispatcherUrl());
+				url.addPath(DISPATCHING_SERVICE);
 				url.addParameter(URL_DOCUMENT_ID, response.getDocumentId());
 				url.addParameter(URL_NAME, (String) fileNameItem.getValue());
 				url.addParameter(URL_TOKEN, command.getUserToken());

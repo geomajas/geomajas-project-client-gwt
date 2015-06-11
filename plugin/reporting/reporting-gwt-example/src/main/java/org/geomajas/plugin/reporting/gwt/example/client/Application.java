@@ -12,7 +12,6 @@
 package org.geomajas.plugin.reporting.gwt.example.client;
 
 import com.google.gwt.core.client.EntryPoint;
-import com.google.gwt.core.client.GWT;
 import com.smartgwt.client.types.VisibilityMode;
 import com.smartgwt.client.widgets.Label;
 import com.smartgwt.client.widgets.layout.HLayout;
@@ -24,6 +23,7 @@ import com.smartgwt.client.widgets.menu.MenuItem;
 import com.smartgwt.client.widgets.menu.events.ClickHandler;
 import com.smartgwt.client.widgets.menu.events.MenuItemClickEvent;
 import com.smartgwt.client.widgets.toolbar.ToolStripMenuButton;
+import org.geomajas.gwt.client.Geomajas;
 import org.geomajas.gwt.client.util.WidgetLayout;
 import org.geomajas.gwt.client.widget.LayerTree;
 import org.geomajas.gwt.client.widget.Legend;
@@ -135,8 +135,8 @@ public class Application implements EntryPoint {
 		MenuItem simpleItem = new MenuItem("Simple report", "[ISOMORPHIC]/images/report.png");
 		simpleItem.addClickHandler(new ClickHandler() {
 			public void onClick(MenuItemClickEvent menuItemClickEvent) {
-				String url = GWT.getHostPageBaseURL();
-				url += "d/reporting/f/" + "layerCountries" + "/" + "features" + "." + "pdf" + "?filter=";
+				String url = Geomajas.getDispatcherUrl();
+				url += "reporting/f/" + "layerCountries" + "/" + "features" + "." + "pdf" + "?filter=";
 				com.google.gwt.user.client.Window.open(url, "_blank", null);
 			}
 		});

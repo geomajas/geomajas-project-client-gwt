@@ -15,11 +15,13 @@ import org.geomajas.command.CommandRequest;
 import org.geomajas.command.CommandResponse;
 import org.geomajas.command.dto.SearchByLocationRequest;
 import org.geomajas.command.dto.SearchFeatureRequest;
+import org.geomajas.gwt.client.Geomajas;
 import org.geomajas.gwt.client.command.AbstractCommandCallback;
 import org.geomajas.gwt.client.command.GwtCommand;
 import org.geomajas.gwt.client.command.GwtCommandDispatcher;
 import org.geomajas.gwt.client.map.MapModel;
 import org.geomajas.gwt.client.map.layer.VectorLayer;
+import org.geomajas.gwt.client.util.UrlBuilder;
 import org.geomajas.widget.featureinfo.client.widget.DockableWindow;
 import org.geomajas.widget.searchandfilter.client.SearchAndFilterMessages;
 import org.geomajas.widget.searchandfilter.client.util.SearchCommService;
@@ -29,7 +31,6 @@ import org.geomajas.widget.searchandfilter.command.dto.FeatureSearchRequest;
 import org.geomajas.widget.searchandfilter.search.dto.Criterion;
 
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.http.client.UrlBuilder;
 import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.VerticalPanel;
@@ -51,6 +52,11 @@ public class ExportSearchToCsvHandler implements ExportToCsvHandler {
 	protected MapModel model;
 	//TODO: change to FeatureSearchRequest once deprecated methods are removed.
 	protected CommandRequest request;
+
+	/**
+	 * This section is added after the dispatcher url.
+	 */
+	private static final String DISPATCHING_SERVICE = "csvDownload";
 
 	private SearchAndFilterMessages messages = GWT.create(SearchAndFilterMessages.class);
 
@@ -102,10 +108,10 @@ public class ExportSearchToCsvHandler implements ExportToCsvHandler {
 
 				public void execute(ExportToCsvResponse response) {
 					if (response.getDocumentId() != null) {
-						UrlBuilder ub = new UrlBuilder();
-						ub.setPath("d/csvDownload");
-						ub.setParameter("id", response.getDocumentId());
-						String link = ub.buildString().replaceFirst("http:///", GWT.getHostPageBaseURL());
+						UrlBuilder ub = new UrlBuilder(Geomajas.getDispatcherUrl());
+						ub.addPath(DISPATCHING_SERVICE);
+						ub.addParameter("id", response.getDocumentId());
+						String link = ub.toString();
 
 						final Window window = new DockableWindow();
 						window.setTitle(messages.exportToCsvWindowTitle());
