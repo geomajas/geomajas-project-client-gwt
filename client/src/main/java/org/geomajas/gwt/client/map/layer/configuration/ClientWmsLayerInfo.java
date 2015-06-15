@@ -10,6 +10,7 @@
  */
 package org.geomajas.gwt.client.map.layer.configuration;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.geomajas.configuration.LayerInfo;
 import org.geomajas.configuration.client.ClientRasterLayerInfo;
 import org.geomajas.configuration.client.ScaleInfo;
@@ -24,8 +25,8 @@ import org.geomajas.layer.LayerType;
  */
 public class ClientWmsLayerInfo extends ClientRasterLayerInfo {
 
+	@JsonIgnore
 	private ClientWmsLayer wmsLayer;
-
 
 	public ClientWmsLayerInfo(ClientWmsLayer wmsLayer) {
 		this.wmsLayer = wmsLayer;
