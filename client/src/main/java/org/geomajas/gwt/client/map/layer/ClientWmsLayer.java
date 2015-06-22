@@ -280,6 +280,10 @@ public class ClientWmsLayer extends WmsLayerImpl {
 		public View asView(org.geomajas.geometry.Bbox bbox, ZoomOption zoomOption) {
 			throw new UnsupportedOperationException();
 		}
+
+		@Override
+		public void stopInteraction() {
+		}
 	}
 
 }
