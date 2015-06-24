@@ -78,8 +78,8 @@
 
 	<properties>
 		<!-- geomajas versions -->
-		<gwt-client-version-geomajas-server>1.18.0</gwt-client-version-geomajas-server>
-		<gwt-client-version-geomajas-client-gwt2>2.3.0</gwt-client-version-geomajas-client-gwt2>
+		<gwt-client-version-geomajas-server>1.18.1</gwt-client-version-geomajas-server>
+		<gwt-client-version-geomajas-client-gwt2>2.4.0</gwt-client-version-geomajas-client-gwt2>
 		<!-- gwt versions -->
 		<gwt-client-version-gwt>2.7.0</gwt-client-version-gwt>
 		<gwt-client-version-smartgwt>4.1p-2015-05-06</gwt-client-version-smartgwt>
