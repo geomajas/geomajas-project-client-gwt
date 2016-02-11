@@ -151,6 +151,10 @@ public class LayerActions extends Window {
 				});
 				infoLayout.addMember(legendInfo);
 			}
+			if (eli.getDisclaimer() != null) {
+				HTMLFlow htmlFlow = new HTMLFlow(eli.getDisclaimer());
+				infoLayout.addMember(htmlFlow);
+			}
 		} else if (layer instanceof VectorLayer) {
 			IButton legendInfo = new IButton(vectorLayer != null ? MESSAGES.layerActionsShowLegendAndFields()
 					: MESSAGES.layerActionsShowLegend());
@@ -162,10 +166,6 @@ public class LayerActions extends Window {
 				}
 			});
 			infoLayout.addMember(legendInfo);
-		}
-		if (eli.getDisclaimer() != null) {
-			HTMLFlow htmlFlow = new HTMLFlow(eli.getDisclaimer());
-			infoLayout.addMember(htmlFlow);
 		}
 
 		// -- create actions --
