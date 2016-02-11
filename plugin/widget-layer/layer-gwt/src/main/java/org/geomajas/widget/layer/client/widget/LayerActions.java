@@ -19,6 +19,7 @@ import com.smartgwt.client.types.ImageStyle;
 import com.smartgwt.client.types.Overflow;
 import com.smartgwt.client.types.TitleOrientation;
 import com.smartgwt.client.widgets.Canvas;
+import com.smartgwt.client.widgets.HTMLFlow;
 import com.smartgwt.client.widgets.HTMLPane;
 import com.smartgwt.client.widgets.IButton;
 import com.smartgwt.client.widgets.Img;
@@ -161,6 +162,10 @@ public class LayerActions extends Window {
 				}
 			});
 			infoLayout.addMember(legendInfo);
+		}
+		if (eli.getDisclaimer() != null) {
+			HTMLFlow htmlFlow = new HTMLFlow(eli.getDisclaimer());
+			infoLayout.addMember(htmlFlow);
 		}
 
 		// -- create actions --

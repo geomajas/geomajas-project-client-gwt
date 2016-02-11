@@ -43,6 +43,8 @@ public class ClientExtraLayerInfo implements ClientWidgetInfo {
 
 	private String date;
 
+	private String disclaimer;
+
 	/**
 	 * Get the source, or owner of the data in this layer.
 	 * 
@@ -167,5 +169,23 @@ public class ClientExtraLayerInfo implements ClientWidgetInfo {
 	 */
 	public String getLegendUrlTitle() {
 		return legendUrlTitle;
+	}
+
+	/**
+	 * Get the disclaimer (html) that is displayed in the layerinfo widget.
+	 *
+	 * @return the disclaimer
+	 */
+	public String getDisclaimer() {
+		return disclaimer;
+	}
+
+	/**
+	 * Set the disclaimer (html) that is displayed in the layerinfo widget.
+	 *
+	 * @param disclaimer the disclaimer
+	 */
+	public void setDisclaimer(String disclaimer) {
+		this.disclaimer = disclaimer;
 	}
 }
