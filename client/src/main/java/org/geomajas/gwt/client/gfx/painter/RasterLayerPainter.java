@@ -13,6 +13,7 @@ package org.geomajas.gwt.client.gfx.painter;
 import org.geomajas.gwt.client.gfx.MapContext;
 import org.geomajas.gwt.client.gfx.Paintable;
 import org.geomajas.gwt.client.gfx.Painter;
+import org.geomajas.gwt.client.gfx.style.PictureStyle;
 import org.geomajas.gwt.client.map.layer.RasterLayer;
 import org.geomajas.gwt.client.widget.MapWidget;
 import org.geomajas.gwt.client.widget.MapWidget.RenderGroup;
@@ -46,9 +47,10 @@ public class RasterLayerPainter implements Painter {
 	 */
 	public void paint(Paintable paintable, Object group, MapContext context) {
 		RasterLayer layer = (RasterLayer) paintable;
+		PictureStyle opacityStyle = new PictureStyle(layer.getOpacity());
 
 		// Create the needed groups in the correct order:
-		context.getRasterContext().drawGroup(mapWidget.getGroup(RenderGroup.RASTER), layer); // layer.getDefaultStyle???
+		context.getRasterContext().drawGroup(mapWidget.getGroup(RenderGroup.RASTER), layer, opacityStyle); 
 
 		// Check layer visibility:
 		if (layer.isShowing()) {

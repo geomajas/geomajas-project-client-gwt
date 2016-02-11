@@ -10,10 +10,9 @@
  */
 package org.geomajas.gwt.client.map.layer;
 
-import org.geomajas.configuration.client.ClientRasterLayerInfo;
 import org.geomajas.annotation.Api;
+import org.geomajas.configuration.client.ClientRasterLayerInfo;
 import org.geomajas.gwt.client.gfx.PainterVisitor;
-import org.geomajas.gwt.client.gfx.style.PictureStyle;
 import org.geomajas.gwt.client.map.MapModel;
 import org.geomajas.gwt.client.map.cache.tile.RasterTile;
 import org.geomajas.gwt.client.map.cache.tile.TileFunction;
@@ -38,8 +37,7 @@ public class RasterLayer extends AbstractLayer<ClientRasterLayerInfo> {
 	/**
 	 * The only constructor! Set the MapModel and the layer info.
 	 * 
-	 * @param mapModel
-	 *            The model of layers and features behind a map. This layer will be a part of this model.
+	 * @param mapModel The model of layers and features behind a map. This layer will be a part of this model.
 	 */
 	public RasterLayer(MapModel mapModel, ClientRasterLayerInfo layerInfo) {
 		super(mapModel, layerInfo);
@@ -76,17 +74,27 @@ public class RasterLayer extends AbstractLayer<ClientRasterLayerInfo> {
 	/**
 	 * Apply a new opacity on the entire raster layer.
 	 * 
-	 * @param opacity
-	 *            The new opacity value. Must be a value between 0 and 1, where 0 means invisible and 1 is totally
-	 *            visible.
+	 * @param opacity The new opacity value. Must be a value between 0 and 1, where 0 means invisible and 1 is totally
+	 *        visible.
 	 * @since 1.8.0
 	 */
 	public void setOpacity(double opacity) {
 		getLayerInfo().setStyle(Double.toString(opacity));
-		for (RasterTile tile : store.getTiles()) {
-			tile.setStyle(new PictureStyle(opacity));
-		}
 		handlerManager.fireEvent(new LayerStyleChangeEvent(this));
+	}
+
+	@Override
+	public double getOpacity() {
+		String raw = getLayerInfo().getStyle();
+		double opacity = 1d;
+		if (raw != null && !"".equals(raw)) {
+			try {
+				opacity = Double.parseDouble(raw);
+			} catch (NumberFormatException e) {
+				// ignore
+			}
+		}
+		return opacity;
 	}
 
 	@Override

@@ -30,8 +30,6 @@ import org.geomajas.gwt.client.spatial.Matrix;
  */
 public class VectorTilePainter implements Painter {
 
-	private static final PictureStyle OPAQUE_PICTURE_STYLE = new PictureStyle(1);
-
 	private static final Matrix NO_TRANSFORMATION = new Matrix(1, 0, 0, 1, 0, 0);
 
 	private MapView mapView;
@@ -90,7 +88,7 @@ public class VectorTilePainter implements Painter {
 	private void drawImage(PaintableGroup group, VectorTile tile, ContentHolder holder, MapContext context) {
 		context.getRasterContext().drawGroup(group, holder);
 		context.getRasterContext().drawImage(holder, tile.getCode().toString(),
-				holder.getContent(), getPanBounds(tile), OPAQUE_PICTURE_STYLE);
+				holder.getContent(), getPanBounds(tile), PictureStyle.OPAQUE);
 	}
 
 	/**

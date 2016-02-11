@@ -12,7 +12,6 @@ package org.geomajas.gwt.client.map.cache.tile;
 
 import org.geomajas.gwt.client.gfx.Paintable;
 import org.geomajas.gwt.client.gfx.PainterVisitor;
-import org.geomajas.gwt.client.gfx.style.PictureStyle;
 import org.geomajas.gwt.client.map.store.RasterLayerStore;
 import org.geomajas.gwt.client.spatial.Bbox;
 import org.geomajas.layer.tile.TileCode;
@@ -36,9 +35,6 @@ public class RasterTile implements Tile, Paintable {
 	/** The image url. */
 	protected String url;
 
-	/** Style. */
-	protected PictureStyle style;
-
 	protected String id;
 
 	/**
@@ -56,11 +52,6 @@ public class RasterTile implements Tile, Paintable {
 		this.store = store;
 		this.id = store.getLayer().getMapModel().getId() + "." + store.getLayer().getId() + "." + code.toString();
 		String styleStr = store.getLayer().getLayerInfo().getStyle();
-		try {
-			style = new PictureStyle(Double.parseDouble(styleStr));
-		} catch (NumberFormatException e) {
-			style = new PictureStyle(1.0);
-		}
 	}
 
 	@Override
@@ -88,15 +79,6 @@ public class RasterTile implements Tile, Paintable {
 	}
 
 	/**
-	 * Get style for this tile.
-	 *
-	 * @return tile style
-	 */
-	public PictureStyle getStyle() {
-		return style;
-	}
-
-	/**
 	 * Get URL for this tile.
 	 *
 	 * @return tile URL
@@ -112,15 +94,6 @@ public class RasterTile implements Tile, Paintable {
 	 */
 	public RasterLayerStore getStore() {
 		return store;
-	}
-
-	/**
-	 * Set style.
-	 *
-	 * @param style style
-	 */
-	public void setStyle(PictureStyle style) {
-		this.style = style;
 	}
 
 	/**
