@@ -21,7 +21,7 @@
 
 	<groupId>org.geomajas.plugin</groupId>
 	<artifactId>geomajas-client-gwt-plugin-vendorspecificpipeline-documentation</artifactId>
-	<version>1.16.0-SNAPSHOT</version>
+	<version>1.15.2</version>
 	<packaging>jar</packaging>
 	<name>Geomajas GWT client: Plugin Vendor Specific Pipeline - Documentation</name>
 	<description>Geomajas GWT client: Plugin Vendor Specific Pipeline - Documentation</description>
