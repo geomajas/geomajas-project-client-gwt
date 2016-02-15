@@ -776,6 +776,12 @@
 				<artifactId>gwtexporter</artifactId>
 				<version>${gwt-client-version-exporter}</version>
 			</dependency>
+			<!-- for building on openjdk 1.8 -->
+			<dependency>
+				<groupId>org.jibx</groupId>
+				<artifactId>jibx-run</artifactId>
+				<version>1.2.6</version>
+			</dependency>
 		</dependencies>
 	</dependencyManagement>
 
