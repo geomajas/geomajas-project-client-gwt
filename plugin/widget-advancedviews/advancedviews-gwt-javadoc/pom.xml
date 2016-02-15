@@ -15,7 +15,7 @@
 	<parent>
 		<groupId>org.geomajas.plugin</groupId>
 		<artifactId>geomajas-client-gwt-widget-advancedviews-parent</artifactId>
-		<version>1.15.2</version>
+		<version>1.15.3-SNAPSHOT</version>
 	</parent>
 
 	<artifactId>geomajas-client-gwt-plugin-advancedviews-javadoc</artifactId>
